@@ -6,4 +6,10 @@
 All libraries are published as [npm packages](https://www.npmjs.com/search?q=%40magenta).
 More information and example applications can be found at [g.co/magenta/js](https://g.co/magenta/js).
 
-Complete documentati
+Complete documentation is available at [https://magenta.github.io/magenta-js](https://magenta.github.io/magenta-js).
+
+Learn more about the Magenta project on our [blog](https://magenta.tensorflow.org) and [main Magenta repo](https://github.com/tensorflow/magenta).
+
+## Libraries
+
+* [music](music): Contains [TensorFlow.js](https://js.tensorflow.org) implemen
