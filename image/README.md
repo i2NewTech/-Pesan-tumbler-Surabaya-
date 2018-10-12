@@ -10,4 +10,14 @@ Complete documentation is available at https://magenta.github.io/magenta-js/imag
 
 - [Example Applications](#example-applications)
 - [Supported Models](#supported-models)
-- [Getting Start
+- [Getting Started](#getting-started)
+
+## Example Applications
+
+You can try our [hosted demos](https://magenta.github.io/magenta-js/image/demos) for each model and have a look at the [demo code](./demos).
+
+## Supported Models
+
+### Fast Arbitrary Image Stylization
+
+Implements Ghiasi et al.'s fast arbitrary style transfer model ([paper](https://arxiv.org/abs/1705.06830), [code](htt
