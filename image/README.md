@@ -20,4 +20,9 @@ You can try our [hosted demos](https://magenta.github.io/magenta-js/image/demos)
 
 ### Fast Arbitrary Image Stylization
 
-Implements Ghiasi et al.'s fast arbitrary style transfer model ([paper](https://arxiv.org/abs/1705.06830), [code](htt
+Implements Ghiasi et al.'s fast arbitrary style transfer model ([paper](https://arxiv.org/abs/1705.06830), [code](https://github.com/tensorflow/magenta/tree/master/magenta/models/arbitrary_image_stylization)). Wraps around Reiichiro Nakano's [TensorFlow.js port](https://github.com/reiinakano/arbitrary-image-stylization-tfjs) of the model checkpoint.
+
+## Getting started
+
+There are two main ways to get MagentaImage.js in your JavaScript project:
+via [script tag
