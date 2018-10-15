@@ -30,4 +30,16 @@ and using a build tool like [yarn](https://yarnpkg.com/en/).
 
 ### via Script Tag
 
-Add the following code to an HTML file, and place a content (`content.jpg`) and style (`style.jpg`) image i
+Add the following code to an HTML file, and place a content (`content.jpg`) and style (`style.jpg`) image in the same directory:
+
+```html
+<html>
+  <head>
+    <!-- Load @magenta/image -->
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/image@^0.2.1"></script>
+  </head>
+  <body>
+    <img id="content" height="256" src="content.jpg"/>
+    <img id="style" height="256" src="style.jpg"/>
+    <canvas id="stylized" height="256"></canvas>
+      <script
