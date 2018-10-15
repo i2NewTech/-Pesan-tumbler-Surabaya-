@@ -25,4 +25,9 @@ Implements Ghiasi et al.'s fast arbitrary style transfer model ([paper](https://
 ## Getting started
 
 There are two main ways to get MagentaImage.js in your JavaScript project:
-via [script tag
+via [script tags](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_JavaScript_within_a_webpage) **or** by installing it from [NPM](https://www.npmjs.com/)
+and using a build tool like [yarn](https://yarnpkg.com/en/).
+
+### via Script Tag
+
+Add the following code to an HTML file, and place a content (`content.jpg`) and style (`style.jpg`) image i
