@@ -42,4 +42,12 @@ Add the following code to an HTML file, and place a content (`content.jpg`) and 
     <img id="content" height="256" src="content.jpg"/>
     <img id="style" height="256" src="style.jpg"/>
     <canvas id="stylized" height="256"></canvas>
-      <script
+      <script>
+        const model = new mi.ArbitraryStyleTransferNetwork();
+        const contentImg = document.getElementById('content');
+        const styleImg = document.getElementById('style');
+        const stylizedCanvas = document.getElementById('stylized');
+
+        function stylize() {
+          model.stylize(contentImg, styleImg).then((imageData) => {
+     
