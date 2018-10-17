@@ -50,4 +50,14 @@ Add the following code to an HTML file, and place a content (`content.jpg`) and 
 
         function stylize() {
           model.stylize(contentImg, styleImg).then((imageData) => {
-     
+            stylizedCanvas.getContext('2d').putImageData(imageData, 0, 0);
+          });
+        }
+
+        model.initialize().then(stylize);
+      </script>
+  </body>
+</html>
+```
+
+Launch a simple HTTP server (e.g. `python3 -m http.server`) and point your browser to [http://0.0.0.0:8000/](http://0.0.0.0:8000/). You should see your content and style images displayed a
