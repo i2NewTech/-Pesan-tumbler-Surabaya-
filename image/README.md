@@ -60,4 +60,13 @@ Add the following code to an HTML file, and place a content (`content.jpg`) and 
 </html>
 ```
 
-Launch a simple HTTP server (e.g. `python3 -m http.server`) and point your browser to [http://0.0.0.0:8000/](http://0.0.0.0:8000/). You should see your content and style images displayed a
+Launch a simple HTTP server (e.g. `python3 -m http.server`) and point your browser to [http://0.0.0.0:8000/](http://0.0.0.0:8000/). You should see your content and style images displayed and, after a few seconds, the stylized output.
+
+### via NPM
+
+Add [MagentaImage.js][mi-npm] to your project using [yarn](https://yarnpkg.com/en/) **or** [npm](https://docs.npmjs.com/cli/npm).
+For example, with yarn you can simply call `yarn add @magenta/image`.
+
+Then, you can use the library in your own code as in the following example:
+
+``
