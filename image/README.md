@@ -69,4 +69,13 @@ For example, with yarn you can simply call `yarn add @magenta/image`.
 
 Then, you can use the library in your own code as in the following example:
 
-``
+```js
+import * as mi from '@magenta/image';
+
+const model = new mi.ArbitraryStyleTransferNetwork();
+const contentImg = document.getElementById('content') as HTMLImageElement;
+const styleImg = document.getElementById('style') as HTMLImageElement;
+const stylizedCanvas = document.getElementById('stylized') as HTMLCanvasElement;
+
+function stylize() {
+  model.stylize(
