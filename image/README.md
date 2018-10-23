@@ -78,4 +78,16 @@ const styleImg = document.getElementById('style') as HTMLImageElement;
 const stylizedCanvas = document.getElementById('stylized') as HTMLCanvasElement;
 
 function stylize() {
-  model.stylize(
+  model.stylize(contentImg, styleImg).then((imageData) => {
+    stylizedCanvas.getContext('2d').putImageData(imageData, 0, 0);
+  });
+}
+
+model.initialize().then(stylize);
+```
+
+See [style-transfer.glitch.me](https://style-transfer.glitch.me) and our [demos](./demos) for example usage.
+
+#### Example Commands
+
+`yarn install` to install depe
