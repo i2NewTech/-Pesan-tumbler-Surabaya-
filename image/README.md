@@ -90,4 +90,14 @@ See [style-transfer.glitch.me](https://style-transfer.glitch.me) and our [demos]
 
 #### Example Commands
 
-`yarn install` to install depe
+`yarn install` to install dependencies.
+
+`yarn test` to run tests.
+
+`yarn bundle` to produce a bundled version in `dist/`.
+
+`yarn run-demos` to build and run the demo.
+
+<!-- links -->
+
+[mi-npm]: https://www.npmjs.com/package/@magenta/image
