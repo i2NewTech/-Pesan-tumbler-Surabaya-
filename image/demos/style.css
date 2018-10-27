@@ -27,4 +27,19 @@ a:visited {
   color: #1756a9;
 }
 a:hover {
-  color: #111
+  color: #111;
+  text-decoration: none;
+}
+
+button, .button {
+  font-family: "Roboto", Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 4px 14px;
+  margin-right: 8px;
+  border: 3px solid #222;
+  background: transparent;
+  outline: none;
+  color: #222;
+  backgrou
