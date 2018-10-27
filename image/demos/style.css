@@ -42,4 +42,18 @@ button, .button {
   background: transparent;
   outline: none;
   color: #222;
-  backgrou
+  background: white;
+  cursor: pointer;
+}
+button:hover {
+  background: #6FC9C6;
+  color: white;
+}
+button[disabled] {
+  opacity: 0.5;
+}
+
+.image {
+  margin-right: 10px;
+  outline: 3px solid #222;
+}
