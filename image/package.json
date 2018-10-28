@@ -14,4 +14,13 @@
         "clang-format": "^1.2.3",
         "http-server": "^0.12.1",
         "ts-node": "^5.0.1",
-        "tsify": "^3
+        "tsify": "^3.0.4",
+        "tslint": "^5.9.1",
+        "typedoc": "^0.16.9",
+        "typedoc-plugin-sourcefile-url": "^1.0.3",
+        "typescript": "^2.7.2"
+    },
+    "scripts": {
+        "prepublish": "yarn lint && yarn build && yarn bundle",
+        "build": "tsc",
+        "bundle": "browserify --standalone mi src/index.ts -p [tsify] > dist/magentaimage.j
