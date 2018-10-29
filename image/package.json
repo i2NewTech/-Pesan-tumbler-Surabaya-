@@ -32,4 +32,7 @@
     "author": "Magenta",
     "license": "Apache-2.0",
     "repository": {
-        "type
+        "type": "git",
+        "url": "https://github.com/tensorflow/magenta-js.git"
+    }
+}
