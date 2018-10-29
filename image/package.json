@@ -23,4 +23,13 @@
     "scripts": {
         "prepublish": "yarn lint && yarn build && yarn bundle",
         "build": "tsc",
-        "bundle": "browserify --standalone mi src/index.ts -p [tsify] > dist/magentaimage.j
+        "bundle": "browserify --standalone mi src/index.ts -p [tsify] > dist/magentaimage.js",
+        "lint": "tslint -c ../tslint.json -p . -t verbose",
+        "build-demos": "cd demos && ./build-demos.sh",
+        "run-demos": "yarn build-demos && http-server demos/",
+        "docs": "sh ../scripts/generate-docs.sh 'image'"
+    },
+    "author": "Magenta",
+    "license": "Apache-2.0",
+    "repository": {
+        "type
