@@ -20,4 +20,5 @@
     "allowUnreachableCode": false,
     "experimentalDecorators": true
   },
-  "include"
+  "include": [ "src/" ]
+}
