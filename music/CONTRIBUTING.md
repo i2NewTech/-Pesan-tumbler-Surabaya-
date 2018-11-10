@@ -1,0 +1,3 @@
+# Contributing to @magenta/music
+
+🎉
