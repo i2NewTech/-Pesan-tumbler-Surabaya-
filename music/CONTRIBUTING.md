@@ -15,4 +15,11 @@ Google projects, so you only have to sign it once. Once you complete the CLA,
 all your pull-requests will automatically get the `cla: yes` tag.
 
 If you've already signed a CLA but still getting nags from the bot, it's possible
-you signed it under a different username/email address. Check the [information on your CLA](https://cla.developers.google.com/clas) or see this help article on [setting the email on your git commits](https://
+you signed it under a different username/email address. Check the [information on your CLA](https://cla.developers.google.com/clas) or see this help article on [setting the email on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+
+[Complete the CLA](https://cla.developers.google.com/clas)
+
+### Setting up your environment
+We use VSCode for development, which should automatically make the linter and
+the formatter work for you. In order for this to work correctly, you have to
+use a singl
