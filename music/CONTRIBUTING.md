@@ -22,4 +22,9 @@ you signed it under a different username/email address. Check the [information o
 ### Setting up your environment
 We use VSCode for development, which should automatically make the linter and
 the formatter work for you. In order for this to work correctly, you have to
-use a singl
+use a single-root workspace, and open the `magenta/music` folder in it. Your
+workspace should look something like this:
+
+<img width="491" alt="Screen Shot 2019-10-30 at 3 15 30 PM" src="https://user-images.githubusercontent.com/1369170/67903164-20db0900-fb28-11e9-8961-2b55b2eefe03.png">
+
+Once you run `yarn install`, this will install the `clang-fo
