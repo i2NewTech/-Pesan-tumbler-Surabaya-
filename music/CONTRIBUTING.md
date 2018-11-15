@@ -40,4 +40,11 @@ If you find any code in code that looks like would benefit from some tests,
 feel free to add some! To run the tests, run `yarn test`.
 
 ## Demos
-We try to add demos for most of the functionality i
+We try to add demos for most of the functionality in the library, so if
+you're adding some new functionality, please also add a demo! To run the demos,
+run `yarn run-demos`. This is a live-reload webpack server, that will rebuild
+on any changes (both to the demos and the library itself).
+
+### Issue labels
+We've been trying to add useful labels to all of our issues. Here's the
+ones that are 
