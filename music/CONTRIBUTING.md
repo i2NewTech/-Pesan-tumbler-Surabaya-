@@ -34,4 +34,10 @@ your files after every save. All of the rules that VSCode are using are in the
 
 ## Tests
 Some, but not all of our code has tests. This is partly because a lot of
-the code is ha
+the code is hard to test (audio players, note sequence visualizers, loading large
+models which would slow down testing), and partly because we missed some tests.
+If you find any code in code that looks like would benefit from some tests,
+feel free to add some! To run the tests, run `yarn test`.
+
+## Demos
+We try to add demos for most of the functionality i
