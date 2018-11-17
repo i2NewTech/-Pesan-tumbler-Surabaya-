@@ -47,4 +47,7 @@ on any changes (both to the demos and the library itself).
 
 ### Issue labels
 We've been trying to add useful labels to all of our issues. Here's the
-ones that are 
+ones that are the most in use:
+- [good-first-issue](https://github.com/tensorflow/magenta-js/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) -- these are documentation fixes, or small
+bugs that don't require you to be intimately familar with magenta or our code
+- [help-wanted](https://github.com/tensorflow/magenta-js/issues?q=is%3Aissue+is%3Aopen+labe
