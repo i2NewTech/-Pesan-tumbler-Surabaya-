@@ -54,4 +54,9 @@ bugs that don't require you to be intimately familar with magenta or our code
 how to fix (either because we can't repro, or because they're using a library/framework
 we're not familiar with). If you understand what's going on in there, we'd love
 the help!
-- [bug](https://github.com/tensorflow/magenta-js/issues?q=is%3Aissue+is%3Aopen+label%3A
+- [bug](https://github.com/tensorflow/magenta-js/issues?q=is%3Aissue+is%3Aopen+label%3Abug) --
+these are straight up problems in our code that should eventually be fixed.
+
+Hope this helps! If you run into questions setting up your developing environment,
+just open an issue and mention either @adarob or @notwaldorf, and we'll try to get
+you sorted!
