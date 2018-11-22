@@ -23,4 +23,13 @@ Complete API documentation is available [here](https://magenta.github.io/magenta
   - [SPICE](#spice)
   - [DDSP](#ddsp)
 - [Model Checkpoints](#model-checkpoints)
-  - [Pr
+  - [Pre-trained hosted checkpoints](#pre-trained-hosted-checkpoints)
+  - [Your own checkpoints](#your-own-checkpoints)
+- [Soundfonts](#soundfonts)
+- [How To](#how-to)
+  - [Use with a WebWorker](#use-with-a-web-worker)
+  - [Use with a ServiceWorker](#use-with-a-service-worker)
+  - [Use with TypeScript](#use-with-typescript)
+
+## Getting started
+If you want to get
