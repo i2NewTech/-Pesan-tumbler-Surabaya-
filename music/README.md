@@ -32,4 +32,9 @@ Complete API documentation is available [here](https://magenta.github.io/magenta
   - [Use with TypeScript](#use-with-typescript)
 
 ## Getting started
-If you want to get
+If you want to get hands-on with Magenta, we've put together a small
+[interactive tutorial](https://hello-magenta.glitch.me/) that takes you through
+generating a small melody in the browser using a Machine Learning model.
+
+Here are some examples of applications that have been built with `@magenta/music`. A
+more complete list is available on the [Magenta site](https://magen
