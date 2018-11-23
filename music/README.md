@@ -37,4 +37,9 @@ If you want to get hands-on with Magenta, we've put together a small
 generating a small melody in the browser using a Machine Learning model.
 
 Here are some examples of applications that have been built with `@magenta/music`. A
-more complete list is available on the [Magenta site](https://magen
+more complete list is available on the [Magenta site](https://magenta.tensorflow.org/demos).
+
+- [Tone Transfer](http://g.co/tonetransfer) by [AIUX x Magenta](http://g.co/tonetransfer)
+- [Fruit Genie](https://magenta.tensorflow.org/fruitgenie) by [Deeplocal](https://www.deeplocal.com/)
+- [Drumbot](https://drumbot.glitch.me) by [Monica Dinculescu](https://github.com/notwaldorf)
+- [N
