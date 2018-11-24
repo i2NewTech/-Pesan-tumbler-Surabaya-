@@ -42,4 +42,6 @@ more complete list is available on the [Magenta site](https://magenta.tensorflow
 - [Tone Transfer](http://g.co/tonetransfer) by [AIUX x Magenta](http://g.co/tonetransfer)
 - [Fruit Genie](https://magenta.tensorflow.org/fruitgenie) by [Deeplocal](https://www.deeplocal.com/)
 - [Drumbot](https://drumbot.glitch.me) by [Monica Dinculescu](https://github.com/notwaldorf)
-- [N
+- [Neural Drum Machine](https://goo.gl/magenta/neuraldrum) by [Tero Parviainen](https://github.com/teropa)
+- [Piano Scribe](https://piano-scribe.glitch.me) by [Monica Dinculescu](https://github.com/notwaldorf) and [Adam Roberts](https://github.com/adarob)
+- [Beat Blender](https://g.co/beatblender) by [Google Creative Lab](https://github.c
