@@ -44,4 +44,8 @@ more complete list is available on the [Magenta site](https://magenta.tensorflow
 - [Drumbot](https://drumbot.glitch.me) by [Monica Dinculescu](https://github.com/notwaldorf)
 - [Neural Drum Machine](https://goo.gl/magenta/neuraldrum) by [Tero Parviainen](https://github.com/teropa)
 - [Piano Scribe](https://piano-scribe.glitch.me) by [Monica Dinculescu](https://github.com/notwaldorf) and [Adam Roberts](https://github.com/adarob)
-- [Beat Blender](https://g.co/beatblender) by [Google Creative Lab](https://github.c
+- [Beat Blender](https://g.co/beatblender) by [Google Creative Lab](https://github.com/googlecreativelab)
+- [Melody Mixer](https://g.co/melodymixer) by [Google Creative Lab](https://github.com/googlecreativelab)
+- [Latent Loops](https://goo.gl/magenta/latent-loops) by [Google Pie Shop](https://github.com/teampieshop)
+
+You can also try our [hosted demos](https://magenta.github.io/magenta-js/music/demos) for each 
