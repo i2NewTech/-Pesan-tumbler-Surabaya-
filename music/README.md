@@ -48,4 +48,11 @@ more complete list is available on the [Magenta site](https://magenta.tensorflow
 - [Melody Mixer](https://g.co/melodymixer) by [Google Creative Lab](https://github.com/googlecreativelab)
 - [Latent Loops](https://goo.gl/magenta/latent-loops) by [Google Pie Shop](https://github.com/teampieshop)
 
-You can also try our [hosted demos](https://magenta.github.io/magenta-js/music/demos) for each 
+You can also try our [hosted demos](https://magenta.github.io/magenta-js/music/demos) for each model and have a look at their [code](./demos).
+
+## Usage
+There are several ways to get `@magenta/music` in your JavaScript project,
+either in the browser, or in Node:
+
+### In the browser
+The models and the core library is split into smaller ES6 bundles (not ESModules, unfortunately 😢), so that you can use a model independent of t
