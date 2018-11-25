@@ -55,4 +55,13 @@ There are several ways to get `@magenta/music` in your JavaScript project,
 either in the browser, or in Node:
 
 ### In the browser
-The models and the core library is split into smaller ES6 bundles (not ESModules, unfortunately 😢), so that you can use a model independent of t
+The models and the core library is split into smaller ES6 bundles (not ESModules, unfortunately 😢), so that you can use a model independent of the rest of the
+library. These bundles don't package the `Tone.js` or `TensorFlow.js` dependencies (since
+there would be a risk of downloading multiple copies on the same page). Here is an abbreviated example:
+
+```html
+<html>
+<head>
+  ...
+  <!-- You need to bring your own Tone.js for the player, and tfjs for the model -->
+  <script src="https:/
