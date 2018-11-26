@@ -69,3 +69,10 @@ there would be a risk of downloading multiple copies on the same page). Here is 
   <!-- Core library, since we're going to use a player -->
   <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0/es6/core.js"></script>
   <!--Model we want to use -->
+  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0/es6/music_vae.js"></script>
+</head>
+<script>
+  // Each bundle exports a global object with the name of the bundle.
+  const player = new core.Player();
+  //...
+  const mvae = new music_vae.MusicVAE('https://storage.googleapis.com/magentadata/js/checkpoints/music
