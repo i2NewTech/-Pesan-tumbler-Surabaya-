@@ -75,4 +75,15 @@ there would be a risk of downloading multiple copies on the same page). Here is 
   // Each bundle exports a global object with the name of the bundle.
   const player = new core.Player();
   //...
-  const mvae = new music_vae.MusicVAE('https://storage.googleapis.com/magentadata/js/checkpoints/music
+  const mvae = new music_vae.MusicVAE('https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_2bar_small');
+  mvae.initialize().then(() => {
+    mvae.sample(1).then((samples) => player.start(samples[0]));
+  });
+</script>
+</html>
+```
+
+- [click here](https://codepen.io/adarob/pen/gzwJZL) for a CodePen version
+- [click here](https://hello-magenta-one-file.glitch.me/) to remix the code on Glitch
+
+We
