@@ -86,4 +86,9 @@ there would be a risk of downloading multiple copies on the same page). Here is 
 - [click here](https://codepen.io/adarob/pen/gzwJZL) for a CodePen version
 - [click here](https://hello-magenta-one-file.glitch.me/) to remix the code on Glitch
 
-We
+We also have an [ES5 bundle](https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0) that contains all the models and the core functions, but using in production is not recommended due to its size.
+
+### In Node
+
+You can use [@magenta/music][mm-npm] in your project using [yarn](https://yarnpkg.com/en/)
+(by calling `yarn add @magenta/music`) **or** 
