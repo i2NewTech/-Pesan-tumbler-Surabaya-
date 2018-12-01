@@ -91,4 +91,15 @@ We also have an [ES5 bundle](https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0)
 ### In Node
 
 You can use [@magenta/music][mm-npm] in your project using [yarn](https://yarnpkg.com/en/)
-(by calling `yarn add @magenta/music`) **or** 
+(by calling `yarn add @magenta/music`) **or** [npm](https://docs.npmjs.com/cli/npm)
+(by calling `npm install --save @magenta/music`).
+
+The node-specific bundles (that don't transpile the CommonJS modules) are under
+`@magenta/music/node`. For example:
+
+```js
+const mvae = require('@magenta/music/node/music_vae');
+const core = require('@magenta/music/node/core');
+
+// Your code:
+const model = 
