@@ -102,4 +102,20 @@ const mvae = require('@magenta/music/node/music_vae');
 const core = require('@magenta/music/node/core');
 
 // Your code:
-const model = 
+const model = new mvae.MusicVAE('/path/to/checkpoint');
+const player = new core.Player();
+model
+  .initialize()
+  .then(() => model.sample(1))
+  .then(samples => {
+    player.resumeContext();
+    player.start(samples[0])
+  });
+```
+
+#### Example Commands
+`yarn install` to install dependencies.
+
+`yarn test` to run tests.
+
+`yarn build` to produce the different bundled versions.
