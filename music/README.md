@@ -126,4 +126,9 @@ model
 
 ## Supported Models
 
-We have made an effort to port our most useful 
+We have made an effort to port our most useful models, but please file an issue if you think something is
+missing, or feel free to submit a Pull Request!
+
+### Piano Transcription w/ Onsets and Frames
+
+[OnsetsAndFrames](https://magenta.github.io/magenta-js/music/classes/_transcription_model_.onsetsandframes.html) implements Magenta's [piano transcription model](g.co/magenta/onsets-frames) for converting 
