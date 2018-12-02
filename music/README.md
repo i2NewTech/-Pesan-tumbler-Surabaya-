@@ -119,3 +119,11 @@ model
 `yarn test` to run tests.
 
 `yarn build` to produce the different bundled versions.
+
+`yarn run-demos` to build and serve the demos, with live reload.
+
+*(Note: the default behavior is to build/watch all demos - specific demos can be built by passing a comma-separated list of specific demo names as follows: `yarn run-demos --demos=transcription,visualizer`)*
+
+## Supported Models
+
+We have made an effort to port our most useful 
