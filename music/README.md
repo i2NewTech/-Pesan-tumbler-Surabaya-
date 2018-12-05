@@ -137,4 +137,10 @@ missing, or feel free to submit a Pull Request!
 
 ### MusicRNN
 
-[MusicRNN](https://magenta.github.io/magenta-js/music/classes/_music_rnn_model_.musicrnn.html) implements Magenta's LSTM-based language models. These include [MelodyRNN][melody-rnn], [DrumsRNN][drums-rnn], [Impr
+[MusicRNN](https://magenta.github.io/magenta-js/music/classes/_music_rnn_model_.musicrnn.html) implements Magenta's LSTM-based language models. These include [MelodyRNN][melody-rnn], [DrumsRNN][drums-rnn], [ImprovRNN][improv-rnn], and [PerformanceRNN][performance-rnn].
+
+**⭐️Demo:** [Neural Drum Machine](https://goo.gl/magenta/neuraldrum)
+
+### MusicVAE
+
+[MusicVAE](https://magenta.github.io/magenta-js/music/classes/_music_vae_model_.musicvae.html) implements several configurations of Magenta's variational autoencoder model called [MusicVAE][mus
