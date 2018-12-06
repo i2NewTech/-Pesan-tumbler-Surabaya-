@@ -155,4 +155,13 @@ with very little user data.
 **⭐️Demo:** [MidiMe](https://midi-me.glitch.me/)
 
 ### Piano Genie
-[Piano Genie](https://g.co/magenta/pianogenie) is a VQ-VAE model that maps 8-button input to a full 88-key pi
+[Piano Genie](https://g.co/magenta/pianogenie) is a VQ-VAE model that maps 8-button input to a full 88-key piano in real time.
+
+**⭐️Demo:** [Piano Genie](https://goo.gl/magenta/piano-genie)
+
+### GANSynth
+[GANSynth](https://magenta.tensorflow.org/gansynth) is a method for generating high-fidelity audio with Generative Adversarial Networks (GANs).
+
+**⭐️Demo:** [GANHarp](https://ganharp.ctpt.co/) by [Counterpoint](https://ctpt.co/).
+### SPICE
+SPI
