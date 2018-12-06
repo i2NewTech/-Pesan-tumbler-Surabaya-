@@ -148,4 +148,11 @@ missing, or feel free to submit a Pull Request!
 **⭐️Demo:** [Endless Trios](https://goo.gl/magenta/endless-trios)
 
 ### MidiMe
-[MidiMe](https:
+[MidiMe](https://g.co/magenta/pianogenie) allows you to personalize a pre-trained
+MusicVAE model by quickly training a smaller model directly in the browser,
+with very little user data.
+
+**⭐️Demo:** [MidiMe](https://midi-me.glitch.me/)
+
+### Piano Genie
+[Piano Genie](https://g.co/magenta/pianogenie) is a VQ-VAE model that maps 8-button input to a full 88-key pi
