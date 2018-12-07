@@ -170,3 +170,7 @@ SPICE is a wrapper method for extracting pitches from audio using the [SPICE](ht
 [DDSP](https://magenta.tensorflow.org/ddsp) is a method for synthesizing audio into other instruments.
 
 **⭐️Demo:** [Tone Transfer](https://g.co/tonetransfer) by [AIUX x Magenta](https://g.co/tonetransfer).
+
+## Model Checkpoints
+Most `@magenta/music` models (with the exception of MidiMe) do not support training in the browser
+(because they require a large amount of data, which would take an incredibly long time), and they use weights from a model trained with the Python-based [Magenta models][magenta-models]. We are also making available our own hosted pre-t
