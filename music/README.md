@@ -164,4 +164,9 @@ with very little user data.
 
 **⭐️Demo:** [GANHarp](https://ganharp.ctpt.co/) by [Counterpoint](https://ctpt.co/).
 ### SPICE
-SPI
+SPICE is a wrapper method for extracting pitches from audio using the [SPICE](https://tfhub.dev/google/tfjs-model/spice/2/default/1) model.
+
+### DDSP
+[DDSP](https://magenta.tensorflow.org/ddsp) is a method for synthesizing audio into other instruments.
+
+**⭐️Demo:** [Tone Transfer](https://g.co/tonetransfer) by [AIUX x Magenta](https://g.co/tonetransfer).
