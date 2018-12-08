@@ -176,4 +176,10 @@ Most `@magenta/music` models (with the exception of MidiMe) do not support train
 (because they require a large amount of data, which would take an incredibly long time), and they use weights from a model trained with the Python-based [Magenta models][magenta-models]. We are also making available our own hosted pre-trained checkpoints.
 
 ### Pre-trained hosted checkpoints
-Several pre-trained checkpoints for all of our models are available and hosted on GCS. The full list is available in [this table](https://github.com/tensorflow/magenta-js/blob/master/music/checkpoints/README.md#table) and can be accessed programm
+Several pre-trained checkpoints for all of our models are available and hosted on GCS. The full list is available in [this table](https://github.com/tensorflow/magenta-js/blob/master/music/checkpoints/README.md#table) and can be accessed programmatically via a JSON index [here](https://goo.gl/magenta/js-checkpoints-json).
+
+### Your own checkpoints
+
+#### Dumping your weights
+
+To use your own checkpoints with one of our models, you must first convert the weights to the appropriate format using the provided [checkpoint_converter](https://github.com/tensorflow/magenta-js/blob/maste
