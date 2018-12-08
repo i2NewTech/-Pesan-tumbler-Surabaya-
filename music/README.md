@@ -173,4 +173,7 @@ SPICE is a wrapper method for extracting pitches from audio using the [SPICE](ht
 
 ## Model Checkpoints
 Most `@magenta/music` models (with the exception of MidiMe) do not support training in the browser
-(because they require a large amount of data, which would take an incredibly long time), and they use weights from a model trained with the Python-based [Magenta models][magenta-models]. We are also making available our own hosted pre-t
+(because they require a large amount of data, which would take an incredibly long time), and they use weights from a model trained with the Python-based [Magenta models][magenta-models]. We are also making available our own hosted pre-trained checkpoints.
+
+### Pre-trained hosted checkpoints
+Several pre-trained checkpoints for all of our models are available and hosted on GCS. The full list is available in [this table](https://github.com/tensorflow/magenta-js/blob/master/music/checkpoints/README.md#table) and can be accessed programm
