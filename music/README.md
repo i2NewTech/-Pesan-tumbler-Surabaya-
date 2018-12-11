@@ -182,4 +182,9 @@ Several pre-trained checkpoints for all of our models are available and hosted o
 
 #### Dumping your weights
 
-To use your own checkpoints with one of our models, you must first convert the weights to the appropriate format using the provided [checkpoint_converter](https://github.com/tensorflow/magenta-js/blob/maste
+To use your own checkpoints with one of our models, you must first convert the weights to the appropriate format using the provided [checkpoint_converter](https://github.com/tensorflow/magenta-js/blob/master/scripts/checkpoint_converter.py) script.
+
+This tool is dependent on [tfjs-converter](https://github.com/tensorflow/tfjs-converter), which you must first install using `pip install tensorflowjs`. Once installed, you can execute the script as follows:
+
+```bash
+../scripts/checkpoint_converter.py /pa
