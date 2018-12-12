@@ -187,4 +187,11 @@ To use your own checkpoints with one of our models, you must first convert the w
 This tool is dependent on [tfjs-converter](https://github.com/tensorflow/tfjs-converter), which you must first install using `pip install tensorflowjs`. Once installed, you can execute the script as follows:
 
 ```bash
-../scripts/checkpoint_converter.py /pa
+../scripts/checkpoint_converter.py /path/to/model.ckpt /path/to/output_dir
+```
+
+There are additional flags available to reduce the size of the output by removing unused (training) variables or using weight quantization. Call `../scripts/checkpoint_converter.py -h` to list the available options.
+
+#### Specifying the Model Configuration
+
+The model configuration should b
