@@ -194,4 +194,23 @@ There are additional flags available to reduce the size of the output by removin
 
 #### Specifying the Model Configuration
 
-The model configuration should be placed in a JSON file named `config.json` in the same directory as your checkpoint. This configuration file contains all the information needed (besides the weights) to instantiate and run your model: the model type and data converter specification plus optional chord encoding, auxiliary inputs, and attention length. An example `config.
+The model configuration should be placed in a JSON file named `config.json` in the same directory as your checkpoint. This configuration file contains all the information needed (besides the weights) to instantiate and run your model: the model type and data converter specification plus optional chord encoding, auxiliary inputs, and attention length. An example `config.json` file might look like:
+
+```json
+{
+  "type": "MusicRNN",
+  "dataConverter": {
+    "type": "MelodyConverter",
+    "args": {
+      "minPitch": 48,
+      "maxPitch": 83
+    }
+  },
+  "chordEncoder": "PitchChordEncoder"
+}
+```
+
+This configuration corresponds to a chord-conditioned melody MusicRNN model.
+
+## SoundFonts
+There are several So
