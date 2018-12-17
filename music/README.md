@@ -213,4 +213,10 @@ The model configuration should be placed in a JSON file named `config.json` in t
 This configuration corresponds to a chord-conditioned melody MusicRNN model.
 
 ## SoundFonts
-There are several So
+There are several SoundFonts that you can use with the `mm.SoundFontPlayer`,
+for more realistic sounding instruments:
+
+| Instrument  | URL | License  |
+|---|---|---|
+| Piano | [salamander](https://storage.googleapis.com/magentadata/js/soundfonts/salamander) |Audio samples from [Salamander Grand Piano](https://archive.org/details/SalamanderGrandPianoV3)|
+| Multi | [sgm_p
