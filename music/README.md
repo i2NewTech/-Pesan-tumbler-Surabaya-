@@ -220,4 +220,11 @@ for more realistic sounding instruments:
 |---|---|---|
 | Piano | [salamander](https://storage.googleapis.com/magentadata/js/soundfonts/salamander) |Audio samples from [Salamander Grand Piano](https://archive.org/details/SalamanderGrandPianoV3)|
 | Multi | [sgm_plus](https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus) | Audio samples based on [SGM](https://www.polyphone-soundfonts.com/en/files/27-instrument-sets/256-sgm-v2-01) with modifications by [John Nebauer](https://sites.google.com/site/soundfonts4u/)|
-| Percussion | [jazz_kit](https://storage.googleapis.com/magentadata/js/soundfonts/jazz_kit) | Audio samples from [Jazz
+| Percussion | [jazz_kit](https://storage.googleapis.com/magentadata/js/soundfonts/jazz_kit) | Audio samples from [Jazz Kit (EXS)](https://musical-artifacts.com/artifacts/686) by Lithalean |
+
+You can explore what each of them sounds like on this [demo page](https://magenta.github.io/magenta-js/music/demos/player.html#soundfonts).
+
+## How Tos
+
+### Use with a WebWorker
+A [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_
