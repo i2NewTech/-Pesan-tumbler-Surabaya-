@@ -231,4 +231,11 @@ A [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/U
 separate from the main UI thread. This allows you to perform expensive computatios (like
 model inference, etc) without blocking any of the user interaction (like animations, scrolling, etc).
 All `@magenta/music` models should work in a WebWorker,
-_except for_ GANSynth and Onsets 
+_except for_ GANSynth and Onsets and Frames, which need to use the browser's AudioContext
+to manipulate audio data. (You can work around this by separating the audio processing code
+from the actual inference code, but we don't currently have an example of this).
+
+Here is an example of using a MusicVAE model in a WebWorker. In your main `app.js`,
+
+```js
+const worke
