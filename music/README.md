@@ -227,4 +227,8 @@ You can explore what each of them sounds like on this [demo page](https://magent
 ## How Tos
 
 ### Use with a WebWorker
-A [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_
+A [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) is a script that can run in the background,
+separate from the main UI thread. This allows you to perform expensive computatios (like
+model inference, etc) without blocking any of the user interaction (like animations, scrolling, etc).
+All `@magenta/music` models should work in a WebWorker,
+_except for_ GANSynth and Onsets 
