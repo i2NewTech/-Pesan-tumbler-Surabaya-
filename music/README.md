@@ -254,4 +254,11 @@ worker.onmessage = (event) => {
 };
 ```
 
-In your worker, 
+In your worker, `worker.js`,
+
+```js
+importScripts("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.4.0/dist/tf.min.js");
+importScripts("https://cdn.jsdelivr.net/npm/@magenta/music@^1.12.0/es6/core.js");
+importScripts("https://cdn.jsdelivr.net/npm/@magenta/music@^1.12.0/es6/music_vae.js");
+
+const mvae = new music_vae.MusicVAE('https://storage.googleapis.com/magentadata/js/
