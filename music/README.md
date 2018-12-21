@@ -238,4 +238,20 @@ from the actual inference code, but we don't currently have an example of this).
 Here is an example of using a MusicVAE model in a WebWorker. In your main `app.js`,
 
 ```js
-const worke
+const worker = new Worker('worker.js');
+
+// Tell the worker to use the model
+worker.postMessage({sequence: someNoteSequence});
+
+// Worker returns the result.
+worker.onmessage = (event) => {
+  if (event.data.fyi) {
+    console.log(event.data.fyi);
+  } else {
+    const sample = event.data.sample;
+    // Do something with this sample
+  }
+};
+```
+
+In your worker, 
