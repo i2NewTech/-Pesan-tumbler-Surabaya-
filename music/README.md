@@ -276,4 +276,7 @@ self.onmessage = async (e) => {
 };
 ```
 
-### Use wi
+### Use with a ServiceWorker
+A [ServiceWorker](https://developers.google.com/web/fundamentals/primers/service-workers) is a script that your browser runs in the background, separate from a web page. In particular, ServiceWorkers allow
+you to provide offline interactions by controlling what data your browser caches (like soundfont files,
+model c
