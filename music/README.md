@@ -279,4 +279,7 @@ self.onmessage = async (e) => {
 ### Use with a ServiceWorker
 A [ServiceWorker](https://developers.google.com/web/fundamentals/primers/service-workers) is a script that your browser runs in the background, separate from a web page. In particular, ServiceWorkers allow
 you to provide offline interactions by controlling what data your browser caches (like soundfont files,
-model c
+model checkpoint chunks). For a full example, check out the [Piano Genie PWA](https://piano-genie-pwa.glitch.me/) code, that lets you install Piano Genie as a PWA app, and use it entirely offline.
+
+This is also extremely useful if you want to test a very large model checkpoint, but
+don't want to download it every time you re
