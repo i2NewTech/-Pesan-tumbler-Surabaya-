@@ -282,4 +282,10 @@ you to provide offline interactions by controlling what data your browser caches
 model checkpoint chunks). For a full example, check out the [Piano Genie PWA](https://piano-genie-pwa.glitch.me/) code, that lets you install Piano Genie as a PWA app, and use it entirely offline.
 
 This is also extremely useful if you want to test a very large model checkpoint, but
-don't want to download it every time you re
+don't want to download it every time you refresh the page.
+
+The main things to look out for are the [manifest.json](https://glitch.com/edit/#!/piano-genie-pwa?path=manifest.json:2:12) and the [meta tags](https://glitch.com/edit/#!/piano-genie-pwa?path=index.html:15:4). Then, in your main script, load the service worker:
+
+```js
+  // Force HTTP.
+  if (location.protocol == 'http:') location
