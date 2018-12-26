@@ -301,3 +301,17 @@ The main things to look out for are the [manifest.json](https://glitch.com/edit/
 
 In `sw.js`,
 
+```js
+self.addEventListener('install', e => {
+  e.waitUntil(
+  (async function() {
+    const cache = await caches.open("your-app-name-assets");
+
+    const resources = [
+      // Static files you want to cache.
+      "index.html",
+      "style.css",
+      "script.js",
+      "helpers.js",
+      "manifest.json",
+      // A built, minified bundle
