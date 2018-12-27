@@ -320,4 +320,8 @@ self.addEventListener('install', e => {
       'https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus/soundfont.json',
       // Model checkpoint.
       "https://storage.googleapis.com/magentadata/js/checkpoints/piano_genie/model/epiano/stp_iq_auto_contour_dt_166006/weights_manifest.json",
-      "http
+      "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus/acoustic_grand_piano/instrument.json",
+      // List here all the actual shards of your model.
+      "https://storage.googleapis.com/magentadata/js/checkpoints/piano_genie/model/epiano/stp_iq_auto_contour_dt_166006/group1-shard1of1"
+    ];
+    // The actual SoundFo
