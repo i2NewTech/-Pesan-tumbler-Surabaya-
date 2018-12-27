@@ -324,4 +324,17 @@ self.addEventListener('install', e => {
       // List here all the actual shards of your model.
       "https://storage.googleapis.com/magentadata/js/checkpoints/piano_genie/model/epiano/stp_iq_auto_contour_dt_166006/group1-shard1of1"
     ];
-    // The actual SoundFo
+    // The actual SoundFont files you will use.
+    for (let i = 21; i < 105; i++) {
+      resources.push(`https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus/acoustic_grand_piano/p${i}_v79.mp3`)
+    }
+
+    // Cache all of these
+    const local = cache.addAll(resources);
+    await Promise.all([local]);
+  })()
+  );
+});
+
+self.addEventListener('fetch', e => {
+  // If the
