@@ -314,4 +314,10 @@ self.addEventListener('install', e => {
       "script.js",
       "helpers.js",
       "manifest.json",
-      // A built, minified bundle
+      // A built, minified bundle of dependencies.
+      "magenta-1.7.0.js",
+      // SoundFont manifest.
+      'https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus/soundfont.json',
+      // Model checkpoint.
+      "https://storage.googleapis.com/magentadata/js/checkpoints/piano_genie/model/epiano/stp_iq_auto_contour_dt_166006/weights_manifest.json",
+      "http
