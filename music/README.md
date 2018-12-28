@@ -337,4 +337,16 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // If the
+  // If the resource is cached, send it.
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)))
+});
+```
+
+### Use with TypeScript
+If you want to use `@magenta/music` as a dependency in a TypeScript project,
+here is a [sample project](https://github.com/notwaldorf/example-magenta-in-ts/)
+that does that and uses webpack to build and transpile it.
+
+<!-- links -->
+
+[melody
