@@ -349,4 +349,7 @@ that does that and uses webpack to build and transpile it.
 
 <!-- links -->
 
-[melody
+[melody-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/melody_rnn
+[drums-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/drums_rnn
+[improv-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
+[performance-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/
