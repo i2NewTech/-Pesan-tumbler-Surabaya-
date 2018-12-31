@@ -352,4 +352,7 @@ that does that and uses webpack to build and transpile it.
 [melody-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/melody_rnn
 [drums-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/drums_rnn
 [improv-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
-[performance-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/
+[performance-rnn]: https://github.com/tensorflow/magenta/tree/master/magenta/models/performance_rnn
+[magenta-models]: https://github.com/tensorflow/magenta/tree/master/magenta/models
+[music-vae]: https://g.co/magenta/musicvae
+[mm-npm]: https://www.npmjs.com/package/@magenta/music
