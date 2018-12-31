@@ -64,3 +64,38 @@ test('MusicVAE can encode ', async (t) => {
   t.isEqual(tf.memory().numBytes, startMemory);
   t.end();
 });
+
+test('MusicVAE can decode ', async (t) => {
+  const startMemory = tf.memory().numBytes;
+  const ns = core.sequences.quantizeNoteSequence(MEL_TEAPOT, 4);
+  const z = await mvae.encode([ns]);
+  const recon = await mvae.decode(z);
+  t.ok(recon);
+  t.isEqual(recon.length, 1);
+  z.dispose();
+
+  const notes = recon[0].notes;
+  t.true(notes.length > 0);
+
+  // Doesn't leak memory.
+  t.isEqual(tf.memory().numBytes, startMemory);
+  t.end();
+});
+
+test('MusicVAE can sample ', async (t) => {
+  const startMemory = tf.memory().numBytes;
+  const ns = await mvae.sample(1);
+  t.ok(ns);
+  t.isEqual(ns.length, 1);
+  const notes = ns[0].notes;
+  t.true(notes.length > 0);
+
+  // Doesn't leak memory.
+  t.isEqual(tf.memory().numBytes, startMemory);
+  t.end();
+});
+
+test('MusicVAE can be disposed', async (t) => {
+  mvae.dispose();
+  t.end();
+});
