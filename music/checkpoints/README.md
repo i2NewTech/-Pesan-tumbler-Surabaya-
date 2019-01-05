@@ -16,4 +16,13 @@ python ./scripts/checkpoint_downloader https://storage.googleapis.com/magentadat
 
 ## JSON Index
 
-A JSON index of available checkpoints i
+A JSON index of available checkpoints is at
+https://goo.gl/magenta/js-checkpoints-json, formatted as a list of entries with
+the following interface:
+
+```ts
+interface Checkpoint {
+  id: string;  // A unique id for this checkpoint.
+  model: 'MusicRNN'|'MusicVAE';  // The model class.
+  sizeMb: number;  // The size of the weights in megabytes.
+  description: string;  // A short
