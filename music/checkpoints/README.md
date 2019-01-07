@@ -36,4 +36,6 @@ If your application has a high QPS, you must mirror these files on your own serv
 
 ## Table
 
-ID|Model|Descriptio
+ID|Model|Description|Size MB|URL
+---|---|---|---|---
+drums_2bar_lokl_small|MusicVAE|A 2-bar, 9-class onehot drum model with a strong prior (low KL divergence), which is better for sampling. Less accurate, but smaller in size than full model.|18.5|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/mus
