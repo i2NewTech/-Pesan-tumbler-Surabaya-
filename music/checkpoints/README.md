@@ -45,4 +45,5 @@ drums_4bar_med_q2|MusicVAE|A medium-sized 2-bar, 9-class onehot drum model with 
 drums_4bar_med_lokl_q2|MusicVAE|A medium-sized 2-bar, 9-class onehot drum model with a strong prior (lower KL divergence), which is better for sampling. Quantized to 2-byte weights.|68.2|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_4bar_med_lokl_q2)
 mel_2bar_small|MusicVAE|A 2-bar, 90-class onehot melody model. Less accurate, but smaller in size than full model.|17.7|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_2bar_small)
 mel_4bar_med_q2|MusicVAE|A medium-sized 4-bar, 90-class onehot melody model. Quantized to 2-byte weights.|65.4|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_4bar_med_q2)
-mel_4bar_med_lokl_q2|MusicVAE|A medium-sized 4-bar, 90-class onehot melody mod
+mel_4bar_med_lokl_q2|MusicVAE|A medium-sized 4-bar, 90-class onehot melody model.  Trained with a strong prior (low KL divergence), which is better for sampling. Quantized to 2-byte weights.|65.4|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_4bar_med_lokl_q2)
+mel_4bar_small_q2|MusicVAE|A 4-bar, 90-class onehot melody model. Less accurate, but smaller in size than full model. Qu
