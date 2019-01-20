@@ -55,4 +55,5 @@ multitrack|MusicVAE|A 1-bar multitrack model, trained with 64 free bits. Quantiz
 multitrack_med|MusicVAE|A larger 1-bar multitrack model, trained with 64 free bits. Quantized to 1-byte weights.|95.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_med)
 multitrack_med_fb256|MusicVAE|A larger 1-bar multitrack model, trained with 256 free bits. Quantized to 1-byte weights.|95.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_med_fb256)
 multitrack_chords|MusicVAE|A 1-bar chord-conditioned multitrack model, trained with 64 free bits. Quantized to 1-byte weights.|26.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_chords)
-multitrack_med_
+multitrack_med_chords|MusicVAE|A larger 1-bar chord-conditioned multitrack model, trained with 64 free bits. Quantized to 1-byte weights.|96.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_med_chords)
+multitrack_med_chords_fb256|MusicVAE|A larger 1-bar chord-conditioned multitrack model, trained with 256 free bits. Quantized t
