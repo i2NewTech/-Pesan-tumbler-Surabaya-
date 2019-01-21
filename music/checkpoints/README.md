@@ -57,4 +57,6 @@ multitrack_med_fb256|MusicVAE|A larger 1-bar multitrack model, trained with 256 
 multitrack_chords|MusicVAE|A 1-bar chord-conditioned multitrack model, trained with 64 free bits. Quantized to 1-byte weights.|26.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_chords)
 multitrack_med_chords|MusicVAE|A larger 1-bar chord-conditioned multitrack model, trained with 64 free bits. Quantized to 1-byte weights.|96.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_med_chords)
 multitrack_med_chords_fb256|MusicVAE|A larger 1-bar chord-conditioned multitrack model, trained with 256 free bits. Quantized to 1-byte weights.|96.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/multitrack_med_chords_fb256)
-groovae_2bar_humanize|MusicVAE|A 2-bar GrooVAE model that converts a quantized, constant-velocity drum pattern into a 'humanized' groove.|15.8|[Right Click to Copy](https://storage.googlea
+groovae_2bar_humanize|MusicVAE|A 2-bar GrooVAE model that converts a quantized, constant-velocity drum pattern into a 'humanized' groove.|15.8|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/groovae_2bar_humanize)
+tap2drum_1bar|MusicVAE|A 1-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_1bar)
+tap2drum_2bar|MusicVAE|A 2-bar GrooVAE m
