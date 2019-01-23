@@ -60,4 +60,6 @@ multitrack_med_chords_fb256|MusicVAE|A larger 1-bar chord-conditioned multitrack
 groovae_2bar_humanize|MusicVAE|A 2-bar GrooVAE model that converts a quantized, constant-velocity drum pattern into a 'humanized' groove.|15.8|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/groovae_2bar_humanize)
 tap2drum_1bar|MusicVAE|A 1-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_1bar)
 tap2drum_2bar|MusicVAE|A 2-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_2bar)
-tap2drum_3bar|MusicVAE|A 3-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storag
+tap2drum_3bar|MusicVAE|A 3-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_3bar)
+tap2drum_4bar|MusicVAE|A 4-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_4bar)
+groovae_4bar|MusicVAE|A 4-bar GrooVAE a
