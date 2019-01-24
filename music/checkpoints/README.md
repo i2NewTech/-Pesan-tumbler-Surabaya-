@@ -64,4 +64,5 @@ tap2drum_3bar|MusicVAE|A 3-bar GrooVAE model that converts a constant-velocity s
 tap2drum_4bar|MusicVAE|A 4-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.|15.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_4bar)
 groovae_4bar|MusicVAE|A 4-bar GrooVAE autoencoder.|15.8|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/groovae_4bar)
 basic_rnn|MusicRNN|A 36-class onehot MelodyRNN model. Converted from http://download.magenta.tensorflow.org/models/basic_rnn.mag.|13.0|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn)
-melody_rnn|Mu
+melody_rnn|MusicRNN|A 128-class onehot MelodyRNN model.|13.4|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn)
+drum_kit_rnn|MusicRNN|A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.|11.9|[Right Click to Copy](https://storage.googleapis.com/mage
