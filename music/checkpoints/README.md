@@ -65,4 +65,5 @@ tap2drum_4bar|MusicVAE|A 4-bar GrooVAE model that converts a constant-velocity s
 groovae_4bar|MusicVAE|A 4-bar GrooVAE autoencoder.|15.8|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/groovae_4bar)
 basic_rnn|MusicRNN|A 36-class onehot MelodyRNN model. Converted from http://download.magenta.tensorflow.org/models/basic_rnn.mag.|13.0|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn)
 melody_rnn|MusicRNN|A 128-class onehot MelodyRNN model.|13.4|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn)
-drum_kit_rnn|MusicRNN|A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.|11.9|[Right Click to Copy](https://storage.googleapis.com/mage
+drum_kit_rnn|MusicRNN|A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.|11.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn)
+chord_pitches_improv|MusicRNN|A 36-class onehot melody ImprovRNN model conditioned on chords as described at https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn#chord-pitches-improv. Converted from http://download.magenta.tensorflow.org/mo
