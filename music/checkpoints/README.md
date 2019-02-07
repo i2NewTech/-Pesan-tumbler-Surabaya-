@@ -67,4 +67,6 @@ basic_rnn|MusicRNN|A 36-class onehot MelodyRNN model. Converted from http://down
 melody_rnn|MusicRNN|A 128-class onehot MelodyRNN model.|13.4|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn)
 drum_kit_rnn|MusicRNN|A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.|11.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn)
 chord_pitches_improv|MusicRNN|A 36-class onehot melody ImprovRNN model conditioned on chords as described at https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn#chord-pitches-improv. Converted from http://download.magenta.tensorflow.org/models/chord_pitches_improv.mag.|5.6|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv)
-onsets_frames_uni|OnsetsAndFrames|A unidirectional piano transcription model.|60|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints
+onsets_frames_uni|OnsetsAndFrames|A unidirectional piano transcription model.|60|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni)
+onsets_frames_uni_q2|OnsetsAndFrames|A unidirectional piano transcription model. Quantized to 2-byte weights.|30|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni_q2)
+ddsp_flute|DDSPFlute|A flute model for use with DDSP.
