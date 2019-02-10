@@ -71,4 +71,5 @@ onsets_frames_uni|OnsetsAndFrames|A unidirectional piano transcription model.|60
 onsets_frames_uni_q2|OnsetsAndFrames|A unidirectional piano transcription model. Quantized to 2-byte weights.|30|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni_q2)
 ddsp_flute|DDSPFlute|A flute model for use with DDSP.|3.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/flute)
 ddsp_tenor_saxophone|DDSPTenorSaxophone|A tenor saxophone model for use with DDSP.|3.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/tenor_saxophone)
-ddsp_trumpet|DDSPTrumpet|A trumpet model for use with
+ddsp_trumpet|DDSPTrumpet|A trumpet model for use with DDSP.|3.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/trumpet)
+ddsp_violin|DDSPViolin|A violin model for use with DDSP.|3.9|[Right Click to Copy](https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/violin)
