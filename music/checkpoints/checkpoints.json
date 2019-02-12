@@ -8,4 +8,10 @@
   },
   {
     "id": "drums_2bar_hikl_small",
-  
+    "model": "MusicVAE",
+    "description": "A 2-bar, 9-class onehot drum model with a weak prior (higher KL divergence), which is better for reconstructions and interpolations. Less accurate, but smaller in size than full model.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_2bar_hikl_small",
+    "size_mb": 18.5
+  },
+  {
+    "id": "d
