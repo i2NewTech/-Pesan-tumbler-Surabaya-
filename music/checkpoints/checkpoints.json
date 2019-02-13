@@ -14,4 +14,12 @@
     "size_mb": 18.5
   },
   {
-    "id": "d
+    "id": "drums_2bar_nade_9_q2",
+    "model": "MusicVAE",
+    "description": "A 2-bar, 9-class multilabel drum model with a NADE decoder. Quantized to 2-byte weights.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_2bar_nade_9_q2",
+    "size_mb": 27.6
+  },
+  {
+    "id": "drums_4bar_med_q2",
+    "model": "MusicVAE",
