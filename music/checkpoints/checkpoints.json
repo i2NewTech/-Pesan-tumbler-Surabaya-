@@ -28,4 +28,7 @@
     "size_mb": 68.2
   },
   {
-    "id": "d
+    "id": "drums_4bar_med_lokl_q2",
+    "model": "MusicVAE",
+    "description": "A medium-sized 2-bar, 9-class onehot drum model with a strong prior (lower KL divergence), which is better for sampling. Quantized to 2-byte weights.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/drums_4bar_
