@@ -42,4 +42,13 @@
     "size_mb": 17.7
   },
   {
-    "id":
+    "id": "mel_4bar_med_q2",
+    "model": "MusicVAE",
+    "description": "A medium-sized 4-bar, 90-class onehot melody model. Quantized to 2-byte weights.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_4bar_med_q2",
+    "size_mb": 65.4
+  },
+  {
+    "id": "mel_4bar_med_lokl_q2",
+    "model": "MusicVAE",
+    "description": "A medium
