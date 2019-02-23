@@ -72,4 +72,11 @@
   {
     "id": "mel_16bar_small_q2",
     "model": "MusicVAE",
-    "description": "A 16-bar, 90-class onehot melody model with a 16-step conductor level. Less accura
+    "description": "A 16-bar, 90-class onehot melody model with a 16-step conductor level. Less accurate, but smaller in size than full model. Quantized to 2-byte weights.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_16bar_small_q2",
+    "size_mb": 23.5
+  },
+  {
+    "id": "trio_4bar_lokl_small_q1",
+    "model": "MusicVAE",
+    "description": "A 4-bar, 'trio' model for melody, bass, and drums, with a 
