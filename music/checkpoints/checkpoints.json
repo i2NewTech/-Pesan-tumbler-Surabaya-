@@ -157,3 +157,11 @@
     "id": "tap2drum_3bar",
     "model": "MusicVAE",
     "description": "A 3-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/groovae/tap2drum_3bar",
+    "size_mb": 15.6
+  },
+  {
+    "id": "tap2drum_4bar",
+    "model": "MusicVAE",
+    "description": "A 4-bar GrooVAE model that converts a constant-velocity single-drum 'tap' pattern into a groove.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints
