@@ -177,4 +177,12 @@
   {
     "id": "basic_rnn",
     "model": "MusicRNN",
-    "description": "A 36-cl
+    "description": "A 36-class onehot MelodyRNN model. Converted from http://download.magenta.tensorflow.org/models/basic_rnn.mag.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn",
+    "size_mb": 13.0
+  },
+  {
+    "id": "melody_rnn",
+    "model": "MusicRNN",
+    "description": "A 128-class onehot MelodyRNN model.",
+    "url": "h
