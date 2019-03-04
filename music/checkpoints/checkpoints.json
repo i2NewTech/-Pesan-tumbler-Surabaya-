@@ -185,4 +185,11 @@
     "id": "melody_rnn",
     "model": "MusicRNN",
     "description": "A 128-class onehot MelodyRNN model.",
-    "url": "h
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn",
+    "size_mb": 13.4
+  },
+  {
+    "id": "drum_kit_rnn",
+    "model": "MusicRNN",
+    "description": "A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.",
+    "url": "https://storage.googleapis.com/magentadata/j
