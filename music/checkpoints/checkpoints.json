@@ -192,4 +192,10 @@
     "id": "drum_kit_rnn",
     "model": "MusicRNN",
     "description": "A 9-class onehot DrumsRNN model. Converted from http://download.magenta.tensorflow.org/models/drum_kit_rnn.mag.",
-    "url": "https://storage.googleapis.com/magentadata/j
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/drum_kit_rnn",
+    "size_mb": 11.9
+  },
+  {
+    "id": "chord_pitches_improv",
+    "model": "MusicRNN",
+    "description": "A 36-class onehot melody ImprovRNN model conditioned on chords as described at https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn#chord-pitches-improv. Converted from http://down
