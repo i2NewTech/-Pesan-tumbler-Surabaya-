@@ -198,4 +198,12 @@
   {
     "id": "chord_pitches_improv",
     "model": "MusicRNN",
-    "description": "A 36-class onehot melody ImprovRNN model conditioned on chords as described at https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn#chord-pitches-improv. Converted from http://down
+    "description": "A 36-class onehot melody ImprovRNN model conditioned on chords as described at https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn#chord-pitches-improv. Converted from http://download.magenta.tensorflow.org/models/chord_pitches_improv.mag.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv",
+    "size_mb": 5.6
+  },
+  {
+    "id": "onsets_frames_uni",
+    "model": "OnsetsAndFrames",
+    "description": "A unidirectional piano transcription model.",
+    "url": "https://sto
