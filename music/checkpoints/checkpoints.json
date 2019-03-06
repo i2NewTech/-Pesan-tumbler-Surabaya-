@@ -206,4 +206,11 @@
     "id": "onsets_frames_uni",
     "model": "OnsetsAndFrames",
     "description": "A unidirectional piano transcription model.",
-    "url": "https://sto
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_uni",
+    "size_mb": 60
+  },
+  {
+    "id": "onsets_frames_uni_q2",
+    "model": "OnsetsAndFrames",
+    "description": "A unidirectional piano transcription model. Quantized to 2-byte weights.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/transcript
