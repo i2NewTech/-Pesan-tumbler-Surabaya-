@@ -225,4 +225,13 @@
   },
   {
     "id": "ddsp_tenor_saxophone",
-    "model": "DDSPTenorSaxophon
+    "model": "DDSPTenorSaxophone",
+    "description": "A tenor saxophone model for use with DDSP.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/tenor_saxophone",
+    "size_mb": 3.9
+  },
+  {
+    "id": "ddsp_trumpet",
+    "model": "DDSPTrumpet",
+    "description": "A trumpet model for use with DDSP.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoin
