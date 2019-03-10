@@ -234,4 +234,14 @@
     "id": "ddsp_trumpet",
     "model": "DDSPTrumpet",
     "description": "A trumpet model for use with DDSP.",
-    "url": "https://storage.googleapis.com/magentadata/js/checkpoin
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/trumpet",
+    "size_mb": 3.9
+  },
+  {
+    "id": "ddsp_violin",
+    "model": "DDSPViolin",
+    "description": "A violin model for use with DDSP.",
+    "url": "https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/violin",
+    "size_mb": 3.9
+  }
+]
