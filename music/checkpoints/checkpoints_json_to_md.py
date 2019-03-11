@@ -15,4 +15,16 @@
 # ==============================================================================
 """Convert checkpoints.json to README.md."""
 
-import 
+import argparse
+import json
+
+COLUMNS = ['ID', 'Model', 'Description', 'Size MB', 'URL']
+
+HEADER_TEXT = '''
+# Hosted Checkpoints
+
+Short link: https://goo.gl/magenta/js-checkpoints
+
+You can load the pre-trained checkpoints below in your app directly from our
+server with the links provided. If you would like to download the checkpoint
+to use local
