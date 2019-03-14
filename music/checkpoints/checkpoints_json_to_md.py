@@ -71,4 +71,17 @@ def json_to_md(json_checkpoints):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argu
+  parser.add_argument(
+      '--input_json',
+      type=str,
+      help='Path to the input JSON file',
+      default='checkpoints.json')
+  parser.add_argument(
+      '--output_md',
+      type=str,
+      help='Path to output Markdown file.',
+      default='README.md')
+  FLAGS, unparsed = parser.parse_known_args()
+
+  if unparsed:
+    parse
