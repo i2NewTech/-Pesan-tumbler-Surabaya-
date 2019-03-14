@@ -47,4 +47,17 @@ interface Checkpoint {
   id: string;  // A unique id for this checkpoint.
   model: 'MusicRNN'|'MusicVAE';  // The model class.
   sizeMb: number;  // The size of the weights in megabytes.
-  description: string;
+  description: string;  // A short human-readable description of the trained model.
+  url: string;  // Path to the checkpoint directory.
+}
+```
+
+While we do not plan to remove any of the current checkpoints, we will be adding more in the future.
+
+If your application has a high QPS, you must mirror these files on your own server.
+
+## Table
+
+'''
+
+def json_to_md(json_checkpoints)
