@@ -60,4 +60,15 @@ If your application has a high QPS, you must mirror these files on your own serv
 
 '''
 
-def json_to_md(json_checkpoints)
+def json_to_md(json_checkpoints):
+  s = '|'.join(COLUMNS) + '\n'
+  s += '|'.join(['---'] * len(COLUMNS)) + '\n'
+  for ckpt in json_checkpoints:
+    s += '|'.join(
+        [str(ckpt[c.lower().replace(' ', '_')]) for c in COLUMNS[:-1]])
+    s += '|[Right Click to Copy](' + ckpt[COLUMNS[-1].lower()] + ')\n'
+  return s
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argu
