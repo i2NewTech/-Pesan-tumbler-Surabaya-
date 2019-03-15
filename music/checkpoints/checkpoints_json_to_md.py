@@ -84,4 +84,9 @@ if __name__ == '__main__':
   FLAGS, unparsed = parser.parse_known_args()
 
   if unparsed:
-    parse
+    parser.print_help()
+    print('Unrecognized flags: ', unparsed)
+    exit(-1)
+
+  json_checkpoints = json.loads(open(FLAGS.input_json, 'r').read())
+  open(FLAGS.output_md, 'w').write(HEADER_TEXT + json_to_md(json_checkpoints))
