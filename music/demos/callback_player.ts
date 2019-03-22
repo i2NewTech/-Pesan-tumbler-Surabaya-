@@ -18,4 +18,15 @@
 import * as mm from '../src/index';
 import {DRUM_SEQS, MEL_TEAPOT, MEL_TWINKLE} from './common';
 
-class MetronomeCallback
+class MetronomeCallback extends mm.BasePlayerCallback {
+  private drumClickDivs: HTMLElement[];
+  private pianoClickDivs: HTMLElement[];
+  private drumDivs: HTMLElement[];
+  private keyDivs: HTMLElement[][];
+  private beatPos: number;
+  private currentDrum: number;
+  private drumPitchToClass: Map<number, number>;
+
+  constructor() {
+    super();
+    this.drumCl
