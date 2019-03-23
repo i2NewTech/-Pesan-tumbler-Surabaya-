@@ -38,4 +38,11 @@ class MetronomeCallback extends mm.BasePlayerCallback {
     this.pianoClickDivs = [
       document.getElementById('pianoClick1'),
       document.getElementById('pianoClick2'),
-      d
+      document.getElementById('pianoClick3'),
+      document.getElementById('pianoClick4')
+    ];
+    this.drumDivs = [
+      document.getElementById('drum1'), document.getElementById('drum2'),
+      document.getElementById('drum3'), document.getElementById('drum4'),
+      document.getElementById('drum5'), document.getElementById('drum6'),
+   
