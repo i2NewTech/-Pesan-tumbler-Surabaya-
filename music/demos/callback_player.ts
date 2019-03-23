@@ -45,4 +45,14 @@ class MetronomeCallback extends mm.BasePlayerCallback {
       document.getElementById('drum1'), document.getElementById('drum2'),
       document.getElementById('drum3'), document.getElementById('drum4'),
       document.getElementById('drum5'), document.getElementById('drum6'),
-   
+      document.getElementById('drum7'), document.getElementById('drum8'),
+      document.getElementById('drum9')
+    ];
+    this.keyDivs = [
+      [
+        document.getElementById('top_c'), document.getElementById('bottom_c'),
+        document.getElementById('right_bottom_c')
+      ],
+      [document.getElementById('c_sharp')],
+      [
+      
