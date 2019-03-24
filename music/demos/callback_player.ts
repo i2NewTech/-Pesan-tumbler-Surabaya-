@@ -64,4 +64,15 @@ class MetronomeCallback extends mm.BasePlayerCallback {
       [
         document.getElementById('top_e'),
         document.getElementById('left_bottom_e'),
-        document.getElementBy
+        document.getElementById('bottom_e')
+      ],
+      [
+        document.getElementById('top_f'), document.getElementById('bottom_f'),
+        document.getElementById('right_bottom_f')
+      ],
+      [document.getElementById('f_sharp')],
+      [
+        document.getElementById('top_g'),
+        document.getElementById('left_bottom_g'),
+        document.getElementById('bottom_g'),
+        document.get
