@@ -94,4 +94,22 @@ class MetronomeCallback extends mm.BasePlayerCallback {
     this.drumPitchToClass = new Map<number, number>();
     for (let c = 0; c < mm.constants.DEFAULT_DRUM_PITCH_CLASSES.length; ++c) {
       mm.constants.DEFAULT_DRUM_PITCH_CLASSES[c].forEach((p) => {
-        this.drumPitchToClass.set(p, c
+        this.drumPitchToClass.set(p, c);
+      });
+    }
+    this.beatPos = -1;
+    this.currentDrum = -1;
+    this.stop();
+  }
+
+  greyOut(divs: HTMLElement[], ignorePos: number) {
+    for (let i = 0; i < divs.length; ++i) {
+      if (i === ignorePos) {
+        continue;
+      }
+      divs[i].style.background = 'grey';
+    }
+  }
+
+  colorDrums(n: mm.NoteSequence.INote) {
+    
