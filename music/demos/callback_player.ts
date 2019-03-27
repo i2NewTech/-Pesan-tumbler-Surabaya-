@@ -112,4 +112,11 @@ class MetronomeCallback extends mm.BasePlayerCallback {
   }
 
   colorDrums(n: mm.NoteSequence.INote) {
-    
+    // Clicks are handled separately.
+    if (n.pitch !== mm.constants.HI_CLICK_PITCH &&
+        n.pitch !== mm.constants.LO_CLICK_PITCH) {
+      this.currentDrum = this.drumPitchToClass.get(n.pitch);
+      this.drumDivs[this.currentDrum].style.background = 'green';
+      setTimeout(() => {
+        this.drumDivs[this.currentDrum].style.background = 'grey';
+ 
