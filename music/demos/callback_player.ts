@@ -119,4 +119,14 @@ class MetronomeCallback extends mm.BasePlayerCallback {
       this.drumDivs[this.currentDrum].style.background = 'green';
       setTimeout(() => {
         this.drumDivs[this.currentDrum].style.background = 'grey';
- 
+      }, 100);
+    }
+  }
+
+  colorKeys(n: mm.NoteSequence.INote) {
+    const relativePitch = (n.pitch - 60) % 12;
+    for (let i = 0; i < this.keyDivs[relativePitch].length; ++i) {
+      this.keyDivs[relativePitch][i].style.background = 'red';
+      let color = 'white';
+      if (relativePitch === 1 || relativePitch === 3 || relativePitch === 6 ||
+          relativePitch === 8 ||
