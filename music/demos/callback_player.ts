@@ -129,4 +129,16 @@ class MetronomeCallback extends mm.BasePlayerCallback {
       this.keyDivs[relativePitch][i].style.background = 'red';
       let color = 'white';
       if (relativePitch === 1 || relativePitch === 3 || relativePitch === 6 ||
-          relativePitch === 8 ||
+          relativePitch === 8 || relativePitch === 10) {
+        color = 'black';
+      }
+      setTimeout(() => {
+        this.keyDivs[relativePitch][i].style.background = color;
+      }, 100);
+    }
+  }
+
+  colorClick(n: mm.NoteSequence.INote, isPiano: boolean) {
+    if (n.pitch === mm.constants.HI_CLICK_PITCH) {
+      this.beatPos = 0;
+      const clickDiv = is
