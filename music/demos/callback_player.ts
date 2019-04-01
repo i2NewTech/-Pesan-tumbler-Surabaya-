@@ -141,4 +141,11 @@ class MetronomeCallback extends mm.BasePlayerCallback {
   colorClick(n: mm.NoteSequence.INote, isPiano: boolean) {
     if (n.pitch === mm.constants.HI_CLICK_PITCH) {
       this.beatPos = 0;
-      const clickDiv = is
+      const clickDiv = isPiano ? this.pianoClickDivs[this.beatPos] :
+                                 this.drumClickDivs[this.beatPos];
+      clickDiv.style.background = 'red';
+      setTimeout(() => {
+        clickDiv.style.background = 'grey';
+      }, 300);
+    } else if (n.pitch === mm.constants.LO_CLICK_PITCH) {
+      if (this.beatPos < this.drumCli
