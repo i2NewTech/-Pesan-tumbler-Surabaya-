@@ -148,4 +148,14 @@ class MetronomeCallback extends mm.BasePlayerCallback {
         clickDiv.style.background = 'grey';
       }, 300);
     } else if (n.pitch === mm.constants.LO_CLICK_PITCH) {
-      if (this.beatPos < this.drumCli
+      if (this.beatPos < this.drumClickDivs.length - 1) {
+        ++this.beatPos;
+      }
+      const clickDiv = isPiano ? this.pianoClickDivs[this.beatPos] :
+                                 this.drumClickDivs[this.beatPos];
+      clickDiv.style.background = 'blue';
+      setTimeout(() => {
+        clickDiv.style.background = 'grey';
+      }, 300);
+    }
+  }
