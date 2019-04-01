@@ -159,3 +159,21 @@ class MetronomeCallback extends mm.BasePlayerCallback {
       }, 300);
     }
   }
+
+  run(n: mm.NoteSequence.INote) {
+    if (n.isDrum) {
+      this.colorDrums(n);
+    } else {
+      this.colorKeys(n);
+    }
+    this.colorClick(n, isPlayingPiano);
+  }
+
+  stop() {
+    this.greyOut(this.drumClickDivs, -1);
+    this.greyOut(this.pianoClickDivs, -1);
+    this.greyOut(this.drumDivs, -1);
+  }
+}
+
+function generateDrum
