@@ -176,4 +176,11 @@ class MetronomeCallback extends mm.BasePlayerCallback {
   }
 }
 
-function generateDrum
+function generateDrumsAndMelodies() {
+  const callback = new MetronomeCallback();
+  const playClicks = [true, false];
+  const buttonSuffixes = [' with click', ' without click'];
+  for (let i = 0; i < playClicks.length; ++i) {
+    const player = new mm.Player(playClicks[i], callback);
+    // Add drums buttons.
+    const drumsDiv = document.getElementById('dru
