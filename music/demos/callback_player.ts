@@ -190,4 +190,15 @@ function generateDrumsAndMelodies() {
       button.addEventListener('click', () => {
         if (player.isPlaying()) {
           player.stop();
-          button.textContent = 'Play Beat ' + j + buttonSuffixes[i]
+          button.textContent = 'Play Beat ' + j + buttonSuffixes[i];
+          callback.stop();
+        } else {
+          isPlayingPiano = false;
+          player.start(DRUM_SEQS[j])
+              .then(
+                  () =>
+                      (button.textContent =
+                           'Play Beat ' + j + buttonSuffixes[i]));
+          button.textContent = 'Stop';
+        }
+      }
