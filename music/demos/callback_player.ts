@@ -183,4 +183,11 @@ function generateDrumsAndMelodies() {
   for (let i = 0; i < playClicks.length; ++i) {
     const player = new mm.Player(playClicks[i], callback);
     // Add drums buttons.
-    const drumsDiv = document.getElementById('dru
+    const drumsDiv = document.getElementById('drums-button-div');
+    for (let j = 0; j < DRUM_SEQS.length; ++j) {
+      const button = document.createElement('button');
+      button.textContent = 'Play Beat ' + j + buttonSuffixes[i];
+      button.addEventListener('click', () => {
+        if (player.isPlaying()) {
+          player.stop();
+          button.textContent = 'Play Beat ' + j + buttonSuffixes[i]
