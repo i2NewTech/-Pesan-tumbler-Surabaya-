@@ -201,4 +201,12 @@ function generateDrumsAndMelodies() {
                            'Play Beat ' + j + buttonSuffixes[i]));
           button.textContent = 'Stop';
         }
-      }
+      });
+      drumsDiv.appendChild(button);
+    }
+    // Add melody buttons.
+    const melDiv = document.getElementById('mel-button-div');
+    const teapotButton = document.createElement('button');
+    teapotButton.textContent = 'Play Teapot' + buttonSuffixes[i];
+    teapotButton.addEventListener('click', () => {
+      if (player.i
