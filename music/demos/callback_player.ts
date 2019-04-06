@@ -218,4 +218,12 @@ function generateDrumsAndMelodies() {
         player.start(MEL_TEAPOT)
             .then(
                 () =>
-                    (teapotButton.textCon
+                    (teapotButton.textContent =
+                         'Play Teapot' + buttonSuffixes[i]));
+        teapotButton.textContent = 'Stop';
+      }
+    });
+    melDiv.appendChild(teapotButton);
+    const twinkleButton = document.createElement('button');
+    twinkleButton.textContent = 'Play Twinkle' + buttonSuffixes[i];
+    twinkleButton.addEventL
