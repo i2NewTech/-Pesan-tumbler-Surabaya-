@@ -209,4 +209,13 @@ function generateDrumsAndMelodies() {
     const teapotButton = document.createElement('button');
     teapotButton.textContent = 'Play Teapot' + buttonSuffixes[i];
     teapotButton.addEventListener('click', () => {
-      if (player.i
+      if (player.isPlaying()) {
+        player.stop();
+        teapotButton.textContent = 'Play Teapot' + buttonSuffixes[i];
+        callback.stop();
+      } else {
+        isPlayingPiano = true;
+        player.start(MEL_TEAPOT)
+            .then(
+                () =>
+                    (teapotButton.textCon
