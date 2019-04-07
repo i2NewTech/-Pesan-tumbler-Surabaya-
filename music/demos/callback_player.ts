@@ -226,4 +226,14 @@ function generateDrumsAndMelodies() {
     melDiv.appendChild(teapotButton);
     const twinkleButton = document.createElement('button');
     twinkleButton.textContent = 'Play Twinkle' + buttonSuffixes[i];
-    twinkleButton.addEventL
+    twinkleButton.addEventListener('click', () => {
+      if (player.isPlaying()) {
+        player.stop();
+        twinkleButton.textContent = 'Play Twinkle' + buttonSuffixes[i];
+        callback.stop();
+      } else {
+        isPlayingPiano = true;
+        player.start(MEL_TWINKLE)
+            .then(
+                () =>
+                    (twinkleB
