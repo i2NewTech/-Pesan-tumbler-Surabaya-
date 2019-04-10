@@ -236,4 +236,18 @@ function generateDrumsAndMelodies() {
         player.start(MEL_TWINKLE)
             .then(
                 () =>
-                    (twinkleB
+                    (twinkleButton.textContent =
+                         'Play Twinkle' + buttonSuffixes[i]));
+        twinkleButton.textContent = 'Stop';
+      }
+    });
+    melDiv.appendChild(twinkleButton);
+  }
+}
+
+let isPlayingPiano = false;
+try {
+  Promise.all([generateDrumsAndMelodies()]);
+} catch (err) {
+  console.error(err);
+}
