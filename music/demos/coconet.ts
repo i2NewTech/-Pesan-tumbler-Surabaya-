@@ -89,3 +89,32 @@ async function infillSection() {
   }
   ns.quantizationInfo = {stepsPerQuarter: 4};
   ns.totalQuantizedSteps = 32;
+
+  // Remove everything between timesteps 10 and 30
+  const mask = [];
+  for (let i = 10; i < 30; i++) {
+    // Infill all voices.
+    for (let v = 0; v < 4; v++) {
+      mask.push({step: i, voice: v});
+    }
+  }
+  writeNoteSeqs('input-3', [ns], true);
+
+  const start = performance.now();
+  const output = await model.infill(ns, {infillMask: mask});
+
+  // Optionally, treat any consecutive notes as merged.
+  const fixedOutput = mergeConsecutiveNotes(output);
+  writeNoteSeqs('output-3', [fixedOutput], true);
+  writeTimer('time-3', start);
+  model.dispose();
+}
+
+try {
+  Promise.all([infillFirstVoice(), infillSecondVoice(), infillSection()])
+      .then(() => {
+        writeMemory(tf.memory().numBytes);
+      });
+} catch (err) {
+  console.error(err);
+}
