@@ -53,3 +53,6 @@ export function updateGraph(data: number[], elementId: string) {
                         .x((d, i) => xScale(i))
                         // tslint:disable-next-line:no-any
                         .y((d: any) => yScale(d))
+                        .curve(d3.curveMonotoneX);
+  group.append('path').datum(dataset).attr('class', 'line').attr('d', line);
+}
