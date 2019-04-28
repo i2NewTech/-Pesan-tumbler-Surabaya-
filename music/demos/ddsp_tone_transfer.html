@@ -38,4 +38,14 @@ limitations under the License.
         >const spice = new mm.SPICE(); <br />await spice.initialize();
       </code>
 
-      <p><button id="initialize">Initialize</button
+      <p><button id="initialize">Initialize</button></p>
+
+      <p><code id="spice_initialized"></code></p>
+    </section>
+
+    <section id="extract_features" style="display: none">
+      <h2>Extract Audio Features</h2>
+      <code>spice.getAudioFeatures(audioBuffer)</code>
+      <p>
+        Upload an audio file and call the `getAudioFeatures` method to get audio
+        feature
