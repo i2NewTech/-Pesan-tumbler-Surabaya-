@@ -22,4 +22,15 @@ import {SPICE} from '../src/index';
 enum MODEL {
   VIOLIN = 'violin',
   TENOR_SAXOPHONE = 'tenor_saxophone',
-  TRUMPET = 'trumpet
+  TRUMPET = 'trumpet',
+  FLUTE = 'flute',
+}
+
+const PRESET_MODEL_URL =
+    'https://storage.googleapis.com/magentadata/js/checkpoints/ddsp';
+
+function floatTo16BitPCM(
+    output: DataView, offset: number, input: Float32Array) {
+  for (let i = 0; i < input.length; i++, offset += 2) {
+    const s = Math.max(-1, Math.min(1, input[i]));
+ 
