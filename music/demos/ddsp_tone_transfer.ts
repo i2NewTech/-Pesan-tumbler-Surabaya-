@@ -58,4 +58,13 @@ function encodeWAV(samples: Float32Array, sampleRate: number) {
   /* format chunk identifier */
   writeString(view, 12, 'fmt ');
   /* format chunk length */
-  view.setUint
+  view.setUint32(16, 16, true);
+  /* sample format (raw) */
+  view.setUint16(20, 1, true);
+  /* channel count */
+  view.setUint16(22, channels, true);
+  /* sample rate */
+  view.setUint32(24, sampleRate, true);
+  /* byte rate (sample rate * block align) */
+  view.setUint32(28, sampleRate * 4, true);
+  /* block align (channel count * bytes per 
