@@ -82,4 +82,12 @@ function encodeWAV(samples: Float32Array, sampleRate: number) {
 }
 
 window.onload = () => {
-  let audioCtx: AudioContext, audioFea
+  let audioCtx: AudioContext, audioFeatures: AudioFeatures, spice: SPICE;
+
+  document.getElementById('initialize').addEventListener('click', async () => {
+    spice = new mm.SPICE();
+    document.getElementById('initialize').style.display = 'none';
+    document.getElementById('spice_initialized').textContent =
+        'Loading SPICE model.';
+    await spice.initialize();
+   
