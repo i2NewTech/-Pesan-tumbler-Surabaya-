@@ -90,4 +90,14 @@ window.onload = () => {
     document.getElementById('spice_initialized').textContent =
         'Loading SPICE model.';
     await spice.initialize();
-   
+    document.getElementById('spice_initialized').textContent =
+        'SPICE model is ready.';
+    audioCtx = new AudioContext();
+    document.getElementById('extract_features').style.display = 'block';
+  });
+
+  document.getElementById('upload').addEventListener(
+      'change', handleFileUpload);
+
+  async function readFileAndProcessAudio(src: string) {
+    const audioF
