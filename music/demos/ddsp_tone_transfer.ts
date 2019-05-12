@@ -100,4 +100,13 @@ window.onload = () => {
       'change', handleFileUpload);
 
   async function readFileAndProcessAudio(src: string) {
-    const audioF
+    const audioFile = await fetch(src);
+    const arrayBuffer = await audioFile.arrayBuffer();
+    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    audioFeatures = await spice.getAudioFeatures(audioBuffer);
+    printJSONObj('audio_features', audioFeatures);
+    displayButtons();
+  }
+
+  function displayButtons() {
+    docum
