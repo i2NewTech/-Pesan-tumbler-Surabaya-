@@ -109,4 +109,12 @@ window.onload = () => {
   }
 
   function displayButtons() {
-    docum
+    document.getElementById('buttons').style.display = 'block';
+
+    document.getElementById('button_violin')
+        .addEventListener(
+            'click', () => toneTransfer(`${PRESET_MODEL_URL}/${MODEL.VIOLIN}`));
+    document.getElementById('button_tenor_saxophone')
+        .addEventListener(
+            'click',
+            () => toneTransfer(`${PRESET_MO
