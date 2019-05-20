@@ -117,4 +117,11 @@ window.onload = () => {
     document.getElementById('button_tenor_saxophone')
         .addEventListener(
             'click',
-            () => toneTransfer(`${PRESET_MO
+            () => toneTransfer(`${PRESET_MODEL_URL}/${MODEL.TENOR_SAXOPHONE}`));
+    document.getElementById('button_flute')
+        .addEventListener(
+            'click', () => toneTransfer(`${PRESET_MODEL_URL}/${MODEL.FLUTE}`));
+    document.getElementById('button_trumpet')
+        .addEventListener(
+            'click',
+            () => tone
