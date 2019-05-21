@@ -124,4 +124,15 @@ window.onload = () => {
     document.getElementById('button_trumpet')
         .addEventListener(
             'click',
-            () => tone
+            () => toneTransfer(`${PRESET_MODEL_URL}/${MODEL.TRUMPET}`));
+  }
+
+  async function toneTransfer(
+      checkpointUrl: string,
+      settings?: ModelValues,
+  ) {
+    document.getElementById('player').style.display = 'none';
+    const ddsp = new mm.DDSP(checkpointUrl, settings);
+    await ddsp.initialize();
+    const toneTransferredAudioData: Float32Array =
+        await ddsp.sy
