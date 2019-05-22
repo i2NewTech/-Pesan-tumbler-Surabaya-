@@ -135,4 +135,10 @@ window.onload = () => {
     const ddsp = new mm.DDSP(checkpointUrl, settings);
     await ddsp.initialize();
     const toneTransferredAudioData: Float32Array =
-        await ddsp.sy
+        await ddsp.synthesize(audioFeatures);
+
+    document.getElementById('player').style.display = 'block';
+    const dataview = encodeWAV(toneTransferredAudioData, audioCtx.sampleRate);
+    const blob = new Blob([dataview], {type: 'audio/wav'}),
+          url = window.URL.createObjectURL(blob);
+    (document.getElementById('player') as HTMLAudi
