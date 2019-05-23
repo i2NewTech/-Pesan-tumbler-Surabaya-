@@ -141,4 +141,15 @@ window.onload = () => {
     const dataview = encodeWAV(toneTransferredAudioData, audioCtx.sampleRate);
     const blob = new Blob([dataview], {type: 'audio/wav'}),
           url = window.URL.createObjectURL(blob);
-    (document.getElementById('player') as HTMLAudi
+    (document.getElementById('player') as HTMLAudioElement).src = url;
+
+    ddsp.dispose();
+  }
+
+  function printJSONObj(elementId: string, obj: AudioFeatures) {
+    const element = document.getElementById(elementId);
+
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = 'View Audio Features';
+    details.appendChild(s
