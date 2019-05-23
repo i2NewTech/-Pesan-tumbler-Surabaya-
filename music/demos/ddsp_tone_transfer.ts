@@ -152,4 +152,14 @@ window.onload = () => {
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     summary.textContent = 'View Audio Features';
-    details.appendChild(s
+    details.appendChild(summary);
+
+    const seqText = document.createElement('span');
+    seqText.textContent = JSON.stringify(obj);
+    details.appendChild(seqText);
+    element.appendChild(details);
+  }
+
+  async function handleFileUpload(e: Event) {
+    if ((e.currentTarget as HTMLInputElement).files.length > 0) {
+      const file = (e.currentTarget a
