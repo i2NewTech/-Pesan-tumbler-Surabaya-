@@ -162,4 +162,12 @@ window.onload = () => {
 
   async function handleFileUpload(e: Event) {
     if ((e.currentTarget as HTMLInputElement).files.length > 0) {
-      const file = (e.currentTarget a
+      const file = (e.currentTarget as HTMLInputElement).files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener('load', async () => {
+        // convert uploaded file to blob
+        await fetch(`${reader.result}`)
+            .then((res) => res.blob())
+            .then((res) => {
+              readFileAndProcessAudio(reader.result as str
