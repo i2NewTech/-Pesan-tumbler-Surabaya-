@@ -170,4 +170,19 @@ window.onload = () => {
         await fetch(`${reader.result}`)
             .then((res) => res.blob())
             .then((res) => {
-              readFileAndProcessAudio(reader.result as str
+              readFileAndProcessAudio(reader.result as string);
+              return {
+                src: reader.result,
+                type: file.type,
+                blob: res,
+              };
+            })
+            .catch((err) => console.log(err));
+      }, false);
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+};
