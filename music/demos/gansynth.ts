@@ -27,4 +27,12 @@ const GANSYNTH_CHECKPOINT = `${CHECKPOINTS_DIR}/gansynth/acoustic_only`;
 mm.logging.setVerbosity(mm.logging.Level.DEBUG);
 
 async function plotSpectra(
-    spectra: tf.Tensor4D, canvasId: strin
+    spectra: tf.Tensor4D, canvasId: string, channel: number) {
+  const spectraPlot = tf.tidy(() => {
+    // Slice a single example.
+    const spectraSlice = tf.slice(spectra, [0, 0, 0, channel], [
+                             1, -1, -1, 1
+                           ]).reshape([128, 1024]);
+    let spectraPlot = spectraSlice as tf.Tensor3D;
+    // Scale to [0, 1].
+    spectraPlot = tf.sub(s
