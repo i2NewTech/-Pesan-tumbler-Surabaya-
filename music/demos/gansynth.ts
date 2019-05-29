@@ -15,4 +15,16 @@
  * limitations under the License.
  */
 import * as tf from '@tensorflow/tfjs';
-import * as To
+import * as Tone from 'tone';
+import {performance} from '../src/core/compat/global';
+
+import * as mm from '../src/index';
+
+import {CHECKPOINTS_DIR, writeMemory, writeTimer} from './common';
+
+const GANSYNTH_CHECKPOINT = `${CHECKPOINTS_DIR}/gansynth/acoustic_only`;
+
+mm.logging.setVerbosity(mm.logging.Level.DEBUG);
+
+async function plotSpectra(
+    spectra: tf.Tensor4D, canvasId: strin
