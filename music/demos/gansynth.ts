@@ -35,4 +35,14 @@ async function plotSpectra(
                            ]).reshape([128, 1024]);
     let spectraPlot = spectraSlice as tf.Tensor3D;
     // Scale to [0, 1].
-    spectraPlot = tf.sub(s
+    spectraPlot = tf.sub(spectraPlot, tf.min(spectraPlot));
+    spectraPlot = tf.div(spectraPlot, tf.max(spectraPlot));
+    return spectraPlot;
+  });
+  // Plot on canvas.
+  const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+  await tf.browser.toPixels(spectraPlot, canvas);
+  spectraPlot.dispose();
+}
+
+async function runGANSynth
