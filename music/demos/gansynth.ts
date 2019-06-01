@@ -45,4 +45,15 @@ async function plotSpectra(
   spectraPlot.dispose();
 }
 
-async function runGANSynth
+async function runGANSynth() {
+  const gansynth = new mm.GANSynth(GANSYNTH_CHECKPOINT);
+  await gansynth.initialize();
+
+  const start = performance.now();
+  const specgrams = await gansynth.randomSample(60);
+  const audio = await gansynth.specgramsToAudio(specgrams);
+  await writeTimer('single-sample-gen-time', start);
+
+  // Play sound.
+  const T = 4.0;
+  const SR = 16000
