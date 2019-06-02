@@ -56,4 +56,14 @@ async function runGANSynth() {
 
   // Play sound.
   const T = 4.0;
-  const SR = 16000
+  const SR = 16000;
+
+  const audioBuffer = Tone.context.createBuffer(1, T * SR, SR);
+  audioBuffer.copyToChannel(audio, 0, 0);
+  const options = {url: audioBuffer, loop: true, volume: -24};
+  const player = new Tone.Player(options).toDestination();
+
+  // Plotting.
+  await Promise.all([
+    plotSpectra(specgrams, 'mag-canvas', 0),
+    plotSpectra(specgrams, 'ifreq-canvas
