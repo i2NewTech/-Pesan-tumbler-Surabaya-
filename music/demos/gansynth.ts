@@ -83,4 +83,7 @@ async function runGANSynth() {
 }
 
 try {
-  Promise.all([runGANSynth()]).then(() => writeMemory(tf.
+  Promise.all([runGANSynth()]).then(() => writeMemory(tf.memory().numBytes));
+} catch (err) {
+  console.error(err);
+}
