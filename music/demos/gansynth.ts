@@ -66,4 +66,21 @@ async function runGANSynth() {
   // Plotting.
   await Promise.all([
     plotSpectra(specgrams, 'mag-canvas', 0),
-    plotSpectra(specgrams, 'ifreq-canvas
+    plotSpectra(specgrams, 'ifreq-canvas', 1),
+  ]);
+
+  // Connect GUI actions.
+  document.getElementById('start-button').addEventListener('click', () => {
+    player.start();
+  });
+  document.getElementById('stop-button').addEventListener('click', () => {
+    player.stop();
+  });
+
+  // Cleanup.
+  specgrams.dispose();
+  gansynth.dispose();
+}
+
+try {
+  Promise.all([runGANSynth()]).then(() => writeMemory(tf.
