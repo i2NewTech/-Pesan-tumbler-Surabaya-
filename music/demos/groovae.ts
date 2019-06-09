@@ -23,4 +23,14 @@ import {performance} from '../src/core/compat/global';
 import {CHECKPOINTS_DIR, DRUM_SEQS, writeMemory} from './common';
 import {writeNoteSeqs, writeTimer} from './common';
 
-const HUMANIZE_CKPT = `${CHECKPOINTS_DIR}/music_vae/groovae_u
+const HUMANIZE_CKPT = `${CHECKPOINTS_DIR}/music_vae/groovae_unquantize_4bar`;
+const TAP2DRUM_CKPT = `${CHECKPOINTS_DIR}/music_vae/groovae_tap2drum_2bar`;
+
+async function runHumanize() {
+  const inputs = DRUM_SEQS.map(ns => mm.sequences.clone(ns));
+  writeNoteSeqs('humanize-inputs', inputs, true);
+
+  const mvae = new mm.MusicVAE(HUMANIZE_CKPT);
+  await mvae.initialize();
+
+  let start = performance.n
