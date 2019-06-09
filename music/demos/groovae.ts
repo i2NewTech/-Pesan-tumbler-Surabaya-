@@ -11,4 +11,16 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language 
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import * as tf from '@tensorflow/tfjs';
+
+import * as mm from '../src/index';
+import {performance} from '../src/core/compat/global';
+
+import {CHECKPOINTS_DIR, DRUM_SEQS, writeMemory} from './common';
+import {writeNoteSeqs, writeTimer} from './common';
+
+const HUMANIZE_CKPT = `${CHECKPOINTS_DIR}/music_vae/groovae_u
