@@ -33,4 +33,14 @@ async function runHumanize() {
   const mvae = new mm.MusicVAE(HUMANIZE_CKPT);
   await mvae.initialize();
 
-  let start = performance.n
+  let start = performance.now();
+  const z = await mvae.encode(inputs);
+  const recon = await mvae.decode(z);
+  z.dispose();
+  writeTimer('humanize-recon-time', start);
+  writeNoteSeqs('humanize-recon', recon, true, true);
+
+  start = performance.now();
+  const sample = await mvae.sample(4);
+  writeTimer('humanize-sample-time', start);
+  writeNoteSeqs
