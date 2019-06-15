@@ -43,4 +43,17 @@ async function runHumanize() {
   start = performance.now();
   const sample = await mvae.sample(4);
   writeTimer('humanize-sample-time', start);
-  writeNoteSeqs
+  writeNoteSeqs('humanize-samples', sample, true, true);
+
+  mvae.dispose();
+}
+
+async function runTap2Drum() {
+  const mvae = new mm.MusicVAE(TAP2DRUM_CKPT);
+  await mvae.initialize();
+
+  // "Tapify" the inputs, collapsing them to hi-hat.
+  const inputs = await Promise.all(DRUM_SEQS.map(
+      ns =>
+          mvae.dataConverter.toNoteSequence(mvae.dataConverter.toTensor(ns))));
+  writeNoteSeqs('tap2drum-inp
