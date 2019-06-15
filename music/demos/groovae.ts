@@ -56,4 +56,15 @@ async function runTap2Drum() {
   const inputs = await Promise.all(DRUM_SEQS.map(
       ns =>
           mvae.dataConverter.toNoteSequence(mvae.dataConverter.toTensor(ns))));
-  writeNoteSeqs('tap2drum-inp
+  writeNoteSeqs('tap2drum-inputs', inputs, true);
+
+  let start = performance.now();
+  const z = await mvae.encode(inputs);
+  const recon = await mvae.decode(z);
+  z.dispose();
+  writeTimer('tap2drum-recon-time', start);
+  writeNoteSeqs('tap2drum-recon', recon, true, true);
+
+  start = performance.now();
+  const sample = await mvae.sample(4);
+  writeTimer('tap2drum-sample-time', st
