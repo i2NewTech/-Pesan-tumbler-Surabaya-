@@ -67,4 +67,15 @@ async function runTap2Drum() {
 
   start = performance.now();
   const sample = await mvae.sample(4);
-  writeTimer('tap2drum-sample-time', st
+  writeTimer('tap2drum-sample-time', start);
+  writeNoteSeqs('tap2drum-samples', sample, true, true);
+
+  mvae.dispose();
+}
+
+try {
+  Promise.all([runHumanize(), runTap2Drum()])
+      .then(() => writeMemory(tf.memory().numBytes));
+} catch (err) {
+  console.error(err);
+}
