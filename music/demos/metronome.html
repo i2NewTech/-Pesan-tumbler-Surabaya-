@@ -36,4 +36,14 @@ limitations under the License.
 <body>
   <h1>mm.Metronome</h1>
   <p>
-    <code>mm.Metronome</code> allows you to to keep ti
+    <code>mm.Metronome</code> allows you to to keep time and produce an audible
+    click at a regular interval.
+  </p>
+
+  <section>
+    <p id="controls">
+      <b>Clicks/quarter:</b> <input id="clicksPerQuarter" value="1">
+      <b>Tempo:</b>
+      <input type="range" id="tempo" min="20" max="240" value="120" step="1"
+      oninput="tempoValue.value = tempo.value">
+      <output id="tempoValue"
