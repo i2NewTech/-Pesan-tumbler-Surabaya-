@@ -260,3 +260,55 @@ async function generateAllButton() {
 async function generateMelControlsButton() {
   const melControlsButton = document.createElement('button');
   melControlsButton.textContent = 'Generate Multi-Conditioned Melody';
+  melControlsButton.addEventListener('click', () => {
+    runMelControls();
+    melControlsButton.disabled = true;
+  });
+  const melControlsDiv = document.getElementById('generate-melody-controls');
+  melControlsDiv.appendChild(melControlsButton);
+}
+
+async function generateMelRhythmButton() {
+  const melRhythmButton = document.createElement('button');
+  melRhythmButton.textContent = 'Generate Rhythm';
+  melRhythmButton.addEventListener('click', () => {
+    runMelRhythm();
+    melRhythmButton.disabled = true;
+  });
+  const melRhythmDiv = document.getElementById('generate-melody-rhythm');
+  melRhythmDiv.appendChild(melRhythmButton);
+}
+
+async function generateMelShapeButton() {
+  const melShapeButton = document.createElement('button');
+  melShapeButton.textContent = 'Generate Shape';
+  melShapeButton.addEventListener('click', () => {
+    runMelShape();
+    melShapeButton.disabled = true;
+  });
+  const melShapeDiv = document.getElementById('generate-melody-shape');
+  melShapeDiv.appendChild(melShapeButton);
+}
+
+async function generateMelMultiButton() {
+  const melMultiButton = document.createElement('button');
+  melMultiButton.textContent = 'Generate Rhythm, Shape, and Melody';
+  melMultiButton.addEventListener('click', () => {
+    runMelMulti();
+    melMultiButton.disabled = true;
+  });
+  const melMultiDiv = document.getElementById('generate-melody-multi');
+  melMultiDiv.appendChild(melMultiButton);
+}
+
+try {
+  Promise
+      .all([
+        generateAllButton(), generateMelControlsButton(),
+        generateMelRhythmButton(), generateMelShapeButton(),
+        generateMelMultiButton()
+      ])
+      .then(() => writeMemory(tf.memory().numBytes));
+} catch (err) {
+  console.error(err);
+}
