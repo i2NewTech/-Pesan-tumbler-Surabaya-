@@ -46,4 +46,21 @@ limitations under the License.
       <b>Tempo:</b>
       <input type="range" id="tempo" min="20" max="240" value="120" step="1"
       oninput="tempoValue.value = tempo.value">
-      <output id="tempoValue"
+      <output id="tempoValue">60</output>
+    </p>
+    <button id="btn">Start</button>
+    <b>Mute</b> <input type="checkbox" id="muteClick"></label>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Event</td>
+          <td>Value</td>
+          <td>Time</td>
+        </tr>
+      </thead>
+      <tbody id="output"></tbody>
+    </table>
+  </section>
+</body>
+  <script src="metronome_b
