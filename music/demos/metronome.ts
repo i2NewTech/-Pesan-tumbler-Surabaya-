@@ -13,4 +13,15 @@ document.getElementById('btn').addEventListener('click', (event) => {
   } else {
     btn.textContent = 'stop';
     document.getElementById('output').innerHTML = '';
-    document.getElementById('controls').setAttribute('disabled', 'true')
+    document.getElementById('controls').setAttribute('disabled', 'true');
+    const tempoSlider = document.getElementById('tempo') as HTMLInputElement;
+    const clicksInput =
+        document.getElementById('clicksPerQuarter') as HTMLInputElement;
+
+    metronome.clicksPerQuarter = Number(clicksInput.value);
+    metronome.start(Number(tempoSlider.value));
+  }
+});
+
+document.getElementById('muteClick')
+    .addEventListe
