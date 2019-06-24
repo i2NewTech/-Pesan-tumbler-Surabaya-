@@ -24,4 +24,13 @@ document.getElementById('btn').addEventListener('click', (event) => {
 });
 
 document.getElementById('muteClick')
-    .addEventListe
+    .addEventListener('change', (event: MouseEvent) => {
+      const checkbox = event.target as HTMLInputElement;
+      metronome.muted = checkbox.checked;
+    });
+
+function onClick(time: number, click: number) {
+  logEvent('Click', `${click + 1}/${metronome.clicksPerQuarter * 4}`, time);
+}
+function onQuarter(time: number, quarter: number) {
+  logEvent('Quarter', `${quarter + 1}/4`, time
