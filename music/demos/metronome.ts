@@ -41,4 +41,6 @@ function onBar(time: number, bar: number) {
 function logEvent(type: string, text: string, time: number) {
   const tr = document.createElement('tr');
   tr.innerHTML = `<td>${type}</td><td>${text}</td><td>${time.toFixed(5)}</td>`;
-  tr.classList.add(type.toL
+  tr.classList.add(type.toLowerCase());
+  output.appendChild(tr);
+}
