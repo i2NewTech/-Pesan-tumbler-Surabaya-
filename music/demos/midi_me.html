@@ -30,4 +30,16 @@ limitations under the License.
   <h1>MidiME</h1>
   <p><code>MidiME</code> is a variational autoencoder that lets you personalize
     your own <code>MusicVAE</code> model with just a little data, so that samples
-    from <code>MidiME</code> sound closer to your provided data. Normally tra
+    from <code>MidiME</code> sound closer to your provided data. Normally training
+    a <code>MusicVAE</code> model with new data would take days on a big GPU and
+    millions of data points, but with <code>MidiME</code> you can do it
+    with a single MIDI file, and directly in the browser. </p>
+  <h2>Input data</h2>
+  <p><code>MidiME</code> works in parallel with a <code>MusicVAE</code> model,
+  so the kind of results you get depend on which <code>MusicVAE</code> checkpoint
+  you use. Here, we give examples of both training on melodies (the "monophonic"
+  section), and multi-instrument trios (the "polyphonic" section).</p>
+  <h2>1. Monophonic models</h2>
+  <section>
+    <p>This is what you want the samples to sound like. For this example we
+      are using the <code>mel_2bar_small</code> 
