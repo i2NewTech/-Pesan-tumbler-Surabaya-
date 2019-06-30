@@ -42,4 +42,9 @@ limitations under the License.
   <h2>1. Monophonic models</h2>
   <section>
     <p>This is what you want the samples to sound like. For this example we
-      are using the <code>mel_2bar_small</code> 
+      are using the <code>mel_2bar_small</code> checkpoint, which is
+      monophonic -- if you use a polyphonic MIDI file, you're not
+      guaranteed to reconstruct the "main" melody, just a single instrument.</p>
+      <p>Try training on a single full song to get outputs that sound like
+        variations on it, or train on multiple songs to get samples that
+        
