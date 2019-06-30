@@ -56,4 +56,14 @@ limitations under the License.
   </section>
 
   <h2>Training</h2>
-  <p>The MidiMe model works by training a variational autoe
+  <p>The MidiMe model works by training a variational autoencoder in the
+    browser. The more steps you train for, the better the input reconstruction will be.
+    <button id="mel_train" disabled>start training</button>
+  </p>
+  <section>
+    <svg id="mel_graph"></svg>
+  </section>
+
+  <h2>Input reconstruction</h2>
+  <section>
+    <p><b>Before training:
