@@ -47,4 +47,13 @@ limitations under the License.
       guaranteed to reconstruct the "main" melody, just a single instrument.</p>
       <p>Try training on a single full song to get outputs that sound like
         variations on it, or train on multiple songs to get samples that
-        
+        combine various characteristics of them.</p>
+    <label class="button" id="mel_fileBtn" disabled>
+      Load midi file(s)
+      <input type="file" id="mel_fileInput" multiple>
+    </label>
+    <p><code id="mel_input"></code>
+  </section>
+
+  <h2>Training</h2>
+  <p>The MidiMe model works by training a variational autoe
