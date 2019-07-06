@@ -87,4 +87,14 @@ limitations under the License.
     <p>In this example we are using the <code>trio_4bar</code> checkpoint, which
       uses 3 different instruments. You will notice in these results that
       the reconstruction of your original melody is far worse (and might not
-      even won't necessarily sound like the input), but 
+      even won't necessarily sound like the input), but the random samples
+      are significantly more musical, and contain patterns from the original</p>
+    <label class="button" id="trio_fileBtn" disabled>
+      Load midi file(s)
+      <input type="file" id="trio_fileInput" multiple>
+    </label>
+    <p><code id="trio_input"></code>
+  </section>
+
+  <h2>Training</h2>
+  <p>We will again train a variational autoenc
