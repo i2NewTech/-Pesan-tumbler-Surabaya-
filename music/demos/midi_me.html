@@ -107,4 +107,11 @@ limitations under the License.
   </section>
 
   <h2>Input reconstruction</h2>
-  <p>You'll notice that unlike the monophonic case, th
+  <p>You'll notice that unlike the monophonic case, the reconstruction in
+    this case is far worse. This is because this particular MusicVAE checkpoint
+    is well suited for sampling, but not for data reconstruction (you can think
+    of it as a lossier encoding of the training data).
+  </p>
+  <section>
+    <p><b>Before training:</b> <code id="trio_pre-training"></code></p>
+    <p><b>After 
