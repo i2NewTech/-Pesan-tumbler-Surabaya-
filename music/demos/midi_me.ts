@@ -52,4 +52,14 @@ mvae.initialize().then(() => {
   document.getElementById('trio_fileBtn').removeAttribute('disabled');
 });
 
-const melModel = new mm.Midi
+const melModel = new mm.MidiMe({epochs: 100});
+melModel.initialize();
+const trioModel = new mm.MidiMe({epochs: 300});
+trioModel.initialize();
+
+// Where we will store the loaded input so that we can train on it.
+let inputMelodies: NoteSequence[] = [];
+let inputTrios: NoteSequence[] = [];
+
+function loadFile(inputElement: HTMLInputElement, prefix: string) {
+  document.getElementById(`${prefix}_file
