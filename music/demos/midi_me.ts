@@ -40,4 +40,16 @@ const trioFileInput =
 trioFileInput.addEventListener('change', () => loadFile(trioFileInput, 'trio'));
 
 document.getElementById('mel_train').addEventListener('click', trainMelody);
-document.getElementById('trio_train').addEventListener('click', trainTri
+document.getElementById('trio_train').addEventListener('click', trainTrio);
+
+// Initialize models.
+const mvae = new mm.MusicVAE(MEL_CKPT);
+mvae.initialize().then(() => {
+  document.getElementById('mel_fileBtn').removeAttribute('disabled');
+});
+const triovae = new mm.MusicVAE(TRIO_CKPT);
+mvae.initialize().then(() => {
+  document.getElementById('trio_fileBtn').removeAttribute('disabled');
+});
+
+const melModel = new mm.Midi
