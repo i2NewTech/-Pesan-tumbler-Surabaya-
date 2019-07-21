@@ -23,4 +23,15 @@ import {blobToNoteSequence, MidiMe, MusicVAE, NoteSequence} from '../src/index';
 import {quantizeNoteSequence} from '../src/core/sequences';
 
 // tslint:disable-next-line:max-line-length
-import {CHECKPOINTS_DIR, visualizeNoteSeqs, writeTim
+import {CHECKPOINTS_DIR, visualizeNoteSeqs, writeTimer} from './common';
+import {updateGraph} from './common_graph';
+
+const MEL_CKPT = `${CHECKPOINTS_DIR}/music_vae/mel_2bar_small`;
+const TRIO_CKPT = `${CHECKPOINTS_DIR}/music_vae/trio_4bar`;
+const MEL_BARS = 2;
+const TRIO_BARS = 4;
+
+// Event listeners.
+const melFileInput =
+    document.getElementById('mel_fileInput') as HTMLInputElement;
+melFileInput.addEve
