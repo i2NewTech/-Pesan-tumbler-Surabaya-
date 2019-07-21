@@ -17,4 +17,10 @@
 
 import * as tf from '@tensorflow/tfjs';
 
-im
+import * as mm from '../src/index';
+import {performance} from '../src/core/compat/global';
+import {blobToNoteSequence, MidiMe, MusicVAE, NoteSequence} from '../src/index';
+import {quantizeNoteSequence} from '../src/core/sequences';
+
+// tslint:disable-next-line:max-line-length
+import {CHECKPOINTS_DIR, visualizeNoteSeqs, writeTim
