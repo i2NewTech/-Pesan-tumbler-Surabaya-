@@ -34,4 +34,10 @@ const TRIO_BARS = 4;
 // Event listeners.
 const melFileInput =
     document.getElementById('mel_fileInput') as HTMLInputElement;
-melFileInput.addEve
+melFileInput.addEventListener('change', () => loadFile(melFileInput, 'mel'));
+const trioFileInput =
+    document.getElementById('trio_fileInput') as HTMLInputElement;
+trioFileInput.addEventListener('change', () => loadFile(trioFileInput, 'trio'));
+
+document.getElementById('mel_train').addEventListener('click', trainMelody);
+document.getElementById('trio_train').addEventListener('click', trainTri
