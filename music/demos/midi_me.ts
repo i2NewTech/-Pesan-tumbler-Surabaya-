@@ -62,4 +62,15 @@ let inputMelodies: NoteSequence[] = [];
 let inputTrios: NoteSequence[] = [];
 
 function loadFile(inputElement: HTMLInputElement, prefix: string) {
-  document.getElementById(`${prefix}_file
+  document.getElementById(`${prefix}_fileBtn`).setAttribute('disabled', '');
+  const promises = [];
+  for (let i = 0; i < inputElement.files.length; i++) {
+    promises.push(blobToNoteSequence(inputElement.files[i]));
+  }
+  Promise.all(promises).then((mels) => {
+    if (prefix === 'mel') {
+      inputMelodies = mels;
+    } else {
+      inputTrios = mels;
+    }
+    visualizeNoteSeqs(`${prefix}_input`, 
