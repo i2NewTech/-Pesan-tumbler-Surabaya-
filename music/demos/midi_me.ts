@@ -73,4 +73,18 @@ function loadFile(inputElement: HTMLInputElement, prefix: string) {
     } else {
       inputTrios = mels;
     }
-    visualizeNoteSeqs(`${prefix}_input`, 
+    visualizeNoteSeqs(`${prefix}_input`, mels, true);
+    document.getElementById(`${prefix}_train`).removeAttribute('disabled');
+  });
+}
+
+function trainMelody() {
+  train(inputMelodies, mvae, melModel, 'mel');
+}
+function trainTrio() {
+  train(inputTrios, triovae, trioModel, 'trio');
+}
+
+async function train(
+    mel: NoteSequence[], vae: MusicVAE, midime: MidiMe, prefix: string) {
+  const start = p
