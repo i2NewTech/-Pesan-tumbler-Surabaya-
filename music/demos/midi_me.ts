@@ -87,4 +87,13 @@ function trainTrio() {
 
 async function train(
     mel: NoteSequence[], vae: MusicVAE, midime: MidiMe, prefix: string) {
-  const start = p
+  const start = performance.now();
+
+  // 1. Encode the input into MusicVAE, get back a z.
+  const quantizedMels: NoteSequence[] = [];
+  mel.forEach((m) => quantizedMels.push(quantizeNoteSequence(m, 4)));
+
+  // 1b. Split this sequence into 32 bar chunks.
+  let chunks: NoteSequence[] = [];
+  quantizedMels.forEach((m) => {
+    const length = pr
