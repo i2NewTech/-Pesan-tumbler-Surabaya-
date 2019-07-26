@@ -104,4 +104,14 @@ async function train(
 
   // 2. Use that z as input to train MidiMe.
   // Reconstruction before training.
-  const z1 = midime.pred
+  const z1 = midime.predict(z) as tf.Tensor2D;
+  const ns1 = await vae.decode(z1);
+  visualizeNoteSeqs(
+      `${prefix}_pre-training`, [mm.sequences.concatenate(ns1)], true);
+  z1.dispose();
+
+  // 3. Train!
+  const losses: number[] = [];
+
+  // tslint:disable-next-line:no-any
+  await midime.train(z, async (epoch: number, l
