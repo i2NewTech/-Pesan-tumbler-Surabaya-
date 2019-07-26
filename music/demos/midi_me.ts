@@ -96,4 +96,12 @@ async function train(
   // 1b. Split this sequence into 32 bar chunks.
   let chunks: NoteSequence[] = [];
   quantizedMels.forEach((m) => {
-    const length = pr
+    const length = prefix === 'mel' ? 16 * MEL_BARS : 16 * TRIO_BARS;
+    const melChunks = mm.sequences.split(mm.sequences.clone(m), length);
+    chunks = chunks.concat(melChunks);
+  });
+  const z = await vae.encode(chunks);  // shape of z is [chunks, 256]
+
+  // 2. Use that z as input to train MidiMe.
+  // Reconstruction before training.
+  const z1 = midime.pred
