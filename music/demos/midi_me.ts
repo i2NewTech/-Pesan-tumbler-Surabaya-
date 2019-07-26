@@ -114,4 +114,13 @@ async function train(
   const losses: number[] = [];
 
   // tslint:disable-next-line:no-any
-  await midime.train(z, async (epoch: number, l
+  await midime.train(z, async (epoch: number, logs: any) => {
+    losses.push(logs.total);
+    updateGraph(losses, `${prefix}_graph`);
+  });
+
+  // 4. Check reconstruction after training.
+  const z2 = midime.predict(z) as tf.Tensor2D;
+  const ns2 = await vae.decode(z2);
+  visualizeNoteSeqs(
+      `${prefix}_post-training`, [mm.sequences.concatenate(ns2)], true);
