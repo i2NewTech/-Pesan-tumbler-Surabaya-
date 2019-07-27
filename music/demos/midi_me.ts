@@ -124,3 +124,13 @@ async function train(
   const ns2 = await vae.decode(z2);
   visualizeNoteSeqs(
       `${prefix}_post-training`, [mm.sequences.concatenate(ns2)], true);
+  z2.dispose();
+
+  writeTimer(`${prefix}_training-time`, start);
+
+  // 5. Sample from MidiMe
+  const sample11 = await midime.sample(1) as tf.Tensor2D;
+  const sample12 = await midime.sample(1) as tf.Tensor2D;
+  const sample13 = await midime.sample(1) as tf.Tensor2D;
+  const sample14 = await midime.sample(1) as tf.Tensor2D;
+  const sample15 = await midime.sample(1)
