@@ -158,4 +158,9 @@ async function train(
   // 5. Sample from MusicVAE.
   const sample2 = await vae.sample(1);
   visualizeNoteSeqs(
-      
+      `${prefix}_sample-musicvae`, [mm.sequences.concatenate(sample2)], true);
+
+  z.dispose();
+  vae.dispose();
+  midime.dispose();
+}
