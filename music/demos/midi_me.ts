@@ -133,4 +133,15 @@ async function train(
   const sample12 = await midime.sample(1) as tf.Tensor2D;
   const sample13 = await midime.sample(1) as tf.Tensor2D;
   const sample14 = await midime.sample(1) as tf.Tensor2D;
-  const sample15 = await midime.sample(1)
+  const sample15 = await midime.sample(1) as tf.Tensor2D;
+
+  const ns31 = await vae.decode(sample11);
+  const ns32 = await vae.decode(sample12);
+  const ns33 = await vae.decode(sample13);
+  const ns34 = await vae.decode(sample14);
+  const ns35 = await vae.decode(sample15);
+
+  visualizeNoteSeqs(
+      `${prefix}_sample-midime`,
+      [
+        mm.sequences.concatenate(ns31), mm.sequences.con
