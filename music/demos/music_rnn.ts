@@ -17,4 +17,13 @@
 
 import * as tf from '@tensorflow/tfjs';
 
-import 
+import * as mm from '../src/index';
+import {performance} from '../src/core/compat/global';
+
+import {CHECKPOINTS_DIR} from './common';
+import {writeMemory, writeNoteSeqs, writeTimer} from './common';
+
+mm.logging.setVerbosity(mm.logging.Level.DEBUG);
+
+const MEL_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/basic_rnn`;
+const DRUMS_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/drum_kit
