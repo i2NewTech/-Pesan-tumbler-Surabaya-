@@ -39,3 +39,23 @@ const MELODY_NS: mm.INoteSequence = {
       instrument: 0,
       program: 0,
       startTime: 0,
+      endTime: 0.5,
+      pitch: 60,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.5,
+      endTime: 1.0,
+      pitch: 60,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 1.0,
+      endTime: 1.5,
+      pitch
