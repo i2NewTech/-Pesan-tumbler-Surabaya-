@@ -58,4 +58,23 @@ const MELODY_NS: mm.INoteSequence = {
       program: 0,
       startTime: 1.0,
       endTime: 1.5,
-      pitch
+      pitch: 67,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 1.5,
+      endTime: 2.0,
+      pitch: 67,
+      velocity: 100,
+      isDrum: false
+    }
+  ]
+};
+
+const DRUMS_NS: mm.INoteSequence = {
+  ticksPerQuarter: 220,
+  totalTime: 1.5,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
