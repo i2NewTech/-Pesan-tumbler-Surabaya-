@@ -26,4 +26,16 @@ import {writeMemory, writeNoteSeqs, writeTimer} from './common';
 mm.logging.setVerbosity(mm.logging.Level.DEBUG);
 
 const MEL_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/basic_rnn`;
-const DRUMS_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/drum_kit
+const DRUMS_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/drum_kit_rnn`;
+const IMPROV_CHECKPOINT = `${CHECKPOINTS_DIR}/music_rnn/chord_pitches_improv`;
+
+const MELODY_NS: mm.INoteSequence = {
+  ticksPerQuarter: 220,
+  totalTime: 1.5,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  notes: [
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0,
