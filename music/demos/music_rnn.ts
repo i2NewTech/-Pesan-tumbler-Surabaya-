@@ -78,3 +78,19 @@ const DRUMS_NS: mm.INoteSequence = {
   ticksPerQuarter: 220,
   totalTime: 1.5,
   timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  notes: [
+    {startTime: 0, endTime: 0.5, pitch: 35, velocity: 100, isDrum: true}, {
+      instrument: 0,
+      startTime: 0.5,
+      endTime: 1.0,
+      pitch: 39,
+      velocity: 100,
+      isDrum: true
+    },
+    {
+      instrument: 0,
+      startTime: 0.5,
+      endTime: 1.0,
+      pitch: 43,
+      velocity: 100,
