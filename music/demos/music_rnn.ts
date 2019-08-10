@@ -111,3 +111,17 @@ const DRUMS_NS: mm.INoteSequence = {
       pitch: 43,
       velocity: 100,
       isDrum: true
+    }
+  ]
+};
+
+async function runMelodyRnn() {
+  // Display the input.
+  const qns = mm.sequences.quantizeNoteSequence(MELODY_NS, 4);
+  writeNoteSeqs('melody-cont-inputs', [qns]);
+
+  const melodyRnn = new mm.MusicRNN(MEL_CHECKPOINT);
+  await melodyRnn.initialize();
+
+  const start = performance.now();
+  const continuation = await melodyRnn.cont
