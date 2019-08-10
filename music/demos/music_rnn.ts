@@ -94,3 +94,20 @@ const DRUMS_NS: mm.INoteSequence = {
       endTime: 1.0,
       pitch: 43,
       velocity: 100,
+      isDrum: true
+    },
+    {startTime: 1.0, endTime: 1.5, pitch: 35, velocity: 100, isDrum: true}, {
+      instrument: 0,
+      startTime: 1.5,
+      endTime: 2.0,
+      pitch: 39,
+      velocity: 100,
+      isDrum: true
+    },
+    {
+      instrument: 0,
+      startTime: 1.5,
+      endTime: 2.0,
+      pitch: 43,
+      velocity: 100,
+      isDrum: true
