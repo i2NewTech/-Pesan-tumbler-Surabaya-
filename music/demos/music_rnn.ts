@@ -135,4 +135,16 @@ async function runDrumsRnn() {
   const qns = mm.sequences.quantizeNoteSequence(DRUMS_NS, 4);
   writeNoteSeqs('drums-cont-inputs', [qns]);
 
-  const drumsRnn = new mm.MusicRNN(DRUMS
+  const drumsRnn = new mm.MusicRNN(DRUMS_CHECKPOINT);
+  await drumsRnn.initialize();
+
+  const start = performance.now();
+  const continuation = await drumsRnn.continueSequence(qns, 20);
+  writeTimer('drums-cont-time', start);
+  writeNoteSeqs('drums-cont-results', [continuation]);
+  drumsRnn.dispose();
+}
+
+async function runImprovRnn() {
+  // Display the input.
+  const qns = mm.sequences.quantizeNoteSe
