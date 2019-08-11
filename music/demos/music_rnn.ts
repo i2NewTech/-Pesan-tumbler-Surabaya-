@@ -124,4 +124,15 @@ async function runMelodyRnn() {
   await melodyRnn.initialize();
 
   const start = performance.now();
-  const continuation = await melodyRnn.cont
+  const continuation = await melodyRnn.continueSequence(qns, 20);
+  writeTimer('melody-cont-time', start);
+  writeNoteSeqs('melody-cont-results', [continuation]);
+  melodyRnn.dispose();
+}
+
+async function runDrumsRnn() {
+  // Display the input.
+  const qns = mm.sequences.quantizeNoteSequence(DRUMS_NS, 4);
+  writeNoteSeqs('drums-cont-inputs', [qns]);
+
+  const drumsRnn = new mm.MusicRNN(DRUMS
