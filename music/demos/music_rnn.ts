@@ -156,4 +156,18 @@ async function runImprovRnn() {
   const start = performance.now();
   const continuation = await improvRnn.continueSequence(qns, 20, 1.0, ['Cm']);
   writeTimer('improv-cont-time', start);
-  
+  writeNoteSeqs('improv-cont-results', [continuation]);
+  improvRnn.dispose();
+}
+
+try {
+  Promise
+      .all([
+        runMelodyRnn(),
+        runDrumsRnn(),
+        runImprovRnn(),
+      ])
+      .then(() => writeMemory(tf.memory().numBytes));
+} catch (err) {
+  console.error(err);
+}
