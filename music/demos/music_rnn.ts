@@ -147,4 +147,13 @@ async function runDrumsRnn() {
 
 async function runImprovRnn() {
   // Display the input.
-  const qns = mm.sequences.quantizeNoteSe
+  const qns = mm.sequences.quantizeNoteSequence(MELODY_NS, 4);
+  writeNoteSeqs('improv-cont-inputs', [qns]);
+
+  const improvRnn = new mm.MusicRNN(IMPROV_CHECKPOINT);
+  await improvRnn.initialize();
+
+  const start = performance.now();
+  const continuation = await improvRnn.continueSequence(qns, 20, 1.0, ['Cm']);
+  writeTimer('improv-cont-time', start);
+  
