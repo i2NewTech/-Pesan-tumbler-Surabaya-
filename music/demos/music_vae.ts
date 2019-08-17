@@ -241,3 +241,60 @@ async function generateMelButton() {
   });
   const melDiv = document.getElementById('generate-melody');
   melDiv.appendChild(melButton);
+}
+
+async function generateMelChordsButton() {
+  const melChordsButton = document.createElement('button');
+  melChordsButton.textContent = 'Generate Chord-Conditioned Melody';
+  melChordsButton.addEventListener('click', () => {
+    runMelChords();
+    melChordsButton.disabled = true;
+  });
+  const melChordsDiv = document.getElementById('generate-melody-chord');
+  melChordsDiv.appendChild(melChordsButton);
+}
+
+async function generateMel16Button() {
+  const mel16Button = document.createElement('button');
+  mel16Button.textContent = 'Generate Melody 16-bar';
+  mel16Button.addEventListener('click', () => {
+    runMel16();
+    mel16Button.disabled = true;
+  });
+  const mel16Div = document.getElementById('generate-melody-16');
+  mel16Div.appendChild(mel16Button);
+}
+
+async function generateTrio2Button() {
+  const trio2Button = document.createElement('button');
+  trio2Button.textContent = 'Generate Trio 2-bar';
+  trio2Button.addEventListener('click', () => {
+    runTrio2();
+    trio2Button.disabled = true;
+  });
+  const trio2Div = document.getElementById('generate-trio-2');
+  trio2Div.appendChild(trio2Button);
+}
+
+async function generateTrioButton() {
+  const trioButton = document.createElement('button');
+  trioButton.textContent = 'Generate Trio 4-bar';
+  trioButton.addEventListener('click', () => {
+    runTrio();
+    trioButton.disabled = true;
+  });
+  const trioDiv = document.getElementById('generate-trio');
+  trioDiv.appendChild(trioButton);
+}
+
+try {
+  Promise
+      .all([
+        generateAllButton(), generateDrumsButton(), generateDrumsNadeButton(),
+        generateMelButton(), generateMelChordsButton(), generateMel16Button(),
+        generateTrio2Button(), generateTrioButton()
+      ])
+      .then(() => writeMemory(tf.memory().numBytes));
+} catch (err) {
+  console.error(err);
+}
