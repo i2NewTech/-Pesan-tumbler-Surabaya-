@@ -56,3 +56,74 @@ limitations under the License.
   </section>
 
   <h2>Melody OneHot</h2>
+  <section>
+    <h3>Interpolation (5 steps) <span id="generate-melody"></span></h3>
+
+    <p><b>Input:</b> <code id="mel-inputs"></code></p>
+    <p><b>Result:</b> <code id="mel-interp"></code></p>
+    <p><b>It took:</b> <code id="mel-interp-time"></code></p>
+
+    <h3>Sampling</h3>
+    <p><b>It took:</b> <code id="mel-sample-time"></code></p>
+    <p><b>Samples:</b> <code id="mel-samples"></code></p>
+  </section>
+
+  <h2>Chord-Conditioned Melody OneHot</h2>
+  <section>
+    <h3>Interpolation (5 steps) <span id="generate-melody-chord"></span></h3>
+
+    <p><b>Input:</b> <code id="mel-chords-inputs"></code></p>
+    <p><b>Result:</b> <code id="mel-chords-interp"></code></p>
+    <p><b>It took:</b> <code id="mel-chords-interp-time"></code></p>
+
+    <h3>Sampling</h3>
+    <p><b>It took:</b> <code id="mel-chords-sample-time"></code></p>
+    <p><b>Samples:</b> <code id="mel-chords-samples"></code></p>
+  </section>
+
+  <section>
+    <h2>Melody 16-bar Conductor OneHot</h2>
+    <h3>Interpolation (5 steps) <span id="generate-melody-16"></span></h3>
+
+    <p><b>Input:</b> <code id="mel16-inputs"></code></p>
+    <p><b>Result:</b> <code id="mel16-interp"></code></p>
+    <p><b>It took:</b> <code id="mel16-interp-time"></code></p>
+
+    <h3>Sampling</h3>
+    <p><b>It took:</b> <code id="mel16-sample-time"></code></p>
+    <p><b>Samples:</b> <code id="mel16-samples"></code></p>
+  </section>
+
+  <section>
+    <h2>Trio 2-bar (flat)</h2>
+    <h3>Reconstruction <span id="generate-trio-2"></span></h3>
+
+    <p><b>Input:</b> <code id="trio2-inputs"></code></p>
+    <p><b>Result:</b> <code id="trio2-recon"></code></p>
+    <p><b>It took:</b> <code id="trio2-recon-time"></code></p>
+
+    <h3>Sampling</h3>
+    <p><b>It took:</b> <code id="trio2-sample-time"></code></p>
+    <p><b>Samples:</b> <code id="trio2-samples"></code></p>
+  </section>
+
+  <section>
+    <h2>Trio 4-bar (hierarchical)</h2>
+    <h3>Reconstruction <span id="generate-trio"></span></h3>
+
+    <p><b>Input:</b> <code id="trio-inputs"></code></p>
+    <p><b>Result:</b> <code id="trio-recon"></code></p>
+    <p><b>It took:</b> <code id="trio-recon-time"></code></p>
+
+    <h3>Sampling</h3>
+    <p><b>It took:</b> <code id="trio-sample-time"></code></p>
+    <p><b>Samples:</b> <code id="trio-samples"></code></p>
+  </section>
+
+  <section>
+    <p><b>Total Leaked Memory:</b> <code id="leaked-memory"></code></b></p>
+  </section>
+
+  <script src="music_vae_bundle.js"></script>
+</body>
+</html>
