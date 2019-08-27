@@ -15,4 +15,15 @@
  * limitations under the License.
  */
 
-import * as To
+import * as Tone from 'tone';
+import * as mm from '../src/index';
+import {CHECKPOINTS_DIR} from './common';
+
+// tslint:disable-next-line:max-line-length
+const GENIE_CHECKPOINT =
+    `${CHECKPOINTS_DIR}/piano_genie/model/epiano/stp_iq_auto_contour_dt_166006`;
+const NUM_BUTTONS = 8;
+const LOWEST_PIANO_KEY_MIDI_NOTE = 21;
+const TEMPERATURE = 0.25;
+
+const genie = new mm.PianoGenie(GENIE_CHE
