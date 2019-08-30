@@ -26,4 +26,15 @@ const NUM_BUTTONS = 8;
 const LOWEST_PIANO_KEY_MIDI_NOTE = 21;
 const TEMPERATURE = 0.25;
 
-const genie = new mm.PianoGenie(GENIE_CHE
+const genie = new mm.PianoGenie(GENIE_CHECKPOINT);
+
+function initControlsAndAudio() {
+  const heldButtonToMidiNote = new Map<number, number>();
+  const synth = new Tone.PolySynth(Tone.FMSynth).toDestination();
+
+  // Bind keyboard controls
+  document.onkeydown = (evt: KeyboardEvent) => {
+    if (Tone.context.state !== 'running') {
+      Tone.context.resume();
+    }
+    c
