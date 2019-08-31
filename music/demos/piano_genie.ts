@@ -37,4 +37,15 @@ function initControlsAndAudio() {
     if (Tone.context.state !== 'running') {
       Tone.context.resume();
     }
-    c
+    const key = evt.keyCode;
+    const button = key - 49;
+    if (button >= 0 && button < NUM_BUTTONS) {
+      if (heldButtonToMidiNote.has(button)) {
+        return;
+      }
+
+      const output = genie.next(button, TEMPERATURE);
+      const note = output + LOWEST_PIANO_KEY_MIDI_NOTE;
+
+      synth.triggerAttack(Tone.Frequency(note, 'midi').toFrequency());
+ 
