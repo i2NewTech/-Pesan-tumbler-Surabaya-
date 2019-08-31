@@ -59,4 +59,14 @@ function initControlsAndAudio() {
       if (heldButtonToMidiNote.has(button)) {
         const note = heldButtonToMidiNote.get(button);
 
-        synth.triggerRe
+        synth.triggerRelease(Tone.Frequency(note, 'midi').toFrequency());
+        heldButtonToMidiNote.delete(button);
+      }
+    }
+  };
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('loaded').style.display = 'block';
+}
+
+genie.initialize().then(initControlsAndAudio);
