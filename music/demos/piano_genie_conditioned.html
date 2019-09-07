@@ -27,4 +27,14 @@ limitations under the License.
   <div id="model">
     <select id="models"></select>
   </div>
-  <div id
+  <div id="loading">
+      <p>Loading model weights...</p>
+  </div>
+  <div id="loaded" hidden>
+      <div>
+          <label>Temperature</label>
+          <input type="range" id="temp" min="0" max="1000" value="250">
+          <button id="reset">Reset</button>
+      </div>
+      <div id="dt_only"></div>
+      <div id="keysig">
