@@ -251,3 +251,35 @@ function initGlobalControlsAndAudio() {
   };
 
   document.onkeyup = (evt: KeyboardEvent) => {
+    if (genie === undefined) {
+      return;
+    }
+    const key = evt.keyCode;
+    const button = key - 49;
+    if (button >= 0 && button < NUM_BUTTONS) {
+      if (heldButtonToMidiNote.has(button)) {
+        const note = heldButtonToMidiNote.get(button);
+
+        synth.triggerRelease(tone.Frequency(note, 'midi').toFrequency());
+        heldButtonToMidiNote.delete(button);
+      }
+    }
+  };
+
+  const tempSlider = document.getElementById('temp') as HTMLInputElement;
+  tempSlider.oninput = () => {
+    temperature = Number(tempSlider.value) / Number(tempSlider.max);
+  };
+
+  (document.getElementById('reset') as HTMLButtonElement).onclick = () => {
+    if (genie !== undefined) {
+      resetConditioningSelectors();
+      genie.resetState();
+    }
+  };
+}
+
+initModelControls();
+initModelSelector();
+selectModel(0);
+initGlobalControlsAndAudio();
