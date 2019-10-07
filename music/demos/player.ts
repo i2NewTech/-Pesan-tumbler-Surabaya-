@@ -178,3 +178,68 @@ function generateVelocityPlayers() {
   writeNoteSeqs('d-v-player', [DRUM_SEQ_WITH_VELOCITIES], false);
   writeNoteSeqs('s-v-player', [MEL_TWINKLE_WITH_VELOCITIES], true);
 }
+
+async function generateSoundFontPlayers() {
+  const baseUrl = 'https://storage.googleapis.com/magentadata/js/soundfonts/';
+  soundFontPlayers.push(new mm.SoundFontPlayer(baseUrl + 'salamander'));
+  soundFontPlayers.push(new mm.SoundFontPlayer(baseUrl + 'sgm_plus'));
+  soundFontPlayers.push(new mm.SoundFontPlayer(baseUrl + 'jazz_kit'));
+
+  soundFontMelodies.push(FULL_TWINKLE);
+  soundFontMelodies.push(FULL_TWINKLE);
+  soundFontMelodies.push(DRUM_SEQS[1]);
+
+  // Load the sgm instruments.
+  const response =
+      await (await fetch(`${baseUrl}sgm_plus/soundfont.json`)).json();
+  const instruments = Object.values(response.instruments);
+  const select = document.getElementById('select') as HTMLSelectElement;
+  select.innerHTML = instruments.map(i => `<option>${i}</option>`).join('');
+
+  // Preload the samples.
+  for (let i = 0; i < soundFontPlayers.length; i++) {
+    soundFontPlayers[i].loadSamples(soundFontMelodies[i]).then(() => {
+      const el = document.getElementById('playSF_' + i) as HTMLButtonElement;
+      el.removeAttribute('disabled');
+      el.textContent = 'Play';
+    });
+  }
+
+  document.getElementById('playSF_0')
+      .addEventListener('click', (event) => playSoundFont(event, 0));
+  document.getElementById('playSF_1')
+      .addEventListener('click', (event) => playSoundFont(event, 1));
+  document.getElementById('playSF_2')
+      .addEventListener('click', (event) => playSoundFont(event, 2));
+}
+
+async function playSoundFont(event: MouseEvent, index: number) {
+  const player = soundFontPlayers[index];
+  const button = event.target as HTMLElement;
+
+  // If this is the sgm player, use the right instrument.
+  if (index === 1) {
+    const instrument =
+        (document.getElementById('select') as HTMLSelectElement).selectedIndex;
+    soundFontMelodies[1].notes.forEach(n => n.program = instrument);
+  }
+
+  if (player.isPlaying()) {
+    player.stop();
+    button.textContent = 'Play';
+  } else {
+    button.textContent = 'Stop';
+    player.start(soundFontMelodies[index]);
+  }
+}
+try {
+  setupPlayerControlsDemo();
+  setupAttackReleaseDemo();
+  setupMIDIPlayerDemo();
+  Promise.all([
+    generatePlayers(), generateTempoPlayer(), generateVelocityPlayers(),
+    generateSoundFontPlayers()
+  ]);
+} catch (err) {
+  console.error(err);
+}
