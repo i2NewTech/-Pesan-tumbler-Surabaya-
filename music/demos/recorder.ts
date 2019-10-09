@@ -19,4 +19,15 @@ tempoSlider.addEventListener('change', () => {
 });
 
 clickCheckbox.addEventListener('change', () => {
-  recor
+  recorder.enablePlayClick(clickCheckbox.checked);
+});
+
+countinCheckbox.addEventListener('change', () => {
+  recorder.stop();
+  startStreamBtn.textContent = 'Record';
+  recorder.enablePlayCountIn(countinCheckbox.checked);
+});
+
+recorder.initialize().then(() => {
+  recordBtn.disabled = stopBtn.disabled = startStreamBtn.disabled =
+      stopStreamBtnBtn.
