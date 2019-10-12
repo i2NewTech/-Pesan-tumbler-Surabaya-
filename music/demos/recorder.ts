@@ -44,4 +44,15 @@ stopBtn.addEventListener('click', () => {
   recordBtn.textContent = 'Record';
   const seq = recorder.stop();
   if (seq) {
-  
+    writeNoteSeqs('output', [seq]);
+  }
+});
+
+// Stream recording.
+startStreamBtn.addEventListener('click', () => {
+  recorder.callbackObject = {
+    run: (seq: mm.NoteSequence) => {
+      if (seq) {
+        // tslint:disable-next-line:no-unused-expression
+        new mm.PianoRollSVGVisualizer(
+            seq, document.getElements
