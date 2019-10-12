@@ -30,4 +30,18 @@ countinCheckbox.addEventListener('change', () => {
 
 recorder.initialize().then(() => {
   recordBtn.disabled = stopBtn.disabled = startStreamBtn.disabled =
-      stopStreamBtnBtn.
+      stopStreamBtnBtn.disabled = false;
+});
+
+// Basic recording.
+recordBtn.addEventListener('click', () => {
+  recorder.callbackObject = null;
+  recordBtn.textContent = '...';
+  recorder.start();
+});
+
+stopBtn.addEventListener('click', () => {
+  recordBtn.textContent = 'Record';
+  const seq = recorder.stop();
+  if (seq) {
+  
