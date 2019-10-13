@@ -55,4 +55,14 @@ startStreamBtn.addEventListener('click', () => {
       if (seq) {
         // tslint:disable-next-line:no-unused-expression
         new mm.PianoRollSVGVisualizer(
-            seq, document.getElements
+            seq, document.getElementsByClassName('svg')[0] as SVGSVGElement);
+      }
+    },
+    noteOn: (pitch, velocity, device) => {console.log('We have received a noteOn event!')},
+    noteOff: (pitch, velocity, device) => {console.log('We have received a noteOff event!')}
+  };
+  startStreamBtn.textContent = '...';
+  recorder.start();
+});
+
+stopStreamBtnBtn.addEventListe
