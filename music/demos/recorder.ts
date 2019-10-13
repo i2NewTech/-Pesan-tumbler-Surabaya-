@@ -65,4 +65,10 @@ startStreamBtn.addEventListener('click', () => {
   recorder.start();
 });
 
-stopStreamBtnBtn.addEventListe
+stopStreamBtnBtn.addEventListener('click', () => {
+  startStreamBtn.textContent = 'Record';
+  const seq = recorder.stop();
+  if (seq) {
+    writeNoteSeqs('streamOutput', [seq]);
+  }
+});
