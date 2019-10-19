@@ -36,4 +36,12 @@ limitations under the License.
   <h2>From a local audio file</h2>
   <p>You can use your own piano music file (i.e. actual audio, not midi) for transcription:</p>
   <section>
-    <label class="button
+    <label class="button">
+      Load audio file
+      <input type="file" id="fileInput">
+    </label>
+    <br>
+    <p><audio id="filePlayer" controls hidden></audio></p>
+    <p><b>Actual Transcription:</b> <code id="file-results" class="file"></code></p>
+    <p><b>It Took:</b> <code id="file-time" class="file"></code></p>
+    <p><b>Total Leaked Memory:</b> <code id="f
