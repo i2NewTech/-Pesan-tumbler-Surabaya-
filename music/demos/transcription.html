@@ -58,4 +58,12 @@ limitations under the License.
     <p><audio id="recorderPlayer" controls hidden></audio></p>
     <p><b>Actual Transcription:</b> <code id="recorder-results" class="recorder"></code></p>
     <p><b>It Took:</b> <code id="recorder-time" class="recorder"></code></p>
-    <p><b>Total Leaked Memory:</b> <code id="recorder-leaked-memory"></cod
+    <p><b>Total Leaked Memory:</b> <code id="recorder-leaked-memory"></code></b></p>
+  </section>
+
+  <h2>From a test audio (250 frames / 8 seconds)</h2>
+  <p>We verify the model can transcribe a short sequence of piano audio, first computing its
+    <a href="https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html" target="_blank"></a>mel spectogram</a>.
+  </p>
+  <section>
+    <p><b>Original Audio</b><br>
