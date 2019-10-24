@@ -84,4 +84,12 @@ limitations under the License.
     the transcription works properly with different batch sizes that exercise various edge cases.
   </p>
   <section>
-    <p><b>Original Audio</b><br><audio controls><source type="audio/wav" src="https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_htk0/MAPS_MU
+    <p><b>Original Audio</b><br><audio controls><source type="audio/wav" src="https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_htk0/MAPS_MUS-mz_331_3_ENSTDkCl-250frames.wav"></audio></p>
+    <p><b>Expected Transcription:</b> <code id="expected-ns"></code></p>
+    <button id="melBtn">Start Batched Transcription</button>
+  </section>
+
+  <h3>Chunk Length 250 / Batch Size 1</h3>
+  <section>
+    <p><b>Actual Transcription:</b> <code id="250-results" class="batch"></code></p>
+    <p><b>Match:</b> <code id=
