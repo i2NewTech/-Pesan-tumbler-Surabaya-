@@ -80,4 +80,8 @@ limitations under the License.
   <h2>From <a href="https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html" target="_blank">Mel Spectrogram</a> (250 frames / 8 seconds)</h2>
   <p>Below we verify that the model properly transcribes a mel spectrogram to match the output
     of the Python TensorFlow implementation. We found it is necessary to process the convolution
-    in batches for longer inputs to avoid a G
+    in batches for longer inputs to avoid a GPU timeout enforced in Chrome, and we verify that
+    the transcription works properly with different batch sizes that exercise various edge cases.
+  </p>
+  <section>
+    <p><b>Original Audio</b><br><audio controls><source type="audio/wav" src="https://storage.googleapis.com/magentadata/js/checkpoints/transcription/onsets_frames_htk0/MAPS_MU
