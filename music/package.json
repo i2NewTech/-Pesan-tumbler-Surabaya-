@@ -5,4 +5,15 @@
   "main": "es5/index.js",
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
-  "jsdelivr": "dist/ma
+  "jsdelivr": "dist/magentamusic.js",
+  "unpkg": "dist/magentamusic.js",
+  "dependencies": {
+    "@tensorflow/tfjs": "^2.7.0",
+    "@tensorflow/tfjs-backend-webgl": "^2.7.0",
+    "@tonejs/midi": "^2.0.15",
+    "fft.js": "^4.0.3",
+    "ndarray-resample": "^1.0.1",
+    "protobufjs": "^6.8.6",
+    "staffrender": "^0.2.1",
+    "tonal": "^2.0.0",
+    "tone": "^14
