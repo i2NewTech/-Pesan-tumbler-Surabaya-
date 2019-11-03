@@ -39,4 +39,17 @@
     "minimist": "^1.2.0",
     "node-fetch": "^2.6.0",
     "tape": "^4.9.0",
-    "terser-webpack-plugi
+    "terser-webpack-plugin": "^1.4.1",
+    "ts-loader": "^5.3.0",
+    "ts-node": "^5.0.1",
+    "tsify": "^3.0.4",
+    "tslint": "^5.9.1",
+    "typedoc": "^0.16.10",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.24.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "scripts": {
+    "test-and-build": "yarn 
