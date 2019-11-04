@@ -65,4 +65,15 @@
     "test-node-build": "ts-node node_modules/tape/bin/tape build_tests/node.ts",
     "build-demos": "webpack --config ./webpack/es5.demo.config.ts",
     "run-demos": "webpack-dev-server --config ./webpack/es5.demo.config.ts",
-    "s
+    "serve-demos": "http-server demos/",
+    "serve-dist": "http-server dist/",
+    "proto": "sh ./scripts/compile-proto.sh",
+    "docs": "sh ../scripts/generate-docs.sh 'music'"
+  },
+  "author": "Magenta",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tensorflow/magenta-js.git"
+  }
+}
