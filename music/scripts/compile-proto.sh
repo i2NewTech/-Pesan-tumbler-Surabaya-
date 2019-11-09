@@ -16,4 +16,13 @@
 
 # Regenerates the protobuf
 #
-# To run, execute 'yarn proto'
+# To run, execute 'yarn proto'.
+
+TMP_DIR=$(mktemp -d)
+# Clone magenta repo to get proto file
+git clone https://github.com/tensorflow/magenta.git $TMP_DIR
+# Compile js
+yarn pbjs --force-number -t static-module -w commonjs -o src/protobuf/proto.js $TMP_DIR/magenta/protobuf/music.proto
+rm -fR $TMP_DIR
+# Compile ts
+yarn pbts -o src/protobuf/proto.d.ts src/protobuf/
