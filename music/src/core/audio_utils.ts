@@ -362,3 +362,124 @@ function createMelFilterbank(params: MelParams): Float32Array[] {
       const upper = ramps[i + 2][j] / melDiff[i + 1];
       const weight = Math.max(0, Math.min(lower, upper));
       weights[i][j] = weight;
+    }
+  }
+
+  // Slaney-style mel is scaled to be approx constant energy per channel.
+  for (let i = 0; i < weights.length; i++) {
+    // How much energy per channel.
+    const enorm = 2.0 / (melFreqs[2 + i] - melFreqs[i]);
+    // Normalize by that amount.
+    weights[i] = weights[i].map((val) => val * enorm);
+  }
+
+  return weights;
+}
+
+function fft(y: Float32Array) {
+  const fft = new FFT(y.length);
+  const out = fft.createComplexArray();
+  const data = fft.toComplexArray(y);
+  fft.transform(out, data);
+  return out;
+}
+
+export function hannWindow(length: number) {
+  const win = new Float32Array(length);
+  for (let i = 0; i < length; i++) {
+    win[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (length - 1)));
+  }
+  return win;
+}
+
+function linearSpace(start: number, end: number, count: number) {
+  // Include start and endpoints.
+  const delta = (end - start) / (count - 1);
+  const out = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    out[i] = start + delta * i;
+  }
+  return out;
+}
+
+/**
+ * Given an interlaced complex array (y_i is real, y_(i+1) is imaginary),
+ * calculates the energies. Output is half the size.
+ */
+function mag(y: Float32Array) {
+  const out = new Float32Array(y.length / 2);
+  for (let i = 0; i < y.length / 2; i++) {
+    out[i] = Math.sqrt(y[i * 2] * y[i * 2] + y[i * 2 + 1] * y[i * 2 + 1]);
+  }
+  return out;
+}
+
+export function midiToHz(notes: number) {
+  let notesTensor = tf.sub(notes, 69.0);
+  notesTensor = tf.div(notesTensor, 12.0);
+  notesTensor = tf.pow(2.0, notesTensor);
+  notesTensor = tf.mul(440.0, notesTensor);
+  return notesTensor;
+}
+
+export async function hzToMidi(frequencies: number[]): Promise<number[]> {
+  let frequenciesTensor: tf.Tensor = tf.sub(
+      tf.div(tf.log(frequencies), tf.log(2)), tf.div(tf.log(440.0), tf.log(2)));
+  frequenciesTensor = tf.mul(12, frequenciesTensor);
+  frequenciesTensor = tf.add(frequenciesTensor, 69);
+  const frequenciesVal = await frequenciesTensor.array();
+  return frequenciesVal as number[];
+}
+
+function hzToMel(hz: number): number {
+  return 1125.0 * Math.log(1 + hz / 700.0);
+}
+
+function melToHz(mel: number): number {
+  return 700.0 * (Math.exp(mel / 1125.0) - 1);
+}
+
+function calculateFftFreqs(sampleRate: number, nFft: number) {
+  return linearSpace(0, sampleRate / 2, Math.floor(1 + nFft / 2));
+}
+
+function calculateMelFreqs(
+    nMels: number, fMin: number, fMax: number): Float32Array {
+  const melMin = hzToMel(fMin);
+  const melMax = hzToMel(fMax);
+
+  // Construct linearly spaced array of nMel intervals, between melMin and
+  // melMax.
+  const mels = linearSpace(melMin, melMax, nMels);
+  const hzs = mels.map((mel) => melToHz(mel));
+  return hzs;
+}
+
+function internalDiff(arr: Float32Array): Float32Array {
+  const out = new Float32Array(arr.length - 1);
+  for (let i = 0; i < arr.length; i++) {
+    out[i] = arr[i + 1] - arr[i];
+  }
+  return out;
+}
+
+function outerSubtract(arr: Float32Array, arr2: Float32Array): Float32Array[] {
+  const out = [];
+  for (let i = 0; i < arr.length; i++) {
+    out[i] = new Float32Array(arr2.length);
+  }
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      out[i][j] = arr[i] - arr2[j];
+    }
+  }
+  return out;
+}
+
+function pow(arr: Float32Array, power: number) {
+  return arr.map((v) => Math.pow(v, power));
+}
+
+function max(arr: Float32Array) {
+  return arr.reduce((a, b) => Math.max(a, b));
+}
