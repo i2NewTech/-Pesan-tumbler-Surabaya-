@@ -300,3 +300,275 @@ class ConvNet {
         'same';
     return tf.maxPool(
         x, [pooling[0], pooling[1]], [pooling[0], pooling[1]], padding);
+  }
+
+  private getConvnetInput(pianoroll: tf.Tensor4D, masks: tf.Tensor4D):
+      tf.Tensor4D {
+    pianoroll = tf.scalar(1, 'float32').sub(masks).mul(pianoroll);
+    masks = tf.scalar(1, 'float32').sub(masks);
+    return pianoroll.concat(masks, 3);
+  }
+}
+
+/**
+ * Coconet model implementation in TensorflowJS.
+ * Thanks to [James Wexler](https://github.com/jameswex) for the original
+ * implementation.
+ */
+class Coconet {
+  private checkpointURL: string;
+  private spec: ModelSpec = null;
+  private convnet: ConvNet;
+  private initialized = false;
+
+  /**
+   * `Coconet` constructor.
+   *
+   * @param checkpointURL Path to the checkpoint directory.
+   */
+  constructor(checkpointURL: string) {
+    this.checkpointURL = checkpointURL;
+    this.spec = DEFAULT_SPEC;
+  }
+
+  /**
+   * Loads variables from the checkpoint and instantiates the model.
+   */
+  async initialize() {
+    this.dispose();
+
+    const startTime = performance.now();
+    this.instantiateFromSpec();
+    const vars = await fetch(`${this.checkpointURL}/weights_manifest.json`)
+                     .then((response) => response.json())
+                     .then(
+                         (manifest: tf.io.WeightsManifestConfig) =>
+                             tf.io.loadWeights(manifest, this.checkpointURL));
+    this.convnet = new ConvNet(this.spec, vars);
+    this.initialized = true;
+    logging.logWithDuration('Initialized model', startTime, 'Coconet');
+  }
+
+  dispose() {
+    if (this.convnet) {
+      this.convnet.dispose();
+    }
+    this.initialized = false;
+  }
+
+  isInitialized() {
+    return this.initialized;
+  }
+
+  /**
+   * Sets up layer configuration from params
+   */
+  instantiateFromSpec() {
+    // Outermost dimensions' sizes of the non-final layers in the network.
+    const nonFinalLayerFilterOuterSizes = 3;
+
+    // Outermost dimensions' sizes of the last two layers in the network.
+    const finalTwoLayersFilterOuterSizes = 2;
+
+    this.spec.layers = [];
+    // Set-up filter size of first convolutional layer.
+    this.spec.layers.push({
+      filters: [
+        nonFinalLayerFilterOuterSizes, nonFinalLayerFilterOuterSizes,
+        this.spec.numInstruments * 2, this.spec.numFilters
+      ]
+    });
+    // Set-up filter sizes of middle convolutional layers.
+    for (let i = 0; i < this.spec.numLayers - 3; i++) {
+      this.spec.layers.push({
+        filters: [
+          nonFinalLayerFilterOuterSizes, nonFinalLayerFilterOuterSizes,
+          this.spec.numFilters, this.spec.numFilters
+        ],
+        dilation: this.spec.dilation ? this.spec.dilation[i] : null
+      });
+    }
+    // Set-up filter size of penultimate convolutional layer.
+    this.spec.layers.push({
+      filters: [
+        finalTwoLayersFilterOuterSizes, finalTwoLayersFilterOuterSizes,
+        this.spec.numFilters, this.spec.numFilters
+      ]
+    });
+    // Set-up filter size and activation of final convolutional layer.
+    this.spec.layers.push({
+      filters: [
+        finalTwoLayersFilterOuterSizes, finalTwoLayersFilterOuterSizes,
+        this.spec.numFilters, this.spec.numInstruments
+      ],
+      activation: 'identity',
+    });
+  }
+
+  /**
+   * Use the model to generate a Bach-style 4-part harmony, conditioned on an
+   * input sequence. The notes in the input sequence should have the
+   * `instrument` property set corresponding to which voice the note belongs to:
+   * 0 for Soprano, 1 for Alto, 2 for Tenor and 3 for Bass.
+   *
+   * **Note**: regardless of the length of the notes in the original sequence,
+   * all the notes in the generated sequence will be 1 step long. If you want
+   * to clean up the sequence to consider consecutive notes for the same
+   * pitch and instruments as "held", you can call `mergeHeldNotes` on the
+   * result. This function will replace any of the existing voices with
+   * the output of the model. If you want to restore any of the original voices,
+   * you can call `replaceVoice` on the output, specifying which voice should be
+   * restored.
+   *
+   * @param sequence The sequence to infill. Must be quantized.
+   * @param config (Optional) Infill parameterers like temperature, the number
+   * of sampling iterations, or masks.
+   */
+  async infill(sequence: INoteSequence, config?: CoconetConfig) {
+    sequences.assertIsRelativeQuantizedSequence(sequence);
+    if (sequence.notes.length === 0) {
+      throw new Error(
+          `NoteSequence ${sequence.id} does not have any notes to infill.`);
+    }
+    const numSteps = sequence.totalQuantizedSteps ||
+        sequence.notes[sequence.notes.length - 1].quantizedEndStep;
+
+    // Convert the sequence to a pianoroll.
+    const pianoroll = sequenceToPianoroll(sequence, numSteps);
+
+    // Figure out the sampling configuration.
+    let temperature = 0.99;
+    let numIterations = 96;
+    let outerMasks;
+    if (config) {
+      numIterations = config.numIterations || numIterations;
+      temperature = config.temperature || temperature;
+      outerMasks =
+          this.getCompletionMaskFromInput(config.infillMask, pianoroll);
+    } else {
+      outerMasks = this.getCompletionMask(pianoroll);
+    }
+
+    // Run sampling on the pianoroll.
+    const samples =
+        await this.run(pianoroll, numIterations, temperature, outerMasks);
+
+    // Convert the resulting pianoroll to a noteSequence.
+    const outputSequence = pianorollToSequence(samples, numSteps);
+
+    pianoroll.dispose();
+    samples.dispose();
+    outerMasks.dispose();
+    return outputSequence;
+  }
+
+  /**
+   * Runs sampling on pianorolls.
+   */
+  private async run(
+      pianorolls: tf.Tensor4D, numSteps: number, temperature: number,
+      outerMasks: tf.Tensor4D): Promise<tf.Tensor4D> {
+    return this.gibbs(pianorolls, numSteps, temperature, outerMasks);
+  }
+
+  private getCompletionMaskFromInput(
+      masks: InfillMask[], pianorolls: tf.Tensor4D): tf.Tensor4D {
+    if (!masks) {
+      return this.getCompletionMask(pianorolls);
+    } else {
+      // Create a buffer to store the input.
+      const buffer = tf.buffer([pianorolls.shape[1], 4]);
+      for (let i = 0; i < masks.length; i++) {
+        buffer.set(1, masks[i].step, masks[i].voice);
+      }
+      // Expand that buffer to the right shape.
+      return tf.tidy(() => {
+        return buffer.toTensor()
+                   .expandDims(1)
+                   .tile([1, NUM_PITCHES, 1])
+                   .expandDims(0) as tf.Tensor4D;
+      });
+    }
+  }
+
+  private getCompletionMask(pianorolls: tf.Tensor4D): tf.Tensor4D {
+    return tf.tidy(() => {
+      const isEmpty = pianorolls.sum(2, true).equal(tf.scalar(0, 'float32'));
+      // Explicit broadcasting.
+      return tf.cast(isEmpty, 'float32').add(tf.zerosLike(pianorolls));
+    });
+  }
+
+  private async gibbs(
+      pianorolls: tf.Tensor4D, numSteps: number, temperature: number,
+      outerMasks: tf.Tensor4D): Promise<tf.Tensor4D> {
+    const numStepsTensor = tf.scalar(numSteps, 'float32');
+    let pianoroll = pianorolls.clone();
+    for (let s = 0; s < numSteps; s++) {
+      const pm = this.yaoSchedule(s, numStepsTensor);
+      const innerMasks = this.bernoulliMask(pianoroll.shape, pm, outerMasks);
+      await tf.nextFrame();
+      const predictions = tf.tidy(() => {
+        return this.convnet.predictFromPianoroll(pianoroll, innerMasks);
+      }) as tf.Tensor4D;
+      await tf.nextFrame();
+      pianoroll = tf.tidy(() => {
+        const samples =
+            this.samplePredictions(predictions, temperature) as tf.Tensor4D;
+        const updatedPianorolls =
+            tf.where(tf.cast(innerMasks, 'bool'), samples, pianoroll);
+        pianoroll.dispose();
+        predictions.dispose();
+        innerMasks.dispose();
+        pm.dispose();
+        return updatedPianorolls;
+      });
+      await tf.nextFrame();
+    }
+    numStepsTensor.dispose();
+    return pianoroll;
+  }
+
+  private yaoSchedule(i: number, n: tf.Scalar) {
+    return tf.tidy(() => {
+      const pmin = tf.scalar(0.1, 'float32');
+      const pmax = tf.scalar(0.9, 'float32');
+      const alpha = tf.scalar(0.7, 'float32');
+      const wat = pmax.sub(pmin).mul(tf.scalar(i, 'float32')).div(n);
+      const secondArg = pmax.sub(wat).div(alpha);
+      return pmin.reshape([1]).concat(secondArg.reshape([1])).max();
+    });
+  }
+
+  private bernoulliMask(
+      shape: number[], pm: tf.Tensor, outerMasks: tf.Tensor4D): tf.Tensor4D {
+    return tf.tidy(() => {
+      const [bb, tt, pp, ii] = shape;
+      const probs = tf.tile(
+          tf.randomUniform([bb, tt, 1, ii], 0, 1, 'float32'), [1, 1, pp, 1]);
+      const masks = probs.less(pm);
+      return tf.cast(masks, 'float32').mul(outerMasks);
+    });
+  }
+
+  private samplePredictions(predictions: tf.Tensor4D, temperature: number):
+      tf.Tensor {
+    return tf.tidy(() => {
+      predictions = tf.pow(predictions, tf.scalar(1 / temperature, 'float32'));
+      const cmf = tf.cumsum(predictions, 2, false, false);
+      const totalMasses = cmf.slice(
+          [0, 0, cmf.shape[2] - 1, 0],
+          [cmf.shape[0], cmf.shape[1], 1, cmf.shape[3]]);
+      const u = tf.randomUniform(totalMasses.shape, 0, 1, 'float32');
+      const i = u.mul(totalMasses).less(cmf).argMax(2);
+      return tf.oneHot(i.flatten(), predictions.shape[2], 1, 0)
+          .reshape([
+            predictions.shape[0], predictions.shape[1], predictions.shape[3],
+            predictions.shape[2]
+          ])
+          .transpose([0, 1, 3, 2]);
+    });
+  }
+}
+
+export {Coconet};
