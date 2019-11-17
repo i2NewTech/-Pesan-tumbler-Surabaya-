@@ -30,4 +30,9 @@ test('Test Binary Counter', (t: test.Test) => {
   t.equal(bc.depth, 2);
   t.deepEqual(tensors.shape, [5, 2]);
   t.deepEqual(splitTensors[0].dataSync(), [1.0, -1.0]);
-  t.d
+  t.deepEqual(splitTensors[1].dataSync(), [-1.0, 1.0]);
+  t.deepEqual(splitTensors[2].dataSync(), [1.0, 1.0]);
+  t.deepEqual(splitTensors[3].dataSync(), [-1.0, -1.0]);
+  t.deepEqual(splitTensors[4].dataSync(), [1.0, -1.0]);
+  t.end();
+});
