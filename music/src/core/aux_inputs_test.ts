@@ -20,4 +20,14 @@ import * as test from 'tape';
 import * as aux_inputs from './aux_inputs';
 
 test('Test Binary Counter', (t: test.Test) => {
-  const spec: aux_
+  const spec: aux_inputs.BinaryCounterSpec = {
+    type: 'BinaryCounter',
+    args: {numBits: 2}
+  };
+  const bc = aux_inputs.auxiliaryInputFromSpec(spec);
+  const tensors = bc.getTensors(5);
+  const splitTensors = tf.split(tensors, 5);
+  t.equal(bc.depth, 2);
+  t.deepEqual(tensors.shape, [5, 2]);
+  t.deepEqual(splitTensors[0].dataSync(), [1.0, -1.0]);
+  t.d
