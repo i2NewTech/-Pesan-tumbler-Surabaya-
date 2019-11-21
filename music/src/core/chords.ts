@@ -34,4 +34,19 @@ const CHORD_QUALITY_INTERVALS = [
 
 export enum ChordQuality {
   Major = 0,
-  M
+  Minor = 1,
+  Augmented = 2,
+  Diminished = 3,
+  Other = 4,
+}
+
+export class ChordSymbolException extends Error {
+  constructor(message?: string) {
+    super(message);
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+
+export class ChordEncodingException extends Error {
+  constructor(message?: string) {
+    super(message
