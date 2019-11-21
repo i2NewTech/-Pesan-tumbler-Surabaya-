@@ -21,4 +21,17 @@
 /**
  * Imports
  */
-im
+import * as tf from '@tensorflow/tfjs';
+import {Chord, Note} from 'tonal';
+import * as constants from './constants';
+
+const CHORD_QUALITY_INTERVALS = [
+  ['1P', '3M', '5P'],  // major
+  ['1P', '3m', '5P'],  // minor
+  ['1P', '3M', '5A'],  // augmented
+  ['1P', '3m', '5d'],  // diminished
+];
+
+export enum ChordQuality {
+  Major = 0,
+  M
