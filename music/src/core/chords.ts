@@ -49,4 +49,15 @@ export class ChordSymbolException extends Error {
 
 export class ChordEncodingException extends Error {
   constructor(message?: string) {
-    super(message
+    super(message);
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+
+/**
+ * Class containing static methods related to chord symbol interpretation. These
+ * functions make use of the Tonal.js music theory library, and are used when
+ * converting chord symbols to model inputs.
+ */
+export class ChordSymbols {
+  /**
