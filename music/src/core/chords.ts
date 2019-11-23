@@ -61,3 +61,11 @@ export class ChordEncodingException extends Error {
  */
 export class ChordSymbols {
   /**
+   * Returns an array containing integers (0-11) representing the pitch classes
+   * in a chord.
+   * @param chord A chord symbol string.
+   * @returns An array of integer pitch classes in the chord.
+   * @throws {ChordSymbolException} If the chord cannot be recognized.
+   */
+  public static pitches(chord: string): number[] {
+    c
