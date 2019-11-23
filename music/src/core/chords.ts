@@ -68,4 +68,15 @@ export class ChordSymbols {
    * @throws {ChordSymbolException} If the chord cannot be recognized.
    */
   public static pitches(chord: string): number[] {
-    c
+    const root = Chord.tokenize(chord)[0];
+    if (!root || !Chord.exists(chord)) {
+      throw new ChordSymbolException(`Unrecognized chord symbol: ${chord}`);
+    }
+
+    const notes = Chord.notes(chord);
+    return notes.map(Note.chroma);
+  }
+
+  /**
+   * Returns an integer (0-11) representing the pitch class of the chord root.
+   * @param chord A ch
