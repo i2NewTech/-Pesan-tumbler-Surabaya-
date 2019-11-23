@@ -79,4 +79,14 @@ export class ChordSymbols {
 
   /**
    * Returns an integer (0-11) representing the pitch class of the chord root.
-   * @param chord A ch
+   * @param chord A chord symbol string.
+   * @returns The integer pitch class of the chord root.
+   * @throws {ChordSymbolException} If the chord root cannot be determined.
+   */
+  public static root(chord: string): number {
+    const root = Chord.tokenize(chord)[0];
+    if (!root) {
+      throw new ChordSymbolException(`Chord symbol has unknown root: ${chord}`);
+    }
+
+    return N
