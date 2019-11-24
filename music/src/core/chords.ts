@@ -126,4 +126,11 @@ export abstract class ChordEncoder {
   abstract encode(chord: string): tf.Tensor1D;
 
   /**
-   * Encode a chord progression 
+   * Encode a chord progression over a specified number of steps.
+   *
+   * @param chords An array of chord symbol strings.
+   * @param numSteps Number of steps to use.
+   * @returns A 2D tensor containing the encoded chord progression.
+   */
+  encodeProgression(chords: string[], numSteps: number) {
+    const encodedChords = chords.map(chord =
