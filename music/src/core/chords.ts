@@ -99,4 +99,13 @@ export class ChordSymbols {
    * @throws {ChordSymbolException} If the chord cannot be recognized.
    */
   public static quality(chord: string): ChordQuality {
-    if (!Cho
+    if (!Chord.exists(chord)) {
+      throw new ChordSymbolException(`Unrecognized chord symbol: ${chord}`);
+    }
+
+    const intervals = Chord.intervals(chord);
+    const qualities = CHORD_QUALITY_INTERVALS.map(
+        cqis => cqis.every(cqi => intervals.includes(cqi)));
+
+    const i = qualities.indexOf(true);
+    const j = qualities.lastIndexOf(tru
