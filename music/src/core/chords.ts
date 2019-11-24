@@ -89,4 +89,14 @@ export class ChordSymbols {
       throw new ChordSymbolException(`Chord symbol has unknown root: ${chord}`);
     }
 
-    return N
+    return Note.chroma(root);
+  }
+
+  /**
+   * Returns the chord quality (major, minor, augmented, diminished, or other).
+   * @param chord A chord symbol string.
+   * @returns The ChordQuality enum value specifying the quality.
+   * @throws {ChordSymbolException} If the chord cannot be recognized.
+   */
+  public static quality(chord: string): ChordQuality {
+    if (!Cho
