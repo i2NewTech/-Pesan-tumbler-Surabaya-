@@ -108,4 +108,22 @@ export class ChordSymbols {
         cqis => cqis.every(cqi => intervals.includes(cqi)));
 
     const i = qualities.indexOf(true);
-    const j = qualities.lastIndexOf(tru
+    const j = qualities.lastIndexOf(true);
+
+    if (i >= 0 && i === j) {
+      return i;
+    } else {
+      return ChordQuality.Other;
+    }
+  }
+}
+
+/**
+ * Abstract ChordEncoder class for converting chord symbols to tensors.
+ */
+export abstract class ChordEncoder {
+  abstract depth: number;
+  abstract encode(chord: string): tf.Tensor1D;
+
+  /**
+   * Encode a chord progression 
