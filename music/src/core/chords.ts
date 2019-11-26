@@ -133,4 +133,13 @@ export abstract class ChordEncoder {
    * @returns A 2D tensor containing the encoded chord progression.
    */
   encodeProgression(chords: string[], numSteps: number) {
-    const encodedChords = chords.map(chord =
+    const encodedChords = chords.map(chord => this.encode(chord));
+    const indices =
+        Array.from(Array(numSteps).keys())
+            .map(step => Math.floor(step * encodedChords.length / numSteps));
+    return tf.stack(indices.map(i => encodedChords[i])) as tf.Tensor2D;
+  }
+}
+
+export type ChordEncoderType =
+    'MajorMinorChordEncoder'|'TriadChordEncoder'|'PitchCho
