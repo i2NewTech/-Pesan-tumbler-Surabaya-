@@ -142,4 +142,15 @@ export abstract class ChordEncoder {
 }
 
 export type ChordEncoderType =
-    'MajorMinorChordEncoder'|'TriadChordEncoder'|'PitchCho
+    'MajorMinorChordEncoder'|'TriadChordEncoder'|'PitchChordEncoder';
+
+/**
+ * Creates a `ChordEncoder` based on the given `ChordEncoderType`.
+ *
+ * @param type Specifies the `ChordEncoder` to create.
+ * @returns A new `ChordEncoder` object based on `type`.
+ */
+export function chordEncoderFromType(type: ChordEncoderType) {
+  switch (type) {
+    case 'MajorMinorChordEncoder':
+      return new MajorMinorChordEn
