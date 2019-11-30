@@ -206,4 +206,17 @@ export class TriadChordEncoder extends ChordEncoder {
     }
 
     const root = ChordSymbols.root(chord);
-    c
+    const quality = ChordSymbols.quality(chord);
+    const index = 1 + quality * constants.NUM_PITCH_CLASSES + root;
+
+    if (index >= this.depth) {
+      throw new ChordEncodingException(
+          `Chord is not a standard triad: ${chord}`);
+    }
+
+    return index;
+  }
+
+  encode(chord: string) {
+    return tf.tidy(
+        () => tf.oneHot(tf
