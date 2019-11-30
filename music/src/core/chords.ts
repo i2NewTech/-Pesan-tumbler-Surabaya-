@@ -194,4 +194,16 @@ export class MajorMinorChordEncoder extends ChordEncoder {
 }
 
 /**
- * ChordEncoder that out
+ * ChordEncoder that outputs a one-hot encoding over major, minor, augmented,
+ * and diminished triads.
+ */
+export class TriadChordEncoder extends ChordEncoder {
+  depth = 1 + 4 * constants.NUM_PITCH_CLASSES;
+
+  private index(chord: string) {
+    if (chord === constants.NO_CHORD) {
+      return 0;
+    }
+
+    const root = ChordSymbols.root(chord);
+    c
