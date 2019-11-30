@@ -219,4 +219,14 @@ export class TriadChordEncoder extends ChordEncoder {
 
   encode(chord: string) {
     return tf.tidy(
-        () => tf.oneHot(tf
+        () => tf.oneHot(tf.tensor1d([this.index(chord)], 'int32'), this.depth)
+                  .as1D());
+  }
+}
+
+/**
+ * ChordEncoder that outputs (concatenated) a one-hot encoding over chord root
+ * pitch class, a binary vector indicating the pitch classes contained in the
+ * chord, and a one-hot encoding over chord bass pitch class.
+ */
+export class PitchChordEncode
