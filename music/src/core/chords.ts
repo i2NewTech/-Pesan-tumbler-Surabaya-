@@ -177,3 +177,21 @@ export class MajorMinorChordEncoder extends ChordEncoder {
     const root = ChordSymbols.root(chord);
     const quality = ChordSymbols.quality(chord);
     const index = 1 + quality * constants.NUM_PITCH_CLASSES + root;
+
+    if (index >= this.depth) {
+      throw new ChordEncodingException(
+          `Chord is neither major nor minor: ${chord}`);
+    }
+
+    return index;
+  }
+
+  encode(chord: string) {
+    return tf.tidy(
+        () => tf.oneHot(tf.tensor1d([this.index(chord)], 'int32'), this.depth)
+                  .as1D());
+  }
+}
+
+/**
+ * ChordEncoder that out
