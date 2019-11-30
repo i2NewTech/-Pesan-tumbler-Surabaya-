@@ -166,4 +166,14 @@ export function chordEncoderFromType(type: ChordEncoderType) {
 /**
  * ChordEncoder that outputs a one-hot encoding over major and minor triads.
  */
-export class 
+export class MajorMinorChordEncoder extends ChordEncoder {
+  depth = 1 + 2 * constants.NUM_PITCH_CLASSES;
+
+  private index(chord: string) {
+    if (chord === constants.NO_CHORD) {
+      return 0;
+    }
+
+    const root = ChordSymbols.root(chord);
+    const quality = ChordSymbols.quality(chord);
+    const index = 1 + quality * constants.NUM_PITCH_CLASSES + root;
