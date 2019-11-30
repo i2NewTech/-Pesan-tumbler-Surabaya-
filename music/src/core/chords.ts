@@ -153,4 +153,17 @@ export type ChordEncoderType =
 export function chordEncoderFromType(type: ChordEncoderType) {
   switch (type) {
     case 'MajorMinorChordEncoder':
-      return new MajorMinorChordEn
+      return new MajorMinorChordEncoder();
+    case 'TriadChordEncoder':
+      return new TriadChordEncoder();
+    case 'PitchChordEncoder':
+      return new PitchChordEncoder();
+    default:
+      throw new Error(`Unknown chord encoder type: ${type}`);
+  }
+}
+
+/**
+ * ChordEncoder that outputs a one-hot encoding over major and minor triads.
+ */
+export class 
