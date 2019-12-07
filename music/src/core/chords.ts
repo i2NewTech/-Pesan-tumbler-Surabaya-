@@ -240,4 +240,11 @@ export class PitchChordEncoder extends ChordEncoder {
 
       const root = ChordSymbols.root(chord);
       const rootEncoding =
-   
+          tf.oneHot(tf.tensor1d([root], 'int32'), constants.NUM_PITCH_CLASSES)
+              .as1D();
+
+      const pitchBuffer = tf.buffer([constants.NUM_PITCH_CLASSES]);
+      ChordSymbols.pitches(chord).forEach(pitch => pitchBuffer.set(1.0, pitch));
+      const pitchEncoding = pitchBuffer.toTensor().as1D();
+
+      // Since tonal doesn't understa
