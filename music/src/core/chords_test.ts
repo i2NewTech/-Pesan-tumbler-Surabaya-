@@ -86,3 +86,88 @@ test('Test Chord Quality', (t: test.Test) => {
 
   // Test other chords.
   t.equal(ChordSymbols.quality('G7no5'), ChordQuality.Other);
+  t.equal(ChordSymbols.quality('Bbsus2'), ChordQuality.Other);
+  t.equal(ChordSymbols.quality('Dsus'), ChordQuality.Other);
+  t.equal(ChordSymbols.quality('Esus24'), ChordQuality.Other);
+  t.equal(ChordSymbols.quality('Em7#5'), ChordQuality.Other);
+
+  // Test invalid chords.
+  t.throws(() => ChordSymbols.quality('Xdim'), ChordSymbolException);
+  t.throws(() => ChordSymbols.quality('-13'), ChordSymbolException);
+  t.throws(() => ChordSymbols.quality('++'), ChordSymbolException);
+  t.throws(() => ChordSymbols.quality('H#'), ChordSymbolException);
+
+  t.end();
+});
+
+test('Test Major/Minor Chord Encoder', (t: test.Test) => {
+  const e = chords.chordEncoderFromType('MajorMinorChordEncoder');
+  t.equal(e.depth, 25);
+  t.deepEqual(e.encode('G').shape, [25]);
+  t.equal(tf.argMax(e.encode('N.C.')).dataSync()[0], 0);
+  t.equal(tf.argMax(e.encode('C')).dataSync()[0], 1);
+  t.equal(tf.argMax(e.encode('Cm')).dataSync()[0], 13);
+  t.equal(tf.argMax(e.encode('F7')).dataSync()[0], 6);
+  t.equal(tf.argMax(e.encode('Abm9')).dataSync()[0], 21);
+  t.throws(() => e.encode('Gsus4'), ChordEncodingException);
+  t.throws(() => e.encode('Bbdim'), ChordEncodingException);
+  t.end();
+});
+
+test('Test Triad Chord Encoder', (t: test.Test) => {
+  const e = chords.chordEncoderFromType('TriadChordEncoder');
+  t.equal(e.depth, 49);
+  t.deepEqual(e.encode('G').shape, [49]);
+  t.equal(tf.argMax(e.encode('N.C.')).dataSync()[0], 0);
+  t.equal(tf.argMax(e.encode('C13')).dataSync()[0], 1);
+  t.equal(tf.argMax(e.encode('CmMaj7')).dataSync()[0], 13);
+  t.equal(tf.argMax(e.encode('Faug7')).dataSync()[0], 30);
+  t.equal(tf.argMax(e.encode('Abm7b5')).dataSync()[0], 45);
+  t.throws(() => e.encode('Gsus4'), ChordEncodingException);
+  t.throws(() => e.encode('Bb7no5'), ChordEncodingException);
+  t.end();
+});
+
+test('Test Pitch Chord Encoder', (t: test.Test) => {
+  const e = chords.chordEncoderFromType('PitchChordEncoder');
+  t.equal(e.depth, 37);
+  t.deepEqual(e.encode('G').shape, [37]);
+  t.deepEqual(e.encode('N.C.').dataSync(), [
+    1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+  ]);
+  t.deepEqual(e.encode('C').dataSync(), [
+    0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+  ]);
+  t.deepEqual(e.encode('F#m').dataSync(), [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0
+  ]);
+  t.deepEqual(e.encode('E13').dataSync(), [
+    0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+  ]);
+  t.deepEqual(e.encode('FmMaj7').dataSync(), [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+  ]);
+  t.end();
+});
+
+test('Test Encode Progression', (t: test.Test) => {
+  const e = chords.chordEncoderFromType('MajorMinorChordEncoder');
+  const tensors = e.encodeProgression(['C', 'Dm'], 4);
+  const splitTensors = tf.split(tensors, 4);
+  t.deepEqual(tensors.shape, [4, e.depth]);
+  t.deepEqual(splitTensors[0].dataSync(), e.encode('C').dataSync());
+  t.deepEqual(splitTensors[1].dataSync(), e.encode('C').dataSync());
+  t.deepEqual(splitTensors[2].dataSync(), e.encode('Dm').dataSync());
+  t.deepEqual(splitTensors[3].dataSync(), e.encode('Dm').dataSync());
+  t.end();
+});
