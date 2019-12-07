@@ -247,4 +247,12 @@ export class PitchChordEncoder extends ChordEncoder {
       ChordSymbols.pitches(chord).forEach(pitch => pitchBuffer.set(1.0, pitch));
       const pitchEncoding = pitchBuffer.toTensor().as1D();
 
-      // Since tonal doesn't understa
+      // Since tonal doesn't understand chords with slash notation to specify
+      // bass, just use the root for now.
+      const bassEncoding = rootEncoding;
+
+      return tf.concat1d(
+          [tf.tensor1d([0.0]), rootEncoding, pitchEncoding, bassEncoding]);
+    });
+  }
+}
