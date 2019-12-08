@@ -27,4 +27,13 @@
 const isNode = typeof global !== 'undefined' && typeof global.process !== 'undefined';
 
 export interface Performance {
-  now(): num
+  now(): number;
+  timing: {
+    navigationStart: number;
+  };
+}
+
+// tslint:disable:no-require-imports
+export const fetch: typeof window.fetch = isNode ? require('node-fetch') : window.fetch.bind(window);
+export const performance: Performance = isNode ? require('./performance_node') : window.performance;
+export const navigator = isNode ? require('./navigator_node') : windo
