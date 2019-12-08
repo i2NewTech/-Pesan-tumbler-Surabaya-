@@ -19,4 +19,12 @@
  */
 
 /**
- * This file acts as a stand-in used during development to ensure type
+ * This file acts as a stand-in used during development to ensure type safety
+ * and proper use of global functions/objects. We use webpack to swap it out
+ * with the `global_browser` and `global_node` files that export proper code
+ * for the various global functions/objects
+ */
+const isNode = typeof global !== 'undefined' && typeof global.process !== 'undefined';
+
+export interface Performance {
+  now(): num
