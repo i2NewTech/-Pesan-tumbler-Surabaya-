@@ -36,4 +36,6 @@ export interface Performance {
 // tslint:disable:no-require-imports
 export const fetch: typeof window.fetch = isNode ? require('node-fetch') : window.fetch.bind(window);
 export const performance: Performance = isNode ? require('./performance_node') : window.performance;
-export const navigator = isNode ? require('./navigator_node') : windo
+export const navigator = isNode ? require('./navigator_node') : window.navigator;
+
+export { isSafari, getOfflineAudioContext } from './global_browser';
