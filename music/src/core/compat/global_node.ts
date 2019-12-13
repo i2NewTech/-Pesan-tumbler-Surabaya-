@@ -16,3 +16,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+
+// tslint:disable:no-require-imports
+export const fetch = require('node-fetch');
+export const performance = require('./performance_node');
+export const navigator = require('./navigator_node');
+
+export function isSafari(): boolean {
+  throw new Error('Cannot check if Safari in Node.js');
+}
+
+export function getOfflineAudioCon
