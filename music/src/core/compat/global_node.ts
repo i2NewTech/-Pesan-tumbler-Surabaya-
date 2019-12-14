@@ -27,4 +27,6 @@ export function isSafari(): boolean {
   throw new Error('Cannot check if Safari in Node.js');
 }
 
-export function getOfflineAudioCon
+export function getOfflineAudioContext(sampleRate: number): OfflineAudioContext {
+  throw new Error('Cannot use offline audio context in Node.js');
+}
