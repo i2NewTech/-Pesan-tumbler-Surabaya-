@@ -25,3 +25,11 @@
  */
 import * as tf from '@tensorflow/tfjs';
 
+import {INoteSequence, NoteSequence} from '../protobuf/index';
+
+import * as constants from './constants';
+import {DEFAULT_DRUM_PITCH_CLASSES} from './constants';
+import * as logging from './logging';
+import {Melody, MelodyControl, MelodyRhythm, MelodyShape} from './melodies';
+import * as performance from './performance';
+import * as
