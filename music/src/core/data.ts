@@ -45,4 +45,17 @@ export interface MelodyRhythmConverterSpec {
   args: MelodyConverterArgs;
 }
 export interface MelodyShapeConverterSpec {
-  type: 'M
+  type: 'MelodyShapeConverter';
+  args: MelodyConverterArgs;
+}
+export interface DrumsConverterSpec {
+  type: 'DrumsConverter';
+  args: DrumsConverterArgs;
+}
+export interface DrumRollConverterSpec {
+  type: 'DrumRollConverter';
+  args: DrumsConverterArgs;
+}
+export interface TrioConverterSpec {
+  type: 'TrioConverter';
+  a
