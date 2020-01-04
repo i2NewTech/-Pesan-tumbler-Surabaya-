@@ -58,4 +58,19 @@ export interface DrumRollConverterSpec {
 }
 export interface TrioConverterSpec {
   type: 'TrioConverter';
-  a
+  args: TrioConverterArgs;
+}
+export interface TrioRhythmConverterSpec {
+  type: 'TrioRhythmConverter';
+  args: TrioConverterArgs;
+}
+export interface DrumsOneHotConverterSpec {
+  type: 'DrumsOneHotConverter';
+  args: DrumsConverterArgs;
+}
+export interface MultitrackConverterSpec {
+  type: 'MultitrackConverter';
+  args: MultitrackConverterArgs;
+}
+
+export int
