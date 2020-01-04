@@ -73,4 +73,14 @@ export interface MultitrackConverterSpec {
   args: MultitrackConverterArgs;
 }
 
-export int
+export interface GrooveConverterSpec {
+  type: 'GrooveConverter';
+  args: GrooveConverterArgs;
+}
+
+/**
+ * Interface for JSON specification of a `DataConverter`.
+ *
+ * @property type The name of the `DataConverter` class.
+ * @property args Map containing values for argments to the constructor of the
+ * `DataConverter` class sp
