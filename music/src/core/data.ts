@@ -91,4 +91,13 @@ export type ConverterSpec = MelodyConverterSpec|MelodyRhythmConverterSpec|
     MultitrackConverterSpec|GrooveConverterSpec;
 
 /**
- * Builds a `DataConverter` based on the given `
+ * Builds a `DataConverter` based on the given `ConverterSpec`.
+ *
+ * @param spec Specifies the `DataConverter` to build.
+ * @returns A new `DataConverter` object based on `spec`.
+ */
+export function converterFromSpec(spec: ConverterSpec): DataConverter {
+  switch (spec.type) {
+    case 'MelodyConverter':
+      return new MelodyConverter(spec.args);
+    case 'MelodyRh
