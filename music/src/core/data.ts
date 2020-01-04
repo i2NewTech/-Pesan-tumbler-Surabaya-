@@ -83,4 +83,12 @@ export interface GrooveConverterSpec {
  *
  * @property type The name of the `DataConverter` class.
  * @property args Map containing values for argments to the constructor of the
- * `DataConverter` class sp
+ * `DataConverter` class specified above.
+ */
+export type ConverterSpec = MelodyConverterSpec|MelodyRhythmConverterSpec|
+    MelodyShapeConverterSpec|DrumsConverterSpec|DrumRollConverterSpec|
+    TrioConverterSpec|TrioRhythmConverterSpec|DrumsOneHotConverterSpec|
+    MultitrackConverterSpec|GrooveConverterSpec;
+
+/**
+ * Builds a `DataConverter` based on the given `
