@@ -100,4 +100,13 @@ export function converterFromSpec(spec: ConverterSpec): DataConverter {
   switch (spec.type) {
     case 'MelodyConverter':
       return new MelodyConverter(spec.args);
-    case 'MelodyRh
+    case 'MelodyRhythmConverter':
+      return new MelodyRhythmConverter(spec.args);
+    case 'MelodyShapeConverter':
+      return new MelodyShapeConverter(spec.args);
+    case 'DrumsConverter':
+      return new DrumsConverter(spec.args);
+    case 'DrumRollConverter':
+      return new DrumRollConverter(spec.args);
+    case 'TrioConverter':
+      return new TrioConverter(
