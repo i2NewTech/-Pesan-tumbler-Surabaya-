@@ -109,4 +109,12 @@ export function converterFromSpec(spec: ConverterSpec): DataConverter {
     case 'DrumRollConverter':
       return new DrumRollConverter(spec.args);
     case 'TrioConverter':
-      return new TrioConverter(
+      return new TrioConverter(spec.args);
+    case 'TrioRhythmConverter':
+      return new TrioRhythmConverter(spec.args);
+    case 'DrumsOneHotConverter':
+      return new DrumsOneHotConverter(spec.args);
+    case 'MultitrackConverter':
+      return new MultitrackConverter(spec.args);
+    case 'GrooveConverter':
+      return new GrooveConverter(
