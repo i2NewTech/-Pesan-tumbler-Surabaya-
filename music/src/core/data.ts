@@ -117,4 +117,17 @@ export function converterFromSpec(spec: ConverterSpec): DataConverter {
     case 'MultitrackConverter':
       return new MultitrackConverter(spec.args);
     case 'GrooveConverter':
-      return new GrooveConverter(
+      return new GrooveConverter(spec.args);
+    default:
+      throw new Error(`Unknown DataConverter type: ${spec}`);
+  }
+}
+
+/**
+ * Constructor arguments shared by all `DataConverter`s.
+ *
+ * @param numSteps The length of each sequence.
+ * @param numSegments (Optional) The number of conductor segments, if
+ * applicable.
+ */
+export interface BaseConve
