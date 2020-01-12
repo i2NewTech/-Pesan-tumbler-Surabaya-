@@ -145,4 +145,11 @@ export abstract class DataConverter {
   readonly numSteps: number;                 // Total length of sequences.
   readonly numSegments: number;              // Number of steps for conductor.
   abstract readonly depth: number;           // Size of final output dimension.
-  abstract readonly endTensor: tf.Tensor1D;  // Tensor mark
+  abstract readonly endTensor: tf.Tensor1D;  // Tensor marking segment end.
+  readonly NUM_SPLITS: number = 0;  // Const number of conductor splits.
+  readonly SEGMENTED_BY_TRACK: boolean = false;  // Segments are tracks.
+
+  abstract toTensor(noteSequence: INoteSequence): tf.Tensor2D;
+  abstract async toNoteSequence(
+      tensor: tf.Tensor2D, stepsPerQuarter?: number,
+      qpm?: number): Promise<INoteSeq
