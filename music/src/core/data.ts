@@ -141,4 +141,8 @@ export interface BaseConverterArgs {
  * sequence e.g. monophonic melody or (a few different representations of) drum
  * track.
  */
-export abstract class Dat
+export abstract class DataConverter {
+  readonly numSteps: number;                 // Total length of sequences.
+  readonly numSegments: number;              // Number of steps for conductor.
+  abstract readonly depth: number;           // Size of final output dimension.
+  abstract readonly endTensor: tf.Tensor1D;  // Tensor mark
