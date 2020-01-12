@@ -152,4 +152,18 @@ export abstract class DataConverter {
   abstract toTensor(noteSequence: INoteSequence): tf.Tensor2D;
   abstract async toNoteSequence(
       tensor: tf.Tensor2D, stepsPerQuarter?: number,
-      qpm?: number): Promise<INoteSeq
+      qpm?: number): Promise<INoteSequence>;
+
+  constructor(args: BaseConverterArgs) {
+    this.numSteps = args.numSteps;
+    this.numSegments = args.numSegments;
+  }
+
+  tensorSteps(tensor: tf.Tensor2D): tf.Scalar {
+    return tf.scalar(tensor.shape[0], 'int32');
+  }
+}
+
+/**
+ * Converts between a quantized `NoteSequence` containing a drum sequence
+ * and the `Tensor` objects used by `M
