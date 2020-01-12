@@ -130,4 +130,15 @@ export function converterFromSpec(spec: ConverterSpec): DataConverter {
  * @param numSegments (Optional) The number of conductor segments, if
  * applicable.
  */
-export interface BaseConve
+export interface BaseConverterArgs {
+  numSteps?: number;
+  numSegments?: number;
+}
+
+/**
+ * Abstract DataConverter class for converting between `Tensor` and
+ * `NoteSequence` objects. Each subclass handles a particular type of musical
+ * sequence e.g. monophonic melody or (a few different representations of) drum
+ * track.
+ */
+export abstract class Dat
