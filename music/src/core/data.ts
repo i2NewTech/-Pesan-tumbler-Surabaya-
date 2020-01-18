@@ -166,4 +166,10 @@ export abstract class DataConverter {
 
 /**
  * Converts between a quantized `NoteSequence` containing a drum sequence
- * and the `Tensor` objects used by `M
+ * and the `Tensor` objects used by `MusicVAE`.
+ *
+ * The `Tensor` output by `toTensor` is a 2D "drum roll" format. Each
+ * row is a time step, and each column (up to the final) is a vector of Booleans
+ * representing whether a drum from the associated pitch class is being hit at
+ * that time. The final column is a Boolean computed by taking a NOR of the
+ * other columns in
