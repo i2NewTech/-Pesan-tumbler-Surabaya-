@@ -189,4 +189,15 @@ export abstract class DataConverter {
  * in the `NoteSequence` returned by `toNoteSequence`. A default mapping to 9
  * classes is used if not provided.
  */
-export in
+export interface DrumsConverterArgs extends BaseConverterArgs {
+  pitchClasses?: number[][];
+}
+export class DrumsConverter extends DataConverter {
+  readonly pitchClasses: number[][];
+  readonly pitchToClass: Map<number, number>;
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+
+  constructor(args: DrumsConverterArgs) {
+    super(args);
+    this.pitchCla
