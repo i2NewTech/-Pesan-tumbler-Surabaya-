@@ -182,4 +182,11 @@ export abstract class DataConverter {
  * pitch class are used.
  *
  * @param numSteps The length of each sequence.
- * @param numSegment
+ * @param numSegments (Optional) The number of conductor segments, if
+ * applicable.
+ * @param pitchClasses (Optional) An array of arrays, grouping together MIDI
+ * pitches to treat as the same drum. The first pitch in each class will be used
+ * in the `NoteSequence` returned by `toNoteSequence`. A default mapping to 9
+ * classes is used if not provided.
+ */
+export in
