@@ -215,4 +215,13 @@ export class DrumsConverter extends DataConverter {
     const numSteps = this.numSteps || noteSequence.totalQuantizedSteps;
     const drumRoll =
         tf.buffer([numSteps, this.pitchClasses.length + 1], 'int32');
-    // Set final values to 1 and change to 0 later if the colum
+    // Set final values to 1 and change to 0 later if the column gets a note.
+    for (let i = 0; i < numSteps; ++i) {
+      drumRoll.set(1, i, -1);
+    }
+    noteSequence.notes.forEach((note) => {
+      drumRoll.set(
+          1, note.quantizedStartStep, this.pitchToClass.get(note.pitch));
+      drumRoll.set(0, note.quantizedStartStep, -1);
+    });
+    return drumRoll.toTensor() as tf.
