@@ -200,4 +200,14 @@ export class DrumsConverter extends DataConverter {
 
   constructor(args: DrumsConverterArgs) {
     super(args);
-    this.pitchCla
+    this.pitchClasses = args.pitchClasses || DEFAULT_DRUM_PITCH_CLASSES;
+    this.pitchToClass = new Map<number, number>();
+    for (let c = 0; c < this.pitchClasses.length; ++c) {  // class
+      this.pitchClasses[c].forEach((p) => {
+        this.pitchToClass.set(p, c);
+      });
+    }
+    this.depth = this.pitchClasses.length + 1;
+  }
+
+  toTensor(noteSequenc
