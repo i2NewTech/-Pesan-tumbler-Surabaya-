@@ -224,4 +224,14 @@ export class DrumsConverter extends DataConverter {
           1, note.quantizedStartStep, this.pitchToClass.get(note.pitch));
       drumRoll.set(0, note.quantizedStartStep, -1);
     });
-    return drumRoll.toTensor() as tf.
+    return drumRoll.toTensor() as tf.Tensor2D;
+  }
+
+  async toNoteSequence(
+      oh: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    const noteSequence =
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    const labelsTensor = oh.argMax(1);
+    const labels: Int32Array = await labelsTensor.data() as Int32Array;
+    labelsTensor.dispose();
+    for (l
