@@ -210,4 +210,9 @@ export class DrumsConverter extends DataConverter {
     this.depth = this.pitchClasses.length + 1;
   }
 
-  toTensor(noteSequenc
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    sequences.assertIsQuantizedSequence(noteSequence);
+    const numSteps = this.numSteps || noteSequence.totalQuantizedSteps;
+    const drumRoll =
+        tf.buffer([numSteps, this.pitchClasses.length + 1], 'int32');
+    // Set final values to 1 and change to 0 later if the colum
