@@ -234,4 +234,10 @@ export class DrumsConverter extends DataConverter {
     const labelsTensor = oh.argMax(1);
     const labels: Int32Array = await labelsTensor.data() as Int32Array;
     labelsTensor.dispose();
-    for (l
+    for (let s = 0; s < labels.length; ++s) {               // step
+      for (let p = 0; p < this.pitchClasses.length; p++) {  // pitch class
+        if (labels[s] >> p & 1) {
+          noteSequence.notes.push(NoteSequence.Note.create({
+            pitch: this.pitchClasses[p][0],
+            quantizedStartStep: s,
+            quantizedEndStep: s
