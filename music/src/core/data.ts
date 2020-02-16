@@ -240,4 +240,19 @@ export class DrumsConverter extends DataConverter {
           noteSequence.notes.push(NoteSequence.Note.create({
             pitch: this.pitchClasses[p][0],
             quantizedStartStep: s,
-            quantizedEndStep: s
+            quantizedEndStep: s + 1,
+            isDrum: true
+          }));
+        }
+      }
+    }
+    noteSequence.totalQuantizedSteps = labels.length;
+    return noteSequence;
+  }
+}
+
+/**
+ * Converts between a quantized `NoteSequence` containing a drum sequence
+ * and the `Tensor` objects used by `MusicVAE`.
+ *
+ * The `Tensor` output by `toTensor` is the same 2D "drum roll"
