@@ -255,4 +255,15 @@ export class DrumsConverter extends DataConverter {
  * Converts between a quantized `NoteSequence` containing a drum sequence
  * and the `Tensor` objects used by `MusicVAE`.
  *
- * The `Tensor` output by `toTensor` is the same 2D "drum roll"
+ * The `Tensor` output by `toTensor` is the same 2D "drum roll" as in
+ * `DrumsConverter`.
+ *
+ * The expected `Tensor` in `toNoteSequence` is the same as the "drum roll",
+ * excluding the final NOR column.
+ *
+ * The output `NoteSequence` uses quantized time and only the first pitch in
+ * pitch class are used.
+ */
+export class DrumRollConverter extends DrumsConverter {
+  async toNoteSequence(
+      
