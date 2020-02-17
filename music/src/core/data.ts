@@ -266,4 +266,10 @@ export class DrumsConverter extends DataConverter {
  */
 export class DrumRollConverter extends DrumsConverter {
   async toNoteSequence(
-      
+      roll: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    const noteSequence =
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    const flatRoll = await roll.data() as Uint8Array;
+    for (let s = 0; s < roll.shape[0]; ++s) {  // step
+      const pitches = flatRoll.slice(
+          s * this.pitchClasses.length, (
