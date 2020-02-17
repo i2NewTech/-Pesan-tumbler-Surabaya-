@@ -272,4 +272,16 @@ export class DrumRollConverter extends DrumsConverter {
     const flatRoll = await roll.data() as Uint8Array;
     for (let s = 0; s < roll.shape[0]; ++s) {  // step
       const pitches = flatRoll.slice(
-          s * this.pitchClasses.length, (
+          s * this.pitchClasses.length, (s + 1) * this.pitchClasses.length);
+      for (let p = 0; p < pitches.length; ++p) {  // pitch class
+        if (pitches[p]) {
+          noteSequence.notes.push(NoteSequence.Note.create({
+            pitch: this.pitchClasses[p][0],
+            quantizedStartStep: s,
+            quantizedEndStep: s + 1,
+            isDrum: true
+          }));
+        }
+      }
+    }
+    noteSequen
