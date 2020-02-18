@@ -284,4 +284,14 @@ export class DrumRollConverter extends DrumsConverter {
         }
       }
     }
-    noteSequen
+    noteSequence.totalQuantizedSteps = roll.shape[0];
+    return noteSequence;
+  }
+}
+
+/**
+ * Converts between a quantized `NoteSequence` containing a drum sequence
+ * and the `Tensor` objects used by `MusicRNN`.
+ *
+ * The `Tensor` output by `toTensor` is a 2D one-hot encoding. Each
+ * row is a time step, and each column is a one-hot vector where each dru
