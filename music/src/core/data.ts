@@ -315,4 +315,12 @@ export class DrumsOneHotConverter extends DrumsConverter {
   }
 
   toTensor(noteSequence: INoteSequence): tf.Tensor2D {
-    sequences.assertIsRelativeQuantizedSequence(n
+    sequences.assertIsRelativeQuantizedSequence(noteSequence);
+    const numSteps = this.numSteps || noteSequence.totalQuantizedSteps;
+    const labels = Array<number>(numSteps).fill(0);
+    for (const {pitch, quantizedStartStep} of noteSequence.notes) {
+      labels[quantizedStartStep] += Math.pow(2, this.pitchToClass.get(pitch));
+    }
+    return tf.tidy(
+        () =>
+            tf.oneHot(tf.tens
