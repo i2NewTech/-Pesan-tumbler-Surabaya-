@@ -302,4 +302,17 @@ export class DrumRollConverter extends DrumsConverter {
  * The expected `Tensor` in `toNoteSequence` is the same kind of one-hot
  * encoding as the `Tensor` output by `toTensor`.
  *
- * The output `NoteSequence` uses quantized time and only
+ * The output `NoteSequence` uses quantized time and only the first pitch in
+ * pitch class are used.
+ *
+ */
+export class DrumsOneHotConverter extends DrumsConverter {
+  readonly depth: number;
+
+  constructor(args: DrumsConverterArgs) {
+    super(args);
+    this.depth = Math.pow(2, this.pitchClasses.length);
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    sequences.assertIsRelativeQuantizedSequence(n
