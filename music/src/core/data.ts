@@ -323,4 +323,14 @@ export class DrumsOneHotConverter extends DrumsConverter {
     }
     return tf.tidy(
         () =>
-            tf.oneHot(tf.tens
+            tf.oneHot(tf.tensor1d(labels, 'int32'), this.depth) as tf.Tensor2D);
+  }
+}
+
+/**
+ * Converts between a monophonic, quantized `NoteSequence` containing a melody
+ * and the `Tensor` objects used by `MusicVAE`.
+ *
+ * Melodies are represented as a sequence of categorical variables, representing
+ * one of three possible events:
+ *   - 
