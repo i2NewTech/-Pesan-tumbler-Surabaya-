@@ -414,4 +414,14 @@ export class MelodyConverter extends DataConverter {
  */
 abstract class MelodyControlConverter extends DataConverter {
   readonly minPitch: number;
-  readonl
+  readonly maxPitch: number;
+  readonly ignorePolyphony: boolean;
+  readonly melodyControl: MelodyControl;
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+
+  constructor(args: MelodyConverterArgs, melodyControl: MelodyControl) {
+    super(args);
+    this.minPitch = args.minPitch;
+    this.maxPitch = args.maxPitch;
+    this.ignorePolyphony = args.ign
