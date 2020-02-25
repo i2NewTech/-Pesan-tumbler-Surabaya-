@@ -357,4 +357,16 @@ export class DrumsOneHotConverter extends DrumsConverter {
 export interface MelodyConverterArgs extends BaseConverterArgs {
   minPitch: number;
   maxPitch: number;
-  ignorePolypho
+  ignorePolyphony?: boolean;
+}
+export class MelodyConverter extends DataConverter {
+  readonly minPitch: number;  // inclusive
+  readonly maxPitch: number;  // inclusive
+  readonly ignorePolyphony: boolean;
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+
+  readonly NOTE_OFF = 1;     // const
+  readonly FIRST_PITCH = 2;  // const
+
+  constructor(args: MelodyConverterArgs) 
