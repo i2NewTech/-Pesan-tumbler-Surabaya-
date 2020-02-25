@@ -333,4 +333,12 @@ export class DrumsOneHotConverter extends DrumsConverter {
  *
  * Melodies are represented as a sequence of categorical variables, representing
  * one of three possible events:
- *   - 
+ *   - A non-event, i.e. holding a note or resting. (0)
+ *   - A note off. (1)
+ *   - A note on with a specific pitch. (> 1)
+ *
+ * The `Tensor` output by `toTensor` is a one-hot encoding of the sequence of
+ * labels extracted from the `NoteSequence`.
+ *
+ * The expected `Tensor` in `toNoteSequence` is a one-hot encoding of melody
+ * sequence labels like those returned by 
