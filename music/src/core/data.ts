@@ -379,4 +379,14 @@ export class MelodyConverter extends DataConverter {
 
   toTensor(noteSequence: INoteSequence): tf.Tensor2D {
     const melody = Melody.fromNoteSequence(
-        noteSequence, this.
+        noteSequence, this.minPitch, this.maxPitch, this.ignorePolyphony,
+        this.numSteps);
+    return tf.tidy(
+        () => tf.oneHot(
+                  tf.tensor(melody.events, [melody.events.length], 'int32') as
+                      tf.Tensor1D,
+                  this.depth) as tf.Tensor2D);
+  }
+
+  async toNoteSequence(
+      oh: tf.Tensor2D, stepsPerQu
