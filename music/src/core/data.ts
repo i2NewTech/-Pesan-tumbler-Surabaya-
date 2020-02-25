@@ -389,4 +389,14 @@ export class MelodyConverter extends DataConverter {
   }
 
   async toNoteSequence(
-      oh: tf.Tensor2D, stepsPerQu
+      oh: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    const labelsTensor = oh.argMax(1);
+    const labels: Int32Array = await labelsTensor.data() as Int32Array;
+    labelsTensor.dispose();
+    const melody = new Melody(labels, this.minPitch, this.maxPitch);
+    return melody.toNoteSequence(stepsPerQuarter, qpm);
+  }
+}
+
+/**
+ * Abstract `MelodyControlConverter
