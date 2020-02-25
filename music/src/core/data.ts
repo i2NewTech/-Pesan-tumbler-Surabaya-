@@ -399,4 +399,10 @@ export class MelodyConverter extends DataConverter {
 }
 
 /**
- * Abstract `MelodyControlConverter
+ * Abstract `MelodyControlConverter` class for handling melody control signals.
+ * The `toTensor` method first extracts a monophonic melody from the
+ * `NoteSequence` then extracts the control signal from the melody. The
+ * `toNoteSequence` method is left undefined here but can be used by subclasses
+ * for debugging purposes.
+ *
+ * @param numSteps The length of each se
