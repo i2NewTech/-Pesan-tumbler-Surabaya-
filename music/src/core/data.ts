@@ -341,4 +341,11 @@ export class DrumsOneHotConverter extends DrumsConverter {
  * labels extracted from the `NoteSequence`.
  *
  * The expected `Tensor` in `toNoteSequence` is a one-hot encoding of melody
- * sequence labels like those returned by 
+ * sequence labels like those returned by `toTensor`.
+ *
+ * @param numSteps The length of each sequence.
+ * @param minPitch The minimum pitch to model. Those above this value will
+ * cause an error to be thrown.
+ * @param maxPitch The maximum pitch to model. Those above this value will
+ * cause an error to be thrown.
+ * @param ignorePolpyhony (default: true) If false, an e
