@@ -405,4 +405,13 @@ export class MelodyConverter extends DataConverter {
  * `toNoteSequence` method is left undefined here but can be used by subclasses
  * for debugging purposes.
  *
- * @param numSteps The length of each se
+ * @param numSteps The length of each sequence.
+ * @param minPitch The minimum melody pitch.
+ * @param maxPitch The maximum melody pitch.
+ * @param ignorePolpyhony Whether to raise an error if multiple notes start at
+ * the same step.
+ * @param numSegments (Optional) The number of conductor segments.
+ */
+abstract class MelodyControlConverter extends DataConverter {
+  readonly minPitch: number;
+  readonl
