@@ -369,4 +369,14 @@ export class MelodyConverter extends DataConverter {
   readonly NOTE_OFF = 1;     // const
   readonly FIRST_PITCH = 2;  // const
 
-  constructor(args: MelodyConverterArgs) 
+  constructor(args: MelodyConverterArgs) {
+    super(args);
+    this.minPitch = args.minPitch;
+    this.maxPitch = args.maxPitch;
+    this.ignorePolyphony = args.ignorePolyphony;
+    this.depth = args.maxPitch - args.minPitch + 1 + this.FIRST_PITCH;
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    const melody = Melody.fromNoteSequence(
+        noteSequence, this.
