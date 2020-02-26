@@ -438,4 +438,10 @@ abstract class MelodyControlConverter extends DataConverter {
 }
 
 /**
- * 
+ * Converts between a monophonic, quantized `NoteSequence` containing a melody
+ * and a `Tensor` representing only the *rhythm* of the melody.
+ *
+ * The rhythm is represented as a [`numSteps`, 1]-shaped `Tensor` with 1 in the
+ * positions corresponding to steps with a note-on and 0 elsewhere.
+ *
+ * Since the melody cannot be reconstructed from
