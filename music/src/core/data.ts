@@ -424,4 +424,18 @@ abstract class MelodyControlConverter extends DataConverter {
     super(args);
     this.minPitch = args.minPitch;
     this.maxPitch = args.maxPitch;
-    this.ignorePolyphony = args.ign
+    this.ignorePolyphony = args.ignorePolyphony;
+    this.melodyControl = melodyControl;
+    this.depth = melodyControl.depth;
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    const melody = Melody.fromNoteSequence(
+        noteSequence, this.minPitch, this.maxPitch, this.ignorePolyphony,
+        this.numSteps);
+    return this.melodyControl.extract(melody);
+  }
+}
+
+/**
+ * 
