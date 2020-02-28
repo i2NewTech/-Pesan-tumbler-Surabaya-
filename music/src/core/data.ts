@@ -444,4 +444,14 @@ abstract class MelodyControlConverter extends DataConverter {
  * The rhythm is represented as a [`numSteps`, 1]-shaped `Tensor` with 1 in the
  * positions corresponding to steps with a note-on and 0 elsewhere.
  *
- * Since the melody cannot be reconstructed from
+ * Since the melody cannot be reconstructed from its rhythm alone,
+ * `toNoteSequence` returns a `NoteSequence` with drum hits at the note-on
+ * steps.
+ */
+export class MelodyRhythmConverter extends MelodyControlConverter {
+  constructor(args: MelodyConverterArgs) {
+    super(args, new MelodyRhythm());
+  }
+
+  async toNoteSequence(
+      tensor: tf.Tensor2D, s
