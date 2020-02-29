@@ -454,4 +454,10 @@ export class MelodyRhythmConverter extends MelodyControlConverter {
   }
 
   async toNoteSequence(
-      tensor: tf.Tensor2D, s
+      tensor: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    // Create a NoteSequence containing the rhythm as drum hits.
+    // This is mainly for debugging purposes.
+    const noteSequence =
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    const rhythm: Int32Array = await tensor.data() as Int32Array;
+    for (le
