@@ -492,4 +492,11 @@ export class MelodyShapeConverter extends MelodyControlConverter {
     super(args, new MelodyShape());
   }
 
-  async t
+  async toNoteSequence(
+      oh: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    // Create a NoteSequence containing the melodic shape, with a new note every
+    // time step. This is mainly for debugging purposes.
+    const noteSequence =
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    const shapeTensor = oh.argMax(1);
+  
