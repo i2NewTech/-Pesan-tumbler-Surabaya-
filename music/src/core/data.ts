@@ -483,4 +483,13 @@ export class MelodyRhythmConverter extends MelodyControlConverter {
  * one-hot Parsons code, where 0 = descending pitch, 1 = same pitch, and 2 =
  * ascending pitch.
  *
- * Since the melod
+ * Since the melody cannot be reconstructed from its shape alone,
+ * `toNoteSequence` returns a `NoteSequence` having the shape of the contour
+ * with a note at each time step.
+ */
+export class MelodyShapeConverter extends MelodyControlConverter {
+  constructor(args: MelodyConverterArgs) {
+    super(args, new MelodyShape());
+  }
+
+  async t
