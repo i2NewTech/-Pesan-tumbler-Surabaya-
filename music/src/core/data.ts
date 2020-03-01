@@ -460,4 +460,14 @@ export class MelodyRhythmConverter extends MelodyControlConverter {
     const noteSequence =
         sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
     const rhythm: Int32Array = await tensor.data() as Int32Array;
-    for (le
+    for (let s = 0; s < rhythm.length; ++s) {
+      if (rhythm[s]) {
+        noteSequence.notes.push(NoteSequence.Note.create({
+          pitch: DEFAULT_DRUM_PITCH_CLASSES[1][0],  // snare
+          quantizedStartStep: s,
+          quantizedEndStep: s + 1,
+          isDrum: true
+        }));
+      }
+    }
+    noteSequence.totalQuantizedS
