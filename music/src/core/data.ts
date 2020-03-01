@@ -470,4 +470,17 @@ export class MelodyRhythmConverter extends MelodyControlConverter {
         }));
       }
     }
-    noteSequence.totalQuantizedS
+    noteSequence.totalQuantizedSteps = rhythm.length;
+    return noteSequence;
+  }
+}
+
+/**
+ * Converts between a monophonic, quantized `NoteSequence` containing a melody
+ * and a `Tensor` representing only the *shape* of the melody.
+ *
+ * The shape is represented as a [`numSteps`, 3]-shaped `Tensor` containing a
+ * one-hot Parsons code, where 0 = descending pitch, 1 = same pitch, and 2 =
+ * ascending pitch.
+ *
+ * Since the melod
