@@ -528,4 +528,17 @@ export class MelodyShapeConverter extends MelodyControlConverter {
       noteSequence.notes.push(NoteSequence.Note.create(
           {pitch, quantizedStartStep: s, quantizedEndStep: s + 1}));
     }
-    noteSequence.totalQuantizedSteps = shape.le
+    noteSequence.totalQuantizedSteps = shape.length;
+    return noteSequence;
+  }
+}
+
+export interface TrioConverterArgs extends BaseConverterArgs {
+  melArgs: MelodyConverterArgs;
+  bassArgs: MelodyConverterArgs;
+  drumsArgs: DrumsConverterArgs;
+}
+export class TrioConverter extends DataConverter {
+  melConverter: MelodyConverter;
+  bassConverter: MelodyConverter;
+  drumsConverter
