@@ -499,4 +499,12 @@ export class MelodyShapeConverter extends MelodyControlConverter {
     const noteSequence =
         sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
     const shapeTensor = oh.argMax(1);
-  
+    const shape: Int32Array = await shapeTensor.data() as Int32Array;
+    shapeTensor.dispose();
+    let pitch = Math.round((this.maxPitch + this.minPitch) / 2);
+    for (let s = 0; s < shape.length; ++s) {
+      switch (shape[s]) {
+        case 0:
+          pitch -= 1;
+          if (pitch < this.minPitch) {
+            pitch
