@@ -507,4 +507,15 @@ export class MelodyShapeConverter extends MelodyControlConverter {
         case 0:
           pitch -= 1;
           if (pitch < this.minPitch) {
-            pitch
+            pitch = this.minPitch;
+            logging.log(
+                'Pitch range exceeded when creating NoteSequence from shape.',
+                'MelodyShapeConverter');
+          }
+          break;
+        case 2:
+          pitch += 1;
+          if (pitch > this.maxPitch) {
+            pitch = this.maxPitch;
+            logging.log(
+          
