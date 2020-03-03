@@ -518,4 +518,14 @@ export class MelodyShapeConverter extends MelodyControlConverter {
           if (pitch > this.maxPitch) {
             pitch = this.maxPitch;
             logging.log(
-          
+                'Pitch range exceeded when creating NoteSequence from shape.',
+                'MelodyShapeConverter');
+          }
+          break;
+        default:
+          break;
+      }
+      noteSequence.notes.push(NoteSequence.Note.create(
+          {pitch, quantizedStartStep: s, quantizedEndStep: s + 1}));
+    }
+    noteSequence.totalQuantizedSteps = shape.le
