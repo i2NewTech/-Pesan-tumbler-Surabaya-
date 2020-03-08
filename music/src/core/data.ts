@@ -574,4 +574,12 @@ export class TrioConverter extends DataConverter {
     bassSeq.notes = noteSequence.notes.filter(
         n =>
             (!n.isDrum && n.program >= this.BASS_PROG_RANGE[0] &&
-             n.prog
+             n.program <= this.BASS_PROG_RANGE[1]));
+    drumsSeq.notes = noteSequence.notes.filter(n => n.isDrum);
+    return tf.tidy(
+        () => tf.concat(
+            [
+              this.melConverter.toTensor(melSeq),
+              this.bassConverter.toTensor(bassSeq),
+              this.drumsConverter.toTensor(drumsSeq)
+            
