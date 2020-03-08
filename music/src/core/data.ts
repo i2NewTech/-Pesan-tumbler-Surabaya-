@@ -608,4 +608,18 @@ export class TrioConverter extends DataConverter {
       n.instrument = 1;
       n.program = this.BASS_PROG_RANGE[0];
       return n;
-    })
+    }));
+    const drumsNs =
+        await this.drumsConverter.toNoteSequence(ohs[2], stepsPerQuarter, qpm);
+    ns.notes.push(...drumsNs.notes.map(n => {
+      n.instrument = 2;
+      return n;
+    }));
+    ohs.forEach(oh => oh.dispose());
+    return ns;
+  }
+}
+
+export class TrioRhythmConverter extends DataConverter {
+  readonly trioConverter: TrioConverter;
+ 
