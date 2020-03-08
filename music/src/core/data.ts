@@ -541,4 +541,14 @@ export interface TrioConverterArgs extends BaseConverterArgs {
 export class TrioConverter extends DataConverter {
   melConverter: MelodyConverter;
   bassConverter: MelodyConverter;
-  drumsConverter
+  drumsConverter: DrumsConverter;
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+  readonly NUM_SPLITS = 3;              // const
+  readonly MEL_PROG_RANGE = [0, 31];    // inclusive, const
+  readonly BASS_PROG_RANGE = [32, 39];  // inclusive, const
+
+  constructor(args: TrioConverterArgs) {
+    super(args);
+    // Copy numSteps to all converters.
+    ar
