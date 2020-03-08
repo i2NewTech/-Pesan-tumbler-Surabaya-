@@ -596,4 +596,16 @@ export class TrioConverter extends DataConverter {
         ],
         -1);
     const ns =
-        await this.melConverter.toNoteSequence(ohs[0
+        await this.melConverter.toNoteSequence(ohs[0], stepsPerQuarter, qpm);
+
+    ns.notes.forEach(n => {
+      n.instrument = 0;
+      n.program = 0;
+    });
+    const bassNs =
+        await this.bassConverter.toNoteSequence(ohs[1], stepsPerQuarter, qpm);
+    ns.notes.push(...bassNs.notes.map(n => {
+      n.instrument = 1;
+      n.program = this.BASS_PROG_RANGE[0];
+      return n;
+    })
