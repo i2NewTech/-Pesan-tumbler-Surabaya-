@@ -566,4 +566,12 @@ export class TrioConverter extends DataConverter {
     sequences.assertIsQuantizedSequence(noteSequence);
     const melSeq = sequences.clone(noteSequence);
     const bassSeq = sequences.clone(noteSequence);
-    const drumsSeq = sequenc
+    const drumsSeq = sequences.clone(noteSequence);
+    melSeq.notes = noteSequence.notes.filter(
+        n =>
+            (!n.isDrum && n.program >= this.MEL_PROG_RANGE[0] &&
+             n.program <= this.MEL_PROG_RANGE[1]));
+    bassSeq.notes = noteSequence.notes.filter(
+        n =>
+            (!n.isDrum && n.program >= this.BASS_PROG_RANGE[0] &&
+             n.prog
