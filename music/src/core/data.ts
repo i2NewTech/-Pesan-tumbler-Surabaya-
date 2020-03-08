@@ -558,4 +558,12 @@ export class TrioConverter extends DataConverter {
     this.bassConverter = new MelodyConverter(args.bassArgs);
     this.drumsConverter = new DrumsOneHotConverter(args.drumsArgs);
     this.depth =
-        (this.melConverter.dep
+        (this.melConverter.depth + this.bassConverter.depth +
+         this.drumsConverter.depth);
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    sequences.assertIsQuantizedSequence(noteSequence);
+    const melSeq = sequences.clone(noteSequence);
+    const bassSeq = sequences.clone(noteSequence);
+    const drumsSeq = sequenc
