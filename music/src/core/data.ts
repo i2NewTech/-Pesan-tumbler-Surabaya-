@@ -551,4 +551,11 @@ export class TrioConverter extends DataConverter {
   constructor(args: TrioConverterArgs) {
     super(args);
     // Copy numSteps to all converters.
-    ar
+    args.melArgs.numSteps = args.numSteps;
+    args.bassArgs.numSteps = args.numSteps;
+    args.drumsArgs.numSteps = args.numSteps;
+    this.melConverter = new MelodyConverter(args.melArgs);
+    this.bassConverter = new MelodyConverter(args.bassArgs);
+    this.drumsConverter = new DrumsOneHotConverter(args.drumsArgs);
+    this.depth =
+        (this.melConverter.dep
