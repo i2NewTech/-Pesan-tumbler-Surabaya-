@@ -582,4 +582,18 @@ export class TrioConverter extends DataConverter {
               this.melConverter.toTensor(melSeq),
               this.bassConverter.toTensor(bassSeq),
               this.drumsConverter.toTensor(drumsSeq)
-            
+            ],
+            -1));
+  }
+
+  async toNoteSequence(
+      th: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    const ohs: tf.Tensor2D[] = tf.split(
+        th,
+        [
+          this.melConverter.depth, this.bassConverter.depth,
+          this.drumsConverter.depth
+        ],
+        -1);
+    const ns =
+        await this.melConverter.toNoteSequence(ohs[0
