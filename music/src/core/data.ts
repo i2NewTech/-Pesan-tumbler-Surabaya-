@@ -622,4 +622,16 @@ export class TrioConverter extends DataConverter {
 
 export class TrioRhythmConverter extends DataConverter {
   readonly trioConverter: TrioConverter;
- 
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+  readonly NUM_SPLITS = 3;
+
+  constructor(args: TrioConverterArgs) {
+    super(args);
+    this.trioConverter = new TrioConverter(args);
+    this.depth = 3;
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    return tf.tidy(() => {
+      const trioTensor = this.trioConverter.t
