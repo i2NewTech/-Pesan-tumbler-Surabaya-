@@ -634,4 +634,13 @@ export class TrioRhythmConverter extends DataConverter {
 
   toTensor(noteSequence: INoteSequence): tf.Tensor2D {
     return tf.tidy(() => {
-      const trioTensor = this.trioConverter.t
+      const trioTensor = this.trioConverter.toTensor(noteSequence);
+      const instrumentTensors = tf.split(
+          trioTensor,
+          [
+            this.trioConverter.melConverter.depth,
+            this.trioConverter.bassConverter.depth,
+            this.trioConverter.drumsConverter.depth
+          ],
+          1);
+      const melodyEvents: tf.Tensor1D = tf.argMax(instrumentTensors[
