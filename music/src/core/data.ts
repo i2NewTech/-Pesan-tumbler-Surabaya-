@@ -643,4 +643,9 @@ export class TrioRhythmConverter extends DataConverter {
             this.trioConverter.drumsConverter.depth
           ],
           1);
-      const melodyEvents: tf.Tensor1D = tf.argMax(instrumentTensors[
+      const melodyEvents: tf.Tensor1D = tf.argMax(instrumentTensors[0], 1);
+      const bassEvents: tf.Tensor1D = tf.argMax(instrumentTensors[1], 1);
+      const drumsEvents: tf.Tensor1D = tf.argMax(instrumentTensors[2], 1);
+      const melodyRhythm: tf.Tensor1D = tf.greater(melodyEvents, 1);
+      const bassRhythm: tf.Tensor1D = tf.greater(bassEvents, 1);
+      const drumsRhythm: tf.Tensor1D = tf.greater(dru
