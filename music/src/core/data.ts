@@ -648,4 +648,14 @@ export class TrioRhythmConverter extends DataConverter {
       const drumsEvents: tf.Tensor1D = tf.argMax(instrumentTensors[2], 1);
       const melodyRhythm: tf.Tensor1D = tf.greater(melodyEvents, 1);
       const bassRhythm: tf.Tensor1D = tf.greater(bassEvents, 1);
-      const drumsRhythm: tf.Tensor1D = tf.greater(dru
+      const drumsRhythm: tf.Tensor1D = tf.greater(drumsEvents, 0);
+      return tf.stack([melodyRhythm, bassRhythm, drumsRhythm], 1) as
+          tf.Tensor2D;
+    });
+  }
+
+  async toNoteSequence(
+      tensor: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
+    // Create a NoteSequence containing the rhythm as drum hits.
+    // This is mainly for debugging purposes.
+    const rhythmTensors = tf.split(te
