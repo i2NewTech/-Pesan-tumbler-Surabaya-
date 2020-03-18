@@ -658,4 +658,12 @@ export class TrioRhythmConverter extends DataConverter {
       tensor: tf.Tensor2D, stepsPerQuarter?: number, qpm?: number) {
     // Create a NoteSequence containing the rhythm as drum hits.
     // This is mainly for debugging purposes.
-    const rhythmTensors = tf.split(te
+    const rhythmTensors = tf.split(tensor, 3, 1);
+    const rhythms =
+        await Promise.all(rhythmTensors.map(t => t.data())) as Int32Array[];
+    const noteSequence =
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    for (let s = 0; s < this.numSteps; ++s) {
+      if (rhythms[0][s]) {
+        // melody
+        noteSequence.notes.push(NoteSequenc
