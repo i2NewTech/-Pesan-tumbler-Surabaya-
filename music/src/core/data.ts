@@ -680,4 +680,19 @@ export class TrioRhythmConverter extends DataConverter {
           pitch: 36,
           quantizedStartStep: s,
           quantizedEndStep: s + 1,
-          
+          instrument: 1,
+          program: 32,
+        }));
+      }
+      if (rhythms[2][s]) {
+        // drums
+        noteSequence.notes.push(NoteSequence.Note.create({
+          pitch: DEFAULT_DRUM_PITCH_CLASSES[1][0],
+          quantizedStartStep: s,
+          quantizedEndStep: s + 1,
+          instrument: 2,
+          isDrum: true
+        }));
+      }
+    }
+    noteSequence
