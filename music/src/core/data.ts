@@ -666,4 +666,18 @@ export class TrioRhythmConverter extends DataConverter {
     for (let s = 0; s < this.numSteps; ++s) {
       if (rhythms[0][s]) {
         // melody
-        noteSequence.notes.push(NoteSequenc
+        noteSequence.notes.push(NoteSequence.Note.create({
+          pitch: 72,
+          quantizedStartStep: s,
+          quantizedEndStep: s + 1,
+          instrument: 0,
+          program: 0,
+        }));
+      }
+      if (rhythms[1][s]) {
+        // bass
+        noteSequence.notes.push(NoteSequence.Note.create({
+          pitch: 36,
+          quantizedStartStep: s,
+          quantizedEndStep: s + 1,
+          
