@@ -695,4 +695,14 @@ export class TrioRhythmConverter extends DataConverter {
         }));
       }
     }
-    noteSequence
+    noteSequence.totalQuantizedSteps = this.numSteps;
+    return noteSequence;
+  }
+}
+
+/**
+ * Converts between a quantized multitrack `NoteSequence` and `Tensor` objects
+ * used by `MusicVAE`.
+ *
+ * Each track is represented using events from the following vocabulary:
+ *   - An initial program-select event specifying which MIDI pro
