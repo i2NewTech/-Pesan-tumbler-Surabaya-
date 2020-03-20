@@ -705,4 +705,11 @@ export class TrioRhythmConverter extends DataConverter {
  * used by `MusicVAE`.
  *
  * Each track is represented using events from the following vocabulary:
- *   - An initial program-select event specifying which MIDI pro
+ *   - An initial program-select event specifying which MIDI program to use.
+ *   - A sequence of performance (note-on, note-off, time-shift,
+ *     velocity-change) events.
+ *   - An end token.
+ *
+ * Tracks are ordered by program number with drums at the end, then one-hot
+ * encoded and padded with zeros to the maximum number of events. If fewer
+ * than the maximum number of
