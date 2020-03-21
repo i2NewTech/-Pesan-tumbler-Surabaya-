@@ -718,4 +718,10 @@ export class TrioRhythmConverter extends DataConverter {
  * @param numSteps The total number of events used to encode each
  * `NoteSequence`.
  * @param numSegments The number of tracks to use. `NoteSequence`s with more
- * tracks will have tracks r
+ * tracks will have tracks removed. `NoteSequence`s with fewer tracks will be
+ * padded with empty tracks.
+ * @param stepsPerQuarter The number of time steps per quarter note.
+ * @param totalSteps The length of each `NoteSequence` in time steps. Longer
+ * `NoteSequence`s will be truncated. Shorter `NoteSequence`s will be padded
+ * with silence.
+ * @param numVelocityB
