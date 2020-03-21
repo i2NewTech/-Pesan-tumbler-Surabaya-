@@ -712,4 +712,10 @@ export class TrioRhythmConverter extends DataConverter {
  *
  * Tracks are ordered by program number with drums at the end, then one-hot
  * encoded and padded with zeros to the maximum number of events. If fewer
- * than the maximum number of
+ * than the maximum number of tracks are present, extra tracks consisting of
+ * only an end token (then one-hot encoded and zero-padded) will be added.
+ *
+ * @param numSteps The total number of events used to encode each
+ * `NoteSequence`.
+ * @param numSegments The number of tracks to use. `NoteSequence`s with more
+ * tracks will have tracks r
