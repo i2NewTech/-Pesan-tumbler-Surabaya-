@@ -724,4 +724,14 @@ export class TrioRhythmConverter extends DataConverter {
  * @param totalSteps The length of each `NoteSequence` in time steps. Longer
  * `NoteSequence`s will be truncated. Shorter `NoteSequence`s will be padded
  * with silence.
- * @param numVelocityB
+ * @param numVelocityBins The number of bins into which to quantize note
+ * velocities.
+ * @param minPitch (Optional) Minimum MIDI pitch to allow. Will be 0 if not
+ * specified.
+ * @param maxPitch (Optional) Maximum MIDI pitch to allow. Will be 127 if not
+ * specified.
+ */
+export interface MultitrackConverterArgs extends BaseConverterArgs {
+  stepsPerQuarter: number;
+  totalSteps: number;
+  numVelocityBin
