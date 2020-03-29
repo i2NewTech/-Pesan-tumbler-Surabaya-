@@ -734,4 +734,18 @@ export class TrioRhythmConverter extends DataConverter {
 export interface MultitrackConverterArgs extends BaseConverterArgs {
   stepsPerQuarter: number;
   totalSteps: number;
-  numVelocityBin
+  numVelocityBins: number;
+  minPitch?: number;
+  maxPitch?: number;
+}
+export class MultitrackConverter extends DataConverter {
+  readonly SEGMENTED_BY_TRACK = true;  // const
+
+  readonly stepsPerQuarter: number;
+  readonly totalSteps: number;
+  readonly numVelocityBins: number;
+  readonly minPitch: number;
+  readonly maxPitch: number;
+
+  readonly numPitches: number;
+  readonly perf
