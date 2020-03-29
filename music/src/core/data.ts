@@ -748,4 +748,15 @@ export class MultitrackConverter extends DataConverter {
   readonly maxPitch: number;
 
   readonly numPitches: number;
-  readonly perf
+  readonly performanceEventDepth: number;
+  readonly numPrograms: number;
+  readonly endToken: number;
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+
+  constructor(args: MultitrackConverterArgs) {
+    super(args);
+
+    this.stepsPerQuarter = args.stepsPerQuarter;
+    this.totalSteps = args.totalSteps;
+    this.numVelocityBins = args.numVeloc
