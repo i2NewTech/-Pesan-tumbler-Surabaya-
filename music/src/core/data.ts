@@ -759,4 +759,13 @@ export class MultitrackConverter extends DataConverter {
 
     this.stepsPerQuarter = args.stepsPerQuarter;
     this.totalSteps = args.totalSteps;
-    this.numVelocityBins = args.numVeloc
+    this.numVelocityBins = args.numVelocityBins;
+    this.minPitch = args.minPitch ? args.minPitch : constants.MIN_MIDI_PITCH;
+    this.maxPitch = args.maxPitch ? args.maxPitch : constants.MAX_MIDI_PITCH;
+
+    // Vocabulary:
+    // note-on, note-off, time-shift, velocity-change, program-select,
+    // end-token
+
+    this.numPitches = this.maxPitch - this.minPitch + 1;
+    
