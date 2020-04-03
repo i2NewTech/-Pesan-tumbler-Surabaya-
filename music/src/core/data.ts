@@ -768,4 +768,14 @@ export class MultitrackConverter extends DataConverter {
     // end-token
 
     this.numPitches = this.maxPitch - this.minPitch + 1;
-    
+    this.performanceEventDepth =
+        2 * this.numPitches + this.totalSteps + this.numVelocityBins;
+
+    // Include an extra "program" for drums.
+    this.numPrograms =
+        constants.MAX_MIDI_PROGRAM - constants.MIN_MIDI_PROGRAM + 2;
+
+    this.endToken = this.performanceEventDepth + this.numPrograms;
+    this.depth = this.endToken + 1;
+
+    this
