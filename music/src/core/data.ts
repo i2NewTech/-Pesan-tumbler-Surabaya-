@@ -796,3 +796,12 @@ export class MultitrackConverter extends DataConverter {
 
       tokens = tf.buffer([track.events.length + 2], 'int32');
 
+      // Add an initial program select token.
+      tokens.set(
+          this.performanceEventDepth +
+              (track.isDrum ? this.numPrograms - 1 : track.program),
+          0);
+
+      // Add tokens for each performance event.
+      track.events.forEach((event, index) => {
+        switch (event.type) {
