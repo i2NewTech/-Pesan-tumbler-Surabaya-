@@ -805,3 +805,13 @@ export class MultitrackConverter extends DataConverter {
       // Add tokens for each performance event.
       track.events.forEach((event, index) => {
         switch (event.type) {
+          case 'note-on':
+            tokens.set(event.pitch - this.minPitch, index + 1);
+            break;
+          case 'note-off':
+            tokens.set(
+                this.numPitches + event.pitch - this.minPitch, index + 1);
+            break;
+          case 'time-shift':
+            tokens.set(2 * this.numPitches + event.steps - 1, index + 1);
+            
