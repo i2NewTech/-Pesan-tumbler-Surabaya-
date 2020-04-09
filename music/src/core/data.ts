@@ -814,4 +814,16 @@ export class MultitrackConverter extends DataConverter {
             break;
           case 'time-shift':
             tokens.set(2 * this.numPitches + event.steps - 1, index + 1);
-            
+            break;
+          case 'velocity-change':
+            tokens.set(
+                2 * this.numPitches + this.totalSteps + event.velocityBin - 1,
+                index + 1);
+            break;
+          default:
+            throw new Error(`Unrecognized performance event: ${event}`);
+        }
+      });
+
+      // Add a single end token.
+ 
