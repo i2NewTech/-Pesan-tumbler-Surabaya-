@@ -835,4 +835,12 @@ export class MultitrackConverter extends DataConverter {
     // Now do one-hot encoding and pad with zeros up to the maximum number of
     // events.
     return tf.tidy(() => {
-      const oh = 
+      const oh = tf.oneHot(tokens.toTensor() as tf.Tensor1D, this.depth);
+      return oh.pad([[0, maxEventsPerTrack - oh.shape[0]], [0, 0]]);
+    });
+  }
+
+  toTensor(noteSequence: INoteSequence): tf.Tensor2D {
+    sequences.assertIsRelativeQuantizedSequence(noteSequence);
+
+    if (noteSequence.quantizationInfo.stepsPerQuarter !=
