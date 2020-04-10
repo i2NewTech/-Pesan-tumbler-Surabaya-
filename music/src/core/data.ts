@@ -826,4 +826,13 @@ export class MultitrackConverter extends DataConverter {
       });
 
       // Add a single end token.
- 
+      tokens.set(this.endToken, track.events.length + 1);
+    } else {
+      // Track doesn't exist, just use an end token.
+      tokens = tf.buffer([1], 'int32', new Int32Array([this.endToken]));
+    }
+
+    // Now do one-hot encoding and pad with zeros up to the maximum number of
+    // events.
+    return tf.tidy(() => {
+      const oh = 
