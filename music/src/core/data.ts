@@ -889,4 +889,13 @@ export class MultitrackConverter extends DataConverter {
   private tokensToTrack(tokens: Int32Array) {
     // Trim to end token.
     const idx = tokens.indexOf(this.endToken);
-    const endIndex = idx >= 0 ? idx : toke
+    const endIndex = idx >= 0 ? idx : tokens.length;
+    const trackTokens = tokens.slice(0, endIndex);
+
+    // Split into performance event tokens and program change tokens.
+    const eventTokens =
+        trackTokens.filter((token) => token < this.performanceEventDepth);
+    const programTokens =
+        trackTokens.filter((token) => token >= this.performanceEventDepth);
+
+    // Use the
