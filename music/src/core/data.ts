@@ -903,4 +903,13 @@ export class MultitrackConverter extends DataConverter {
     const [program, isDrum] = programTokens.length ?
         (programTokens[0] - this.performanceEventDepth < this.numPrograms - 1 ?
              [programTokens[0] - this.performanceEventDepth, false] :
-             
+             [0, true]) :
+        [0, false];
+
+    // Decode event tokens.
+    const events: performance.PerformanceEvent[] =
+        Array.from(eventTokens).map((token) => {
+          if (token < this.numPitches) {
+            return {type: 'note-on', pitch: this.minPitch + token} as
+                performance.NoteOn;
+          } else if (token < 2 * this.numPitches) 
