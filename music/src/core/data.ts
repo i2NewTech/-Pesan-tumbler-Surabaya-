@@ -843,4 +843,13 @@ export class MultitrackConverter extends DataConverter {
   toTensor(noteSequence: INoteSequence): tf.Tensor2D {
     sequences.assertIsRelativeQuantizedSequence(noteSequence);
 
-    if (noteSequence.quantizationInfo.stepsPerQuarter !=
+    if (noteSequence.quantizationInfo.stepsPerQuarter !==
+        this.stepsPerQuarter) {
+      throw new Error(`Steps per quarter note mismatch: ${
+          noteSequence.quantizationInfo.stepsPerQuarter} != ${
+          this.stepsPerQuarter}`);
+    }
+
+    // Drop all notes outside the valid pitch range.
+    const seq = sequences.clone(noteSequence);
+    seq.notes = noteSequence.notes.filt
