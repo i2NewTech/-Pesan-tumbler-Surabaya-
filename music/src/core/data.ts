@@ -852,4 +852,12 @@ export class MultitrackConverter extends DataConverter {
 
     // Drop all notes outside the valid pitch range.
     const seq = sequences.clone(noteSequence);
-    seq.notes = noteSequence.notes.filt
+    seq.notes = noteSequence.notes.filter(
+        note => note.pitch >= this.minPitch && note.pitch <= this.maxPitch);
+
+    const instruments = new Set(seq.notes.map(note => note.instrument));
+    const tracks =
+        Array.from(instruments)
+            .map(
+                instrument => performance.Performance.fromNoteSequence(
+                    seq, this.totalSteps, this.numVel
