@@ -860,4 +860,12 @@ export class MultitrackConverter extends DataConverter {
         Array.from(instruments)
             .map(
                 instrument => performance.Performance.fromNoteSequence(
-                    seq, this.totalSteps, this.numVel
+                    seq, this.totalSteps, this.numVelocityBins, instrument));
+
+    // Sort tracks by program number, with drums at the end.
+    const sortedTracks = tracks.sort(
+        (a, b) => b.isDrum ? -1 : (a.isDrum ? 1 : a.program - b.program));
+
+    // Drop tracks until we have the maximum number of instruments.
+    while (sortedTracks.length > this.numSegments) {
+      sortedTra
