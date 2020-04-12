@@ -898,4 +898,9 @@ export class MultitrackConverter extends DataConverter {
     const programTokens =
         trackTokens.filter((token) => token >= this.performanceEventDepth);
 
-    // Use the
+    // Use the first program token to determine program. If no program tokens,
+    // use program zero (piano).
+    const [program, isDrum] = programTokens.length ?
+        (programTokens[0] - this.performanceEventDepth < this.numPrograms - 1 ?
+             [programTokens[0] - this.performanceEventDepth, false] :
+             
