@@ -879,4 +879,14 @@ export class MultitrackConverter extends DataConverter {
       sortedTracks.push(undefined);
     }
 
-    // Convert tr
+    // Convert tracks to tensors then concatenate.
+    return tf.tidy(
+        () => tf.concat(
+                  sortedTracks.map((track) => this.trackToTensor(track)), 0) as
+            tf.Tensor2D);
+  }
+
+  private tokensToTrack(tokens: Int32Array) {
+    // Trim to end token.
+    const idx = tokens.indexOf(this.endToken);
+    const endIndex = idx >= 0 ? idx : toke
