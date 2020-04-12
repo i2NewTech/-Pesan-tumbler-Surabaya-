@@ -912,4 +912,13 @@ export class MultitrackConverter extends DataConverter {
           if (token < this.numPitches) {
             return {type: 'note-on', pitch: this.minPitch + token} as
                 performance.NoteOn;
-          } else if (token < 2 * this.numPitches) 
+          } else if (token < 2 * this.numPitches) {
+            return {
+              type: 'note-off',
+              pitch: this.minPitch + token - this.numPitches
+            } as performance.NoteOff;
+          } else if (token < 2 * this.numPitches + this.totalSteps) {
+            return {
+              type: 'time-shift',
+              steps: token - 2 * this.numPitches + 1
+            } as 
