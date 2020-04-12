@@ -868,4 +868,15 @@ export class MultitrackConverter extends DataConverter {
 
     // Drop tracks until we have the maximum number of instruments.
     while (sortedTracks.length > this.numSegments) {
-      sortedTra
+      sortedTracks.pop();
+    }
+
+    // Make sure all tracks are the proper length (in time).
+    sortedTracks.forEach((track) => track.setNumSteps(this.totalSteps));
+
+    // Pad with "undefined" tracks to reach the desired number of instruments.
+    while (sortedTracks.length < this.numSegments) {
+      sortedTracks.push(undefined);
+    }
+
+    // Convert tr
