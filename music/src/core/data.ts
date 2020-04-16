@@ -921,4 +921,13 @@ export class MultitrackConverter extends DataConverter {
             return {
               type: 'time-shift',
               steps: token - 2 * this.numPitches + 1
-            } as 
+            } as performance.TimeShift;
+          } else if (
+              token <
+              2 * this.numPitches + this.totalSteps + this.numVelocityBins) {
+            return {
+              type: 'velocity-change',
+              velocityBin: token - 2 * this.numPitches - this.totalSteps + 1
+            } as performance.VelocityChange;
+          } else {
+            thro
