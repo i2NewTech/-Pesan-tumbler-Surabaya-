@@ -930,4 +930,15 @@ export class MultitrackConverter extends DataConverter {
               velocityBin: token - 2 * this.numPitches - this.totalSteps + 1
             } as performance.VelocityChange;
           } else {
-            thro
+            throw new Error(`Invalid performance event token: ${token}`);
+          }
+        });
+
+    return new performance.Performance(
+        events, this.totalSteps, this.numVelocityBins, program, isDrum);
+  }
+
+  async toNoteSequence(
+      oh: tf.Tensor2D, stepsPerQuarter = this.stepsPerQuarter, qpm?: number) {
+    const noteSequence =
+        sequences.creat
