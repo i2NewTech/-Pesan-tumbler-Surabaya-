@@ -941,4 +941,11 @@ export class MultitrackConverter extends DataConverter {
   async toNoteSequence(
       oh: tf.Tensor2D, stepsPerQuarter = this.stepsPerQuarter, qpm?: number) {
     const noteSequence =
-        sequences.creat
+        sequences.createQuantizedNoteSequence(stepsPerQuarter, qpm);
+    noteSequence.totalQuantizedSteps = this.totalSteps;
+
+    // Split into tracks and convert to performance representation.
+    const tensors =
+        tf.tidy(() => tf.split(oh.argMax(1) as tf.Tensor1D, this.numSegments));
+    const tracks = await Promise.all(tensors.map(async (tensor) => {
+ 
