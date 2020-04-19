@@ -970,4 +970,11 @@ export class MultitrackConverter extends DataConverter {
  * Converts to and from hit/velocity/offset representations.
  * In this setting, we represent drum sequences and performances
  * as triples of (hit, velocity, offset). Each timestep refers to a fixed beat
- * on a grid, which is by default spaced a
+ * on a grid, which is by default spaced at 16th notes (when `stepsPerQuarter`
+ * is 4). Drum hits that don't fall exactly on beat are represented through
+ * the offset value, which refers to the relative distance from the nearest
+ * quantized step.
+ *
+ * Hits are binary [0, 1].
+ * Velocities are continuous values in [0, 1].
+ * Offsets are continuous val
