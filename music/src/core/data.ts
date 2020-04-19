@@ -959,4 +959,15 @@ export class MultitrackConverter extends DataConverter {
       track.setNumSteps(this.totalSteps);
 
       // Add notes to main NoteSequence.
-      not
+      noteSequence.notes.push(...track.toNoteSequence(instrument).notes);
+    });
+
+    return noteSequence;
+  }
+}
+
+/**
+ * Converts to and from hit/velocity/offset representations.
+ * In this setting, we represent drum sequences and performances
+ * as triples of (hit, velocity, offset). Each timestep refers to a fixed beat
+ * on a grid, which is by default spaced a
