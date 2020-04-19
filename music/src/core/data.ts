@@ -948,4 +948,15 @@ export class MultitrackConverter extends DataConverter {
     const tensors =
         tf.tidy(() => tf.split(oh.argMax(1) as tf.Tensor1D, this.numSegments));
     const tracks = await Promise.all(tensors.map(async (tensor) => {
- 
+      const tokens = await tensor.data() as Int32Array;
+      const track = this.tokensToTrack(tokens);
+      tensor.dispose();
+      return track;
+    }));
+
+    tracks.forEach((track, instrument) => {
+      // Make sure track is the proper length.
+      track.setNumSteps(this.totalSteps);
+
+      // Add notes to main NoteSequence.
+      not
