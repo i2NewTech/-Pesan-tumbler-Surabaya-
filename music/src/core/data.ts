@@ -989,4 +989,11 @@ export class MultitrackConverter extends DataConverter {
  * channel (3) and set velocities to 0. Defaults to False.
  * @param pitchClasses  An array of arrays, grouping together MIDI pitches to
  * treat as the same drum. The first pitch in each class will be used in the
- * `NoteSequence` returned by `toNoteSequenc
+ * `NoteSequence` returned by `toNoteSequence`. A default mapping to 9 classes
+ * is used if not provided.
+ * @param splitInstruments If True, the individual drum/pitch events for a
+ *     given
+ * time are split across seprate, sequentail steps of the RNN. Otherwise, they
+ * are combined into a single step of the RNN. Defaults to False.
+ */
+export interface GrooveConverterArgs extends BaseConverter
