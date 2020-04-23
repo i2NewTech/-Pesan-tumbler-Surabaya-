@@ -977,4 +977,11 @@ export class MultitrackConverter extends DataConverter {
  *
  * Hits are binary [0, 1].
  * Velocities are continuous values in [0, 1].
- * Offsets are continuous val
+ * Offsets are continuous values in [-0.5, 0.5], rescaled to [-1, 1] for
+ * tensors.
+ *
+ * @param stepsPerQuarter The number of quantization steps per quarter note.
+ * @param humanize If True, flatten all input velocities and
+ * microtiming. The model then maps from a flattened input one with velocities
+ * and microtiming. Defaults to False.
+ * @param tapify  If
