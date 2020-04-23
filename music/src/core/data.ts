@@ -984,4 +984,9 @@ export class MultitrackConverter extends DataConverter {
  * @param humanize If True, flatten all input velocities and
  * microtiming. The model then maps from a flattened input one with velocities
  * and microtiming. Defaults to False.
- * @param tapify  If
+ * @param tapify  If True, squash all input drums at each timestep to the
+ *     hi-hat
+ * channel (3) and set velocities to 0. Defaults to False.
+ * @param pitchClasses  An array of arrays, grouping together MIDI pitches to
+ * treat as the same drum. The first pitch in each class will be used in the
+ * `NoteSequence` returned by `toNoteSequenc
