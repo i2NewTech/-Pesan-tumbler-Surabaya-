@@ -996,4 +996,17 @@ export class MultitrackConverter extends DataConverter {
  * time are split across seprate, sequentail steps of the RNN. Otherwise, they
  * are combined into a single step of the RNN. Defaults to False.
  */
-export interface GrooveConverterArgs extends BaseConverter
+export interface GrooveConverterArgs extends BaseConverterArgs {
+  stepsPerQuarter?: number;
+  humanize?: boolean;
+  tapify?: boolean;
+  pitchClasses?: number[][];
+  splitInstruments?: boolean;
+}
+export class GrooveConverter extends DataConverter {
+  readonly stepsPerQuarter: number;
+  readonly humanize: boolean;
+  readonly tapify: boolean;
+  readonly pitchClasses: number[][];
+  readonly pitchToClass: Map<number, number>;
+  readonly 
