@@ -1009,4 +1009,15 @@ export class GrooveConverter extends DataConverter {
   readonly tapify: boolean;
   readonly pitchClasses: number[][];
   readonly pitchToClass: Map<number, number>;
-  readonly 
+  readonly depth: number;
+  readonly endTensor: tf.Tensor1D;
+  readonly splitInstruments: boolean;
+  readonly TAPIFY_CHANNEL = 3;
+
+  constructor(args: GrooveConverterArgs) {
+    super(args);
+
+    this.stepsPerQuarter =
+        args.stepsPerQuarter || constants.DEFAULT_STEPS_PER_QUARTER;
+    this.pitchClasses = args.pitchClasses || DEFAULT_DRUM_PITCH_CLASSES;
+    this.pitchToClass = new Map
