@@ -1040,4 +1040,11 @@ export class GrooveConverter extends DataConverter {
         ns :
         sequences.quantizeNoteSequence(ns, this.stepsPerQuarter);
     const numSteps = this.numSteps;
-  
+    const qpm = (qns.tempos && qns.tempos.length) ?
+        qns.tempos[0].qpm :
+        constants.DEFAULT_QUARTERS_PER_MINUTE;
+    const stepLength = (60. / qpm) / this.stepsPerQuarter;
+
+    // For each quantized time step bin, collect a mapping from each pitch
+    // class to at most one drum hit. Break ties by selecting hit with highest
+    // velocity.
