@@ -1030,4 +1030,14 @@ export class GrooveConverter extends DataConverter {
     this.tapify = args.tapify || false;
     this.splitInstruments = args.splitInstruments || false;
 
-    //
+    // Each drum hit is represented by 3 numbers - on/off, velocity, and
+    // offset.
+    this.depth = 3;
+  }
+
+  toTensor(ns: INoteSequence): tf.Tensor2D {
+    const qns = sequences.isRelativeQuantizedSequence(ns) ?
+        ns :
+        sequences.quantizeNoteSequence(ns, this.stepsPerQuarter);
+    const numSteps = this.numSteps;
+  
