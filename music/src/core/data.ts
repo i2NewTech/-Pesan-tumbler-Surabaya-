@@ -1020,4 +1020,14 @@ export class GrooveConverter extends DataConverter {
     this.stepsPerQuarter =
         args.stepsPerQuarter || constants.DEFAULT_STEPS_PER_QUARTER;
     this.pitchClasses = args.pitchClasses || DEFAULT_DRUM_PITCH_CLASSES;
-    this.pitchToClass = new Map
+    this.pitchToClass = new Map<number, number>();
+    for (let c = 0; c < this.pitchClasses.length; ++c) {  // class
+      this.pitchClasses[c].forEach((p) => {
+        this.pitchToClass.set(p, c);
+      });
+    }
+    this.humanize = args.humanize || false;
+    this.tapify = args.tapify || false;
+    this.splitInstruments = args.splitInstruments || false;
+
+    //
