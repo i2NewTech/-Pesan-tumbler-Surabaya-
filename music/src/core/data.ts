@@ -1048,3 +1048,13 @@ export class GrooveConverter extends DataConverter {
     // For each quantized time step bin, collect a mapping from each pitch
     // class to at most one drum hit. Break ties by selecting hit with highest
     // velocity.
+    const stepNotes: Array<Map<number, NoteSequence.INote>> = [];
+    for (let i = 0; i < numSteps; ++i) {
+      stepNotes.push(new Map<number, NoteSequence.INote>());
+    }
+    qns.notes.forEach(n => {
+      if (!(this.tapify || this.pitchToClass.has(n.pitch))) {
+        return;
+      }
+      const s = n.quantizedStartStep;
+      if (s >
