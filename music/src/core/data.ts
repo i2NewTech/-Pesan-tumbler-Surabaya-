@@ -1063,4 +1063,12 @@ export class GrooveConverter extends DataConverter {
       }
       const d =
           this.tapify ? this.TAPIFY_CHANNEL : this.pitchToClass.get(n.pitch);
-      if (!stepNotes[s].has(d) || stepNotes[s].ge
+      if (!stepNotes[s].has(d) || stepNotes[s].get(d).velocity < n.velocity) {
+        stepNotes[s].set(d, n);
+      }
+    });
+
+    // For each time step and drum (pitch class), store the value of the
+    // hit (bool for whether the drum what hit at that time), velocity
+    // ([0, 1] velocity of hit, or 0 if not hit), and offset ([-1, 1] distance
+    // from quantized
