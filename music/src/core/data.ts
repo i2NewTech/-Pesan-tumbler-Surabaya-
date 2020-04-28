@@ -1099,3 +1099,15 @@ export class GrooveConverter extends DataConverter {
         }
         if (!this.humanize) {
           offsetVectors.set(note ? getOffset(note) : 0, s, d);
+        }
+      }
+    }
+
+    return tf.tidy(() => {
+      const hits = hitVectors.toTensor() as tf.Tensor2D;
+      const velocities = velocityVectors.toTensor() as tf.Tensor2D;
+      const offsets = offsetVectors.toTensor() as tf.Tensor2D;
+
+      // Stack the three signals, first flattening if splitInstruemnts is
+      // enabled.
+  
