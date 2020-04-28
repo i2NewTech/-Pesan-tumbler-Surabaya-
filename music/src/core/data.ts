@@ -1145,4 +1145,11 @@ export class GrooveConverter extends DataConverter {
       const stepResults = results.slice(
           s * numDrums * this.depth, (s + 1) * numDrums * this.depth);
       // Loop through individual drums at each time step.
- 
+      for (let d = 0; d < numDrums; ++d) {
+        const hitOutput =
+            stepResults[this.splitInstruments ? d * this.depth : d];
+        const velI =
+            this.splitInstruments ? (d * this.depth + 1) : (numDrums + d);
+        const velOutput = stepResults[velI];
+        const offsetI =
+            
