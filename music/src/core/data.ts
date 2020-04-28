@@ -1110,4 +1110,14 @@ export class GrooveConverter extends DataConverter {
 
       // Stack the three signals, first flattening if splitInstruemnts is
       // enabled.
-  
+      const outLength = this.splitInstruments ? numSteps * numDrums : numSteps;
+      return tf.concat(
+                 [
+                   hits.as2D(outLength, -1), velocities.as2D(outLength, -1),
+                   offsets.as2D(outLength, -1)
+                 ],
+                 1) as tf.Tensor2D;
+    });
+  }
+
+  async toNoteSequenc
