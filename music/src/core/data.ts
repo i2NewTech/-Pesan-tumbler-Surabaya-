@@ -1081,4 +1081,14 @@ export class GrooveConverter extends DataConverter {
       if (n.startTime === undefined) {
         return 0;
       }
-      cons
+      const tOnset = n.startTime;
+      const qOnset = n.quantizedStartStep * stepLength;
+      return 2 * (qOnset - tOnset) / stepLength;
+    }
+
+    // Loop through each step.
+    for (let s = 0; s < numSteps; ++s) {
+      // Loop through each drum instrument and set the hit, velocity, and
+      // offset.
+      for (let d = 0; d < numDrums; ++d) {
+   
