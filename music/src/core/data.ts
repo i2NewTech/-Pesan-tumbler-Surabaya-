@@ -1152,4 +1152,10 @@ export class GrooveConverter extends DataConverter {
             this.splitInstruments ? (d * this.depth + 1) : (numDrums + d);
         const velOutput = stepResults[velI];
         const offsetI =
-            
+            this.splitInstruments ? (d * this.depth + 2) : (2 * numDrums + d);
+        const offsetOutput = stepResults[offsetI];
+        // If hit output is above threshold, add note.
+        if (hitOutput > 0.5) {
+          // Convert output to velocity, clipping to be in the valid range.
+          const velocity = clip(
+              Ma
