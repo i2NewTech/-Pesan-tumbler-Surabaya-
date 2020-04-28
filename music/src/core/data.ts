@@ -1071,4 +1071,14 @@ export class GrooveConverter extends DataConverter {
     // For each time step and drum (pitch class), store the value of the
     // hit (bool for whether the drum what hit at that time), velocity
     // ([0, 1] velocity of hit, or 0 if not hit), and offset ([-1, 1] distance
-    // from quantized
+    // from quantized start).
+    const numDrums = this.pitchClasses.length;
+    const hitVectors = tf.buffer([numSteps, numDrums]);
+    const velocityVectors = tf.buffer([numSteps, numDrums]);
+    const offsetVectors = tf.buffer([numSteps, numDrums]);
+
+    function getOffset(n: NoteSequence.INote) {
+      if (n.startTime === undefined) {
+        return 0;
+      }
+      cons
