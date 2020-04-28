@@ -1136,3 +1136,13 @@ export class GrooveConverter extends DataConverter {
     const results = await t.data() as Float32Array;
 
     function clip(v: number, min: number, max: number) {
+      return Math.min(Math.max(v, min), max);
+    }
+
+    const numDrums = this.pitchClasses.length;
+    // Loop through time steps.
+    for (let s = 0; s < numSteps; ++s) {
+      const stepResults = results.slice(
+          s * numDrums * this.depth, (s + 1) * numDrums * this.depth);
+      // Loop through individual drums at each time step.
+ 
