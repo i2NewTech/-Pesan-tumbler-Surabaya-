@@ -1091,4 +1091,11 @@ export class GrooveConverter extends DataConverter {
       // Loop through each drum instrument and set the hit, velocity, and
       // offset.
       for (let d = 0; d < numDrums; ++d) {
-   
+        const note = stepNotes[s].get(d);
+        hitVectors.set(note ? 1 : 0, s, d);
+        if (!this.humanize && !this.tapify) {
+          velocityVectors.set(
+              note ? note.velocity / constants.MAX_MIDI_VELOCITY : 0, s, d);
+        }
+        if (!this.humanize) {
+          offsetVectors.set(note ? getOffset(note) : 0, s, d);
