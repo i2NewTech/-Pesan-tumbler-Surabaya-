@@ -1128,4 +1128,11 @@ export class GrooveConverter extends DataConverter {
     }
     stepsPerQuarter = this.stepsPerQuarter;
     const numSteps = this.splitInstruments ?
-      
+        t.shape[0] / this.pitchClasses.length :
+        t.shape[0];
+    const stepLength = (60. / qpm) / this.stepsPerQuarter;
+    const ns = NoteSequence.create(
+        {totalTime: numSteps * stepLength, tempos: [{qpm}]});
+    const results = await t.data() as Float32Array;
+
+    function clip(v: number, min: number, max: number) {
