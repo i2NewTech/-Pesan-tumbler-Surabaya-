@@ -1120,4 +1120,12 @@ export class GrooveConverter extends DataConverter {
     });
   }
 
-  async toNoteSequenc
+  async toNoteSequence(
+      t: tf.Tensor2D, stepsPerQuarter?: number,
+      qpm = constants.DEFAULT_QUARTERS_PER_MINUTE) {
+    if (stepsPerQuarter && stepsPerQuarter !== this.stepsPerQuarter) {
+      throw Error('`stepsPerQuarter` is set by the model.');
+    }
+    stepsPerQuarter = this.stepsPerQuarter;
+    const numSteps = this.splitInstruments ?
+      
