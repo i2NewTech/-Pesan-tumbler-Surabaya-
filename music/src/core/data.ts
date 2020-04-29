@@ -1158,4 +1158,9 @@ export class GrooveConverter extends DataConverter {
         if (hitOutput > 0.5) {
           // Convert output to velocity, clipping to be in the valid range.
           const velocity = clip(
-              Ma
+              Math.round(velOutput * constants.MAX_MIDI_VELOCITY),
+              constants.MIN_MIDI_VELOCITY, constants.MAX_MIDI_VELOCITY);
+          // Convert output to time offset, clipping to be in the valid range.
+          const offset = clip(offsetOutput / 2, -0.5, 0.5);
+          ns.notes.push(NoteSequence.Note.create({
+            pitch: this.
