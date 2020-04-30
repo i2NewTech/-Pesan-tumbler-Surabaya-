@@ -20,4 +20,13 @@ import * as test from 'tape';
 
 import {NoteSequence} from '../protobuf/index';
 
-impo
+import * as constants from './constants';
+import * as data from './data';
+import * as sequences from './sequences';
+
+const MEL_NS = NoteSequence.create({
+  notes: [
+    {pitch: 69, quantizedStartStep: 0, quantizedEndStep: 2},
+    {pitch: 71, quantizedStartStep: 2, quantizedEndStep: 4},
+    {pitch: 73, quantizedStartStep: 4, quantizedEndStep: 6},
+    {pitch:
