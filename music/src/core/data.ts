@@ -1163,4 +1163,15 @@ export class GrooveConverter extends DataConverter {
           // Convert output to time offset, clipping to be in the valid range.
           const offset = clip(offsetOutput / 2, -0.5, 0.5);
           ns.notes.push(NoteSequence.Note.create({
-            pitch: this.
+            pitch: this.pitchClasses[d][0],
+            startTime: (s - offset) * stepLength,
+            endTime: (s - offset + 1) * stepLength,
+            velocity,
+            isDrum: true
+          }));
+        }
+      }
+    }
+    return ns;
+  }
+}
