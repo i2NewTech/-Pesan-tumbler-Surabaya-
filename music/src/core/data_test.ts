@@ -45,4 +45,12 @@ const DRUM_NS = NoteSequence.create({
   notes: [
     {pitch: 36, quantizedStartStep: 0}, {pitch: 42, quantizedStartStep: 0},
     {pitch: 36, quantizedStartStep: 4}, {pitch: 42, quantizedStartStep: 6},
-    {pitch: 36, quantizedStartStep: 8}, {p
+    {pitch: 36, quantizedStartStep: 8}, {pitch: 42, quantizedStartStep: 10},
+    {pitch: 36, quantizedStartStep: 12}, {pitch: 42, quantizedStartStep: 14},
+    {pitch: 36, quantizedStartStep: 16}, {pitch: 36, quantizedStartStep: 24},
+    {pitch: 36, quantizedStartStep: 28}, {pitch: 42, quantizedStartStep: 30}
+  ],
+  tempos: [{qpm: 120}],
+  quantizationInfo: {stepsPerQuarter: 2}
+});
+DRUM_NS.note
