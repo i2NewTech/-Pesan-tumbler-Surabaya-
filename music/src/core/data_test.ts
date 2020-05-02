@@ -53,4 +53,16 @@ const DRUM_NS = NoteSequence.create({
   tempos: [{qpm: 120}],
   quantizationInfo: {stepsPerQuarter: 2}
 });
-DRUM_NS.note
+DRUM_NS.notes.forEach(n => {
+  n.isDrum = true;
+  n.quantizedEndStep = (n.quantizedStartStep as number) + 1;
+});
+DRUM_NS.totalQuantizedSteps = 32;
+
+const TRIO_NS = NoteSequence.create({tempos: [{qpm: 120}]});
+TRIO_NS.quantizationInfo =
+    NoteSequence.QuantizationInfo.create({stepsPerQuarter: 2});
+sequences.clone(MEL_NS).notes.forEach(n => {
+  n.program = 0;
+  n.instrument = 0;
+  TRIO_NS.notes
