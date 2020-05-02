@@ -155,4 +155,12 @@ const GROOVE_NS = NoteSequence.create({
   tempos: [{qpm: 60}],
   notes: [
     {pitch: 36, startTime: 0, velocity: 80},
-    {pitch: 42, startTime: 0.13
+    {pitch: 42, startTime: 0.13, velocity: 10},
+    {pitch: 36, startTime: 1.3, velocity: 15},
+    {pitch: 42, startTime: 1.5, velocity: 8},
+    {pitch: 36, startTime: 2, velocity: 16},
+    {pitch: 42, startTime: 2.45, velocity: 4},
+    {pitch: 36, startTime: 3.1, velocity: 127},
+    {pitch: 42, startTime: 3.6, velocity: 80},
+    {pitch: 36, startTime: 4.1, velocity: 99},
+    {pitch: 36, startTime: 5.99, velocit
