@@ -29,4 +29,11 @@ const MEL_NS = NoteSequence.create({
     {pitch: 69, quantizedStartStep: 0, quantizedEndStep: 2},
     {pitch: 71, quantizedStartStep: 2, quantizedEndStep: 4},
     {pitch: 73, quantizedStartStep: 4, quantizedEndStep: 6},
-    {pitch:
+    {pitch: 74, quantizedStartStep: 6, quantizedEndStep: 8},
+    {pitch: 76, quantizedStartStep: 8, quantizedEndStep: 10},
+    {pitch: 81, quantizedStartStep: 12, quantizedEndStep: 16},
+    {pitch: 77, quantizedStartStep: 16, quantizedEndStep: 20},
+    {pitch: 80, quantizedStartStep: 20, quantizedEndStep: 24},
+    {pitch: 75, quantizedStartStep: 24, quantizedEndStep: 28}
+  ],
+  t
