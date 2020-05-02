@@ -36,4 +36,13 @@ const MEL_NS = NoteSequence.create({
     {pitch: 80, quantizedStartStep: 20, quantizedEndStep: 24},
     {pitch: 75, quantizedStartStep: 24, quantizedEndStep: 28}
   ],
-  t
+  tempos: [{qpm: 120}],
+  quantizationInfo: {stepsPerQuarter: 2},
+  totalQuantizedSteps: 32,
+});
+
+const DRUM_NS = NoteSequence.create({
+  notes: [
+    {pitch: 36, quantizedStartStep: 0}, {pitch: 42, quantizedStartStep: 0},
+    {pitch: 36, quantizedStartStep: 4}, {pitch: 42, quantizedStartStep: 6},
+    {pitch: 36, quantizedStartStep: 8}, {p
