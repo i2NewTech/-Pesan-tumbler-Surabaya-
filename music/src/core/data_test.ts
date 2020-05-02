@@ -140,4 +140,19 @@ const MULTITRACK_NS = NoteSequence.create({
     {
       pitch: 50,
       quantizedStartStep: 6,
-   
+      quantizedEndStep: 7,
+      instrument: 1,
+      program: 0,
+      isDrum: true
+    },
+  ],
+  tempos: [{qpm: 120}],
+  quantizationInfo: {stepsPerQuarter: 1},
+  totalQuantizedSteps: 8
+});
+
+const GROOVE_NS = NoteSequence.create({
+  tempos: [{qpm: 60}],
+  notes: [
+    {pitch: 36, startTime: 0, velocity: 80},
+    {pitch: 42, startTime: 0.13
