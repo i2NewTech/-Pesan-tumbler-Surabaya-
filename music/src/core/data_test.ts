@@ -65,4 +65,22 @@ TRIO_NS.quantizationInfo =
 sequences.clone(MEL_NS).notes.forEach(n => {
   n.program = 0;
   n.instrument = 0;
-  TRIO_NS.notes
+  TRIO_NS.notes.push((n));
+});
+sequences.clone(MEL_NS).notes.forEach(n => {
+  n.pitch -= 36;
+  n.program = 32;
+  n.instrument = 1;
+  TRIO_NS.notes.push(n);
+});
+sequences.clone(DRUM_NS).notes.forEach(n => {
+  n.instrument = 2;
+  TRIO_NS.notes.push(n);
+});
+TRIO_NS.totalQuantizedSteps = 32;
+
+const MULTITRACK_NS = NoteSequence.create({
+  notes: [
+    {
+      pitch: 60,
+      quantizedStart
