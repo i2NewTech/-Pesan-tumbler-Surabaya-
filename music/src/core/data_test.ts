@@ -122,4 +122,22 @@ const MULTITRACK_NS = NoteSequence.create({
       isDrum: true
     },
     {
-      pitch
+      pitch: 50,
+      quantizedStartStep: 2,
+      quantizedEndStep: 3,
+      instrument: 1,
+      program: 0,
+      isDrum: true
+    },
+    {
+      pitch: 40,
+      quantizedStartStep: 4,
+      quantizedEndStep: 5,
+      instrument: 1,
+      program: 0,
+      isDrum: true
+    },
+    {
+      pitch: 50,
+      quantizedStartStep: 6,
+   
