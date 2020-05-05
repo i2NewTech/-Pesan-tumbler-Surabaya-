@@ -190,4 +190,15 @@ test('Test MelodyConverter', (t: test.Test) => {
   t.end();
 });
 
-test('Test MelodyConverterWithPolyphonicInput', (t: test
+test('Test MelodyConverterWithPolyphonicInput', (t: test.Test) => {
+  const melConverter = new data.MelodyConverter({
+    numSteps: 32,
+    minPitch: 21,
+    maxPitch: 108,
+  });
+
+  const polyMelNs = sequences.clone(MEL_NS);
+  polyMelNs.notes[0].quantizedEndStep = 6;
+  polyMelNs.notes.push(NoteSequence.Note.create(
+      {pitch: 70, quantizedStartStep: 2, quantizedEndStep: 5}));
+  const melTensor = 
