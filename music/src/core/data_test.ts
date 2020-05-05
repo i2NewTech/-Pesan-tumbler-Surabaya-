@@ -176,4 +176,18 @@ GROOVE_NS.notes.forEach(n => {
 
 test('Test MelodyConverter', (t: test.Test) => {
   const melConverter = new data.MelodyConverter({
-    numSt
+    numSteps: 32,
+    minPitch: 21,
+    maxPitch: 108,
+  });
+
+  const melTensor = melConverter.toTensor(MEL_NS);
+  t.deepEqual(melTensor.shape, [32, 90]);
+
+  melConverter.toNoteSequence(melTensor, 2).then(ns => t.deepEqual(ns, MEL_NS));
+
+  melTensor.dispose();
+  t.end();
+});
+
+test('Test MelodyConverterWithPolyphonicInput', (t: test
