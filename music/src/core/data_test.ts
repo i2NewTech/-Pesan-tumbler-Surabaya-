@@ -251,4 +251,13 @@ test('Test MelodyShapeConverter', (t: test.Test) => {
 test('Test DrumConverters', (t: test.Test) => {
   const drumsConverter = new data.DrumsConverter({numSteps: 32});
   const drumsOneHotConverter = new data.DrumsOneHotConverter({numSteps: 32});
-  const drumRollConverter = new data.DrumRollConvert
+  const drumRollConverter = new data.DrumRollConverter({numSteps: 32});
+
+  const drumRollTensor = drumsConverter.toTensor(DRUM_NS);
+  t.deepEqual(
+      drumRollTensor.dataSync(),
+      drumRollConverter.toTensor(DRUM_NS).dataSync());
+  t.deepEqual(drumRollTensor.shape, [32, 10]);
+
+  const drumOneHotTensor = drumsOneHotConverter.toTensor(DRUM_NS);
+  t.deepEqual
