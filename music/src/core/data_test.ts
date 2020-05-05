@@ -224,4 +224,20 @@ test('Test MelodyRhythmConverter', (t: test.Test) => {
   });
 
   const rhythmTensor = rhythmConverter.toTensor(MEL_NS);
-  t.deepEqual(rhythmTensor.shape, [32, 1
+  t.deepEqual(rhythmTensor.shape, [32, 1]);
+
+  rhythmConverter.toNoteSequence(rhythmTensor);
+
+  rhythmTensor.dispose();
+  t.end();
+});
+
+test('Test MelodyShapeConverter', (t: test.Test) => {
+  const shapeConverter = new data.MelodyShapeConverter({
+    numSteps: 32,
+    minPitch: 21,
+    maxPitch: 108,
+  });
+
+  const shapeTensor = shapeConverter.toTensor(MEL_NS);
+  t.deepEqual(shapeTensor.sha
