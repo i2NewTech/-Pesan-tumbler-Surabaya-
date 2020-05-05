@@ -212,4 +212,16 @@ test('Test MelodyConverterWithPolyphonicInput', (t: test.Test) => {
     maxPitch: 108,
     ignorePolyphony: false,
   });
-  t.throws(()
+  t.throws(() => melConverterDisallowsPolyphony.toTensor(polyMelNs));
+  t.end();
+});
+
+test('Test MelodyRhythmConverter', (t: test.Test) => {
+  const rhythmConverter = new data.MelodyRhythmConverter({
+    numSteps: 32,
+    minPitch: 21,
+    maxPitch: 108,
+  });
+
+  const rhythmTensor = rhythmConverter.toTensor(MEL_NS);
+  t.deepEqual(rhythmTensor.shape, [32, 1
