@@ -240,4 +240,15 @@ test('Test MelodyShapeConverter', (t: test.Test) => {
   });
 
   const shapeTensor = shapeConverter.toTensor(MEL_NS);
-  t.deepEqual(shapeTensor.sha
+  t.deepEqual(shapeTensor.shape, [32, 3]);
+
+  shapeConverter.toNoteSequence(shapeTensor);
+
+  shapeTensor.dispose();
+  t.end();
+});
+
+test('Test DrumConverters', (t: test.Test) => {
+  const drumsConverter = new data.DrumsConverter({numSteps: 32});
+  const drumsOneHotConverter = new data.DrumsOneHotConverter({numSteps: 32});
+  const drumRollConverter = new data.DrumRollConvert
