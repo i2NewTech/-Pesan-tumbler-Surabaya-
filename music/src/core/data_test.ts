@@ -163,4 +163,17 @@ const GROOVE_NS = NoteSequence.create({
     {pitch: 36, startTime: 3.1, velocity: 127},
     {pitch: 42, startTime: 3.6, velocity: 80},
     {pitch: 36, startTime: 4.1, velocity: 99},
-    {pitch: 36, startTime: 5.99, velocit
+    {pitch: 36, startTime: 5.99, velocity: 2},
+    {pitch: 36, startTime: 7, velocity: 3},
+    {pitch: 42, startTime: 7.5, velocity: 22}
+  ],
+  totalTime: 8.0
+});
+GROOVE_NS.notes.forEach(n => {
+  n.endTime = n.startTime + 0.25;
+  n.isDrum = true;
+});
+
+test('Test MelodyConverter', (t: test.Test) => {
+  const melConverter = new data.MelodyConverter({
+    numSt
