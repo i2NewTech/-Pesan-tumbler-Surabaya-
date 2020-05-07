@@ -270,4 +270,12 @@ test('Test DrumConverters', (t: test.Test) => {
 
   const drumRollTensorOutput = drumRollTensor.slice([0, 0], [32, 9]);
   drumRollConverter.toNoteSequence(drumRollTensorOutput, 2)
-      .then(ns => 
+      .then(ns => t.deepEqual(ns, DRUM_NS));
+  drumsConverter.toNoteSequence(drumOneHotTensor, 2)
+      .then(ns => t.deepEqual(ns, DRUM_NS));
+  drumsOneHotConverter.toNoteSequence(drumOneHotTensor, 2)
+      .then(ns => t.deepEqual(ns, DRUM_NS));
+
+  drumRollTensor.dispose();
+  drumRollTensorOutput.dispose();
+  drumOn
