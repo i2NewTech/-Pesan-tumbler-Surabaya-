@@ -278,4 +278,17 @@ test('Test DrumConverters', (t: test.Test) => {
 
   drumRollTensor.dispose();
   drumRollTensorOutput.dispose();
-  drumOn
+  drumOneHotTensor.dispose();
+  t.end();
+});
+
+test('Test TrioConverter', (t: test.Test) => {
+  const trioConverter = new data.TrioConverter({
+    numSteps: 32,
+    melArgs: {minPitch: 21, maxPitch: 108},
+    bassArgs: {minPitch: 21, maxPitch: 108},
+    drumsArgs: {},
+  });
+
+  const trioTensor = trioConverter.toTensor(TRIO_NS);
+  t.d
