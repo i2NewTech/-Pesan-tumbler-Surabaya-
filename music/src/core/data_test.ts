@@ -304,4 +304,15 @@ test('Test TrioConverter', (t: test.Test) => {
   t.end();
 });
 
-test('Test TrioRhythmConverter'
+test('Test TrioRhythmConverter', (t: test.Test) => {
+  const trioRhythmConverter = new data.TrioRhythmConverter({
+    numSteps: 32,
+    melArgs: {minPitch: 21, maxPitch: 108},
+    bassArgs: {minPitch: 21, maxPitch: 108},
+    drumsArgs: {},
+  });
+
+  const trioRhythmTensor = trioRhythmConverter.toTensor(TRIO_NS);
+  t.deepEqual(trioRhythmTensor.shape, [32, 3]);
+
+  trioRhythmConverter.toNot
