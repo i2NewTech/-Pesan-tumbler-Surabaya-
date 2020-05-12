@@ -315,4 +315,18 @@ test('Test TrioRhythmConverter', (t: test.Test) => {
   const trioRhythmTensor = trioRhythmConverter.toTensor(TRIO_NS);
   t.deepEqual(trioRhythmTensor.shape, [32, 3]);
 
-  trioRhythmConverter.toNot
+  trioRhythmConverter.toNoteSequence(trioRhythmTensor, 2);
+
+  trioRhythmTensor.dispose();
+  t.end();
+});
+
+test('Test MultitrackConverter', (t: test.Test) => {
+  const multitrackConverter = new data.MultitrackConverter({
+    'numSteps': 512,
+    'numSegments': 8,
+    'stepsPerQuarter': 1,
+    'totalSteps': 8,
+    'numVelocityBins': 0,
+    'minPitch': 21,
+   
