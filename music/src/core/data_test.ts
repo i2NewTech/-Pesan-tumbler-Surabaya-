@@ -329,4 +329,17 @@ test('Test MultitrackConverter', (t: test.Test) => {
     'totalSteps': 8,
     'numVelocityBins': 0,
     'minPitch': 21,
-   
+    'maxPitch': 108
+  });
+
+  const multitrackTensor = multitrackConverter.toTensor(MULTITRACK_NS);
+  t.deepEqual(multitrackTensor.shape, [512, multitrackConverter.depth]);
+
+  multitrackConverter.toNoteSequence(multitrackTensor, 1)
+      .then(ns => t.deepEqual(ns, MULTITRACK_NS));
+
+  multitrackTensor.dispose();
+  t.end();
+});
+
+function round
