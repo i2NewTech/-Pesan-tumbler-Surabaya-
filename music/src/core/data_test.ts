@@ -342,4 +342,12 @@ test('Test MultitrackConverter', (t: test.Test) => {
   t.end();
 });
 
-function round
+function roundNoteTimes(notes: NoteSequence.INote[], binsPerSecond = 1000) {
+  notes.forEach(n => {
+    n.startTime = Math.round(n.startTime * binsPerSecond) / binsPerSecond;
+    n.endTime = Math.round(n.endTime * binsPerSecond) / binsPerSecond;
+  });
+}
+
+test('Test GrooveConverter', (t: test.Test) => {
+  const grooveConverter = new data.GrooveConverter({numSteps: 32}
