@@ -350,4 +350,18 @@ function roundNoteTimes(notes: NoteSequence.INote[], binsPerSecond = 1000) {
 }
 
 test('Test GrooveConverter', (t: test.Test) => {
-  const grooveConverter = new data.GrooveConverter({numSteps: 32}
+  const grooveConverter = new data.GrooveConverter({numSteps: 32});
+
+  const grooveTensor = grooveConverter.toTensor(GROOVE_NS);
+  t.deepEqual(grooveTensor.shape, [32, 9 * 3]);
+
+  grooveConverter.toNoteSequence(grooveTensor, undefined, 60).then(ns => {
+    roundNoteTimes(ns.notes);
+    t.deepEqual(ns, GROOVE_NS);
+  });
+
+  grooveTensor.dispose();
+  t.end();
+});
+
+test('Test GrooveConv
