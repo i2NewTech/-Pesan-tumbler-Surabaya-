@@ -374,4 +374,12 @@ test('Test GrooveConverter TooLong', (t: test.Test) => {
 });
 
 test('Test GrooveConverter Split', (t: test.Test) => {
-  const grooveConverter
+  const grooveConverter =
+      new data.GrooveConverter({numSteps: 32, splitInstruments: true});
+
+  const grooveTensor = grooveConverter.toTensor(GROOVE_NS);
+  t.deepEqual(grooveTensor.shape, [32 * 9, 3]);
+
+  grooveConverter.toNoteSequence(grooveTensor, undefined, 60).then(ns => {
+    roundNoteTimes(ns.notes);
+    t.deepEqual(ns, GROOVE_NS
