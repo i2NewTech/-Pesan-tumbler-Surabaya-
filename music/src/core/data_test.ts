@@ -382,4 +382,20 @@ test('Test GrooveConverter Split', (t: test.Test) => {
 
   grooveConverter.toNoteSequence(grooveTensor, undefined, 60).then(ns => {
     roundNoteTimes(ns.notes);
-    t.deepEqual(ns, GROOVE_NS
+    t.deepEqual(ns, GROOVE_NS);
+  });
+
+  grooveTensor.dispose();
+  t.end();
+});
+
+test('Test GrooveConverterHumanize', (t: test.Test) => {
+  const grooveConverter = new data.GrooveConverter({
+    numSteps: 32,
+    humanize: true,
+  });
+
+  const grooveTensor = grooveConverter.toTensor(GROOVE_NS);
+  t.deepEqual(grooveTensor.shape, [32, 9 * 3]);
+
+  co
