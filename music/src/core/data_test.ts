@@ -439,4 +439,19 @@ test('Test GrooveConverterTapify', (t: test.Test) => {
       {pitch: 46, startTime: 2}, {pitch: 46, startTime: 2.45},
       {pitch: 46, startTime: 3.1}, {pitch: 46, startTime: 3.6},
       {pitch: 46, startTime: 4.1}, {pitch: 46, startTime: 5.99},
-      {pitch: 46, st
+      {pitch: 46, startTime: 7}, {pitch: 46, startTime: 7.5}
+    ],
+    totalTime: 8.0
+  });
+  expectedNs.notes.forEach(n => {
+    n.endTime = n.startTime + 0.5;
+    n.velocity = 0;
+
+    n.isDrum = true;
+  });
+
+  grooveConverter.toNoteSequence(grooveTensor, undefined, 60)
+      .then(ns => {
+        roundNoteTimes(ns.notes);
+        t.deepEqual(ns, expectedNs);
+ 
