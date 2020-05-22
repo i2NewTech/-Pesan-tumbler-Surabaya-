@@ -432,4 +432,11 @@ test('Test GrooveConverterTapify', (t: test.Test) => {
 
   // Tapify removes velocities and only keeps the highest velocity hit at each
   // step, moving it to the high-hat (46).
-  const expectedNs = NoteSequence.create(
+  const expectedNs = NoteSequence.create({
+    tempos: [{qpm: 60}],
+    notes: [
+      {pitch: 46, startTime: 0}, {pitch: 46, startTime: 1.3},
+      {pitch: 46, startTime: 2}, {pitch: 46, startTime: 2.45},
+      {pitch: 46, startTime: 3.1}, {pitch: 46, startTime: 3.6},
+      {pitch: 46, startTime: 4.1}, {pitch: 46, startTime: 5.99},
+      {pitch: 46, st
