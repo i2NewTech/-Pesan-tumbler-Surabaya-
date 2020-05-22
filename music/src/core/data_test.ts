@@ -466,4 +466,11 @@ test('Test GrooveConverterTapify', (t: test.Test) => {
           n.startTime /= 2;
           n.endTime /= 2;
         });
-      
+        roundNoteTimes(ns.notes);
+        t.deepEqual(ns, expectedNs);
+      })
+      .then(() => {
+        grooveTensor.dispose();
+        t.end();
+      });
+});
