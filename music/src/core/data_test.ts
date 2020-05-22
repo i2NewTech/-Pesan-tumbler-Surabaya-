@@ -422,4 +422,14 @@ test('Test GrooveConverterTapify', (t: test.Test) => {
   const inputNs = sequences.clone(GROOVE_NS);
 
   // Set arbitrary pitches and drum states. They should be ignored.
-  i
+  inputNs.notes.forEach((n, i) => {
+    n.pitch = i + 21;
+    n.isDrum = Boolean(i % 2);
+  });
+
+  const grooveTensor = grooveConverter.toTensor(inputNs);
+  t.deepEqual(grooveTensor.shape, [16, 9 * 3]);
+
+  // Tapify removes velocities and only keeps the highest velocity hit at each
+  // step, moving it to the high-hat (46).
+  const expectedNs = NoteSequence.create(
