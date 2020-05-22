@@ -406,3 +406,20 @@ test('Test GrooveConverterHumanize', (t: test.Test) => {
 
   grooveConverter.toNoteSequence(grooveTensor, undefined, 60).then(ns => {
     t.deepEqual(ns, expectedNs);
+  });
+
+  grooveTensor.dispose();
+  t.end();
+});
+
+test('Test GrooveConverterTapify', (t: test.Test) => {
+  const grooveConverter = new data.GrooveConverter({
+    numSteps: 16,
+    stepsPerQuarter: 2,
+    tapify: true,
+  });
+
+  const inputNs = sequences.clone(GROOVE_NS);
+
+  // Set arbitrary pitches and drum states. They should be ignored.
+  i
