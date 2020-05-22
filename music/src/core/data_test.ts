@@ -398,4 +398,11 @@ test('Test GrooveConverterHumanize', (t: test.Test) => {
   const grooveTensor = grooveConverter.toTensor(GROOVE_NS);
   t.deepEqual(grooveTensor.shape, [32, 9 * 3]);
 
-  co
+  const expectedNs = sequences.clone(GROOVE_NS);
+  // Humanize removes velocities.
+  expectedNs.notes.forEach(n => n.velocity = 0);
+  // Humanize snaps to the 16th notes.
+  roundNoteTimes(expectedNs.notes, 4);
+
+  grooveConverter.toNoteSequence(grooveTensor, undefined, 60).then(ns => {
+    t.deepEqual(ns, expectedNs);
