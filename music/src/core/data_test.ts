@@ -454,4 +454,16 @@ test('Test GrooveConverterTapify', (t: test.Test) => {
       .then(ns => {
         roundNoteTimes(ns.notes);
         t.deepEqual(ns, expectedNs);
- 
+      })
+      .then(() => {
+        // Now try with default qpm.
+        return grooveConverter.toNoteSequence(grooveTensor);
+      })
+      .then(ns => {
+        expectedNs.tempos[0].qpm = constants.DEFAULT_QUARTERS_PER_MINUTE;
+        expectedNs.totalTime /= 2;
+        expectedNs.notes.forEach(n => {
+          n.startTime /= 2;
+          n.endTime /= 2;
+        });
+      
