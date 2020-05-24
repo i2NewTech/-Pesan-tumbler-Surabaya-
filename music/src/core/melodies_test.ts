@@ -20,4 +20,11 @@ import * as test from 'tape';
 
 import {NoteSequence} from '../protobuf/index';
 
-import {Melody, MelodyReg
+import {Melody, MelodyRegister, MelodyRhythm, MelodyShape} from './melodies';
+
+const TEST_NS = NoteSequence.create({
+  notes: [
+    {pitch: 60, quantizedStartStep: 1, quantizedEndStep: 3},
+    {pitch: 62, quantizedStartStep: 4, quantizedEndStep: 5},
+    {pitch: 64, quantizedStartStep: 5, quantizedEndStep: 6},
+    {pitch: 65, quantizedSt
