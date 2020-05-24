@@ -27,4 +27,14 @@ const TEST_NS = NoteSequence.create({
     {pitch: 60, quantizedStartStep: 1, quantizedEndStep: 3},
     {pitch: 62, quantizedStartStep: 4, quantizedEndStep: 5},
     {pitch: 64, quantizedStartStep: 5, quantizedEndStep: 6},
-    {pitch: 65, quantizedSt
+    {pitch: 65, quantizedStartStep: 6, quantizedEndStep: 7},
+    {pitch: 67, quantizedStartStep: 6, quantizedEndStep: 7},
+  ],
+  tempos: [{qpm: 120}],
+  quantizationInfo: {stepsPerQuarter: 2},
+  totalQuantizedSteps: 8,
+});
+
+test('Test Melody From NoteSequence (Ignore Polyphony)', (t: test.Test) => {
+  const melody = Melody.fromNoteSequence(TEST_NS, 60, 72, true);
+  t.deepEqual(melody.eve
