@@ -58,4 +58,16 @@ test('Test Melody To NoteSequence', (t: test.Test) => {
   const expected = TEST_NS;
   expected.notes.pop();
   t.deepEqual(ns, expected);
-  t
+  t.end();
+});
+
+test('Test Melody Rhythm Control', (t: test.Test) => {
+  const melody = new Melody([0, 2, 0, 1, 4, 6, 9, 1], 60, 72);
+  const mr = new MelodyRhythm();
+  const rhythmTensor = mr.extract(melody);
+  t.deepEqual(rhythmTensor.shape, [8, 1]);
+  t.deepEqual(rhythmTensor.dataSync(), [0, 1, 0, 0, 1, 1, 1, 0]);
+  t.end();
+});
+
+test('Test Melody Shape Control', (t: test.T
