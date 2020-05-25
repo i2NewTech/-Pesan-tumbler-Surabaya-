@@ -37,4 +37,15 @@ const TEST_NS = NoteSequence.create({
 
 test('Test Melody From NoteSequence (Ignore Polyphony)', (t: test.Test) => {
   const melody = Melody.fromNoteSequence(TEST_NS, 60, 72, true);
-  t.deepEqual(melody.eve
+  t.deepEqual(melody.events, [0, 2, 0, 1, 4, 6, 9, 1]);
+  t.end();
+});
+
+test('Test Melody From NoteSequence (Check Polyphony)', (t: test.Test) => {
+  t.throws(() => Melody.fromNoteSequence(TEST_NS, 60, 72, false));
+  t.end();
+});
+
+test('Test Melody From NoteSequence (Extra Steps)', (t: test.Test) => {
+  const melody = Melody.fromNoteSequence(TEST_NS, 60, 72, true, 12);
+  t.deepEqual(
