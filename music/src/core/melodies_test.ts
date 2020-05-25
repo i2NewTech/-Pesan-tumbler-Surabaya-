@@ -70,4 +70,14 @@ test('Test Melody Rhythm Control', (t: test.Test) => {
   t.end();
 });
 
-test('Test Melody Shape Control', (t: test.T
+test('Test Melody Shape Control', (t: test.Test) => {
+  const melody = new Melody([0, 2, 0, 6, 6, 2, 9, 1], 60, 72);
+  const ms = new MelodyShape();
+  const shapeTensor = ms.extract(melody);
+  const shapeIndices = tf.argMax(shapeTensor, 1);
+  t.deepEqual(shapeTensor.shape, [8, 3]);
+  t.deepEqual(shapeIndices.dataSync(), [2, 2, 2, 2, 1, 0, 2, 2]);
+  t.end();
+});
+
+test('Test Melody Register Control',
