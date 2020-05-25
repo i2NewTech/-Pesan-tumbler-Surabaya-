@@ -80,4 +80,10 @@ test('Test Melody Shape Control', (t: test.Test) => {
   t.end();
 });
 
-test('Test Melody Register Control',
+test('Test Melody Register Control', (t: test.Test) => {
+  const melody = new Melody([0, 2, 0, 0, 4, 6, 6, 1], 60, 72);
+  const mr = new MelodyRegister([60, 63, 72]);
+  const registerTensor = mr.extract(melody);
+  const registerIndices = tf.argMax(registerTensor, 1);
+  t.deepEqual(registerTensor.shape, [8, 4]);
+  t.deepEqual(registerIndices.dataSync(), [1,
