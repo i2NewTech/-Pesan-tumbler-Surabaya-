@@ -23,4 +23,12 @@ import * as Tone from 'tone';
 const QUARTERS_PER_BAR = 4;
 
 /**
- * An abstract base class for providing arbitrary callb
+ * An abstract base class for providing arbitrary callbacks for the metronome.
+ */
+export abstract class MetronomeCallbackObject {
+  /**
+   * Will be called for every audible click made. There will be
+   * `clicksPerQuarter` of this callback for every quarter() callback.
+   *
+   * @param time The offset time from the metronome's start.
+   * @param index The index of t
