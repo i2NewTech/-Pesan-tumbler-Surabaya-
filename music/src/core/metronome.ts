@@ -51,4 +51,17 @@ export abstract class MetronomeCallbackObject {
    * @param time The offset time from the metronome's start.
    * @param index The index of the bar (0 <= index).
    */
-  abstract
+  abstract bar(time: number, index: number): void;
+}
+
+/**
+ * A Metronome based on Tone.js
+ */
+export class Metronome {
+  // The number of audible clicks per quarter note.
+  public clicksPerQuarter = 1;
+  public muted = false;
+  // The sound for the regular click.
+  protected loClick = new Tone
+                          .MembraneSynth({
+                
