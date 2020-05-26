@@ -41,4 +41,14 @@ export abstract class MetronomeCallbackObject {
    * 4 of this callback for every bar() callback.
    *
    * @param time The offset time from the metronome's start.
-   * @param ind
+   * @param index The index of the quarter in the bar (0 <= index < 4).
+   */
+  abstract quarter(time: number, index: number): void;
+
+  /**
+   * Will be called for every bar that has clicked.
+   *
+   * @param time The offset time from the metronome's start.
+   * @param index The index of the bar (0 <= index).
+   */
+  abstract
