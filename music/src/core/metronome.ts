@@ -88,4 +88,11 @@ export class Metronome {
    *   click(), quarter() and bar() methods to be called during the
    *   metronome run time.
    *   @param clicksPerQuarter The number of clicks the metronome should make
-   *   per quarter. For example, if clic
+   *   per quarter. For example, if clicksPerQuarter=1, then the metronome
+   *   will click on every quarter note, but if clicksPerQuarter = 4, the
+   *   metronome will make audible clicks on every sixteenth note.
+   */
+  constructor(callbackObject: MetronomeCallbackObject, clicksPerQuarter = 1) {
+    this.reset();
+    this.callbackObject = callbackObject;
+    this.clicksPerQuarter = clicksPerQuart
