@@ -82,3 +82,10 @@ export class Metronome {
   private step = -1;
   private callbackObject: MetronomeCallbackObject;
   /**
+   *   `Metronome` constructor.
+   *
+   *   @param callbackObject An MetronomeCallback object that contains
+   *   click(), quarter() and bar() methods to be called during the
+   *   metronome run time.
+   *   @param clicksPerQuarter The number of clicks the metronome should make
+   *   per quarter. For example, if clic
