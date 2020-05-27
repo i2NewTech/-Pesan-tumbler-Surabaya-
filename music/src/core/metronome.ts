@@ -72,4 +72,13 @@ export class Metronome {
   protected hiClick = new Tone
                           .MembraneSynth({
                             pitchDecay: 0.008,
-                  
+                            envelope: {attack: 0.001, decay: 0.3, sustain: 0},
+                          })
+                          .toDestination();
+  protected loClickNote = 'c5';
+  protected hiClickNote = 'g5';
+  private ticking = false;
+  private startedAt: number = null;
+  private step = -1;
+  private callbackObject: MetronomeCallbackObject;
+  /**
