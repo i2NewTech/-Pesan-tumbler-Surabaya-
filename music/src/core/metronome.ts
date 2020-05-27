@@ -129,4 +129,17 @@ export class Metronome {
     // If some of the callback functions aren't provided, default them
     // to empty functions.
     if (!this.callbackObject.click) {
-      this.callbackObject.cl
+      this.callbackObject.click = () => {};
+    }
+    if (!this.callbackObject.quarter) {
+      this.callbackObject.quarter = () => {};
+    }
+    if (!this.callbackObject.bar) {
+      this.callbackObject.bar = () => {};
+    }
+
+    let bar = 0;
+    const clicksInBar = QUARTERS_PER_BAR * this.clicksPerQuarter;
+
+    Tone.Transport.scheduleRepeat((time: number) => {
+      i
