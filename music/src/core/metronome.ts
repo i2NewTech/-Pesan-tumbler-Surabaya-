@@ -95,4 +95,24 @@ export class Metronome {
   constructor(callbackObject: MetronomeCallbackObject, clicksPerQuarter = 1) {
     this.reset();
     this.callbackObject = callbackObject;
-    this.clicksPerQuarter = clicksPerQuart
+    this.clicksPerQuarter = clicksPerQuarter;
+  }
+
+  /**
+   * Returns true if the metronome has been started.
+   */
+  isTicking() {
+    return this.ticking;
+  }
+
+  /**
+   * Returns the time at which the metronome was started at.
+   */
+  getStartedAt() {
+    return this.startedAt;
+  }
+
+  /**
+   * Returns the time elapsed from when the metronome started.
+   */
+  getOffsetTime(
