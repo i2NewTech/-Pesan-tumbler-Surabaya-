@@ -115,4 +115,18 @@ export class Metronome {
   /**
    * Returns the time elapsed from when the metronome started.
    */
-  getOffsetTime(
+  getOffsetTime() {
+    return Tone.immediate() - this.startedAt;
+  }
+
+  /**
+   * Starts the metronome with the provided bpm.
+   */
+  start(bpm = 120) {
+    this.reset();
+    this.ticking = true;
+
+    // If some of the callback functions aren't provided, default them
+    // to empty functions.
+    if (!this.callbackObject.click) {
+      this.callbackObject.cl
