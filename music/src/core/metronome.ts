@@ -142,4 +142,14 @@ export class Metronome {
     const clicksInBar = QUARTERS_PER_BAR * this.clicksPerQuarter;
 
     Tone.Transport.scheduleRepeat((time: number) => {
-      i
+      if (!this.startedAt) {
+        this.startedAt = time;
+      }
+
+      const offsetTime = time - this.startedAt;
+      this.step++;
+
+      // Figure out which click and quarter this is.
+      const clickInBar = this.step % clicksInBar;
+      const clickInQuarter = Math.floor(clickInBar / this.clicksPerQuarter);
+      const quarter = clickInB
