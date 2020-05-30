@@ -152,4 +152,17 @@ export class Metronome {
       // Figure out which click and quarter this is.
       const clickInBar = this.step % clicksInBar;
       const clickInQuarter = Math.floor(clickInBar / this.clicksPerQuarter);
-      const quarter = clickInB
+      const quarter = clickInBar % this.clicksPerQuarter;
+
+      // Every click...
+      this.callbackObject.click(offsetTime, clickInBar);
+
+      // Every quarter...
+      if (quarter === 0) {
+        this.callbackObject.quarter(offsetTime, clickInQuarter);
+      }
+
+      // Every click, make an audible click.
+      if (!this.muted) {
+        if (clickInBar === 0) {
+ 
