@@ -165,4 +165,17 @@ export class Metronome {
       // Every click, make an audible click.
       if (!this.muted) {
         if (clickInBar === 0) {
- 
+          this.hiClick.triggerAttack(this.hiClickNote, time, 0.1);
+        } else {
+          this.loClick.triggerAttack(this.loClickNote, time, 0.1);
+        }
+      }
+
+      // Every bar...
+      if (clickInBar === 0) {
+        this.callbackObject.bar(offsetTime, bar);
+        bar++;
+      }
+    }, `${clicksInBar}n`);
+
+    To
