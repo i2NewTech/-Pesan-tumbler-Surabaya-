@@ -178,4 +178,23 @@ export class Metronome {
       }
     }, `${clicksInBar}n`);
 
-    To
+    Tone.Transport.bpm.value = bpm;
+    Tone.Transport.start();
+  }
+
+  /**
+   * Stops the metronome.
+   */
+  stop() {
+    this.ticking = false;
+    Tone.Transport.cancel();
+    Tone.Transport.stop();
+  }
+
+  private reset() {
+    this.muted = false;
+    this.ticking = false;
+    this.step = -1;
+    this.startedAt = null;
+  }
+}
