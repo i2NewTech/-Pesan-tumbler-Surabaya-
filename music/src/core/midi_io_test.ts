@@ -18,4 +18,16 @@
 import * as fs from 'fs';
 import * as test from 'tape';
 
-import {NoteSequence} from '../protobuf/inde
+import {NoteSequence} from '../protobuf/index';
+
+import * as constants from './constants';
+import * as midi_io from './midi_io';
+import * as sequences from './sequences';
+
+const simpleNs = NoteSequence.create({
+  ticksPerQuarter: 220,
+  totalTime: 1.5,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  sourceInfo: {
+    encodingType: NoteSequence.SourceInfo.EncodingType.MID
