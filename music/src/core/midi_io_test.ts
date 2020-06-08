@@ -30,4 +30,23 @@ const simpleNs = NoteSequence.create({
   timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
   tempos: [{time: 0, qpm: 120}],
   sourceInfo: {
-    encodingType: NoteSequence.SourceInfo.EncodingType.MID
+    encodingType: NoteSequence.SourceInfo.EncodingType.MIDI,
+    parser: NoteSequence.SourceInfo.Parser.TONEJS_MIDI_CONVERT
+  },
+  notes: [
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0,
+      endTime: 0.125,
+      pitch: 60,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.125,
+      endTime: 0.25,
+      pitch: 62,
+      veloc
