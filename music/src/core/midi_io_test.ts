@@ -91,4 +91,22 @@ const simpleNs = NoteSequence.create({
     {
       instrument: 0,
       program: 0,
-     
+      startTime: 0.75,
+      endTime: 0.875,
+      pitch: 72,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.875,
+      endTime: 1,
+      pitch: 70,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 1
