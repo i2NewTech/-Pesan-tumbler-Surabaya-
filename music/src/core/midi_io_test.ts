@@ -149,4 +149,21 @@ const simpleNs = NoteSequence.create({
       program: 0,
       time: 0,
       controlNumber: 64,
-  
+      controlValue: 127,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      time: 0.5,
+      controlNumber: 64,
+      controlValue: 0,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      time: 0.75,
+      controlNumber: 64,
+      controlValue: 127,
+      isDrum:
