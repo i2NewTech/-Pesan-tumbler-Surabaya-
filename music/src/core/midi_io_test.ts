@@ -201,4 +201,23 @@ const polyNs = NoteSequence.create({
     {
       instrument: 0,
       program: 0,
-    
+      startTime: 0.125,
+      endTime: 0.875,
+      pitch: 62,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.25,
+      endTime: 0.75,
+      pitch: 64,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.375,
+      
