@@ -166,4 +166,22 @@ const simpleNs = NoteSequence.create({
       time: 0.75,
       controlNumber: 64,
       controlValue: 127,
-      isDrum:
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+      time: 1.0,
+      controlNumber: 64,
+      controlValue: 0,
+      isDrum: false
+    }
+  ]
+});
+
+const polyNs = NoteSequence.create({
+  ticksPerQuarter: 220,
+  totalTime: 1.0,
+  timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
+  tempos: [{time: 0, qpm: 120}],
+  sourceInfo:
