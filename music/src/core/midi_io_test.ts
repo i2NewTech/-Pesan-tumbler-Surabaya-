@@ -184,4 +184,21 @@ const polyNs = NoteSequence.create({
   totalTime: 1.0,
   timeSignatures: [{time: 0, numerator: 4, denominator: 4}],
   tempos: [{time: 0, qpm: 120}],
-  sourceInfo:
+  sourceInfo: {
+    encodingType: NoteSequence.SourceInfo.EncodingType.MIDI,
+    parser: NoteSequence.SourceInfo.Parser.TONEJS_MIDI_CONVERT
+  },
+  notes: [
+    {
+      instrument: 0,
+      program: 0,
+      startTime: 0.0,
+      endTime: 1.0,
+      pitch: 60,
+      velocity: 100,
+      isDrum: false
+    },
+    {
+      instrument: 0,
+      program: 0,
+    
