@@ -220,4 +220,19 @@ const polyNs = NoteSequence.create({
       instrument: 0,
       program: 0,
       startTime: 0.375,
-      
+      endTime: 0.625,
+      pitch: 67,
+      velocity: 100,
+      isDrum: false
+    }
+  ]
+});
+
+test('Parse Simple MIDI', (t: test.Test) => {
+  const midi = fs.readFileSync('../testdata/melody.mid');
+  const ns = midi_io.midiToSequenceProto(midi);
+
+  t.deepEqual(ns, simpleNs);
+
+  const nsRoundTrip = midi_io.midiToSequenceProto(
+      midi_io.seq
