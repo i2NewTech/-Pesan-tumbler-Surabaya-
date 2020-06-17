@@ -235,4 +235,20 @@ test('Parse Simple MIDI', (t: test.Test) => {
   t.deepEqual(ns, simpleNs);
 
   const nsRoundTrip = midi_io.midiToSequenceProto(
-      midi_io.seq
+      midi_io.sequenceProtoToMidi(ns));
+
+  t.deepEqual(nsRoundTrip, simpleNs);
+
+  t.end();
+});
+
+test('Create Simple MIDI File', (t: test.Test) => {
+  const midiFile = midi_io.sequenceProtoToMidi(simpleNs);
+
+  t.deepEqual(
+      midi_io.midiToSequenceProto(midiFile),
+      simpleNs);
+  t.end();
+});
+
+test('Create MIDI File With Polyphony', (t: te
