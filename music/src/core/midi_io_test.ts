@@ -251,4 +251,17 @@ test('Create Simple MIDI File', (t: test.Test) => {
   t.end();
 });
 
-test('Create MIDI File With Polyphony', (t: te
+test('Create MIDI File With Polyphony', (t: test.Test) => {
+  const midiFile = midi_io.sequenceProtoToMidi(polyNs);
+
+  t.deepEqual(
+      midi_io.midiToSequenceProto(midiFile),
+      polyNs);
+  t.end();
+});
+
+test('Create MIDI File With Tempo Changes', (t: test.Test) => {
+  const ns = sequences.clone(simpleNs);
+  ns.ticksPerQuarter = 240;  // for precise values
+  ns.tempos = [
+    {time: 0, qp
