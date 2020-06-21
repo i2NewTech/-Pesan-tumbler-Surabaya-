@@ -288,3 +288,15 @@ test('Write MIDI Using Defaults', (t: test.Test) => {
   });
 
   const expectedNs = sequences.clone(simpleNs);
+  expectedNs.notes.forEach(n => {
+    n.velocity = constants.DEFAULT_VELOCITY;
+    n.program = constants.DEFAULT_PROGRAM;
+  });
+
+  const nsRoundTrip = midi_io.midiToSequenceProto(
+      midi_io.sequenceProtoToMidi(strippedNs));
+
+  t.deepEqual(nsRoundTrip, expectedNs);
+
+  t.end();
+});
