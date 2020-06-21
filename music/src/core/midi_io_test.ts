@@ -276,4 +276,15 @@ test('Create MIDI File With Tempo Changes', (t: test.Test) => {
 });
 
 test('Write MIDI Using Defaults', (t: test.Test) => {
-  const strippedNs = sequences.clone(simpleN
+  const strippedNs = sequences.clone(simpleNs);
+  strippedNs.tempos = undefined;
+  strippedNs.timeSignatures = undefined;
+  strippedNs.ticksPerQuarter = undefined;
+  strippedNs.notes.forEach(n => {
+    n.velocity = undefined;
+    n.isDrum = undefined;
+    n.instrument = undefined;
+    n.program = undefined;
+  });
+
+  const expectedNs = sequences.clone(simpleNs);
