@@ -20,4 +20,29 @@
  */
 import {INoteSequence, NoteSequence} from '../protobuf/index';
 
-import * as constan
+import * as constants from './constants';
+import * as sequences from './sequences';
+
+import * as logging from './logging';
+
+/**
+ * Start a new note.
+ */
+export interface NoteOn {
+  type: 'note-on';
+  pitch: number;
+}
+
+/**
+ * End an active note.
+ */
+export interface NoteOff {
+  type: 'note-off';
+  pitch: number;
+}
+
+/**
+ * Move current time forward.
+ */
+export interface TimeShift {
+  type: 'ti
