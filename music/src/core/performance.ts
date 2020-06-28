@@ -45,4 +45,20 @@ export interface NoteOff {
  * Move current time forward.
  */
 export interface TimeShift {
-  type: 'ti
+  type: 'time-shift';
+  steps: number;
+}
+
+/**
+ * Change velocity applied to subsequent notes.
+ */
+export interface VelocityChange {
+  type: 'velocity-change';
+  velocityBin: number;
+}
+
+export type PerformanceEvent = NoteOn|NoteOff|TimeShift|VelocityChange;
+
+/**
+ * Performance representation with variable step size, consisting of a sequence
+ * of `NoteOn`, `NoteOff`, `TimeShift`, a
