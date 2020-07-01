@@ -80,4 +80,15 @@ export class Performance {
   readonly isDrum?: boolean;
 
   constructor(
-      events: PerformanceEvent[], maxShiftSte
+      events: PerformanceEvent[], maxShiftSteps: number,
+      numVelocityBins: number, program?: number, isDrum?: boolean) {
+    this.events = events;
+    this.maxShiftSteps = maxShiftSteps;
+    this.numVelocityBins = numVelocityBins;
+
+    this.program = program;
+    this.isDrum = isDrum;
+  }
+
+  /**
+   * Extract a performance from a `
