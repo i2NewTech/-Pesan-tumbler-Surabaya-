@@ -61,4 +61,11 @@ export type PerformanceEvent = NoteOn|NoteOff|TimeShift|VelocityChange;
 
 /**
  * Performance representation with variable step size, consisting of a sequence
- * of `NoteOn`, `NoteOff`, `TimeShift`, a
+ * of `NoteOn`, `NoteOff`, `TimeShift`, and `VelocityChange` events.
+ *
+ * @param events An array of performance events.
+ * @param maxShiftSteps Number of steps in the maximum time shift.
+ * @param numVelocityBins The number of quantized MIDI velocity bins to use.
+ * If zero, velocities will be ignored.
+ * @param program (Optional) The MIDI program to use for these events.
+ * @param i
