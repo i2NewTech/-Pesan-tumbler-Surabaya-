@@ -68,4 +68,16 @@ export type PerformanceEvent = NoteOn|NoteOff|TimeShift|VelocityChange;
  * @param numVelocityBins The number of quantized MIDI velocity bins to use.
  * If zero, velocities will be ignored.
  * @param program (Optional) The MIDI program to use for these events.
- * @param i
+ * @param isDrum (Optional) Whether or not these are drum events.
+ */
+export class Performance {
+  readonly events: PerformanceEvent[];
+
+  readonly maxShiftSteps: number;
+  readonly numVelocityBins: number;
+
+  readonly program?: number;
+  readonly isDrum?: boolean;
+
+  constructor(
+      events: PerformanceEvent[], maxShiftSte
