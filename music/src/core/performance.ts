@@ -97,4 +97,13 @@ export class Performance {
    * @param maxShiftSteps Number of steps in maximum time shift.
    * @param numVelocityBins Number of velocity bins to use. If zero, ignore note
    * velocities.
-   * @param instrument (Optional) Instrument to extract. If
+   * @param instrument (Optional) Instrument to extract. If not specified,
+   * extract all instruments.
+   * @returns A `Performance` created from the `NoteSequence`.
+   */
+  static fromNoteSequence(
+      noteSequence: INoteSequence, maxShiftSteps: number,
+      numVelocityBins: number, instrument?: number) {
+    sequences.assertIsQuantizedSequence(noteSequence);
+
+    // First extract all desired notes and 
