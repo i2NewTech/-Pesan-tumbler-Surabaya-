@@ -91,4 +91,10 @@ export class Performance {
   }
 
   /**
-   * Extract a performance from a `
+   * Extract a performance from a `NoteSequence`.
+   *
+   * @param noteSequence `NoteSequence` from which to extract a performance.
+   * @param maxShiftSteps Number of steps in maximum time shift.
+   * @param numVelocityBins Number of velocity bins to use. If zero, ignore note
+   * velocities.
+   * @param instrument (Optional) Instrument to extract. If
