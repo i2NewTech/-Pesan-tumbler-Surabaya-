@@ -106,4 +106,11 @@ export class Performance {
       numVelocityBins: number, instrument?: number) {
     sequences.assertIsQuantizedSequence(noteSequence);
 
-    // First extract all desired notes and 
+    // First extract all desired notes and sort by increasing start time and
+    // (secondarily) pitch.
+    const notes = noteSequence.notes.filter(
+        (note, _) =>
+            instrument !== undefined ? note.instrument === instrument : true);
+    const sortedNotes = notes.sort(
+        (a, b) => a.startTime === b.startTime ? a.pitch - b.pitch :
+               
