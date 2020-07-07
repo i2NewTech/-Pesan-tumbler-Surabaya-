@@ -113,4 +113,11 @@ export class Performance {
             instrument !== undefined ? note.instrument === instrument : true);
     const sortedNotes = notes.sort(
         (a, b) => a.startTime === b.startTime ? a.pitch - b.pitch :
-               
+                                                a.startTime - b.startTime);
+
+    // Now sort all note start and end events by quantized time step and
+    // position of the note in the above list.
+    const onsets = sortedNotes.map(
+        (note, i) => ({step: note.quantizedStartStep, index: i, isOffset: 0}));
+    const offsets = sortedNotes.map(
+        (not
