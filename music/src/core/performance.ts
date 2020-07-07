@@ -120,4 +120,11 @@ export class Performance {
     const onsets = sortedNotes.map(
         (note, i) => ({step: note.quantizedStartStep, index: i, isOffset: 0}));
     const offsets = sortedNotes.map(
-        (not
+        (note, i) => ({step: note.quantizedEndStep, index: i, isOffset: 1}));
+    const noteEvents = onsets.concat(offsets).sort(
+        (a, b) => a.step === b.step ?
+            (a.index === b.index ? a.isOffset - b.isOffset :
+                                   a.index - b.index) :
+            a.step - b.step);
+
+    const velocityBinSize = numVeloci
