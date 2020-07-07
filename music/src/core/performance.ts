@@ -127,4 +127,15 @@ export class Performance {
                                    a.index - b.index) :
             a.step - b.step);
 
-    const velocityBinSize = numVeloci
+    const velocityBinSize = numVelocityBins ?
+        Math.ceil((constants.MIDI_VELOCITIES - 1) / numVelocityBins) :
+        undefined;
+
+    const events: PerformanceEvent[] = [];
+
+    let currentStep = 0;
+    let currentVelocityBin = numVelocityBins;
+
+    for (const e of noteEvents) {
+      if (e.step > currentStep) {
+        // The next note 
