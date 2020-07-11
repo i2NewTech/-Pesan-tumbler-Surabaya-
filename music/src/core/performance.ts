@@ -138,4 +138,14 @@ export class Performance {
 
     for (const e of noteEvents) {
       if (e.step > currentStep) {
-        // The next note 
+        // The next note event requires a time shift.
+        while (e.step > currentStep + maxShiftSteps) {
+          events.push({type: 'time-shift', steps: maxShiftSteps});
+          currentStep += maxShiftSteps;
+        }
+        events.push({type: 'time-shift', steps: e.step - currentStep});
+        currentStep = e.step;
+      }
+
+      if (e.isOffset) {
+        // Turn of
