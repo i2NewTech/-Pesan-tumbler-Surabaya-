@@ -155,4 +155,10 @@ export class Performance {
         // velocity bin.
         if (velocityBinSize) {
           const velocityBin = Math.floor(
-                                  (sortedNotes[e.index].
+                                  (sortedNotes[e.index].velocity -
+                                   constants.MIN_MIDI_VELOCITY - 1) /
+                                  velocityBinSize) +
+              1;
+          if (velocityBin !== currentVelocityBin) {
+            events.push({type: 'velocity-change', velocityBin});
+            currentVelocityBin = velocityBin;
