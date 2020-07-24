@@ -148,4 +148,11 @@ export class Performance {
       }
 
       if (e.isOffset) {
-        // Turn of
+        // Turn off the note.
+        events.push({type: 'note-off', pitch: sortedNotes[e.index].pitch});
+      } else {
+        // Before we turn on the note, we may need to change the current
+        // velocity bin.
+        if (velocityBinSize) {
+          const velocityBin = Math.floor(
+                                  (sortedNotes[e.index].
