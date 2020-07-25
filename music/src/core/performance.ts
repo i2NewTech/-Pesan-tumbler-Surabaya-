@@ -162,3 +162,17 @@ export class Performance {
           if (velocityBin !== currentVelocityBin) {
             events.push({type: 'velocity-change', velocityBin});
             currentVelocityBin = velocityBin;
+          }
+        }
+
+        // Now turn on the note.
+        events.push({type: 'note-on', pitch: sortedNotes[e.index].pitch});
+      }
+    }
+
+    // Determine the drum status, if consistent.
+    const isDrum = notes.some(note => note.isDrum) ?
+        (notes.some(note => !note.isDrum) ? undefined : true) :
+        false;
+
+    // Determine the progra
