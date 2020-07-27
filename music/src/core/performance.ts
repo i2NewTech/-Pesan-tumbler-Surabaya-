@@ -175,4 +175,12 @@ export class Performance {
         (notes.some(note => !note.isDrum) ? undefined : true) :
         false;
 
-    // Determine the progra
+    // Determine the program used, if consistent.
+    const programs = Array.from(new Set(notes.map(note => note.program)));
+    const program =
+        (!isDrum && programs.length === 1) ? programs[0] : undefined;
+
+    const performance = new Performance(
+        events, maxShiftSteps, numVelocityBins, program, isDrum);
+
+    // Make sure the performance has the correct number of steps.
