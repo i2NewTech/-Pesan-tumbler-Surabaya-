@@ -197,4 +197,17 @@ export class Performance {
   getNumSteps() {
     return this.events.filter((event) => event.type === 'time-shift')
         .map((event: TimeShift) => event.steps)
-      
+        .reduce((a, b) => a + b, 0);
+  }
+
+  /**
+   * Set the total number of time steps in the performance by either adding
+   * time-shift events to the end or truncating.
+   *
+   * @param The desired number of time steps.
+   */
+  setNumSteps(numSteps: number) {
+    let currentNumSteps = this.getNumSteps();
+
+    if (currentNumSteps < numSteps) {
+      // Add time shift
