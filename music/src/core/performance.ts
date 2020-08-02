@@ -184,3 +184,17 @@ export class Performance {
         events, maxShiftSteps, numVelocityBins, program, isDrum);
 
     // Make sure the performance has the correct number of steps.
+    performance.setNumSteps(noteSequence.totalQuantizedSteps);
+
+    return performance;
+  }
+
+  /**
+   * Return the total number of time steps in the performance.
+   *
+   * @returns The total number of steps.
+   */
+  getNumSteps() {
+    return this.events.filter((event) => event.type === 'time-shift')
+        .map((event: TimeShift) => event.steps)
+      
