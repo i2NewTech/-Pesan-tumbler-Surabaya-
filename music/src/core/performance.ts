@@ -210,4 +210,12 @@ export class Performance {
     let currentNumSteps = this.getNumSteps();
 
     if (currentNumSteps < numSteps) {
-      // Add time shift
+      // Add time shift events to the end of the performance.
+      if (this.events.length) {
+        const event = this.events[this.events.length - 1];
+        if (event.type === 'time-shift') {
+          const steps = Math.min(
+              numSteps - currentNumSteps, this.maxShiftSteps - event.steps);
+          event.steps += steps;
+          currentNumSteps += steps;
+      
