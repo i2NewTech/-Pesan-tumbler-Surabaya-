@@ -235,4 +235,19 @@ export class Performance {
       while (this.events.length && currentNumSteps > numSteps) {
         const event = this.events[this.events.length - 1];
         if (event.type === 'time-shift') {
-          if (cu
+          if (currentNumSteps - event.steps < numSteps) {
+            event.steps -= currentNumSteps - numSteps;
+            currentNumSteps = numSteps;
+          } else {
+            this.events.pop();
+            currentNumSteps -= event.steps;
+          }
+        } else {
+          this.events.pop();
+        }
+      }
+    }
+  }
+
+  /**
+   * Convert this p
