@@ -250,4 +250,11 @@ export class Performance {
   }
 
   /**
-   * Convert this p
+   * Convert this performance representation to `NoteSequence`.
+   *
+   * @param instrument Instrument value to give each note.
+   * @returns A `NoteSequence` corresponding to these performance events.
+   */
+  toNoteSequence(instrument?: number): INoteSequence {
+    const velocityBinSize = this.numVelocityBins ?
+        Math.ceil((constants.MIDI_VELOCITIES - 1) / t
