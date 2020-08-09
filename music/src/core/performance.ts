@@ -227,3 +227,12 @@ export class Performance {
           currentNumSteps = numSteps;
         } else {
           this.events.push({type: 'time-shift', steps: this.maxShiftSteps});
+          currentNumSteps += this.maxShiftSteps;
+        }
+      }
+    } else if (currentNumSteps > numSteps) {
+      // Drop events from the end of the performance.
+      while (this.events.length && currentNumSteps > numSteps) {
+        const event = this.events[this.events.length - 1];
+        if (event.type === 'time-shift') {
+          if (cu
