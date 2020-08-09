@@ -257,4 +257,15 @@ export class Performance {
    */
   toNoteSequence(instrument?: number): INoteSequence {
     const velocityBinSize = this.numVelocityBins ?
-        Math.ceil((constants.MIDI_VELOCITIES - 1) / t
+        Math.ceil((constants.MIDI_VELOCITIES - 1) / this.numVelocityBins) :
+        undefined;
+
+    const noteSequence = NoteSequence.create();
+
+    let currentStep = 0;
+    let currentVelocity = undefined;
+
+    // Initialize a map from pitch to (the start step and velocity of) all
+    // active notes at that pitch. Multiple notes can be active at the same
+    // pitch.
+    const pitchStartStepsAndVelocit
