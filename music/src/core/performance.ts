@@ -218,4 +218,12 @@ export class Performance {
               numSteps - currentNumSteps, this.maxShiftSteps - event.steps);
           event.steps += steps;
           currentNumSteps += steps;
-      
+        }
+      }
+      while (currentNumSteps < numSteps) {
+        if (currentNumSteps + this.maxShiftSteps > numSteps) {
+          this.events.push(
+              {type: 'time-shift', steps: numSteps - currentNumSteps});
+          currentNumSteps = numSteps;
+        } else {
+          this.events.push({type: 'time-shift', steps: this.maxShiftSteps});
