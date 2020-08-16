@@ -287,4 +287,12 @@ export class Performance {
           const startStepsAndVelocities =
               pitchStartStepsAndVelocities.get(event.pitch);
           if (startStepsAndVelocities.length) {
-            const [startStep, velocity] = s
+            const [startStep, velocity] = startStepsAndVelocities.shift();
+            if (currentStep > startStep) {
+              noteSequence.notes.push(NoteSequence.Note.create({
+                pitch: event.pitch,
+                velocity,
+                instrument,
+                quantizedStartStep: startStep,
+                quantizedEndStep: currentStep,
+                progra
