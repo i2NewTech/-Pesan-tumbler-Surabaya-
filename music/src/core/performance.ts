@@ -268,4 +268,14 @@ export class Performance {
     // Initialize a map from pitch to (the start step and velocity of) all
     // active notes at that pitch. Multiple notes can be active at the same
     // pitch.
-    const pitchStartStepsAndVelocit
+    const pitchStartStepsAndVelocities =
+        new Map<number, Array<[number, number]>>();
+    for (let i = constants.MIN_MIDI_PITCH; i <= constants.MAX_MIDI_PITCH; ++i) {
+      pitchStartStepsAndVelocities.set(i, []);
+    }
+
+    for (const event of this.events) {
+      switch (event.type) {
+        case 'note-on':
+          // Start a new note.
+          pitchStartStepsAndVelocities.g
