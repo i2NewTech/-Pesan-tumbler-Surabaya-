@@ -295,4 +295,15 @@ export class Performance {
                 instrument,
                 quantizedStartStep: startStep,
                 quantizedEndStep: currentStep,
-                progra
+                program: this.program,
+                isDrum: this.isDrum,
+              }));
+            } else {
+              logging.log(
+                  'Ignoring zero-length note: ' +
+                  `(pitch = ${event.pitch}, step = ${currentStep})`,
+                  'Performance');
+            }
+          } else {
+            logging.log(
+                'Ignoring no
