@@ -278,4 +278,13 @@ export class Performance {
       switch (event.type) {
         case 'note-on':
           // Start a new note.
-          pitchStartStepsAndVelocities.g
+          pitchStartStepsAndVelocities.get(event.pitch).push([
+            currentStep, currentVelocity
+          ]);
+          break;
+        case 'note-off':
+          // End an active note.
+          const startStepsAndVelocities =
+              pitchStartStepsAndVelocities.get(event.pitch);
+          if (startStepsAndVelocities.length) {
+            const [startStep, velocity] = s
