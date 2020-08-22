@@ -306,4 +306,15 @@ export class Performance {
             }
           } else {
             logging.log(
-                'Ignoring no
+                'Ignoring note-off with no previous note-on:' +
+                `(pitch = ${event.pitch}, step = ${currentStep})`,
+                'Performance');
+          }
+          break;
+        case 'time-shift':
+          // Shift time forward.
+          currentStep += event.steps;
+          break;
+        case 'velocity-change':
+          // Change current velocity.
+          i
