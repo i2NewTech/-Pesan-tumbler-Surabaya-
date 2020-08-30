@@ -317,4 +317,12 @@ export class Performance {
           break;
         case 'velocity-change':
           // Change current velocity.
-          i
+          if (velocityBinSize) {
+            currentVelocity = constants.MIN_MIDI_VELOCITY +
+                (event.velocityBin - 1) * velocityBinSize + 1;
+          } else {
+            throw new Error(`Unexpected velocity change event: ${event}`);
+          }
+          break;
+        default:
+          throw new Error(`Unrecognized performance event: ${event}`
