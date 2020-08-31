@@ -325,4 +325,13 @@ export class Performance {
           }
           break;
         default:
-          throw new Error(`Unrecognized performance event: ${event}`
+          throw new Error(`Unrecognized performance event: ${event}`);
+      }
+    }
+
+    // There could be remaining pitches that were never ended. End them now
+    // and create notes.
+    pitchStartStepsAndVelocities.forEach((startStepsAndVelocities, pitch) => {
+      for (const [startStep, velocity] of startStepsAndVelocities) {
+        if (currentStep > startStep) {
+          noteSequence.n
