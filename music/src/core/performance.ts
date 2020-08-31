@@ -334,4 +334,15 @@ export class Performance {
     pitchStartStepsAndVelocities.forEach((startStepsAndVelocities, pitch) => {
       for (const [startStep, velocity] of startStepsAndVelocities) {
         if (currentStep > startStep) {
-          noteSequence.n
+          noteSequence.notes.push(NoteSequence.Note.create({
+            pitch,
+            velocity,
+            instrument,
+            quantizedStartStep: startStep,
+            quantizedEndStep: currentStep,
+            program: this.program,
+            isDrum: this.isDrum
+          }));
+        } else {
+          logging.log(
+              'Ignoring
