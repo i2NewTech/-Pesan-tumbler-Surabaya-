@@ -345,4 +345,16 @@ export class Performance {
           }));
         } else {
           logging.log(
-              'Ignoring
+              'Ignoring zero-length note: ' +
+              `(pitch = ${pitch}, step = ${currentStep})`, 
+              'Performance');
+        }
+      }
+    });
+
+    // Set the total number of steps.
+    noteSequence.totalQuantizedSteps = currentStep;
+
+    return noteSequence;
+  }
+}
