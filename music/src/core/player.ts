@@ -19,4 +19,14 @@
 /**
  * Imports
  */
-//
+// @ts-ignore
+import * as Tone from 'tone';
+
+import {performance} from '../core/compat/global';
+import {INoteSequence, NoteSequence} from '../protobuf/index';
+
+import * as constants from './constants';
+import * as soundfont from './soundfont';
+import * as sequences from './sequences';
+
+function compareQuantizedNotes(a: NoteSequence.INote, 
