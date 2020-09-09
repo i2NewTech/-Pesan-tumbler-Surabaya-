@@ -29,4 +29,23 @@ import * as constants from './constants';
 import * as soundfont from './soundfont';
 import * as sequences from './sequences';
 
-function compareQuantizedNotes(a: NoteSequence.INote, 
+function compareQuantizedNotes(a: NoteSequence.INote, b: NoteSequence.INote) {
+  if (a.quantizedStartStep < b.quantizedStartStep) {
+    return -1;
+  }
+  if (a.quantizedStartStep > b.quantizedStartStep) {
+    return 1;
+  }
+  if (a.pitch < b.pitch) {
+    return -1;
+  }
+  return 1;
+}
+
+/**
+ * An abstract base class for providing arbitrary callbacks for each note
+ * played.
+ */
+export abstract class BasePlayerCallback {
+  /**
+  
