@@ -48,4 +48,17 @@ function compareQuantizedNotes(a: NoteSequence.INote, b: NoteSequence.INote) {
  */
 export abstract class BasePlayerCallback {
   /**
-  
+   * Will be called for each time/note pair in a sequence being played.
+   *
+   * @param n The note being played at the moment.
+   * @param t The time at which the note is being played.
+   */
+  abstract run(n: NoteSequence.INote, t?: number): void;
+
+  /*  Will be called when a sequence is stopped.
+   */
+  abstract stop(): void;
+}
+
+/**
+ * Abstr
