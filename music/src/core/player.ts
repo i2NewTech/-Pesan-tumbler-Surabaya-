@@ -70,4 +70,11 @@ export abstract class BasePlayer {
   protected callbackObject: BasePlayerCallback;
   protected desiredQPM: number;
 
- 
+  protected abstract playNote(time: number, note: NoteSequence.INote): void;
+
+  /**
+   *   `BasePlayer` constructor.
+   *
+   *   @param playClick A boolean, determines whether the click will be played.
+   *   @param callbackObject An optional BasePlayerCallback, specifies an
+   *     object that contains run() and stop() methods to invode
