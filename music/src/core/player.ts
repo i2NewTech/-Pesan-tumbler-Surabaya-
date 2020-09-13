@@ -61,4 +61,13 @@ export abstract class BasePlayerCallback {
 }
 
 /**
- * Abstr
+ * Abstract base class for a `NoteSequence` player based on Tone.js.
+ */
+export abstract class BasePlayer {
+  protected currentPart: any;  // tslint:disable-line:no-any
+  protected scheduledStop: number;
+  protected playClick: boolean;
+  protected callbackObject: BasePlayerCallback;
+  protected desiredQPM: number;
+
+ 
