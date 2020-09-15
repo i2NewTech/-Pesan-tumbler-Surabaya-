@@ -92,4 +92,15 @@ export abstract class BasePlayer {
    * @param qpm The new qpm to use.
    */
   setTempo(qpm: number) {
- 
+    this.desiredQPM = qpm;
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.bpm.value = qpm;
+    }
+  }
+
+  /**
+   * Adds a click track to an existing note sequence.
+   * @param seq The `NoteSequence` to augment with a click track.
+   */
+  private makeClickSequence(seq: INoteSequence): INoteSequence {
+    const clickSeq 
