@@ -77,4 +77,19 @@ export abstract class BasePlayer {
    *
    *   @param playClick A boolean, determines whether the click will be played.
    *   @param callbackObject An optional BasePlayerCallback, specifies an
-   *     object that contains run() and stop() methods to invode
+   *     object that contains run() and stop() methods to invode during
+   *     playback.
+   */
+  constructor(playClick = false, callbackObject?: BasePlayerCallback) {
+    this.playClick = playClick;
+    this.callbackObject = callbackObject;
+    this.desiredQPM = undefined;
+  }
+
+  /**
+   * Changes the tempo of the playback.
+   *
+   * @param qpm The new qpm to use.
+   */
+  setTempo(qpm: number) {
+ 
