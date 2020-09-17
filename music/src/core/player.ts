@@ -103,4 +103,10 @@ export abstract class BasePlayer {
    * @param seq The `NoteSequence` to augment with a click track.
    */
   private makeClickSequence(seq: INoteSequence): INoteSequence {
-    const clickSeq 
+    const clickSeq = sequences.clone(seq);
+    const sixteenthEnds = clickSeq.notes.map((n) => n.quantizedEndStep);
+    const lastSixteenth = Math.max(...sixteenthEnds);
+    for (let i = 0; i < lastSixteenth; i += 4) {
+      const click: NoteSequence.INote = {
+        pitch: i % 16 === 0 ? constants.LO_CLICK_PITCH :
+                              constants.H
