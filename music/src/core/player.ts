@@ -109,4 +109,17 @@ export abstract class BasePlayer {
     for (let i = 0; i < lastSixteenth; i += 4) {
       const click: NoteSequence.INote = {
         pitch: i % 16 === 0 ? constants.LO_CLICK_PITCH :
-                              constants.H
+                              constants.HI_CLICK_PITCH,
+        quantizedStartStep: i,
+        isDrum: true,
+        quantizedEndStep: i + 1,
+      };
+      clickSeq.notes.push(click);
+    }
+    clickSeq.notes.sort(compareQuantizedNotes);
+    return clickSeq;
+  }
+
+  /**
+   * Resumes the Audio context. Due to autoplay restrictions, you must call
+   * this function in a click handler (i.
