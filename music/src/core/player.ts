@@ -122,4 +122,15 @@ export abstract class BasePlayer {
 
   /**
    * Resumes the Audio context. Due to autoplay restrictions, you must call
-   * this function in a click handler (i.
+   * this function in a click handler (i.e. as a result of a user action) before
+   * you can start playing audio with a player. This is already done in start(),
+   * but you might have to call it yourself if you have any deferred/async
+   * calls.
+   */
+  resumeContext() {
+    Tone.context.resume();
+  }
+
+  /**
+   * Starts playing a `NoteSequence` (either quantized or unquantized), and
+   * returns a Promi
