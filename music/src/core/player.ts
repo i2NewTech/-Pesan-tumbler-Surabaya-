@@ -138,4 +138,11 @@ export abstract class BasePlayer {
    * @param qpm (Optional) If specified, will play back at this qpm. If not
    * specified, will use either the qpm specified in the sequence or the
    * default of 120. Only valid for quantized sequences.
-   * @param offset (Optional) The time to st
+   * @param offset (Optional) The time to start playing from.
+   * @returns a Promise that resolves when playback is complete.
+   * @throws {Error} If this or a different player is currently playing.
+   */
+
+  start(seq: INoteSequence, qpm?: number, offset = 0): Promise<void> {
+    if (this.getPlayState() === 'started') {
+      throw new Error('Cannot start playback; player is alrea
