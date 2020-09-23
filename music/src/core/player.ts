@@ -133,4 +133,9 @@ export abstract class BasePlayer {
 
   /**
    * Starts playing a `NoteSequence` (either quantized or unquantized), and
-   * returns a Promi
+   * returns a Promise that resolves when it is done playing.
+   * @param seq The `NoteSequence` to play.
+   * @param qpm (Optional) If specified, will play back at this qpm. If not
+   * specified, will use either the qpm specified in the sequence or the
+   * default of 120. Only valid for quantized sequences.
+   * @param offset (Optional) The time to st
