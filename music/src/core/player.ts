@@ -155,4 +155,13 @@ export abstract class BasePlayer {
     }
 
     this.resumeContext();
-    co
+    const isQuantized = sequences.isQuantizedSequence(seq);
+    if (this.playClick && isQuantized) {
+      seq = this.makeClickSequence(seq);
+    }
+    if (qpm) {
+      Tone.Transport.bpm.value = qpm;
+    } else if (seq.tempos && seq.tempos.length > 0 && seq.tempos[0].qpm > 0) {
+      Tone.Transport.bpm.value = seq.tempos[0].qpm;
+    } else {
+      Tone.Transport.bpm.value = const
