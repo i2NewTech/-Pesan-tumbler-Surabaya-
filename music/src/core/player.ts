@@ -145,4 +145,14 @@ export abstract class BasePlayer {
 
   start(seq: INoteSequence, qpm?: number, offset = 0): Promise<void> {
     if (this.getPlayState() === 'started') {
-      throw new Error('Cannot start playback; player is alrea
+      throw new Error('Cannot start playback; player is already playing.');
+    } else if (this.getPlayState() === 'paused') {
+      throw new Error('Cannot `start()` a paused player; use `resume()`.');
+    }
+    if (Tone.Transport.state !== 'stopped') {
+      throw new Error(
+          'Cannot start playback while `Tone.Transport` is in use.');
+    }
+
+    this.resumeContext();
+    co
