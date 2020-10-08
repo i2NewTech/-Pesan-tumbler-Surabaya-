@@ -173,3 +173,16 @@ export abstract class BasePlayer {
     }
 
     const thisPart = new Tone.Part((t: number, n: NoteSequence.INote) => {
+      // Prevent playback after the part has been removed.
+      if (this.currentPart !== thisPart) {
+        return;
+      }
+
+      this.playNote(t, n);
+      
+      if (this.callbackObject) {
+        Tone.Draw.schedule(() => {
+          this.callbackObject.run(n, t);
+        }, t);
+      }
+    }, seq.notes.map((n) => [n.startTime, n])
