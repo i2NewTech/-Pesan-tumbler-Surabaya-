@@ -164,4 +164,12 @@ export abstract class BasePlayer {
     } else if (seq.tempos && seq.tempos.length > 0 && seq.tempos[0].qpm > 0) {
       Tone.Transport.bpm.value = seq.tempos[0].qpm;
     } else {
-      Tone.Transport.bpm.value = const
+      Tone.Transport.bpm.value = constants.DEFAULT_QUARTERS_PER_MINUTE;
+    }
+    if (isQuantized) {
+      seq = sequences.unquantizeSequence(seq, qpm);
+    } else if (qpm) {
+      throw new Error('Cannot specify a `qpm` for a non-quantized sequence.');
+    }
+
+    const thisPart = new Tone.Part((t: number, n: NoteSequence.INote) => {
