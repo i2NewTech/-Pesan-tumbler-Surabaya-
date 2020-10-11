@@ -196,4 +196,20 @@ export abstract class BasePlayer {
       Tone.Transport.start();
     }
     return new Promise((resolve) => {
-      this.scheduled
+      this.scheduledStop = Tone.Transport.schedule(() => {
+        this.stop();
+        resolve();
+        if (this.callbackObject) {
+          this.callbackObject.stop();
+        }
+      }, `+${seq.totalTime}`);
+    });
+  }
+
+  /**
+   * Stop playing the currently playing sequence right away.
+   */
+  stop() {
+    if (this.isPlaying()) {
+      this.currentPart.stop();
+  
