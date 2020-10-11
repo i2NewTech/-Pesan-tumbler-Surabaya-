@@ -185,4 +185,15 @@ export abstract class BasePlayer {
           this.callbackObject.run(n, t);
         }, t);
       }
-    }, seq.notes.map((n) => [n.startTime, n])
+    }, seq.notes.map((n) => [n.startTime, n]));
+    this.currentPart = thisPart;
+
+    if (this.desiredQPM) {
+      Tone.Transport.bpm.value = this.desiredQPM;
+    }
+    this.currentPart.start(undefined /* immediately */, offset);
+    if (Tone.Transport.state !== 'started') {
+      Tone.Transport.start();
+    }
+    return new Promise((resolve) => {
+      this.scheduled
