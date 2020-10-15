@@ -226,4 +226,16 @@ export abstract class BasePlayer {
    * @throws {Error} If the player is stopped.
    */
   pause() {
-    if (
+    if (!this.isPlaying()) {
+      throw new Error('Cannot pause playback while the player is stopped.');
+    }
+    Tone.Transport.pause();
+  }
+
+  /**
+   * Resume playing the sequence after pause().
+   * @throws {Error} If the player is not paused.
+   */
+  resume() {
+    if (this.getPlayState() !== 'paused') {
+      throw new Error(`Cannot re
