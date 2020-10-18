@@ -238,4 +238,17 @@ export abstract class BasePlayer {
    */
   resume() {
     if (this.getPlayState() !== 'paused') {
-      throw new Error(`Cannot re
+      throw new Error(`Cannot resume playback while "${this.getPlayState()}".`);
+    }
+    Tone.Transport.start();
+  }
+
+  /**
+   * Seek to a number of seconds in the NoteSequence.
+   * @throws {Error} If the player is stopped.
+   */
+  seekTo(seconds: number) {
+    if (!this.isPlaying()) {
+      throw new Error('Cannot seek while the player is stopped.');
+    }
+    Tone.Transpo
