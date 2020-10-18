@@ -251,4 +251,17 @@ export abstract class BasePlayer {
     if (!this.isPlaying()) {
       throw new Error('Cannot seek while the player is stopped.');
     }
-    Tone.Transpo
+    Tone.Transport.seconds = seconds;
+  }
+
+  /**
+   * Returns false iff the player is completely stopped. This will only be
+   * false after creating the player or after calling stop(), and will be true
+   * after calling start(), pause() or resume().
+   */
+  isPlaying() {
+    return !!this.currentPart;
+  }
+
+  /**
+   * Returns the playba
