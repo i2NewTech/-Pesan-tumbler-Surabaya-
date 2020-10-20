@@ -264,4 +264,17 @@ export abstract class BasePlayer {
   }
 
   /**
-   * Returns the playba
+   * Returns the playback state of the player, either "started",
+   * "stopped", or "paused".
+   */
+  getPlayState() {
+    // Return "stopped" if some other player is playing.
+    return this.isPlaying() ? Tone.Transport.state : 'stopped';
+  }
+}
+
+/**
+ * A singleton drum kit synthesizer with 9 pitch classed defined by
+ * constants.DEFAULT_DRUM_PITCH_CLASSES.
+ */
+class Dr
