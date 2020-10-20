@@ -277,4 +277,12 @@ export abstract class BasePlayer {
  * A singleton drum kit synthesizer with 9 pitch classed defined by
  * constants.DEFAULT_DRUM_PITCH_CLASSES.
  */
-class Dr
+class DrumKit {
+  private static instance: DrumKit;
+  private DRUM_PITCH_TO_CLASS = new Map<number, number>();
+  private kick = new Tone.MembraneSynth().toDestination();
+  private tomLow = new Tone
+                       .MembraneSynth({
+                         pitchDecay: 0.008,
+                         envelope: {attack: 0.01, decay: 0.5, sustain: 0},
+  
