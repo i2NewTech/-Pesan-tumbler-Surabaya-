@@ -285,4 +285,12 @@ class DrumKit {
                        .MembraneSynth({
                          pitchDecay: 0.008,
                          envelope: {attack: 0.01, decay: 0.5, sustain: 0},
-  
+                       })
+                       .toDestination();
+  private tomMid = new Tone
+                       .MembraneSynth({
+                         pitchDecay: 0.008,
+                         envelope: {attack: 0.01, decay: 0.5, sustain: 0},
+                       })
+                       .toDestination();
+  private tomHigh = new To
