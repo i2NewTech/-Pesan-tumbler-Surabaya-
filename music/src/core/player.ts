@@ -293,4 +293,14 @@ class DrumKit {
                          envelope: {attack: 0.01, decay: 0.5, sustain: 0},
                        })
                        .toDestination();
-  private tomHigh = new To
+  private tomHigh = new Tone
+                        .MembraneSynth({
+                          pitchDecay: 0.008,
+                          envelope: {attack: 0.01, decay: 0.5, sustain: 0},
+                        })
+                        .toDestination();
+  private closedHihat =
+      new Tone
+          .MetalSynth({
+            frequency: 400,
+  
