@@ -323,4 +323,13 @@ class DrumKit {
           .toDestination();
   private ride = new Tone.MetalSynth().toDestination();
   private crash = new Tone
-                      .MetalSynt
+                      .MetalSynth({
+                        frequency: 300,
+                        envelope: {attack: 0.001, decay: 1, release: 3},
+                        harmonicity: 5.1,
+                        modulationIndex: 64,
+                        resonance: 4000,
+                        octaves: 1.5,
+                      })
+                      .toDestination();
+  pr
