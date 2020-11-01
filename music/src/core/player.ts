@@ -332,4 +332,14 @@ class DrumKit {
                         octaves: 1.5,
                       })
                       .toDestination();
-  pr
+  private snare =
+      new Tone
+          .NoiseSynth({
+            noise: {type: 'white'},
+            envelope: {attack: 0.005, decay: 0.05, sustain: 0.1, release: 0.4},
+          })
+          .toDestination();
+  private loClick = new Tone
+                        .MembraneSynth({
+                          pitchDecay: 0.008,
+                     
