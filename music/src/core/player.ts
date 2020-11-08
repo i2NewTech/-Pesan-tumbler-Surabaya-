@@ -342,4 +342,11 @@ class DrumKit {
   private loClick = new Tone
                         .MembraneSynth({
                           pitchDecay: 0.008,
-                     
+                          envelope: {attack: 0.001, decay: 0.3, sustain: 0},
+                        })
+                        .toDestination();
+  private hiClick = new Tone
+                        .MembraneSynth({
+                          pitchDecay: 0.008,
+                          envelope: {attack: 0.001, decay: 0.3, sustain: 0},
+             
