@@ -357,4 +357,11 @@ class DrumKit {
     (time: number, velocity = 1) =>
         this.snare.triggerAttackRelease('16n', time, velocity),
     (time: number, velocity = 1) =>
-        this.clos
+        this.closedHihat.triggerAttack(time, 0.3, velocity),
+    (time: number, velocity = 1) =>
+        this.openHihat.triggerAttack(time, 0.3, velocity),
+    (time: number, velocity = 0.5) =>
+        this.tomLow.triggerAttack('G3', time, velocity),
+    (time: number, velocity = 0.5) =>
+        this.tomMid.triggerAttack('C4', time, velocity),
+    (time: number, velocit
