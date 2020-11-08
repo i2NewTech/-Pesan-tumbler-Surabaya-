@@ -349,4 +349,12 @@ class DrumKit {
                         .MembraneSynth({
                           pitchDecay: 0.008,
                           envelope: {attack: 0.001, decay: 0.3, sustain: 0},
-             
+                        })
+                        .toDestination();
+  private pitchPlayers = [
+    (time: number, velocity = 1) =>
+        this.kick.triggerAttackRelease('C2', '8n', time, velocity),
+    (time: number, velocity = 1) =>
+        this.snare.triggerAttackRelease('16n', time, velocity),
+    (time: number, velocity = 1) =>
+        this.clos
