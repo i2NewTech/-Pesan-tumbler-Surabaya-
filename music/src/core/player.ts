@@ -364,4 +364,11 @@ class DrumKit {
         this.tomLow.triggerAttack('G3', time, velocity),
     (time: number, velocity = 0.5) =>
         this.tomMid.triggerAttack('C4', time, velocity),
-    (time: number, velocit
+    (time: number, velocity = 0.5) =>
+        this.tomHigh.triggerAttack('F4', time, velocity),
+    (time: number, velocity = 1) =>
+        this.crash.triggerAttack(time, 1.0, velocity),
+    (time: number, velocity = 1) =>
+        this.ride.triggerAttack(time, 0.5, velocity),
+    (time: number, velocity = 0.5) =>
+        this.loClick.triggerAttack('G5', time, veloc
