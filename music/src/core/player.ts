@@ -371,4 +371,13 @@ class DrumKit {
     (time: number, velocity = 1) =>
         this.ride.triggerAttack(time, 0.5, velocity),
     (time: number, velocity = 0.5) =>
-        this.loClick.triggerAttack('G5', time, veloc
+        this.loClick.triggerAttack('G5', time, velocity),
+    (time: number, velocity = 0.5) =>
+        this.hiClick.triggerAttack('C6', time, velocity),
+  ];
+
+  private constructor() {
+    for (let c = 0; c < constants.DEFAULT_DRUM_PITCH_CLASSES.length; ++c) {
+      // class
+      constants.DEFAULT_DRUM_PITCH_CLASSES[c].forEach((p) => {
+        this.DRUM_PITCH_TO_CLASS.set(p, c);
