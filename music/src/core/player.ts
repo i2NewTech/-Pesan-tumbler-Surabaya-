@@ -381,3 +381,16 @@ class DrumKit {
       // class
       constants.DEFAULT_DRUM_PITCH_CLASSES[c].forEach((p) => {
         this.DRUM_PITCH_TO_CLASS.set(p, c);
+      });
+    }
+    this.DRUM_PITCH_TO_CLASS.set(
+        constants.LO_CLICK_PITCH, constants.LO_CLICK_CLASS);
+    this.DRUM_PITCH_TO_CLASS.set(
+        constants.HI_CLICK_PITCH, constants.HI_CLICK_CLASS);
+  }
+
+  static getInstance() {
+    if (!DrumKit.instance) {
+      DrumKit.instance = new DrumKit();
+    }
+    return DrumKit
