@@ -393,4 +393,18 @@ class DrumKit {
     if (!DrumKit.instance) {
       DrumKit.instance = new DrumKit();
     }
-    return DrumKit
+    return DrumKit.instance;
+  }
+
+  public playNote(pitch: number, time: number, velocity: number) {
+    this.pitchPlayers[this.DRUM_PITCH_TO_CLASS.get(pitch)](time, velocity);
+  }
+}
+
+/**
+ * A `NoteSequence` player based on Tone.js.
+ */
+export class Player extends BasePlayer {
+  private drumKit = DrumKit.getInstance();
+
+  p
