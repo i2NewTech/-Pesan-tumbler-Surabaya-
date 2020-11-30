@@ -407,4 +407,16 @@ class DrumKit {
 export class Player extends BasePlayer {
   private drumKit = DrumKit.getInstance();
 
-  p
+  private bassSynth = new Tone
+                          .Synth({
+                            volume: 5,
+                            oscillator: {type: 'triangle'},
+                          })
+                          .toDestination();
+
+  private polySynth = new Tone.PolySynth().toDestination();
+
+  /**
+   * The Tone module being used.
+   */
+  static read
