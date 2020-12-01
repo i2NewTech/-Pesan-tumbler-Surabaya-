@@ -419,4 +419,13 @@ export class Player extends BasePlayer {
   /**
    * The Tone module being used.
    */
-  static read
+  static readonly tone = Tone;  // tslint:disable-line:no-any
+
+  protected playNote(time: number, note: NoteSequence.INote) {
+    // If there's a velocity, use it.
+    const velocity = note.hasOwnProperty('velocity') ?
+        note.velocity / constants.MAX_MIDI_VELOCITY :
+        undefined;
+
+    if (note.isDrum) {
+      this.drumKit.playNote(note.pitch, tim
