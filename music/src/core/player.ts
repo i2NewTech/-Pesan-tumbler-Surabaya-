@@ -428,4 +428,13 @@ export class Player extends BasePlayer {
         undefined;
 
     if (note.isDrum) {
-      this.drumKit.playNote(note.pitch, tim
+      this.drumKit.playNote(note.pitch, time, velocity);
+    } else {
+      const freq = Tone.Frequency(note.pitch, 'midi').toFrequency();
+      const dur = note.endTime - note.startTime;
+      this.getSynth(note.instrument, note.program)
+          .triggerAttackRelease(freq, dur, time, velocity);
+    }
+  }
+
+  private getSynth(instrument: number, program?: number) 
