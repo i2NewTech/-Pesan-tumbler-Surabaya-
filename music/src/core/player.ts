@@ -437,4 +437,16 @@ export class Player extends BasePlayer {
     }
   }
 
-  private getSynth(instrument: number, program?: number) 
+  private getSynth(instrument: number, program?: number) {
+    if (program !== undefined && program >= 32 && program <= 39) {
+      return this.bassSynth;
+    } else {
+      return this.polySynth;
+    }
+  }
+}
+
+/**
+ * A `NoteSequence` player based on Tone.js that uses SoundFont samples. The
+ * `loadSamples` method may be called before `start` so that the samples
+ * necessary for playing the se
