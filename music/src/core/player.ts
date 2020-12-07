@@ -464,4 +464,12 @@ export class Player extends BasePlayer {
  *
  * Example (implicitly loading samples):
  *
- *   `player.st
+ *   `player.start(seq)`
+ *
+ * If the samples for `seq` have not already been loaded, playing will only
+ * start after all necessary samples have been loaded.
+ */
+export class SoundFontPlayer extends BasePlayer {
+  private soundFont: soundfont.SoundFont;
+  private output: any;                       // tslint:disable-line:no-any
+  private programOutputs: Map<number, any>;  // tslint:disabl
