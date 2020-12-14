@@ -491,4 +491,12 @@ export class SoundFontPlayer extends BasePlayer {
    * Loads the audio samples required to play a NoteSequence.
    * @param seq The NoteSequence to be played.
    */
-  async loadS
+  async loadSamples(seq: INoteSequence): Promise<void> {
+    await this.soundFont.loadSamples(
+        seq.notes.map((note) => ({
+                        pitch: note.pitch,
+                        velocity: note.velocity,
+                        program: note.program || 0,
+                        isDrum: note.isDrum || false,
+                      })));
+ 
