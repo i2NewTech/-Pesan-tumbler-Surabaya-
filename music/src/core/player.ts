@@ -499,4 +499,11 @@ export class SoundFontPlayer extends BasePlayer {
                         program: note.program || 0,
                         isDrum: note.isDrum || false,
                       })));
- 
+  }
+
+  /**
+   * Loads the audio samples for all valid midi pitches, for a specific program.
+   * **Note**: this method is rather slow; only use it if you're sure
+   * that you need to load _all_ possible samples (for example, you're
+   * playing a stream of live notes from the user) -- otherwise, if you already
+   * have the NoteSequ
