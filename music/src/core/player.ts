@@ -480,4 +480,15 @@ export class SoundFontPlayer extends BasePlayer {
       programOutputs?: Map<number, any>,  // tslint:disable-line:no-any
       drumOutputs?: Map<number, any>,     // tslint:disable-line:no-any
       callbackObject?: BasePlayerCallback) {
-    s
+    super(false, callbackObject);
+    this.soundFont = new soundfont.SoundFont(soundFontURL);
+    this.output = output;
+    this.programOutputs = programOutputs;
+    this.drumOutputs = drumOutputs;
+  }
+
+  /**
+   * Loads the audio samples required to play a NoteSequence.
+   * @param seq The NoteSequence to be played.
+   */
+  async loadS
