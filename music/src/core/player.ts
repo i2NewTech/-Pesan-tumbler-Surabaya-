@@ -506,4 +506,11 @@ export class SoundFontPlayer extends BasePlayer {
    * **Note**: this method is rather slow; only use it if you're sure
    * that you need to load _all_ possible samples (for example, you're
    * playing a stream of live notes from the user) -- otherwise, if you already
-   * have the NoteSequ
+   * have the NoteSequence you have to play, use `loadSamples` instead.
+   *
+   * If you do end up using `loadAllSamples`, make sure you're calling it
+   * asynchronously, as to not block other main thread work (like UI
+   * interactions) while waiting for it to finish.
+   *
+   * @param program (optional) Program number to use for instrument lookup.
+   * Default
