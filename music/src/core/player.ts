@@ -513,4 +513,11 @@ export class SoundFontPlayer extends BasePlayer {
    * interactions) while waiting for it to finish.
    *
    * @param program (optional) Program number to use for instrument lookup.
-   * Default
+   * Default is 0.
+   * @param isDrum (optional) True if the drum status should be used for
+   * instrument lookup. Default is false.
+   */
+  async loadAllSamples(program = 0, isDrum = false): Promise<void> {
+    // Create a NoteSequence that has all the possible pitches and all the
+    // possible velocities for the given program.
+    const ns = Not
