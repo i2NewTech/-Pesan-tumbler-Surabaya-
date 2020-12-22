@@ -526,4 +526,14 @@ export class SoundFontPlayer extends BasePlayer {
     for (let i = min; i <= max; i++) {
       for (let j = constants.MIN_MIDI_VELOCITY; j < constants.MAX_MIDI_VELOCITY;
            j++) {
-        ns.notes.push({pitch: i, veloci
+        ns.notes.push({pitch: i, velocity: j, program, isDrum});
+      }
+    }
+    return this.loadSamples(ns);
+  }
+
+  /**
+   * Resumes the Audio context. Due to autoplay restrictions, you must call
+   * this function in a click handler (i.e. as a result of a user action) before
+   * you can start playing audio with a player. This is already done in start(),
+   * but yo
