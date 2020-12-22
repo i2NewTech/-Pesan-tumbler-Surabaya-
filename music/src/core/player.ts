@@ -536,4 +536,16 @@ export class SoundFontPlayer extends BasePlayer {
    * Resumes the Audio context. Due to autoplay restrictions, you must call
    * this function in a click handler (i.e. as a result of a user action) before
    * you can start playing audio with a player. This is already done in start(),
-   * but yo
+   * but you might have to call it yourself if you have any deferred/async
+   * calls.
+   */
+  resumeContext() {
+    Tone.context.resume();
+  }
+
+  start(seq: INoteSequence, qpm?: number, offset = 0): Promise<void> {
+    this.resumeContext();
+    return this.loadSamples(seq).then(() => super.start(seq, qpm, offset));
+  }
+
+  protected playNote(time: number, not
