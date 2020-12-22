@@ -520,4 +520,10 @@ export class SoundFontPlayer extends BasePlayer {
   async loadAllSamples(program = 0, isDrum = false): Promise<void> {
     // Create a NoteSequence that has all the possible pitches and all the
     // possible velocities for the given program.
-    const ns = Not
+    const ns = NoteSequence.create();
+    const min = isDrum ? constants.MIN_DRUM_PITCH : constants.MIN_PIANO_PITCH;
+    const max = isDrum ? constants.MAX_DRUM_PITCH : constants.MAX_PIANO_PITCH;
+    for (let i = min; i <= max; i++) {
+      for (let j = constants.MIN_MIDI_VELOCITY; j < constants.MAX_MIDI_VELOCITY;
+           j++) {
+        ns.notes.push({pitch: i, veloci
