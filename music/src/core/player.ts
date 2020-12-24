@@ -548,4 +548,13 @@ export class SoundFontPlayer extends BasePlayer {
     return this.loadSamples(seq).then(() => super.start(seq, qpm, offset));
   }
 
-  protected playNote(time: number, not
+  protected playNote(time: number, note: NoteSequence.INote) {
+    this.soundFont.playNote(
+        note.pitch, note.velocity, time, note.endTime - note.startTime,
+        note.program, note.isDrum, this.getAudioNodeOutput(note));
+  }
+
+  /*
+   * Plays the down stroke of a note (the attack and the sustain).
+   * Note that this does not call `loadSamples`, and assumes that the
+   * sample for this note is alre
