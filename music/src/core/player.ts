@@ -564,4 +564,12 @@ export class SoundFontPlayer extends BasePlayer {
   public playNoteDown(note: NoteSequence.INote) {
     this.soundFont.playNoteDown(
         note.pitch, note.velocity, note.program, note.isDrum,
-        this.getAudioN
+        this.getAudioNodeOutput(note));
+  }
+
+  /*
+   * Plays the up stroke of a note (the release).
+   * Note that this does not call `loadSamples`, and assumes that the
+   * sample for this note is already loaded. If you call this
+   * twice without calling playNoteDown() in between, it will *not* implicitly
+   * call playNoteDown() for you, and the se
