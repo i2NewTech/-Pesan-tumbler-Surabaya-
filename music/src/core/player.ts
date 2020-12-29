@@ -582,4 +582,10 @@ export class SoundFontPlayer extends BasePlayer {
   }
 
   getAudioNodeOutput(note: NoteSequence.INote) {
-    // Determine which `Audio
+    // Determine which `AudioNode` to use for output. Non-drums are mapped to
+    // outputs by program number, while drums are mapped to outputs by MIDI
+    // pitch value. A single output (defaulting to `Tone.Master`) is used as a
+    // fallback.
+    let output = this.output;
+    if (this.programOutputs && !note.isDrum) {
+      if (this.programOutputs.has(note.progr
