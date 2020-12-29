@@ -588,4 +588,18 @@ export class SoundFontPlayer extends BasePlayer {
     // fallback.
     let output = this.output;
     if (this.programOutputs && !note.isDrum) {
-      if (this.programOutputs.has(note.progr
+      if (this.programOutputs.has(note.program)) {
+        output = this.programOutputs.get(note.program);
+      }
+    } else if (this.drumOutputs && note.isDrum) {
+      if (this.drumOutputs.has(note.pitch)) {
+        output = this.drumOutputs.get(note.pitch);
+      }
+    }
+    return output;
+  }
+}
+
+/**
+ * A `NoteSequence` player based on Tone.js that includes a click track and a
+ * callback 
