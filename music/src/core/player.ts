@@ -572,4 +572,14 @@ export class SoundFontPlayer extends BasePlayer {
    * Note that this does not call `loadSamples`, and assumes that the
    * sample for this note is already loaded. If you call this
    * twice without calling playNoteDown() in between, it will *not* implicitly
-   * call playNoteDown() for you, and the se
+   * call playNoteDown() for you, and the second call will have no noticeable
+   * effect.
+   */
+  public playNoteUp(note: NoteSequence.INote) {
+    this.soundFont.playNoteUp(
+        note.pitch, note.velocity, note.program, note.isDrum,
+        this.getAudioNodeOutput(note));
+  }
+
+  getAudioNodeOutput(note: NoteSequence.INote) {
+    // Determine which `Audio
