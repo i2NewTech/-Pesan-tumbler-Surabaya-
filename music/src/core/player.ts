@@ -602,4 +602,14 @@ export class SoundFontPlayer extends BasePlayer {
 
 /**
  * A `NoteSequence` player based on Tone.js that includes a click track and a
- * callback 
+ * callback object to be called while playing notes.
+ */
+export class PlayerWithClick extends Player {
+  /**
+   *   `PlayerWithClick constructor
+   *
+   *   @param callbackObject An optional BasePlayerCallback, specifies an
+   *     object that contains run() and stop() methods to invode during
+   *     playback.
+   */
+  constructor(callbackObject?:
