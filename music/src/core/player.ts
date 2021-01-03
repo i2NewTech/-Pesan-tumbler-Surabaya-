@@ -621,4 +621,15 @@ export class PlayerWithClick extends Player {
  * A `NoteSequence` player that uses a MIDI output for playing. Note that
  * WebMIDI is not supported in all browsers. A
  * [polyfill](https://cwilso.github.io/WebMIDIAPIShim/) exists, but it too
- * requires a plugin to be installed on the user's computer, so it
+ * requires a plugin to be installed on the user's computer, so it might not
+ * work in all cases.
+ *
+ * If you want to use a particular MIDI output port, you must update the
+ * `output` property before calling `start`, otherwise a message will be sent to
+ * all connected MIDI outputs:
+ *
+ * Example (easy mode):
+ *
+ *   ```
+ *    const player = new mm.MIDIPlayer();
+ *    player.requestMIDIAcce
