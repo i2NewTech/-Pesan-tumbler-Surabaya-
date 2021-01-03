@@ -612,4 +612,13 @@ export class PlayerWithClick extends Player {
    *     object that contains run() and stop() methods to invode during
    *     playback.
    */
-  constructor(callbackObject?:
+  constructor(callbackObject?: BasePlayerCallback) {
+    super(true, callbackObject);
+  }
+}
+
+/**
+ * A `NoteSequence` player that uses a MIDI output for playing. Note that
+ * WebMIDI is not supported in all browsers. A
+ * [polyfill](https://cwilso.github.io/WebMIDIAPIShim/) exists, but it too
+ * requires a plugin to be installed on the user's computer, so it
