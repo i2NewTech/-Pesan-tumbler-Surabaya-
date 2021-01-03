@@ -632,4 +632,12 @@ export class PlayerWithClick extends Player {
  *
  *   ```
  *    const player = new mm.MIDIPlayer();
- *    player.requestMIDIAcce
+ *    player.requestMIDIAccess().then(() => {
+ *      // For example, use only the first port. If you omit this,
+ *      // a message will be sent to all ports.
+ *      player.outputs = [player.availableOutputs[0]];
+ *      player.start(seq);
+ *    })
+ *   ```
+ *
+ * If you want to specify which MIDI channel the messages sho
