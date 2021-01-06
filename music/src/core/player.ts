@@ -650,4 +650,12 @@ export class PlayerWithClick extends Player {
  * Example (advanced mode):
  *
  *   ```
- *    navigator.requestMIDIAccess().then((midi) => 
+ *    navigator.requestMIDIAccess().then((midi) => {
+ *       // Get all the MIDI outputs to show them in a <select> (for example)
+ *       const availableOutputs = [];
+ *       const it = midi.outputs.values();
+ *       for (let o = it.next(); o && !o.done; o = it.next()) {
+ *          availableOutputs.push(o.value);
+ *       }
+ *       // Populate the <select>
+ *       const el = document.query
