@@ -640,4 +640,14 @@ export class PlayerWithClick extends Player {
  *    })
  *   ```
  *
- * If you want to specify which MIDI channel the messages sho
+ * If you want to specify which MIDI channel the messages should be sent on,
+ * you can set the `outputChannel` property before calling `start`. By
+ * default, the `outputChannel` is 0.
+ *
+ * You can also explicitly request MIDI access outside of the player, in
+ * your application, and just update the `output` property before playing:
+ *
+ * Example (advanced mode):
+ *
+ *   ```
+ *    navigator.requestMIDIAccess().then((midi) => 
