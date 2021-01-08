@@ -669,4 +669,15 @@ export class PlayerWithClick extends Player {
  *     });
  *   ```
  */
-export class MIDIPlayer extends BasePlayer
+export class MIDIPlayer extends BasePlayer {
+  public outputs: WebMidi.MIDIOutput[] = [];
+  public outputChannel = 0;
+  public readonly availableOutputs: WebMidi.MIDIOutput[] = [];
+  private NOTE_ON = 0x90;
+  private NOTE_OFF = 0x80;
+
+  /**
+   *   `MIDIPlayer` constructor.
+   *
+   *   @param callbackObject An optional BasePlayerCallback, specifies an
+   *     object that contains run() and
