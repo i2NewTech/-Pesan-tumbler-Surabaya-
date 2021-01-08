@@ -658,4 +658,15 @@ export class PlayerWithClick extends Player {
  *          availableOutputs.push(o.value);
  *       }
  *       // Populate the <select>
- *       const el = document.query
+ *       const el = document.querySelector('select');
+ *       el.innerHTML = availableOutputs.map(i =>
+ *           `<option>${i.name}</option>`).join('');
+ *
+ *       // Use the selected output port.
+ *       player = new mm.MIDIPlayer();
+ *       player.outputs = [availableOutputs[el.selectedIndex]];
+ *       player.start(seq)
+ *     });
+ *   ```
+ */
+export class MIDIPlayer extends BasePlayer
