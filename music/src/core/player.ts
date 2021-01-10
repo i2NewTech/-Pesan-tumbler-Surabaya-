@@ -680,4 +680,17 @@ export class MIDIPlayer extends BasePlayer {
    *   `MIDIPlayer` constructor.
    *
    *   @param callbackObject An optional BasePlayerCallback, specifies an
-   *     object that contains run() and
+   *     object that contains run() and stop() methods to invode during
+   *     playback.
+   */
+  constructor(callbackObject?: BasePlayerCallback) {
+    super(false, callbackObject);
+  }
+
+  /**
+   * Requests MIDI access from the user, and stores all available MIDI outputs.
+   */
+  async requestMIDIAccess() {
+    if (navigator.requestMIDIAccess) {
+      return new Promise((resolve, reject) => {
+        
