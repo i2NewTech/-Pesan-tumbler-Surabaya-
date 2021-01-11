@@ -715,4 +715,10 @@ export class MIDIPlayer extends BasePlayer {
     return this.availableOutputs;
   }
 
- 
+  protected playNote(time: number, note: NoteSequence.INote) {
+    // Some good defaults.
+    const velocity = note.velocity || 100;
+    const length = (note.endTime - note.startTime) * 1000;  // in ms.
+
+    const msgOn = [this.NOTE_ON + this.outputChannel, note.pitch, velocity];
+    const msgOff = [this.NOTE_OFF + this.outputChannel, note.pitch, velocity];
