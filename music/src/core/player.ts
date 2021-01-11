@@ -701,4 +701,18 @@ export class MIDIPlayer extends BasePlayer {
           resolve(this.initOutputs(midi));
         }, (err) => console.log('Something went wrong', reject(err)));
       });
+    } else {
+      return null;
     }
+  }
+
+  private initOutputs(midi: WebMidi.MIDIAccess) {
+    const outputs = midi.outputs.values();
+    for (let output = outputs.next(); output && !output.done;
+         output = outputs.next()) {
+      this.availableOutputs.push(output.value);
+    }
+    return this.availableOutputs;
+  }
+
+ 
