@@ -693,4 +693,12 @@ export class MIDIPlayer extends BasePlayer {
   async requestMIDIAccess() {
     if (navigator.requestMIDIAccess) {
       return new Promise((resolve, reject) => {
-        
+        navigator.requestMIDIAccess().then((midi) => {
+          // Also react to device changes.
+          midi.addEventListener(
+              'statechange',
+              (event: WebMidi.MIDIMessageEvent) => this.initOutputs(midi));
+          resolve(this.initOutputs(midi));
+        }, (err) => console.log('Something went wrong', reject(err)));
+      });
+    }
