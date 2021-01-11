@@ -722,3 +722,13 @@ export class MIDIPlayer extends BasePlayer {
 
     const msgOn = [this.NOTE_ON + this.outputChannel, note.pitch, velocity];
     const msgOff = [this.NOTE_OFF + this.outputChannel, note.pitch, velocity];
+
+    const outputs = this.outputs ? this.outputs : this.availableOutputs;
+    for (let i = 0; i < outputs.length; i++) {
+      this.sendMessageToOutput(outputs[i], msgOn);
+      this.sendMessageToOutput(outputs[i], msgOff, performance.now() + length);
+    }
+  }
+
+  private sendMessageToOutput(
+      output
