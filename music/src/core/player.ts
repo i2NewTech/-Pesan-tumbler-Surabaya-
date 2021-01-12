@@ -731,4 +731,13 @@ export class MIDIPlayer extends BasePlayer {
   }
 
   private sendMessageToOutput(
-      output
+      output: WebMidi.MIDIOutput, message: number[], time?: number) {
+    if (output) {
+      output.send(message, time);
+    }
+  }
+
+  /*
+   * Plays the down stroke of a note (the attack and the sustain). If you call
+   * this twice without calling playNoteUp() in between, it will implicitly
+   * release the note before str
