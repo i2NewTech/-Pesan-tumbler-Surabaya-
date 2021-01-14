@@ -750,3 +750,11 @@ export class MIDIPlayer extends BasePlayer {
     }
   }
 
+  /*
+   * Plays the up stroke of a note (the release). If you call this
+   * twice without calling playNoteDown() in between, it will *not*
+   * implicitly call playNoteDown() for you, and the second call will have no
+   * noticeable effect.
+   */
+  public playNoteUp(note: NoteSequence.INote) {
+    const msgOff = [this.NOTE_OFF, note.pitch, note.velo
