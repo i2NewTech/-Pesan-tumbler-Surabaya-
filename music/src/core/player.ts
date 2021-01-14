@@ -740,4 +740,13 @@ export class MIDIPlayer extends BasePlayer {
   /*
    * Plays the down stroke of a note (the attack and the sustain). If you call
    * this twice without calling playNoteUp() in between, it will implicitly
-   * release the note before str
+   * release the note before striking it the second time.
+   */
+  public playNoteDown(note: NoteSequence.INote) {
+    const msgOn = [this.NOTE_ON, note.pitch, note.velocity];
+    const outputs = this.outputs ? this.outputs : this.availableOutputs;
+    for (let i = 0; i < outputs.length; i++) {
+      this.sendMessageToOutput(outputs[i], msgOn);
+    }
+  }
+
