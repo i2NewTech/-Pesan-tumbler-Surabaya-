@@ -757,4 +757,11 @@ export class MIDIPlayer extends BasePlayer {
    * noticeable effect.
    */
   public playNoteUp(note: NoteSequence.INote) {
-    const msgOff = [this.NOTE_OFF, note.pitch, note.velo
+    const msgOff = [this.NOTE_OFF, note.pitch, note.velocity];
+    const outputs = this.outputs ? this.outputs : this.availableOutputs;
+    for (let i = 0; i < outputs.length; i++) {
+      this.sendMessageToOutput(
+          outputs[i], msgOff, note.endTime - note.startTime);
+    }
+  }
+}
