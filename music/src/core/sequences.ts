@@ -372,3 +372,336 @@ export function unquantizeSequence(qns: INoteSequence, qpm?: number) {
     } else {
       ns.tempos.push(NoteSequence.Tempo.create({time: 0, qpm}));
     }
+  } else {
+    qpm = (qns.tempos && qns.tempos.length > 0) ?
+        ns.tempos[0].qpm :
+        constants.DEFAULT_QUARTERS_PER_MINUTE;
+  }
+
+  const stepToSeconds = (step: number) =>
+      step / ns.quantizationInfo.stepsPerQuarter * (60 / qpm);
+  ns.totalTime = stepToSeconds(ns.totalQuantizedSteps);
+  ns.notes.forEach(n => {
+    // Quantize the start and end times of the note.
+    n.startTime = stepToSeconds(n.quantizedStartStep);
+    n.endTime = stepToSeconds(n.quantizedEndStep);
+    // Extend sequence if necessary.
+    ns.totalTime = Math.max(ns.totalTime, n.endTime);
+
+    // Delete the quantized step information.
+    delete n.quantizedStartStep;
+    delete n.quantizedEndStep;
+  });
+
+  // Also quantize control changes and text annotations.
+  getQuantizedTimeEvents(ns).forEach(event => {
+    // Quantize the event time, disallowing negative time.
+    event.time = stepToSeconds(event.time);
+  });
+  delete ns.totalQuantizedSteps;
+  delete ns.quantizationInfo;
+  return ns;
+}
+
+/**
+ * Create an empty quantized NoteSequence with steps per quarter note and tempo.
+ * @param stepsPerQuarter The number of steps per quarter note to use.
+ * @param qpm The tempo to use.
+ * @returns A new quantized NoteSequence.
+ */
+export function createQuantizedNoteSequence(
+    stepsPerQuarter = constants.DEFAULT_STEPS_PER_QUARTER,
+    qpm = constants.DEFAULT_QUARTERS_PER_MINUTE): NoteSequence {
+  return NoteSequence.create(
+      {quantizationInfo: {stepsPerQuarter}, tempos: [{qpm}]});
+}
+
+/**
+ * Assign instruments to the notes, pitch bends, and control changes of a
+ * `NoteSequence` based on program numbers and drum status. All drums will be
+ * assigned the last instrument (and program 0). All non-drum events with the
+ * same program number will be assigned to a single instrument.
+ * @param ns The `NoteSequence` for which to merge instruments. Will not be
+ * modified.
+ * @returns A copy of `ns` with merged instruments.
+ */
+export function mergeInstruments(ns: INoteSequence) {
+  const result = clone(ns);
+
+  const events =
+      result.notes.concat(result.pitchBends).concat(result.controlChanges);
+  const programs =
+      Array.from(new Set(events.filter(e => !e.isDrum).map(e => e.program)));
+
+  events.forEach(e => {
+    if (e.isDrum) {
+      e.program = 0;
+      e.instrument = programs.length;
+    } else {
+      e.instrument = programs.indexOf(e.program);
+    }
+  });
+
+  return result;
+}
+
+/**
+ * Replaces all the notes in an input sequence that match the instruments in
+ * a second sequence. For example, if `replaceSequence` has notes that all have
+ * either `instrument=0` or `instrument=1`, then any notes in `originalSequence`
+ * with instruments 0 or 1 will be removed and replaced with the notes in
+ * `replaceSequence`. If there are instruments in `replaceSequence` that are
+ * *not* in `originalSequence`, they will not be added.
+ * @param originalSequence The `NoteSequence` to be changed.
+ * @param replaceSequence The `NoteSequence` that will replace the notes in
+ * `sequence` with the same instrument.
+ * @return a new `NoteSequence` with the instruments replaced.
+ */
+export function replaceInstruments(
+    originalSequence: INoteSequence,
+    replaceSequence: INoteSequence): NoteSequence {
+  const instrumentsInOriginal =
+      new Set(originalSequence.notes.map(n => n.instrument));
+  const instrumentsInReplace =
+      new Set(replaceSequence.notes.map(n => n.instrument));
+
+  const newNotes: NoteSequence.Note[] = [];
+  // Go through the original sequence, and only keep the notes for instruments
+  // *not* in the second sequence.
+  originalSequence.notes.forEach(n => {
+    if (!instrumentsInReplace.has(n.instrument)) {
+      newNotes.push(NoteSequence.Note.create(n));
+    }
+  });
+  // Go through the second sequence and add all the notes for instruments in the
+  // first sequence.
+  replaceSequence.notes.forEach(n => {
+    if (instrumentsInOriginal.has(n.instrument)) {
+      newNotes.push(NoteSequence.Note.create(n));
+    }
+  });
+
+  // Sort the notes by instrument, and then by time.
+  const output = clone(originalSequence);
+  output.notes = newNotes.sort((a, b) => {
+    const voiceCompare = a.instrument - b.instrument;
+    if (voiceCompare) {
+      return voiceCompare;
+    }
+    return a.quantizedStartStep - b.quantizedStartStep;
+  });
+  return output;
+}
+
+/**
+ * Any consecutive notes of the same pitch are merged into a sustained note.
+ * Does not merge notes that connect on a measure boundary. This process
+ * also rearranges the order of the notes - notes are grouped by instrument,
+ * then ordered by timestamp.
+ *
+ * @param sequence A quantized `NoteSequence` to be merged.
+ * @return a new `NoteSequence` with sustained notes merged.
+ */
+export function mergeConsecutiveNotes(sequence: INoteSequence) {
+  assertIsQuantizedSequence(sequence);
+
+  const output = clone(sequence);
+  output.notes = [];
+
+  // Sort the input notes.
+  const newNotes = sequence.notes.sort((a, b) => {
+    const voiceCompare = a.instrument - b.instrument;
+    if (voiceCompare) {
+      return voiceCompare;
+    }
+    return a.quantizedStartStep - b.quantizedStartStep;
+  });
+
+  // Start with the first note.
+  const note = new NoteSequence.Note();
+  note.pitch = newNotes[0].pitch;
+  note.instrument = newNotes[0].instrument;
+  note.quantizedStartStep = newNotes[0].quantizedStartStep;
+  note.quantizedEndStep = newNotes[0].quantizedEndStep;
+  output.notes.push(note);
+  let o = 0;
+
+  for (let i = 1; i < newNotes.length; i++) {
+    const thisNote = newNotes[i];
+    const previousNote = output.notes[o];
+    // Compare next note's start time with previous note's end time.
+    if (previousNote.instrument === thisNote.instrument &&
+        previousNote.pitch === thisNote.pitch &&
+        thisNote.quantizedStartStep === previousNote.quantizedEndStep &&
+        // Doesn't start on the measure boundary.
+        thisNote.quantizedStartStep % 16 !== 0) {
+      // If the next note has the same pitch as this note and starts at the
+      // same time as the previous note ends, absorb the next note into the
+      // previous output note.
+      output.notes[o].quantizedEndStep +=
+          thisNote.quantizedEndStep - thisNote.quantizedStartStep;
+    } else {
+      // Otherwise, append the next note to the output notes.
+      const note = new NoteSequence.Note();
+      note.pitch = newNotes[i].pitch;
+      note.instrument = newNotes[i].instrument;
+      note.quantizedStartStep = newNotes[i].quantizedStartStep;
+      note.quantizedEndStep = newNotes[i].quantizedEndStep;
+      output.notes.push(note);
+      o++;
+    }
+  }
+  return output;
+}
+
+/**
+ * Create a new NoteSequence with sustain pedal control changes applied.
+ *
+ * Extends each note within a sustain to either the beginning of the next
+ * note of the same pitch or the end of the sustain period, whichever happens
+ * first. This is done on a per instrument basis, so notes are only affected
+ * by sustain events for the same instrument. Drum notes will not be
+ * modified.
+ *
+ * @param noteSequence The NoteSequence for which to apply sustain. This
+ * object will not be modified.
+ * @param sustainControlNumber The MIDI control number for sustain pedal.
+ * Control events with this number and value 0-63 will be treated as sustain
+ * pedal OFF events, and control events with this number and value 64-127
+ * will be treated as sustain pedal ON events.
+ * @returns A copy of `note_sequence` but with note end times extended to
+ * account for sustain.
+ *
+ * @throws {Error}: If `note_sequence` is quantized.
+ * Sustain can only be applied to unquantized note sequences.
+ */
+
+export function applySustainControlChanges(
+  noteSequence: INoteSequence, sustainControlNumber = 64): NoteSequence {
+
+  enum MessageType {
+    SUSTAIN_ON,
+    SUSTAIN_OFF,
+    NOTE_ON,
+    NOTE_OFF
+  }
+  const isQuantized = isQuantizedSequence(noteSequence);
+  if (isQuantized) {
+    throw new Error('Can only apply sustain to unquantized NoteSequence.');
+  }
+
+  const sequence = clone(noteSequence);
+
+  // Sort all note on/off and sustain on/off events.
+  const events: Array<{ time: number, type: MessageType,
+    event:{
+      instrument?: number,
+      pitch?: number
+    } }> = [];
+  for (const note of sequence.notes) {
+    if (note.isDrum === false) {
+      if (note.startTime !== null) {
+        events.push({
+          time: note.startTime,
+          type: MessageType.NOTE_ON,
+          event: note
+        });
+      }
+      if (note.endTime !== null) {
+        events.push({
+          time: note.endTime,
+          type: MessageType.NOTE_OFF,
+          event: note
+        });
+      }
+    }
+  }
+  for (const cc of sequence.controlChanges) {
+    if (cc.controlNumber === sustainControlNumber) {
+      const value = cc.controlValue;
+      if ( (value < 0) || (value > 127) ) {
+        // warning: out of range
+      }
+      if (value >= 64) {
+        events.push({
+          time: cc.time,
+          type: MessageType.SUSTAIN_ON,
+          event: cc
+        });
+      } else if (value < 64) {
+        events.push({
+          time: cc.time,
+          type: MessageType.SUSTAIN_OFF,
+          event: cc
+        });
+      }
+    }
+  }
+
+  // Sort, using the time and event type constants to ensure the order events
+  // are processed.
+  events.sort((a,b) => a.time-b.time );
+
+  // Lists of active notes, keyed by instrument.
+  const activeNotes: { [key: number]: NoteSequence.INote[] } = {};
+  // Whether sustain is active for a given instrument.
+  const susActive: { [key: number]: boolean } = {};
+  // Iterate through all sustain on/off and note on/off events in order.
+  let time = 0;
+  for (const item of events) {
+    time = item.time;
+    const type = item.type;
+    const event = item.event;
+
+    if (type === MessageType.SUSTAIN_ON) {
+      susActive[event.instrument] = true;
+    } else if (type === MessageType.SUSTAIN_OFF) {
+      susActive[event.instrument] = false;
+      // End all notes for the instrument that were being extended.
+      const newActiveNotes: NoteSequence.INote[] = [];
+      if (!(event.instrument in activeNotes)) {
+        activeNotes[event.instrument] = [];
+      }
+      for (const note of activeNotes[event.instrument]) {
+        if (note.endTime < time) {
+          // This note was being extended because of sustain.
+          // Update the end time and don't keep it in the list.
+          note.endTime = time;
+          if (time > sequence.totalTime) {
+            sequence.totalTime = time;
+          }
+        } else {
+          // This note is actually still active, keep it.
+          newActiveNotes.push(note);
+        }
+      }
+      activeNotes[event.instrument] = newActiveNotes;
+    } else if (type === MessageType.NOTE_ON) {
+      if (susActive[event.instrument] === true) {
+        // If sustain is on, end all previous notes with the same pitch.
+        const newActiveNotes: NoteSequence.INote[] = [];
+        if (!(event.instrument in activeNotes)) {
+          activeNotes[event.instrument] = [];
+        }
+        for (const note of activeNotes[event.instrument]) {
+          if (note.pitch === event.pitch) {
+            note.endTime = time;
+            if (note.startTime === note.endTime) {
+              // This note now has no duration because another note of the
+              // same pitch started at the same time. Only one of these
+              // notes should be preserved, so delete this one.
+              sequence.notes.push(note);
+            }
+          } else {
+            newActiveNotes.push(note);
+          }
+        }
+        activeNotes[event.instrument] = newActiveNotes;
+      }
+      // Add this new note to the list of active notes.
+      if (!(event.instrument in activeNotes)) {
+        activeNotes[event.instrument] = [];
+      }
+      activeNotes[event.instrument].push(event);
+    } else if (type === MessageType.NOTE_OFF) {
+      if (susActive[event.instrument] === true) {
