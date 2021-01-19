@@ -808,3 +808,242 @@ test('Trim NoteSequence (unquantized)', (t: test.Test) => {
 test('Trim and truncate NoteSequence (unquantized)', (t: test.Test) => {
   const ns1 = createTestNS();
   const expected = createTestNS();
+
+  addTrackToSequence(ns1, 0, [
+    [60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5], [59, 100, 1.5, 2.5],
+    [71, 100, 2.0, 3.0], [58, 100, 3.0, 4.5], [70, 100, 5.0, 5.5]
+  ]);
+  addTrackToSequence(
+      expected, 0, [[59, 100, 0, 1], [71, 100, 0.5, 1.5], [58, 100, 1.5, 2.5]]);
+  expected.totalTime = 2.5;
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.trim(ns1, 1.5, 4.0, true)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Trim NoteSequence (quantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  addQuantizedTrackToSequence(
+      ns1, 0,
+      [[60, 100, 0, 4], [60, 100, 2, 3], [60, 100, 3, 4], [60, 100, 3, 6]]);
+
+  const expected = createTestNS();
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  addQuantizedTrackToSequence(expected, 0, [[60, 100, 1, 2], [60, 100, 2, 3]]);
+  expected.totalQuantizedSteps = 4;
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.trim(ns1, 1, 5)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Trim and truncate NoteSequence (quantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  addQuantizedTrackToSequence(
+      ns1, 0,
+      [[60, 100, 0, 4], [60, 100, 2, 3], [60, 100, 3, 4], [60, 100, 3, 6]]);
+
+  const expected = createTestNS();
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  addQuantizedTrackToSequence(
+      expected, 0, [[60, 100, 1, 2], [60, 100, 2, 3], [60, 100, 2, 4]]);
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.trim(ns1, 1, 5, true)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Split sequence in 2 steps', (t: test.Test) => {
+  let ns1 = createTestNS();
+  addTrackToSequence(
+      ns1, 0,
+      [[60, 100, 0, 3], [72, 100, 2, 4], [80, 100, 6, 9], [20, 100, 40, 42]]);
+  ns1 = sequences.quantizeNoteSequence(ns1, 1);
+
+  // The first [60, 100, 0, 3] is split in 2 sequences.
+  const expected1 = [new NoteSequence.Note(
+      {pitch: 60, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 2})];
+  // This contains the leftover from the first note, and [72, 100, 2, 4].
+  const expected2 = [
+    new NoteSequence.Note(
+        {pitch: 60, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 1}),
+    new NoteSequence.Note(
+        {pitch: 72, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 2})
+  ];
+  // [80, 100, 6, 9] is basically [80, 100, 0, 3], so it's split in 2 sequences
+  const expected3 = [new NoteSequence.Note(
+      {pitch: 80, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 2})];
+  const expected4 = [new NoteSequence.Note(
+      {pitch: 80, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 1})];
+  const expected5 = [new NoteSequence.Note(
+      {pitch: 20, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 2})];
+
+  const split = sequences.split(ns1, 2);
+  t.equal(5, split.length);
+
+  // The objects aren't exactly equal since the returned sequences' notes
+  // have more fields (instruments, drums), so loosely compare notes.
+  t.is(true, compareNotesArray(split[0].notes, expected1), 'split 1 ok');
+  t.is(true, compareNotesArray(split[1].notes, expected2), 'split 2 ok');
+  t.is(true, compareNotesArray(split[2].notes, expected3), 'split 3 ok');
+  t.is(true, compareNotesArray(split[3].notes, expected4), 'split 4 ok');
+  t.is(true, compareNotesArray(split[4].notes, expected5), 'split 5 ok');
+  t.end();
+});
+
+test('Split sequence in 64 steps', (t: test.Test) => {
+  let ns1 = createTestNS();
+  addTrackToSequence(ns1, 0, [
+    [60, 100, 0, 3], [70, 100, 2, 4], [80, 100, 6, 9], [90, 100, 40, 42],
+    [10, 100, 63, 68], [20, 100, 70, 74]
+  ]);
+  ns1 = sequences.quantizeNoteSequence(ns1, 1);
+
+  // There are basically just 2 sequences, before or after the 64 step mark.
+  const expected1 = [
+    new NoteSequence.Note(
+        {pitch: 60, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 3}),
+    new NoteSequence.Note(
+        {pitch: 70, velocity: 100, quantizedStartStep: 2, quantizedEndStep: 4}),
+    new NoteSequence.Note(
+        {pitch: 80, velocity: 100, quantizedStartStep: 6, quantizedEndStep: 9}),
+    new NoteSequence.Note({
+      pitch: 90,
+      velocity: 100,
+      quantizedStartStep: 40,
+      quantizedEndStep: 42
+    }),
+    new NoteSequence.Note({
+      pitch: 10,
+      velocity: 100,
+      quantizedStartStep: 63,
+      quantizedEndStep: 64
+    })
+  ];
+  // This contains the leftover from the first note, and [72, 100, 2, 4].
+  const expected2 = [
+    new NoteSequence.Note(
+        {pitch: 10, velocity: 100, quantizedStartStep: 0, quantizedEndStep: 4}),
+    new NoteSequence.Note(
+        {pitch: 20, velocity: 100, quantizedStartStep: 6, quantizedEndStep: 10})
+  ];
+
+  const split = sequences.split(ns1, 64);
+  t.equal(2, split.length);
+
+  // The objects aren't exactly equal since the returned sequences' notes
+  // have more fields (instruments, drums), so loosely compare notes.
+  t.is(true, compareNotesArray(split[0].notes, expected1), 'split 1 ok');
+  t.is(true, compareNotesArray(split[1].notes, expected2), 'split 2 ok');
+  t.end();
+});
+
+test('Merge Consecutive Notes', (t: test.Test) => {
+  const ns1 = createTestNS();
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  // These should be merged.
+  ns1.notes.push({pitch: 60, quantizedStartStep: 1, quantizedEndStep: 2});
+  ns1.notes.push({pitch: 60, quantizedStartStep: 2, quantizedEndStep: 3});
+  ns1.notes.push({pitch: 60, quantizedStartStep: 3, quantizedEndStep: 4});
+  ns1.notes.push({pitch: 60, quantizedStartStep: 4, quantizedEndStep: 5});
+  // This shouldn't be merged because it's not consecutive.
+  ns1.notes.push({pitch: 60, quantizedStartStep: 6, quantizedEndStep: 10});
+  // This shouldn't be merged because it's a different pitch.
+  ns1.notes.push({pitch: 70, quantizedStartStep: 10, quantizedEndStep: 11});
+  // These should be merged.
+  ns1.notes.push({pitch: 70, quantizedStartStep: 11, quantizedEndStep: 13});
+  ns1.notes.push({pitch: 70, quantizedStartStep: 13, quantizedEndStep: 16});
+  // This shouldn't be merged because it starts on the measure boundary.
+  ns1.notes.push({pitch: 70, quantizedStartStep: 16, quantizedEndStep: 17});
+
+  const expected = createTestNS();
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  // These are sorted by instrument, then time.
+  expected.notes.push({pitch: 60, quantizedStartStep: 1, quantizedEndStep: 5});
+  expected.notes.push({pitch: 60, quantizedStartStep: 6, quantizedEndStep: 10});
+  expected.notes.push(
+      {pitch: 70, quantizedStartStep: 10, quantizedEndStep: 16});
+  expected.notes.push(
+      {pitch: 70, quantizedStartStep: 16, quantizedEndStep: 17});
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.mergeConsecutiveNotes(ns1)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('applySustain error case: quantized sequence', (t: test.Test) => {
+  const ns1 = createTestNS();
+
+  addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 4], [72, 100, 2, 6]]);
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  t.throws(() => sequences.applySustainControlChanges(ns1), Error);
+  t.end();
+});
+
+test('applySustain to sequence without sustain', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+
+  const sustainedNS = sequences.applySustainControlChanges(ns);
+
+  t.deepEqual(
+    NoteSequence.toObject(ns),
+    NoteSequence.toObject(sustainedNS));
+  t.end();
+});
+
+test('applySustain to sequence with sustain', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [60, 100, 1.0, 2.0],
+    [61, 100, 2.0, 3.0],
+    [62, 100, 3.0, 4.0],
+    [64, 100, 5.0, 6.0],
+    [65, 100, 6.0, 7.0]
+  ]);
+  addControlChangesToSequence(ns, 0, [
+     [0.0, 64, 127],
+     [5.0, 64, 0]
+  ]);
+
+  const expectedNS = createTestNS();
+
+  addTrackToSequence(expectedNS, 0, [
+    [60, 100, 1.0, 5.0],
+    [61, 100, 2.0, 5.0],
+    [62, 100, 3.0, 5.0],
+    [64, 100, 5.0, 6.0],
+    [65, 100, 6.0, 7.0]
+  ]);
+  addControlChangesToSequence(expectedNS, 0, [
+    [0.0, 64, 127],
+    [5.0, 64, 0]
+  ]);
+
+  const sustainedNS = sequences.applySustainControlChanges(ns);
+
+  t.deepEqual(
+    NoteSequence.toObject(sustainedNS),
+    NoteSequence.toObject(expectedNS));
+  t.end();
+});
