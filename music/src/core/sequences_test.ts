@@ -112,3 +112,347 @@ function addQuantizedChordStepsToSequence(
     ns: NoteSequence, quantizedSteps: number[]) {
   const chordAnnotations = ns.textAnnotations.filter(
       ta => ta.annotationType ===
+          NoteSequence.TextAnnotation.TextAnnotationType.CHORD_SYMBOL);
+
+  quantizedSteps.forEach((qstep, i) => {
+    const ta = chordAnnotations[i];
+    ta.quantizedStep = qstep;
+  });
+}
+
+function addQuantizedControlStepsToSequence(
+    ns: NoteSequence, quantizedSteps: number[]) {
+  quantizedSteps.forEach((qstep, i) => {
+    const cc = ns.controlChanges[i];
+    cc.quantizedStep = qstep;
+  });
+}
+
+function compareNotes(note1: NoteSequence.INote, note2: NoteSequence.INote) {
+  return note1.pitch === note2.pitch && note1.velocity === note2.velocity &&
+      note1.quantizedStartStep === note2.quantizedStartStep &&
+      note1.quantizedEndStep === note2.quantizedEndStep;
+}
+
+function compareNotesArray(a: NoteSequence.INote[], b: NoteSequence.INote[]) {
+  if (a.length !== b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (!compareNotes(a[i], b[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+test('Quantize NoteSequence', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+  addChordsToSequence(ns, [['B7', 0.22], ['Em9', 4.0]]);
+  addControlChangesToSequence(ns, 0, [[2.0, 64, 127], [4.0, 64, 0]]);
+
+  // Make a copy.
+  const expectedQuantizedSequence = sequences.clone(ns);
+  expectedQuantizedSequence.quantizationInfo =
+      NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+  expectedQuantizedSequence.quantizationInfo.stepsPerQuarter =
+      STEPS_PER_QUARTER;
+  addQuantizedStepsToSequence(
+      expectedQuantizedSequence,
+      [[0, 40], [1, 2], [10, 14], [16, 17], [19, 20]]);
+  addQuantizedChordStepsToSequence(expectedQuantizedSequence, [1, 16]);
+  addQuantizedControlStepsToSequence(expectedQuantizedSequence, [8, 16]);
+
+  const qns = sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  t.deepEqual(
+      NoteSequence.toObject(qns),
+      NoteSequence.toObject(expectedQuantizedSequence));
+
+  t.end();
+});
+
+test('Quantize NoteSequence, Time Signature Change', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+  ns.timeSignatures.length = 0;
+
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Single time signature.
+  ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+      {numerator: 4, denominator: 4, time: 0}));
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Multiple time signatures with no change.
+  ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+      {numerator: 4, denominator: 4, time: 1}));
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Time signature change.
+  ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+      {numerator: 2, denominator: 4, time: 2}));
+  t.throws(
+      () => sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER),
+      sequences.MultipleTimeSignatureException);
+
+  t.end();
+});
+
+test(
+    'Quantize NoteSequence, Implicit Time Signature Change', (t: test.Test) => {
+      const ns = createTestNS();
+
+      addTrackToSequence(ns, 0, [
+        [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+        [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+      ]);
+      ns.timeSignatures.length = 0;
+
+      // No time signature.
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+      // Implicit time signature change.
+      ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+          {numerator: 2, denominator: 4, time: 2}));
+      t.throws(
+          () => sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER),
+          sequences.MultipleTimeSignatureException);
+
+      t.end();
+    });
+
+test(
+    'Quantize NoteSequence, No Implicit Time Signature Change, Out Of Order',
+    (t: test.Test) => {
+      const ns = createTestNS();
+
+      addTrackToSequence(ns, 0, [
+        [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+        [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+      ]);
+      ns.timeSignatures.length = 0;
+
+      // No time signature.
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+      // No implicit time signature change, but time signatures are added out of
+      // order.
+      ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+          {numerator: 2, denominator: 4, time: 2}));
+      ns.timeSignatures.push(NoteSequence.TimeSignature.create(
+          {numerator: 2, denominator: 4, time: 0}));
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+      t.pass();
+
+      t.end();
+    });
+
+test('StepsPerQuarterToStepsPerSecond', (t: test.Test) => {
+  t.equal(sequences.stepsPerQuarterToStepsPerSecond(4, 60.0), 4.0);
+
+  t.end();
+});
+
+test('QuantizeToStep', (t: test.Test) => {
+  t.equal(sequences.quantizeToStep(8.0001, 4), 32);
+  t.equal(sequences.quantizeToStep(8.4999, 4), 34);
+  t.equal(sequences.quantizeToStep(8.4999, 4, 1.0), 33);
+  t.end();
+});
+
+test('Quantize NoteSequence, Tempo Change', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+  ns.tempos.length = 0;
+
+  // No tempos.
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Single tempo.
+  ns.tempos.push(NoteSequence.Tempo.create({qpm: 60, time: 0}));
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Multiple tempos with no change.
+  ns.tempos.push(NoteSequence.Tempo.create({qpm: 60, time: 1}));
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Tempo change.
+  ns.tempos.push(NoteSequence.Tempo.create({qpm: 120, time: 2}));
+  t.throws(
+      () => sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER),
+      sequences.MultipleTempoException);
+
+  t.end();
+});
+
+test('Quantize NoteSequence, Implicit Tempo Change', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+  ns.tempos.length = 0;
+
+  // No tempos.
+  sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  // Implicit tempo change.
+  ns.tempos.push(NoteSequence.Tempo.create({qpm: 60, time: 2}));
+  t.throws(
+      () => sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER),
+      sequences.MultipleTempoException);
+
+  t.end();
+});
+
+test(
+    'Quantize NoteSequence, No Implicit Tempo Change, Out of Order',
+    (t: test.Test) => {
+      const ns = createTestNS();
+
+      addTrackToSequence(ns, 0, [
+        [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+        [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+      ]);
+      ns.tempos.length = 0;
+
+      // No tempos.
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+      // No implicit tempo change, but tempos are added out of order.
+      ns.tempos.push(NoteSequence.Tempo.create({qpm: 60, time: 2}));
+      ns.tempos.push(NoteSequence.Tempo.create({qpm: 60, time: 0}));
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+      t.pass();
+
+      t.end();
+    });
+
+test('Quantize NoteSequence, Rounding', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 1, [
+    [12, 100, 0.01, 0.24], [11, 100, 0.22, 0.55], [40, 100, 0.50, 0.75],
+    [41, 100, 0.689, 1.18], [44, 100, 1.19, 1.69], [55, 100, 4.0, 4.01]
+  ]);
+
+  // Make a copy.
+  const expectedQuantizedSequence = sequences.clone(ns);
+  expectedQuantizedSequence.quantizationInfo =
+      NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  addQuantizedStepsToSequence(
+      expectedQuantizedSequence,
+      [[0, 1], [1, 2], [2, 3], [3, 5], [5, 7], [16, 17]]);
+
+  const quantizedSequence =
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  t.deepEqual(
+      NoteSequence.toObject(quantizedSequence),
+      NoteSequence.toObject(expectedQuantizedSequence));
+
+  t.end();
+});
+
+test('Quantize NoteSequence, MultiTrack', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [[12, 100, 1.0, 4.0], [19, 100, 0.95, 3.0]]);
+  addTrackToSequence(ns, 3, [[12, 100, 1.0, 4.0], [19, 100, 2.0, 5.0]]);
+  addTrackToSequence(
+      ns, 7, [[12, 100, 1.0, 5.0], [19, 100, 2.0, 4.0], [24, 100, 3.0, 3.5]]);
+
+  // Make a copy.
+  const expectedQuantizedSequence = sequences.clone(ns);
+  expectedQuantizedSequence.quantizationInfo =
+      NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  addQuantizedStepsToSequence(
+      expectedQuantizedSequence,
+      [[4, 16], [4, 12], [4, 16], [8, 20], [4, 20], [8, 16], [12, 14]]);
+
+  const quantizedSequence =
+      sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+
+  t.deepEqual(
+      NoteSequence.toObject(quantizedSequence),
+      NoteSequence.toObject(expectedQuantizedSequence));
+
+  t.end();
+});
+
+test('Assert isQuantizedNoteSequence', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+
+  t.throws(
+      () => sequences.assertIsQuantizedSequence(ns),
+      sequences.QuantizationStatusException);
+
+  const qns = sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+  sequences.assertIsQuantizedSequence(qns);
+
+  t.end();
+});
+
+test('Assert isRelativeQuantizedNoteSequence', (t: test.Test) => {
+  const ns = createTestNS();
+
+  addTrackToSequence(ns, 0, [
+    [12, 100, 0.01, 10.0], [11, 55, 0.22, 0.50], [40, 45, 2.50, 3.50],
+    [55, 120, 4.0, 4.01], [52, 99, 4.75, 5.0]
+  ]);
+
+  t.throws(
+      () => sequences.assertIsRelativeQuantizedSequence(ns),
+      sequences.QuantizationStatusException);
+
+  const qns = sequences.quantizeNoteSequence(ns, STEPS_PER_QUARTER);
+  sequences.assertIsRelativeQuantizedSequence(qns);
+
+  t.end();
+});
+
+function testUnQuantize(
+    t: test.Test, expectedTimes: Array<[number, number]>,
+    expectedTotalTime: number, originalQpm?: number, finalQpm?: number,
+    originalTotalSteps?: number) {
+  let qns = createTestNS();
+
+  const notes = [
+    [12, 100, 0.01, 0.24], [11, 100, 0.22, 0.55], [40, 100, 0.50, 0.75],
+    [41, 100, 0.689, 1.18], [44, 100, 1.19, 1.69]
+  ];
+  addTrackToSequence(qns, 1, notes);
+  qns = sequences.quantizeNoteSequence(qns, STEPS_PER_QUARTER);
+  if (!originalQpm) {
+    qns.tempos = [];
+  } else {
+    qns.tempos[0].qpm = originalQpm;
+  }
+  if (originalTotalSteps) {
+    qns.totalQuantizedSteps = originalTotalSteps;
+  }
