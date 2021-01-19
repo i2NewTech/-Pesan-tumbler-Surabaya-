@@ -456,3 +456,355 @@ function testUnQuantize(
   if (originalTotalSteps) {
     qns.totalQuantizedSteps = originalTotalSteps;
   }
+
+  const ns = sequences.unquantizeSequence(qns, finalQpm);
+
+  const expectedSequence = NoteSequence.create();
+  expectedSequence.timeSignatures = ns.timeSignatures;
+  qns.notes.forEach((n, i) => {
+    expectedSequence.notes.push({
+      pitch: n.pitch,
+      instrument: n.instrument,
+      velocity: n.velocity,
+      startTime: expectedTimes[i][0],
+      endTime: expectedTimes[i][1]
+    });
+  });
+  expectedSequence.totalTime = expectedTotalTime;
+
+  if (!finalQpm && !originalQpm) {
+    expectedSequence.tempos = [];
+  } else {
+    expectedSequence.tempos =
+        [{time: 0, qpm: finalQpm ? finalQpm : originalQpm}];
+  }
+
+  t.deepEqual(
+      NoteSequence.toObject(ns), NoteSequence.toObject(expectedSequence));
+
+  t.end();
+}
+
+test('Un-Quantize NoteSequence, ns qpm', (t: test.Test) => {
+  testUnQuantize(
+      t, [[0.0, 0.25], [0.25, 0.50], [0.50, 0.75], [0.75, 1.25], [1.25, 1.75]],
+      1.75, 60);
+});
+
+test('Un-Quantize NoteSequence, no qpm', (t: test.Test) => {
+  testUnQuantize(
+      t,
+      [
+        [0.0, 0.125], [0.125, 0.25], [0.25, 0.375], [0.375, 0.625],
+        [0.625, 0.875]
+      ],
+      0.875);
+});
+
+test('Un-Quantize NoteSequence, arg qpm', (t: test.Test) => {
+  testUnQuantize(
+      t, [[0.0, 0.5], [0.5, 1.00], [1.00, 1.5], [1.5, 2.5], [2.5, 3.5]], 3.5,
+      undefined, 30);
+});
+
+test('Un-Quantize NoteSequence, orig and arg qpm', (t: test.Test) => {
+  testUnQuantize(
+      t, [[0.0, 0.5], [0.5, 1.00], [1.00, 1.5], [1.5, 2.5], [2.5, 3.5]], 3.5,
+      60, 30);
+});
+
+test('Un-Quantize NoteSequence, existing total steps lower', (t: test.Test) => {
+  testUnQuantize(
+      t, [[0.0, 0.5], [0.5, 1.00], [1.00, 1.5], [1.5, 2.5], [2.5, 3.5]], 3.5,
+      undefined, 30, 1);
+});
+
+test(
+    'Un-Quantize NoteSequence, existing total steps higher', (t: test.Test) => {
+      testUnQuantize(
+          t, [[0.0, 0.5], [0.5, 1.00], [1.00, 1.5], [1.5, 2.5], [2.5, 3.5]], 10,
+          undefined, 30, 20);
+    });
+
+test('Merge Instruments', (t: test.Test) => {
+  const ns = createTestNS();
+  ns.notes.push({pitch: 60, program: 0, isDrum: false});
+  ns.notes.push({pitch: 64, program: 0, isDrum: false});
+  ns.notes.push({pitch: 36, program: 0, isDrum: true});
+  ns.notes.push({pitch: 48, program: 32, isDrum: false});
+  ns.notes.push({pitch: 42, program: 1, isDrum: true});
+
+  const expected = sequences.clone(ns);
+  expected.notes[0].instrument = 0;
+  expected.notes[1].instrument = 0;
+  expected.notes[2].instrument = 2;
+  expected.notes[3].instrument = 1;
+  expected.notes[4].instrument = 2;
+  expected.notes[4].program = 0;
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.mergeInstruments(ns)),
+      NoteSequence.toObject(expected));
+
+  t.end();
+});
+
+test('Replace Instruments', (t: test.Test) => {
+  const ns1 = createTestNS();
+  // This should be kept.
+  ns1.notes.push({pitch: 72, instrument: 2});
+  // These should be replaced.
+  ns1.notes.push({pitch: 60, instrument: 0});
+  ns1.notes.push({pitch: 70, instrument: 1});
+  ns1.notes.push({pitch: 62, instrument: 0});
+  // This should be kept.
+  ns1.notes.push({pitch: 70, instrument: 2});
+
+  const ns2 = createTestNS();
+  // These should be replaced.
+  ns2.notes.push({pitch: 40, instrument: 0});
+  ns2.notes.push({pitch: 41, instrument: 0});
+  ns2.notes.push({pitch: 42, instrument: 0});
+  ns2.notes.push({pitch: 50, instrument: 1});
+  ns2.notes.push({pitch: 51, instrument: 1});
+  // This should not be replaced.
+  ns2.notes.push({pitch: 60, instrument: 3});
+
+  const expected = createTestNS();
+  // These are sorted by instrument, then time.
+  expected.notes.push({pitch: 40, instrument: 0});
+  expected.notes.push({pitch: 41, instrument: 0});
+  expected.notes.push({pitch: 42, instrument: 0});
+  expected.notes.push({pitch: 50, instrument: 1});
+  expected.notes.push({pitch: 51, instrument: 1});
+  // We are not sorting by pitch.
+  expected.notes.push({pitch: 72, instrument: 2});
+  expected.notes.push({pitch: 70, instrument: 2});
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.replaceInstruments(ns1, ns2)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Concatenate 1 NoteSequence (unquantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const expected = createTestNS();
+
+  addTrackToSequence(ns1, 0, [[60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5]]);
+  addTrackToSequence(expected, 0, [[60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5]]);
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Concatenate 2 NoteSequences (unquantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const ns2 = createTestNS();
+  const expected = createTestNS();
+
+  addTrackToSequence(ns1, 0, [[60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5]]);
+  addTrackToSequence(ns2, 0, [[59, 100, 0.0, 1.0], [71, 100, 0.5, 1.5]]);
+
+  addTrackToSequence(expected, 0, [
+    [60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5], [59, 100, 1.5, 2.5],
+    [71, 100, 2.0, 3.0]
+  ]);
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1, ns2])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test(
+    'Concatenate 2 NoteSequences with individual durations (unquantized)',
+    (t: test.Test) => {
+      const ns1 = createTestNS();
+      const ns2 = createTestNS();
+      const expected = createTestNS();
+
+      addTrackToSequence(ns1, 0, [[60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5]]);
+      addTrackToSequence(ns2, 0, [[59, 100, 0.0, 1.0], [71, 100, 0.5, 1.5]]);
+
+      addTrackToSequence(expected, 0, [
+        [60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5], [59, 100, 3.0, 4.0],
+        [71, 100, 3.5, 4.5]
+      ]);
+      expected.totalTime = 6;
+
+      t.deepEqual(
+          NoteSequence.toObject(sequences.concatenate([ns1, ns2], [3, 3])),
+          NoteSequence.toObject(expected));
+      t.end();
+    });
+
+test('Concatenate 3 NoteSequences (unquantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const ns2 = createTestNS();
+  const ns3 = createTestNS();
+
+  const expected = createTestNS();
+
+  addTrackToSequence(ns1, 0, [[60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5]]);
+  addTrackToSequence(ns2, 0, [[59, 100, 0.0, 1.0], [71, 100, 0.5, 1.5]]);
+  addTrackToSequence(ns3, 0, [[58, 100, 1.0, 1.5], [70, 100, 2.0, 2.5]]);
+
+  addTrackToSequence(expected, 0, [
+    [60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5], [59, 100, 1.5, 2.5],
+    [71, 100, 2.0, 3.0], [58, 100, 4.0, 4.5], [70, 100, 5.0, 5.5]
+  ]);
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1, ns2, ns3])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Concatenate 1 NoteSequence (quantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const expected = createTestNS();
+
+  addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 2], [72, 100, 2, 3]]);
+  addQuantizedTrackToSequence(expected, 0, [[60, 100, 0, 2], [72, 100, 2, 3]]);
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Concatenate 2 NoteSequences (quantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const ns2 = createTestNS();
+  const expected = createTestNS();
+
+  addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 4], [72, 100, 2, 6]]);
+  addQuantizedTrackToSequence(ns2, 0, [[59, 100, 0, 4], [71, 100, 1, 6]]);
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  ns2.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  addQuantizedTrackToSequence(
+      expected, 0,
+      [[60, 100, 0, 4], [72, 100, 2, 6], [59, 100, 6, 10], [71, 100, 7, 12]]);
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1, ns2])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test(
+    'Concatenate 2 NoteSequences with individual durations (quantized)',
+    (t: test.Test) => {
+      const ns1 = createTestNS();
+      const ns2 = createTestNS();
+      const expected = createTestNS();
+
+      addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 4], [72, 100, 2, 6]]);
+      addQuantizedTrackToSequence(ns2, 0, [[59, 100, 0, 4], [71, 100, 1, 6]]);
+      ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+      ns2.quantizationInfo = NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+
+      addQuantizedTrackToSequence(expected, 0, [
+        [60, 100, 0, 4], [72, 100, 2, 6], [59, 100, 10, 14], [71, 100, 11, 16]
+      ]);
+      expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+      expected.totalQuantizedSteps = 20;
+
+      t.deepEqual(
+          NoteSequence.toObject(sequences.concatenate([ns1, ns2], [10, 10])),
+          NoteSequence.toObject(expected));
+      t.end();
+    });
+
+test('Concatenate 3 NoteSequences (quantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const ns2 = createTestNS();
+  const ns3 = createTestNS();
+
+  const expected = createTestNS();
+
+  addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 2], [72, 100, 1, 3]]);
+  addQuantizedTrackToSequence(ns2, 0, [[59, 100, 0, 2], [71, 100, 1, 3]]);
+  addQuantizedTrackToSequence(ns3, 0, [[58, 100, 2, 3], [70, 100, 4, 6]]);
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  ns2.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  ns3.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  addQuantizedTrackToSequence(expected, 0, [
+    [60, 100, 0, 2], [72, 100, 1, 3], [59, 100, 3, 5], [71, 100, 4, 6],
+    [58, 100, 8, 9], [70, 100, 10, 12]
+  ]);
+  expected.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.concatenate([ns1, ns2, ns3])),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Concatenate error case: mismatched quantizationInfo', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const ns2 = createTestNS();
+
+  addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 4], [72, 100, 2, 6]]);
+  addQuantizedTrackToSequence(ns2, 0, [[59, 100, 0, 4], [71, 100, 1, 6]]);
+  ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+      {stepsPerQuarter: STEPS_PER_QUARTER});
+  ns2.quantizationInfo =
+      NoteSequence.QuantizationInfo.create({stepsPerQuarter: 1});
+  t.throws(() => sequences.concatenate([ns1, ns2]), Error);
+  t.end();
+});
+
+test(
+    'Concatenate error case: mismatched quantized and unquantized sequences',
+    (t: test.Test) => {
+      const ns1 = createTestNS();
+      const ns2 = createTestNS();
+
+      addQuantizedTrackToSequence(ns1, 0, [[60, 100, 0, 4], [72, 100, 2, 6]]);
+      addTrackToSequence(ns2, 0, [[59, 100, 0, 4], [71, 100, 1, 6]]);
+      ns1.quantizationInfo = NoteSequence.QuantizationInfo.create(
+          {stepsPerQuarter: STEPS_PER_QUARTER});
+      t.throws(() => sequences.concatenate([ns1, ns2]), Error);
+      t.end();
+    });
+
+test('Trim NoteSequence (unquantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const expected = createTestNS();
+
+  addTrackToSequence(ns1, 0, [
+    [60, 100, 0.0, 1.0], [72, 100, 0.5, 1.5], [59, 100, 1.5, 2.5],
+    [71, 100, 2.0, 3.0], [58, 100, 3.0, 4.5], [70, 100, 5.0, 5.5]
+  ]);
+  addTrackToSequence(expected, 0, [[59, 100, 0, 1], [71, 100, 0.5, 1.5]]);
+  expected.totalTime = 2.5;
+
+  t.deepEqual(
+      NoteSequence.toObject(sequences.trim(ns1, 1.5, 4.0)),
+      NoteSequence.toObject(expected));
+  t.end();
+});
+
+test('Trim and truncate NoteSequence (unquantized)', (t: test.Test) => {
+  const ns1 = createTestNS();
+  const expected = createTestNS();
