@@ -457,3 +457,133 @@ export class SoundFont {
           this.initialized = true;
         });
   }
+
+  /**
+   * Load samples necessary to play a set of notes. This must be called before
+   * any notes can be played.
+   *
+   * @param samples Array of program/isDrum/pitch/velocity for notes that will
+   * be loaded.
+   */
+  async loadSamples(samples: Array<InstrumentInfo&SampleInfo>) {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const instrumentSamples = new Map<number|'drums', SampleInfo[]>();
+    samples.forEach((info) => {
+      info.isDrum = info.isDrum || false;
+      info.program = info.program || 0;
+
+      const instrument = info.isDrum ? 'drums' : info.program;
+      const sampleInfo = {pitch: info.pitch, velocity: info.velocity};
+      if (!instrumentSamples.has(instrument)) {
+        if (!this.instruments.has(instrument)) {
+          logging.log(
+              `No instrument in ${this.name} for: program=${
+                  info.program}, isDrum=${info.isDrum}`,
+              'SoundFont');
+        } else {
+          instrumentSamples.set(instrument, [sampleInfo]);
+        }
+      } else {
+        instrumentSamples.get(instrument).push(sampleInfo);
+      }
+    });
+
+    await Promise.all(Array.from(instrumentSamples.keys())
+                          .map(
+                              (info) => this.instruments.get(info).loadSamples(
+                                  instrumentSamples.get(info))));
+  }
+
+  /**
+   * Play a note using one of the sampled instruments.
+   *
+   * @param pitch Pitch of the note.
+   * @param velocity Velocity of the note.
+   * @param startTime Time at which to start playing the note.
+   * @param duration Length of the note in seconds.
+   * @param program Program number to use for instrument lookup.
+   * @param isDrum Drum status to use for instrument lookup.
+   * @param output Output `AudioNode`.
+   */
+  playNote(
+      pitch: number, velocity: number, startTime: number, duration: number,
+      program = 0, isDrum = false,
+      output: any) {  // tslint:disable-line:no-any
+    const instrument = isDrum ? 'drums' : program;
+    if (!this.initialized) {
+      throw new Error('SoundFont is not initialized.');
+    }
+    if (!this.instruments.has(instrument)) {
+      logging.log(
+          `No instrument in ${this.name} for: program=${program}, isDrum=${
+              isDrum}`,
+          'SoundFont');
+      return;
+    }
+
+    this.instruments.get(instrument)
+        .playNote(pitch, velocity, startTime, duration, output);
+  }
+
+  /**
+   * Strikes a note down using one of the sampled instruments. If you call this
+   * twice without calling playNoteUp() in between, it will implicitly release
+   * the note before striking it the second time.
+   *
+   * @param pitch Pitch of the note.
+   * @param velocity Velocity of the note.
+   * @param program Program number to use for instrument lookup.
+   * @param isDrum Drum status to use for instrument lookup.
+   * @param output Output `AudioNode`.
+   */
+  playNoteDown(
+      pitch: number, velocity: number, program = 0, isDrum = false,
+      output: any) {  // tslint:disable-line:no-any
+    const instrument = isDrum ? 'drums' : program;
+    if (!this.initialized) {
+      throw new Error('SoundFont is not initialized.');
+    }
+    if (!this.instruments.has(instrument)) {
+      logging.log(
+          `No instrument in ${this.name} for: program=${program}, isDrum=${
+              isDrum}`,
+          'SoundFont');
+      return;
+    }
+
+    this.instruments.get(instrument).playNoteDown(pitch, velocity, output);
+  }
+
+  /**
+   * Releases a note using one of the sampled instruments. If you call this
+   * twice without calling playNoteDown() in between, it will *not* implicitly
+   * call playNoteDown() for you, and the second call will have no noticeable
+   * effect.
+   *
+   * @param pitch Pitch of the note.
+   * @param velocity Velocity of the note.
+   * @param program Program number to use for instrument lookup.
+   * @param isDrum Drum status to use for instrument lookup.
+   * @param output Output `AudioNode`.
+   */
+  playNoteUp(
+      pitch: number, velocity: number, program = 0, isDrum = false,
+      output: any) {  // tslint:disable-line:no-any
+    const instrument = isDrum ? 'drums' : program;
+    if (!this.initialized) {
+      throw new Error('SoundFont is not initialized.');
+    }
+    if (!this.instruments.has(instrument)) {
+      logging.log(
+          `No instrument in ${this.name} for: program=${program}, isDrum=${
+              isDrum}`,
+          'SoundFont');
+      return;
+    }
+
+    this.instruments.get(instrument).playNoteUp(pitch, velocity, output);
+  }
+}
