@@ -196,3 +196,314 @@ export abstract class BaseVisualizer {
   protected getNoteStartTime(note: NoteSequence.INote) {
     return Math.round(note.startTime * 100000000) / 100000000;
   }
+
+  protected getNoteEndTime(note: NoteSequence.INote) {
+    return Math.round(note.endTime * 100000000) / 100000000;
+  }
+
+  protected isPaintingActiveNote(
+      note: NoteSequence.INote, playedNote: NoteSequence.INote): boolean {
+    // A note is active if it's literally the same as the note we are
+    // playing (aka activeNote), or if it overlaps because it's a held note.
+    const isPlayedNote =
+        this.getNoteStartTime(note) === this.getNoteStartTime(playedNote);
+    const heldDownDuringPlayedNote =
+        this.getNoteStartTime(note) <= this.getNoteStartTime(playedNote) &&
+        this.getNoteEndTime(note) >= this.getNoteEndTime(playedNote);
+    return isPlayedNote || heldDownDuringPlayedNote;
+  }
+}
+
+/**
+ * Displays a pianoroll on a canvas. Pitches are the vertical axis and time is
+ * the horizontal. When connected to a player, the visualizer can also highlight
+ * the notes being currently played.
+ */
+export class PianoRollCanvasVisualizer extends BaseVisualizer {
+  protected ctx: CanvasRenderingContext2D;
+  /**
+   * PianoRollCanvasVisualizer` constructor.
+   *
+   * @param sequence The `NoteSequence` to be visualized.
+   * @param canvas The element where the visualization should be displayed.
+   * @param config (optional) Visualization configuration options.
+   */
+  constructor(
+      sequence: INoteSequence, canvas: HTMLCanvasElement,
+      config: VisualizerConfig = {}) {
+    super(sequence, config);
+
+    // Initialize the canvas.
+    this.ctx = canvas.getContext('2d');
+    this.parentElement = canvas.parentElement;
+
+    // Use the correct device pixel ratio so that the canvas isn't blurry
+    // on retina screens. See:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio
+    const dpr = window.devicePixelRatio || 1;
+    if (this.ctx) {
+      this.ctx.canvas.width = dpr * this.width;
+      this.ctx.canvas.height = dpr * this.height;
+
+      // If we don't do this, then the canvas will look 2x bigger than we
+      // want to.
+      canvas.style.width = `${this.width}px`;
+      canvas.style.height = `${this.height}px`;
+
+      this.ctx.scale(dpr, dpr);
+    }
+
+    this.redraw();
+  }
+
+  /**
+   * Redraws the entire note sequence, optionally painting a note as
+   * active
+   * @param activeNote (Optional) If specified, this `Note` will be painted
+   * in the active color.
+   * @param scrollIntoView (Optional) If specified and the note being painted is
+   * offscreen, the parent container will be scrolled so that the note is
+   * in view.
+   * @returns The x position of the painted active note. Useful for
+   * automatically advancing the visualization if the note was painted outside
+   * of the screen.
+   */
+  redraw(activeNote?: NoteSequence.INote, scrollIntoView?: boolean): number {
+    this.clear();
+
+    let activeNotePosition;
+    for (let i = 0; i < this.noteSequence.notes.length; i++) {
+      const note = this.noteSequence.notes[i];
+      const size = this.getNotePosition(note, i);
+
+      // Color of this note.
+      const opacityBaseline = 0.2;  // Shift all the opacities up a little.
+      const opacity = note.velocity ? note.velocity / 100 + opacityBaseline : 1;
+
+      const isActive =
+          activeNote && this.isPaintingActiveNote(note, activeNote);
+      const fill =
+          `rgba(${isActive ? this.config.activeNoteRGB : this.config.noteRGB},
+  ${opacity})`;
+
+      this.redrawNote(size.x, size.y, size.w, size.h, fill);
+
+      if (isActive && note === activeNote) {
+        activeNotePosition = size.x;
+      }
+    }
+    this.scrollIntoViewIfNeeded(scrollIntoView, activeNotePosition);
+    return activeNotePosition;
+  }
+
+  protected clear() {
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+  }
+
+  public clearActiveNotes() {
+    this.redraw();
+  }
+
+  private redrawNote(x: number, y: number, w: number, h: number, fill: string) {
+    this.ctx.fillStyle = fill;
+
+    // Round values to the nearest integer to avoid partially filled pixels.
+    this.ctx.fillRect(
+        Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+  }
+}
+
+/**
+ * @deprecated
+ * Alias for PianoRollCanvasVisualizer to maintain backwards compatibility.
+ */
+export class Visualizer extends PianoRollCanvasVisualizer {
+  constructor(
+      sequence: INoteSequence, canvas: HTMLCanvasElement,
+      config: VisualizerConfig = {}) {
+    super(sequence, canvas, config);
+
+    logging.log(
+        'mm.Visualizer is deprecated, and will be removed in a future \
+         version. Please use mm.PianoRollCanvasVisualizer instead',
+        'mm.Visualizer', logging.Level.WARN);
+  }
+}
+
+/**
+ * HTML/CSS key-value pairs.
+ */
+type DataAttribute = [string, any];  // tslint:disable-line:no-any
+type CSSProperty = [string, string | null];
+
+/**
+ * Abstract base class for a `NoteSequence` visualizer.
+ */
+export abstract class BaseSVGVisualizer extends BaseVisualizer {
+
+  // This is the element used for drawing. You must set this property in
+  // implementations of this class.
+  protected svg: SVGSVGElement;
+  protected drawn: boolean;
+
+  /**
+   * `SVGVisualizer` constructor.
+   *
+   * @param sequence The `NoteSequence` to be visualized.
+   * @param svg The element where the visualization should be displayed.
+   * @param config (optional) Visualization configuration options.
+   */
+  constructor(sequence: INoteSequence, config: VisualizerConfig = {}) {
+    super(sequence, config);
+    this.drawn = false;
+  }
+
+  /**
+   * Redraws the entire note sequence if it hasn't been drawn before,
+   * optionally painting a note as active
+   * @param activeNote (Optional) If specified, this `Note` will be painted
+   * in the active color.
+   * @param scrollIntoView (Optional) If specified and the note being
+   * painted is offscreen, the parent container will be scrolled so that
+   * the note is in view.
+   * @returns The x position of the painted active note. Useful for
+   * automatically advancing the visualization if the note was painted
+   * outside of the screen.
+   */
+  redraw(activeNote?: NoteSequence.INote, scrollIntoView?: boolean): number {
+    if (!this.drawn) {
+      this.draw();
+    }
+
+    if (!activeNote) {
+      return null;
+    }
+
+    // Remove the current active note, if one exists.
+    this.unfillActiveRect(this.svg);
+
+    let activeNotePosition;
+    for (let i = 0; i < this.noteSequence.notes.length; i++) {
+      const note = this.noteSequence.notes[i];
+      const isActive =
+          activeNote && this.isPaintingActiveNote(note, activeNote);
+
+      // We're only looking to re-paint the active notes.
+      if (!isActive) {
+        continue;
+      }
+      const el = this.svg.querySelector(`rect[data-index="${i}"]`);
+      this.fillActiveRect(el, note);
+      if (note === activeNote) {
+        activeNotePosition = parseFloat(el.getAttribute('x'));
+      }
+    }
+    this.scrollIntoViewIfNeeded(scrollIntoView, activeNotePosition);
+    return activeNotePosition;
+  }
+
+  protected fillActiveRect(el: Element, note: NoteSequence.INote) {
+    el.setAttribute('fill', this.getNoteFillColor(note, true));
+    el.classList.add('active');
+  }
+
+  protected unfillActiveRect(svg: SVGSVGElement) {
+    const els = svg.querySelectorAll('rect.active');
+    for (let i = 0; i < els.length; ++i) {
+      const el = els[i];
+      const fill = this.getNoteFillColor(
+          this.noteSequence.notes[parseInt(el.getAttribute('data-index'), 10)],
+          false);
+      el.setAttribute('fill', fill);
+      el.classList.remove('active');
+    }
+  }
+
+  protected draw() {
+    for (let i = 0; i < this.noteSequence.notes.length; i++) {
+      const note = this.noteSequence.notes[i];
+      const size = this.getNotePosition(note, i);
+      const fill = this.getNoteFillColor(note, false);
+      const dataAttributes: DataAttribute[] = [
+        ['index', i],
+        ['instrument', note.instrument],
+        ['program', note.program],
+        ['isDrum', note.isDrum === true],
+        ['pitch', note.pitch],
+      ];
+      const cssProperties: CSSProperty[] = [
+        ['--midi-velocity',
+         String(note.velocity !== undefined ? note.velocity : 127)]
+      ];
+
+      this.drawNote(size.x, size.y, size.w, size.h, fill,
+                    dataAttributes, cssProperties);
+    }
+    this.drawn = true;
+  }
+
+  private getNoteFillColor(note: NoteSequence.INote, isActive: boolean) {
+    const opacityBaseline = 0.2;  // Shift all the opacities up a little.
+    const opacity = note.velocity ? note.velocity / 100 + opacityBaseline : 1;
+    const fill =
+        `rgba(${isActive ? this.config.activeNoteRGB : this.config.noteRGB},
+  ${opacity})`;
+    return fill;
+  }
+
+  private drawNote(
+      x: number, y: number, w: number, h: number, fill: string,
+      dataAttributes: DataAttribute[], cssProperties: CSSProperty[]) {
+    if (!this.svg) {
+      return;
+    }
+    const rect: SVGRectElement =
+        document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.classList.add('note');
+    rect.setAttribute('fill', fill);
+
+    // Round values to the nearest integer to avoid partially filled pixels.
+    rect.setAttribute('x', `${Math.round(x)}`);
+    rect.setAttribute('y', `${Math.round(y)}`);
+    rect.setAttribute('width', `${Math.round(w)}`);
+    rect.setAttribute('height', `${Math.round(h)}`);
+    dataAttributes.forEach(([key, value]: DataAttribute) => {
+      if (value !== undefined) {
+        rect.dataset[key] = `${value}`;
+      }
+    });
+    cssProperties.forEach(([key, value]: CSSProperty) => {
+      rect.style.setProperty(key, value);
+    });
+    this.svg.appendChild(rect);
+  }
+
+  protected clear() {
+    this.svg.innerHTML = '';
+    this.drawn = false;
+  }
+
+  public clearActiveNotes() {
+    this.unfillActiveRect(this.svg);
+  }
+}
+
+/**
+ * Displays a pianoroll as an SVG. Pitches are the vertical axis and time is
+ * the horizontal. When connected to a player, the visualizer can also highlight
+ * the notes being currently played.
+ *
+ * Unlike PianoRollCanvasVisualizer which looks similar, PianoRollSVGVisualizer
+ * does not redraw the entire sequence when activating a note.
+ */
+export class PianoRollSVGVisualizer extends BaseSVGVisualizer {
+  /**
+   * `PianoRollSVGVisualizer` constructor.
+   *
+   * @param sequence The `NoteSequence` to be visualized.
+   * @param svg The element where the visualization should be displayed.
+   * @param config (optional) Visualization configuration options.
+   */
+  constructor(
+      sequence: INoteSequence, svg: SVGSVGElement,
+      config: VisualizerConfig = {}) {
