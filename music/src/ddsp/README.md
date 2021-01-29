@@ -26,4 +26,21 @@ const violinDDSP = new DDSP(
     postGain: 1, // postGain will now be 1 instead of 2
   }
 );
-await violinDDSP.initiali
+await violinDDSP.initialize();
+```
+
+To start synthesizing, you'll need to pass in AudioFeatures (derived from the [SPICE](../spice) class).
+
+```
+violinDDSP.synthesize(audioFeatures);
+```
+
+Once you're done with the model, make sure to dispose it.
+
+```
+violinDDSP.dispose();
+```
+
+## Demo
+
+Check out a working demo [here](../../demos/ddsp_tone_transfer.html).
