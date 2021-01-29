@@ -17,4 +17,13 @@ await violinDDSP.initialize();
 
 When initializing the model, the library tries to look for a settings.json file like this one: ["https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/violin/settings.json"](https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/violin/settings.json).
 
-If the model doesn't contain one, you can pass in your own in the cons
+If the model doesn't contain one, you can pass in your own in the constructor. By passing in your own settings in the constructor, you also overwrite any settings that would have been loading in the json file.
+
+```
+const violinDDSP = new DDSP(
+  "https://storage.googleapis.com/magentadata/js/checkpoints/ddsp/violin",
+  {
+    postGain: 1, // postGain will now be 1 instead of 2
+  }
+);
+await violinDDSP.initiali
