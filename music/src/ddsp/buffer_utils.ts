@@ -24,4 +24,12 @@ export const arrayBufferToAudioBuffer =
           newBuffer.copyToChannel(arrayBuffer, 0);
 
           return newBuffer;
-   
+        };
+
+export const sliceAudioBuffer =
+    (audioCtx: AudioContext, audioBuffer: AudioBuffer, start = 0,
+     end = audioBuffer.length, sampleRate: number): AudioBuffer => {
+      const newBuffer = audioCtx.createBuffer(
+          audioBuffer.numberOfChannels, end - start, sampleRate);
+
+      for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
