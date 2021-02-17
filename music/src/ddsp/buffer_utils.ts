@@ -33,3 +33,9 @@ export const sliceAudioBuffer =
           audioBuffer.numberOfChannels, end - start, sampleRate);
 
       for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
+        newBuffer.copyToChannel(
+            audioBuffer.getChannelData(i).slice(start, end), i);
+      }
+
+      return newBuffer;
+    };
