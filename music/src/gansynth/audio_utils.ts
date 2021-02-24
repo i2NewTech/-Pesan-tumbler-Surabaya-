@@ -92,3 +92,132 @@ function interleaveReIm(real: tf.Tensor, imag: tf.Tensor) {
  * Parameters for computing a inverse spectrogram from audio.
  */
 export interface InverseSpecParams {
+  sampleRate: number;
+  hopLength?: number;
+  winLength?: number;
+  nFft?: number;
+  center?: boolean;
+}
+
+async function reImToAudio(reIm: Float32Array[]) {
+  const ispecParams = {
+    nFFt: N_FFT,
+    winLength: N_FFT,
+    hopLength: N_HOP,
+    sampleRate: SAMPLE_RATE,
+    center: false,
+  };
+  return istft(reIm, ispecParams);
+}
+
+// TODO(jesseengel): Make it work for batch of spectrograms.
+export async function specgramsToAudio(specgrams: tf.Tensor4D) {
+  const reImArray = tf.tidy(() => {
+    // Synthesize audio
+    const magSlice = tf.slice(specgrams, [0, 0, 0, 0], [1, -1, -1, 1]).reshape([
+      1, 128, 1024
+    ]);
+    const magMel = magSlice as tf.Tensor3D;
+    const mag = melToLinear(magMel);
+
+    const ifreqSlice = tf.slice(specgrams, [0, 0, 0, 1], [
+                           1, -1, -1, 1
+                         ]).reshape([1, 128, 1024]);
+    const ifreq = ifreqSlice as tf.Tensor3D;
+    const phase = ifreqToPhase(ifreq);
+
+    // Reflect all frequencies except for the Nyquist, which is shared between
+    // positive and negative frequencies for even nFft.
+    let real = mag.mul(tf.cos(phase));
+    const mirrorReal = tf.reverse(real.slice([0, 0, 0], [1, 128, 1023]), 2);
+    real = tf.concat([real, mirrorReal], 2);
+
+    // Reflect all frequencies except for the Nyquist, take complex conjugate of
+    // the negative frequencies.
+    let imag = mag.mul(tf.sin(phase));
+    const mirrorImag = tf.reverse(imag.slice([0, 0, 0], [1, 128, 1023]), 2);
+    imag = tf.concat([imag, tf.mul(mirrorImag, -1.0)], 2);
+    return [real, imag];
+  });
+
+  const reIm = await interleaveReIm(reImArray[0], reImArray[1]);
+  const audio = await reImToAudio(reIm);
+  reImArray.forEach(t => t.dispose());
+  return audio;
+}
+
+//------------------------------------------------------------------------------
+// FFT Code
+//------------------------------------------------------------------------------
+// Perform ifft on a single frame.
+export function ifft(reIm: Float32Array): Float32Array {
+  // Interleave.
+  const nFFT = reIm.length / 2;
+  const fft = new FFT(nFFT);
+  const recon = fft.createComplexArray();
+  fft.inverseTransform(recon, reIm);
+  // Just take the real part.
+  const result = fft.fromComplexArray(recon);
+  return result;
+}
+
+export function istft(
+    reIm: Float32Array[], params: InverseSpecParams): Float32Array {
+  const nFrames = reIm.length;
+  const nReIm = reIm[0].length;
+  const nFft = (nReIm / 2);
+  const winLength = params.winLength || nFft;
+  const hopLength = params.hopLength || Math.floor(winLength / 4);
+  const center = params.center || false;
+
+  let ifftWindow = hannWindow(winLength);
+  // Adjust normalization for 75% Hann cola (factor of 1.5 with stft/istft).
+  for (let i = 0; i < ifftWindow.length; i++) {
+    ifftWindow[i] = ifftWindow[i] / 1.5;
+  }
+
+  // Pad the window to be the size of nFft. Only if nFft != winLength.
+  ifftWindow = padCenterToLength(ifftWindow, nFft);
+
+  // Pre-allocate the audio output.
+  const expectedSignalLen = nFft + hopLength * (nFrames - 1);
+  const y = new Float32Array(expectedSignalLen);
+
+  // Perform inverse ffts.
+  for (let i = 0; i < nFrames; i++) {
+    const sample = i * hopLength;
+    let yTmp = ifft(reIm[i]);
+    yTmp = applyWindow(yTmp, ifftWindow);
+    yTmp = add(yTmp, y.slice(sample, sample + nFft));
+    y.set(yTmp, sample);
+  }
+
+  let sliceStart = 0;
+  let sliceLength = expectedSignalLen;
+  if (center) {
+    // Normally you would center the outputs,
+    sliceStart = nFft / 2;
+    sliceLength = y.length - (nFft / 2);
+  } else {
+    // For gansynth, we did all the padding at the front instead of centering,
+    // so remove the padding at the front.
+    sliceStart = expectedSignalLen - SAMPLE_LENGTH;  // 3072
+    sliceLength = y.length - sliceStart;
+  }
+  const yTrimmed = y.slice(sliceStart, sliceLength);
+  return yTrimmed;
+}
+
+function add(arr0: Float32Array, arr1: Float32Array) {
+  if (arr0.length !== arr1.length) {
+    console.error(
+        `Array lengths must be equal to add: ${arr0.length}, ${arr0.length}`);
+    return null;
+  }
+
+  const out = new Float32Array(arr0.length);
+  for (let i = 0; i < arr0.length; i++) {
+    out[i] = arr0[i] + arr1[i];
+  }
+  return out;
+}
