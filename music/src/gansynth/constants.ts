@@ -23,4 +23,4 @@ export const PHASE_DESCALE_B = 0.0;
 export const SAMPLE_RATE = 16000;
 export const SAMPLE_LENGTH = 64000;
 export const N_HOP = 512;
-export 
+export const N_FFT = 2048;
