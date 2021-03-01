@@ -20,4 +20,15 @@
  * store any variables.
  *
  * Custom layers currently can not be saved / loaded.  Tracking issue at
- * https://github.co
+ * https://github.com/tensorflow/tfjs/issues/254
+ */
+import * as tf from '@tensorflow/tfjs';
+
+/**
+ * Pixel normalization.
+ * @param epsilon A small positive number to avoid division by zero.
+ */
+class PixelNorm extends tf.layers.Layer {
+  constructor(public epsilon = 1e-8, public layerConfig = {}) {
+    super(layerConfig);
+    this.supportsMasking = true;
