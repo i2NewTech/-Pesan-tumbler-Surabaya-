@@ -32,3 +32,16 @@ class PixelNorm extends tf.layers.Layer {
   constructor(public epsilon = 1e-8, public layerConfig = {}) {
     super(layerConfig);
     this.supportsMasking = true;
+  }
+
+  /**
+   * Computes output shape.
+   * @param inputShape Shape of input.
+   */
+  computeOutputShape(inputShape: number[]) {
+    return [inputShape[0], inputShape[1], inputShape[2], inputShape[3]];
+  }
+
+  /**
+   * For each pixel a[i,j,k] of image in HWC format, normalize its value to
+   * b[i,j,k] = a[i,j,k] / SQRT(SU
