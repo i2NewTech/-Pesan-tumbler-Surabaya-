@@ -44,4 +44,12 @@ class PixelNorm extends tf.layers.Layer {
 
   /**
    * For each pixel a[i,j,k] of image in HWC format, normalize its value to
-   * b[i,j,k] = a[i,j,k] / SQRT(SU
+   * b[i,j,k] = a[i,j,k] / SQRT(SUM_k(a[i,j,k]^2) / C + eps).
+   * @param inputs A 4D `Tensor` of NHWC format.
+   * @param kwargs Only used as a pass through to call hooks.
+   * @returns A 4D `Tensor` with pixel-wise normalized channels.
+   */
+  call(inputs: tf.Tensor4D): tf.Tensor4D {
+    return tf.tidy(() => {
+      let input = inputs;
+      if (Array.isArray(input)
