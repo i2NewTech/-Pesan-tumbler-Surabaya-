@@ -52,4 +52,20 @@ class PixelNorm extends tf.layers.Layer {
   call(inputs: tf.Tensor4D): tf.Tensor4D {
     return tf.tidy(() => {
       let input = inputs;
-      if (Array.isArray(input)
+      if (Array.isArray(input)) {
+        input = input[0];
+      }
+      const mean = tf.mean(tf.square(input), [3], true);
+      return tf.mul(input, tf.rsqrt(tf.add(mean, this.epsilon)));
+    });
+  }
+
+  /**
+   * Layers must implement "getClassName".
+   */
+  getClassName() {
+    return 'PixelNorm';
+  }
+}
+
+export function pixelNorm(epsilon = 
