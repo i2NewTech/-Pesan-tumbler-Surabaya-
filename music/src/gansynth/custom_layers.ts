@@ -92,4 +92,14 @@ class InitialPad extends tf.layers.Layer {
    */
   computeOutputShape(inputShape: number[]) {
     return [
-      inputShape[0], 2 * (t
+      inputShape[0], 2 * (this.kernelH - 1) + inputShape[1],
+      2 * (this.kernelW - 1) + inputShape[2], inputShape[3]
+    ];
+  }
+
+  /**
+   * @param inputs A 4D `Tensor` of NHWC format, H=1, W=1.
+   * @param kwargs Only used as a pass through to call hooks.
+   * @returns A 4D `Tensor` with with padding in width and height.
+   */
+  call(inputs: tf.Tensor4D): tf.Tenso
