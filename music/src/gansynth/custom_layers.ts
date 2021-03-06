@@ -102,4 +102,17 @@ class InitialPad extends tf.layers.Layer {
    * @param kwargs Only used as a pass through to call hooks.
    * @returns A 4D `Tensor` with with padding in width and height.
    */
-  call(inputs: tf.Tensor4D): tf.Tenso
+  call(inputs: tf.Tensor4D): tf.Tensor4D {
+    let input = inputs;
+    if (Array.isArray(input)) {
+      input = input[0];
+    }
+    const padH = this.kernelH - 1;
+    const padW = this.kernelW - 1;
+    return tf.pad(input, [[0, 0], [padH, padH], [padW, padW], [0, 0]]);
+  }
+
+  /**
+   * Layers must implement "getClassName".
+   */
+  getClassName
