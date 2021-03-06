@@ -68,4 +68,16 @@ class PixelNorm extends tf.layers.Layer {
   }
 }
 
-export function pixelNorm(epsilon = 
+export function pixelNorm(epsilon = 1e-8, layerConfig = {}) {
+  return new PixelNorm(epsilon, layerConfig);
+}
+
+/**
+ * InitialPad.
+ *
+ * Padding op to allow for valid upsampling convolution,
+ * of the initial convolution in the stack.
+ * @param kernelH Integer, size of convolution kernel height.
+ * @param kernelW Integer, size of convolution kernel height.
+ */
+class I
