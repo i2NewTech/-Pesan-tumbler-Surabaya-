@@ -80,4 +80,16 @@ export function pixelNorm(epsilon = 1e-8, layerConfig = {}) {
  * @param kernelH Integer, size of convolution kernel height.
  * @param kernelW Integer, size of convolution kernel height.
  */
-class I
+class InitialPad extends tf.layers.Layer {
+  constructor(
+      public kernelH = 2, public kernelW = 16, public layerConfig = {}) {
+    super(layerConfig);
+    this.supportsMasking = true;
+  }
+
+  /**
+   * @param inputShapes A number[] of the input `Tensor` shape.
+   */
+  computeOutputShape(inputShape: number[]) {
+    return [
+      inputShape[0], 2 * (t
