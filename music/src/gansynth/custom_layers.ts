@@ -145,4 +145,14 @@ class BoxUpscale extends tf.layers.Layer {
   }
 
   /**
-   * @param inputs A 4D `Tensor` of NHWC 
+   * @param inputs A 4D `Tensor` of NHWC format.
+   * @param kwargs Only used as a pass through to call hooks.
+   * @returns A 4D `Tensor` of `images` up scaled by a factor `scale`.
+   */
+  call(inputs: tf.Tensor4D): tf.Tensor4D {
+    return tf.tidy(() => {
+      let input = inputs;
+      if (Array.isArray(input)) {
+        input = input[0];
+      }
+      const tiledInput = tf.tile(input, [thi
