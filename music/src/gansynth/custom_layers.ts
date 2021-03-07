@@ -115,4 +115,18 @@ class InitialPad extends tf.layers.Layer {
   /**
    * Layers must implement "getClassName".
    */
-  getClassName
+  getClassName() {
+    return 'InitialPad';
+  }
+}
+
+export function initialPad(kernelH = 2, kernelW = 16, layerConfig = {}) {
+  return new InitialPad(kernelH, kernelW, layerConfig);
+}
+
+/**
+ * Box (Nearest Neighbor upscaling).
+ * @param scale Integer amount to upscale width and height.
+ */
+class BoxUpscale extends tf.layers.Layer {
+  constru
