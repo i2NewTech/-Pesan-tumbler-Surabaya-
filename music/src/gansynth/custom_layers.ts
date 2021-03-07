@@ -129,4 +129,20 @@ export function initialPad(kernelH = 2, kernelW = 16, layerConfig = {}) {
  * @param scale Integer amount to upscale width and height.
  */
 class BoxUpscale extends tf.layers.Layer {
-  constru
+  constructor(public scale = 2) {
+    super({});
+    this.supportsMasking = true;
+  }
+
+  /**
+   * @param inputShapes Shape of the input.
+   */
+  computeOutputShape(inputShape: number[]) {
+    return [
+      inputShape[0], this.scale * inputShape[1], this.scale * inputShape[2],
+      inputShape[3]
+    ];
+  }
+
+  /**
+   * @param inputs A 4D `Tensor` of NHWC 
