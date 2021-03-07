@@ -155,4 +155,20 @@ class BoxUpscale extends tf.layers.Layer {
       if (Array.isArray(input)) {
         input = input[0];
       }
-      const tiledInput = tf.tile(input, [thi
+      const tiledInput = tf.tile(input, [this.scale ** 2, 1, 1, 1]);
+      return tf.batchToSpaceND(
+          tiledInput, [this.scale, this.scale], [[0, 0], [0, 0]]);
+    });
+  }
+
+  /**
+   * Layers must implement "getClassName".
+   */
+  getClassName() {
+    return 'BoxUpscale';
+  }
+}
+
+export function boxUpscale(scale = 2) {
+  return new BoxUpscale(scale);
+}
