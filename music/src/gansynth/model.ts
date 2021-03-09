@@ -228,3 +228,33 @@ class GANSynth {
    * @param pitch Integer MIDI pitch number of sound to generate.
    * @returns specgrams a 4-D Tensor size [batch, time, freq, ch].
    *    First channel is LogMelSpectrogram and
+   *    second channel is InstantaneousFrequency.
+   */
+  randomSample(pitch: number) {
+    return tf.tidy(() => {
+      const z = tf.randomNormal([1, this.nLatents], 0, 1, 'float32');
+      // Get one hot for pitch encoding
+      const pitchIdx = tf.tensor1d([pitch - this.minMidiPitch], 'int32');
+      const pitchOneHot = tf.oneHot(pitchIdx, this.midiPitches);
+      // Concat and add width and height dimensions.
+      const cond = tf.concat([z, pitchOneHot], 1).expandDims(1).expandDims(1) as
+          tf.Tensor4D;
+      const specgrams = this.predict(cond, 1);
+      return specgrams;
+    });
+  }
+
+  /**
+   * Include specgramsToAudio as a member method for API/export.
+   *
+   * @param specgrams a 4-D Tensor size [batch, time, freq, ch].
+   *    First channel is LogMelSpectrogram and
+   *    second channel is InstantaneousFrequency.
+   * @returns Float32Array of audio samples for first specgram in the batch.
+   */
+  specgramsToAudio(specgrams: tf.Tensor4D) {
+    return specgramsToAudio(specgrams);
+  }
+}
+
+export {GANSynth};
