@@ -103,3 +103,28 @@ export class AttentionWrapper {
     const attnS = tf.sum(
         tf.mul(this.attnV, tf.tanh(tf.add(attnHiddenFeatures, attnY))), [2, 3]);
     const attnA = tf.softmax(attnS);
+    const attnD = tf.sum(
+        tf.mul(tf.reshape(attnA, [-1, this.attnLength, 1, 1]), attnHidden),
+        [1, 2]);
+    const newAttns: tf.Tensor2D = attnD.reshape([-1, this.attnSize]);
+
+    const attnStates =
+        state.attentionState.reshape([-1, this.attnLength, this.attnSize]);
+    const newAttnStates = tf.slice(
+        attnStates, [0, 1, 0],
+        [attnStates.shape[0], attnStates.shape[1] - 1, attnStates.shape[2]]);
+
+    const output: tf.Tensor2D = tf.add(
+        tf.matMul(tf.concat([h[2], newAttns], 1), this.attnOutputMatrix),
+        this.attnOutputBias);
+
+    const attention = newAttns.flatten();
+    const attentionState: tf.Tensor2D =
+        tf.concat(
+              [newAttnStates, output.as3D(output.shape[0], 1, output.shape[1])],
+              1)
+            .reshape([-1, this.attnLength * this.attnSize]);
+
+    return {output, c, h, attentionState: {attention, attentionState}};
+  }
+}
