@@ -242,3 +242,141 @@ export class MusicRNN {
       chordProgression?: string[], returnProbs?: boolean):
       Promise<{sequence: Promise<INoteSequence>; probs: Float32Array[]}> {
     sequences.assertIsRelativeQuantizedSequence(sequence);
+
+    if (this.chordEncoder && !chordProgression) {
+      throw new Error('Chord progression expected but not provided.');
+    }
+    if (!this.chordEncoder && chordProgression) {
+      throw new Error('Unexpected chord progression provided.');
+    }
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const startTime = performance.now();
+
+    const oh = tf.tidy(() => {
+      const inputs = this.dataConverter.toTensor(sequence);
+      const length: number = inputs.shape[0];
+      const outputSize: number = inputs.shape[1];
+      const controls = this.chordEncoder ?
+          this.chordEncoder.encodeProgression(
+              chordProgression, length + steps) :
+          undefined;
+      const auxInputs = this.auxInputs ?
+          tf.concat(
+              this.auxInputs.map(
+                  auxInput => auxInput.getTensors(length + steps)),
+              1) :
+          undefined;
+      const rnnResult = this.sampleRnn(
+          inputs, steps, temperature, controls, auxInputs, returnProbs);
+      const samples = rnnResult.samples;
+      return {
+        samples: tf.stack(samples).as2D(samples.length, outputSize),
+        probs: rnnResult.probs
+      };
+    });
+
+    const samplesAndProbs = await oh;
+    const result = this.dataConverter.toNoteSequence(
+        samplesAndProbs.samples, sequence.quantizationInfo.stepsPerQuarter);
+
+    // Convert the array of 2D tensors into an array of arrays.
+    const probs: Float32Array[] = [];
+    if (returnProbs) {
+      for (let i = 0; i < samplesAndProbs.probs.length; i++) {
+        probs.push(await samplesAndProbs.probs[i].data() as Float32Array);
+        samplesAndProbs.probs[i].dispose();
+      }
+    }
+
+    oh.samples.dispose();
+    result.then(
+        () => logging.logWithDuration(
+            'Continuation completed', startTime, 'MusicRNN',
+            logging.Level.DEBUG));
+    return {sequence: result, probs};
+  }
+
+  private sampleRnn(
+      inputs: tf.Tensor2D, steps: number, temperature: number,
+      controls?: tf.Tensor2D, auxInputs?: tf.Tensor2D, returnProbs?: boolean) {
+    const length: number = inputs.shape[0];
+    const outputSize: number = inputs.shape[1];
+
+    let c: tf.Tensor2D[] = [];
+    let h: tf.Tensor2D[] = [];
+    for (let i = 0; i < this.biasShapes.length; i++) {
+      c.push(tf.zeros([1, this.biasShapes[i] / 4]));
+      h.push(tf.zeros([1, this.biasShapes[i] / 4]));
+    }
+
+    let attentionState =
+        this.attentionWrapper ? this.attentionWrapper.initState() : null;
+    let lastOutput: tf.Tensor2D;
+
+    // Initialize with input.
+    inputs = inputs.toFloat();
+    const samples: tf.Tensor1D[] = [];
+    const probs: tf.Tensor1D[] = [];
+    const splitInputs: tf.Tensor2D[] = tf.split(inputs.toFloat(), length);
+    const splitControls =
+        controls ? tf.split(controls, controls.shape[0]) : undefined;
+    const splitAuxInputs =
+        auxInputs ? tf.split(auxInputs, auxInputs.shape[0]) : undefined;
+    for (let i = 0; i < length + steps; i++) {
+      let nextInput: tf.Tensor2D;
+      if (i < length) {
+        nextInput = splitInputs[i];
+      } else {
+        let logits = lastOutput.matMul(this.lstmFcW).add(this.lstmFcB).as1D();
+
+        let sampledOutput: tf.Tensor1D;
+        if (temperature) {
+          logits = logits.div(tf.scalar(temperature));
+          sampledOutput = tf.multinomial(logits, 1).as1D();
+        } else {
+          sampledOutput = logits.argMax().as1D();
+        }
+
+        if (returnProbs) {
+          probs.push(tf.softmax(logits));
+        }
+
+        nextInput =
+            tf.oneHot(sampledOutput, outputSize).toFloat() as tf.Tensor2D;
+        // Save samples as bool to reduce data sync time.
+        samples.push(nextInput.as1D());
+      }
+      // No need to run an RNN step once we have all our samples.
+      if (i === length + steps - 1) {
+        break;
+      }
+
+      const tensors = [];
+      if (splitControls) {
+        tensors.push(splitControls[i + 1]);
+      }
+      tensors.push(nextInput);
+      if (splitAuxInputs) {
+        tensors.push(splitAuxInputs[i]);
+      }
+      nextInput = tf.concat(tensors, 1) as tf.Tensor2D;
+
+      if (this.attentionWrapper) {
+        const wrapperOutput =
+            this.attentionWrapper.call(nextInput, c, h, attentionState);
+        c = wrapperOutput.c;
+        h = wrapperOutput.h;
+        attentionState = wrapperOutput.attentionState;
+        lastOutput = wrapperOutput.output;
+      } else {
+        [c, h] = tf.multiRNNCell(this.lstmCells, nextInput, c, h);
+        lastOutput = h[h.length - 1];
+      }
+    }
+    return {samples, probs};
+  }
+}
