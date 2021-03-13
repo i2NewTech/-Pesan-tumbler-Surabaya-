@@ -11,4 +11,16 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permis
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import * as tf from '@tensorflow/tfjs';
+import * as test from 'tape';
+import {INoteSequence} from '..';
+import {MusicRNN} from './model';
+
+const MEL_CKPT =
+    // tslint:disable-next-line:max-line-length
+    'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn';
+const MEL_
