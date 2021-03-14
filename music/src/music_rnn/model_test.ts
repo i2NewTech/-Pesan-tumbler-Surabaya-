@@ -29,4 +29,8 @@ const MEL_TEAPOT: INoteSequence = {
     {pitch: 71, quantizedStartStep: 2, quantizedEndStep: 4, program: 0},
     {pitch: 73, quantizedStartStep: 4, quantizedEndStep: 6, program: 0},
     {pitch: 74, quantizedStartStep: 6, quantizedEndStep: 8, program: 0},
-    {pitch: 76, quantized
+    {pitch: 76, quantizedStartStep: 8, quantizedEndStep: 10, program: 0},
+    {pitch: 81, quantizedStartStep: 12, quantizedEndStep: 16, program: 0},
+    {pitch: 78, quantizedStartStep: 16, quantizedEndStep: 20, program: 0},
+    {pitch: 81, quantizedStartStep: 20, quantizedEndStep: 24, program: 0},
+    {pitch: 76, quantizedStartStep: 24, quantizedEndStep: 3
