@@ -23,4 +23,10 @@ import {MusicRNN} from './model';
 const MEL_CKPT =
     // tslint:disable-next-line:max-line-length
     'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/basic_rnn';
-const MEL_
+const MEL_TEAPOT: INoteSequence = {
+  notes: [
+    {pitch: 69, quantizedStartStep: 0, quantizedEndStep: 2, program: 0},
+    {pitch: 71, quantizedStartStep: 2, quantizedEndStep: 4, program: 0},
+    {pitch: 73, quantizedStartStep: 4, quantizedEndStep: 6, program: 0},
+    {pitch: 74, quantizedStartStep: 6, quantizedEndStep: 8, program: 0},
+    {pitch: 76, quantized
