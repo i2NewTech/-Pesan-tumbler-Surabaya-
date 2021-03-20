@@ -63,4 +63,8 @@ test('MusicRNN can continue a sequence ', async (t: test.Test) => {
   t.end();
 });
 
-t
+test('MusicRNN can be disposed', async (t: test.Test) => {
+  model.dispose();
+  t.isEqual(tf.memory().numBytes, initialBytes);
+  t.end();
+});
