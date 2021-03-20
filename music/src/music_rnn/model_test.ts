@@ -50,4 +50,17 @@ test('MusicRNN can be initialized', async (t: test.Test) => {
   t.end();
 });
 
-test('MusicRNN can continue 
+test('MusicRNN can continue a sequence ', async (t: test.Test) => {
+  const startMemory = tf.memory().numBytes;
+  const temperature = 1;
+  const continuation =
+      await model.continueSequence(MEL_TEAPOT, 20, temperature);
+  t.ok(continuation);
+  t.true(continuation.notes.length > 0);
+
+  // Doesn't leak memory.
+  t.isEqual(tf.memory().numBytes, startMemory);
+  t.end();
+});
+
+t
