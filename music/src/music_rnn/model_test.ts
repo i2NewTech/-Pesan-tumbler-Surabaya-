@@ -33,4 +33,21 @@ const MEL_TEAPOT: INoteSequence = {
     {pitch: 81, quantizedStartStep: 12, quantizedEndStep: 16, program: 0},
     {pitch: 78, quantizedStartStep: 16, quantizedEndStep: 20, program: 0},
     {pitch: 81, quantizedStartStep: 20, quantizedEndStep: 24, program: 0},
-    {pitch: 76, quantizedStartStep: 24, quantizedEndStep: 3
+    {pitch: 76, quantizedStartStep: 24, quantizedEndStep: 32, program: 0}
+  ],
+  quantizationInfo: {stepsPerQuarter: 4},
+  totalQuantizedSteps: 32,
+};
+
+let model: MusicRNN;
+let initialBytes: number;
+
+test('MusicRNN can be initialized', async (t: test.Test) => {
+  initialBytes = tf.memory().numBytes;
+  model = new MusicRNN(MEL_CKPT);
+  await model.initialize();
+  t.true(model.isInitialized);
+  t.end();
+});
+
+test('MusicRNN can continue 
