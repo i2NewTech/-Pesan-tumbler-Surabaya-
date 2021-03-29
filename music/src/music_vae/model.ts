@@ -30,4 +30,13 @@ import * as logging from '../core/logging';
 import {INoteSequence} from '../protobuf/index';
 
 /**
- * A class for keepi
+ * A class for keeping track of the parameters of an affine transformation.
+ *
+ * @param kernel A 2-dimensional tensor with the kernel parameters.
+ * @param bias A 1-dimensional tensor with the bias parameters.
+ */
+class LayerVars {
+  kernel: tf.Tensor2D;
+  bias: tf.Tensor1D;
+  constructor(kernel: tf.Tensor2D, bias: tf.Tensor1D) {
+    if (kernel ===
