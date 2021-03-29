@@ -18,4 +18,16 @@
  */
 
 /**
- * Impo
+ * Imports
+ */
+import * as tf from '@tensorflow/tfjs';
+
+import * as chords from '../core/chords';
+import {fetch, performance} from '../core/compat/global';
+import * as constants from '../core/constants';
+import * as data from '../core/data';
+import * as logging from '../core/logging';
+import {INoteSequence} from '../protobuf/index';
+
+/**
+ * A class for keepi
