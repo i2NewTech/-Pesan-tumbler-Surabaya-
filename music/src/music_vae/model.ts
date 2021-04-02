@@ -39,4 +39,20 @@ class LayerVars {
   kernel: tf.Tensor2D;
   bias: tf.Tensor1D;
   constructor(kernel: tf.Tensor2D, bias: tf.Tensor1D) {
-    if (kernel ===
+    if (kernel === undefined) {
+      throw Error('`kernel` is undefined.');
+    }
+    if (bias === undefined) {
+      throw Error('`bias` is undefined.');
+    }
+    this.kernel = kernel;
+    this.bias = bias;
+  }
+}
+
+/**
+ * Helper function to compute an affine transformation.
+ *
+ * @param vars `LayerVars` containing the `kernel` and `bias` of the
+ * transformation.
+ * @par
