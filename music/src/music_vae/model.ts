@@ -55,4 +55,16 @@ class LayerVars {
  *
  * @param vars `LayerVars` containing the `kernel` and `bias` of the
  * transformation.
- * @par
+ * @param inputs A batch of input vectors to transform.
+ * @hidden
+ */
+function dense(vars: LayerVars, inputs: tf.Tensor2D): tf.Tensor2D {
+  return inputs.matMul(vars.kernel).add(vars.bias);
+}
+
+/**
+ * Abstract Encoder class.
+ */
+abstract class Encoder {
+  abstract readonly zDims: number;
+  abstract encode(sequence: tf.Tensor3D, segmentLen
