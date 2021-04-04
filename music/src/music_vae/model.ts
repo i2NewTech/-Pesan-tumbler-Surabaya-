@@ -94,4 +94,14 @@ class BidirectionalLstm {
    * @param sequence The batch of sequences to be processed.
    * @returns A batch of forward and backward output (h) LSTM states.
    */
-  process(sequence: tf.Tensor3D): [tf.Tensor2D[
+  process(sequence: tf.Tensor3D): [tf.Tensor2D[], tf.Tensor2D[]] {
+    return tf.tidy(() => {
+      const fwStates = this.singleDirection(sequence, true);
+      const bwStates = this.singleDirection(sequence, false);
+      return [fwStates, bwStates];
+    });
+  }
+
+  private singleDirection(inputs: tf.Tensor3D, fw: boolean) {
+    const batchSize = inputs.shape[0];
+    const 
