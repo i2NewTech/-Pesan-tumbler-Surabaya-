@@ -67,4 +67,19 @@ function dense(vars: LayerVars, inputs: tf.Tensor2D): tf.Tensor2D {
  */
 abstract class Encoder {
   abstract readonly zDims: number;
-  abstract encode(sequence: tf.Tensor3D, segmentLen
+  abstract encode(sequence: tf.Tensor3D, segmentLengths?: number[]):
+      tf.Tensor2D;
+}
+
+/**
+ * A single-layer bidirectional LSTM module.
+ */
+class BidirectionalLstm {
+  private lstmFwVars: LayerVars;
+  private lstmBwVars: LayerVars;
+
+  /**
+   * `BidirectionalLstm` contructor.
+   *
+   * @param lstmFwVars The forward LSTM `LayerVars`.
+   * @param lstmBwVars The backward LSTM `Layer
