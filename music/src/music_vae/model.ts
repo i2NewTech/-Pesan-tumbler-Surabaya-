@@ -82,4 +82,16 @@ class BidirectionalLstm {
    * `BidirectionalLstm` contructor.
    *
    * @param lstmFwVars The forward LSTM `LayerVars`.
-   * @param lstmBwVars The backward LSTM `Layer
+   * @param lstmBwVars The backward LSTM `LayerVars`.
+   */
+  constructor(lstmFwVars: LayerVars, lstmBwVars: LayerVars) {
+    this.lstmFwVars = lstmFwVars;
+    this.lstmBwVars = lstmBwVars;
+  }
+
+  /**
+   * Processes a batch of sequences.
+   * @param sequence The batch of sequences to be processed.
+   * @returns A batch of forward and backward output (h) LSTM states.
+   */
+  process(sequence: tf.Tensor3D): [tf.Tensor2D[
