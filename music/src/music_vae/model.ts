@@ -104,4 +104,12 @@ class BidirectionalLstm {
 
   private singleDirection(inputs: tf.Tensor3D, fw: boolean) {
     const batchSize = inputs.shape[0];
-    const 
+    const length = inputs.shape[1];
+
+    const lstmVars = fw ? this.lstmFwVars : this.lstmBwVars;
+    let state: [tf.Tensor2D, tf.Tensor2D] = [
+      tf.zeros([batchSize, lstmVars.bias.shape[0] / 4]),
+      tf.zeros([batchSize, lstmVars.bias.shape[0] / 4])
+    ];
+    const forgetBias = tf.scalar(1.0);
+    const lstm = (data: tf.Tensor2D, stat
