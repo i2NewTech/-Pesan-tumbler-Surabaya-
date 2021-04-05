@@ -112,4 +112,11 @@ class BidirectionalLstm {
       tf.zeros([batchSize, lstmVars.bias.shape[0] / 4])
     ];
     const forgetBias = tf.scalar(1.0);
-    const lstm = (data: tf.Tensor2D, stat
+    const lstm = (data: tf.Tensor2D, state: [tf.Tensor2D, tf.Tensor2D]) =>
+        tf.basicLSTMCell(
+            forgetBias, lstmVars.kernel, lstmVars.bias, data, state[0],
+            state[1]);
+    const splitInputs = tf.split(inputs.toFloat(), length, 1);
+    const outputStates: tf.Tensor2D[] = [];
+    for (const data of (fw ? splitInputs : splitInputs.reverse())) {
+      // Apply LSTM and sto
