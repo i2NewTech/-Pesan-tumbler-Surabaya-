@@ -132,4 +132,14 @@ class BidirectionalLstm {
  * A single-layer bidirectional LSTM encoder.
  */
 class BidirectionalLstmEncoder extends Encoder {
-  private bidirectionalLs
+  private bidirectionalLstm: BidirectionalLstm;
+  private muVars: LayerVars;
+  readonly zDims: number;
+
+  /**
+   * `BidirectionalLstmEncoder` contructor.
+   *
+   * @param lstmFwVars The forward LSTM `LayerVars`.
+   * @param lstmBwVars The backward LSTM `LayerVars`.
+   * @param muVars (Optional) The `LayerVars` for projecting from the final
+   * states of the bidirectional L
