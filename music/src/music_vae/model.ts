@@ -171,4 +171,19 @@ class BidirectionalLstmEncoder extends Encoder {
           tf.concat([fwStates[fwStates.length - 1], bwStates[0]], 1);
       if (this.muVars) {
         return dense(this.muVars, finalState);
-      } els
+      } else {
+        return finalState;
+      }
+    });
+  }
+}
+
+/**
+ * A hierarchical encoder that uses the outputs from each level as the inputs
+ * to the subsequent level.
+ */
+class HierarchicalEncoder extends Encoder {
+  private baseEncoders: Encoder[];
+  private numSteps: number[];
+  private muVars: LayerVars;
+  readonly zDims: number;
