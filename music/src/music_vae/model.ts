@@ -150,4 +150,16 @@ class BidirectionalLstmEncoder extends Encoder {
     super();
     this.bidirectionalLstm = new BidirectionalLstm(lstmFwVars, lstmBwVars);
     this.muVars = muVars;
-    this.zDims = muVars ? this.muVars.
+    this.zDims = muVars ? this.muVars.bias.shape[0] : null;
+  }
+
+  /**
+   * Encodes a batch of sequences.
+   * @param sequence The batch of sequences to be encoded.
+   * @param segmentLengths Unused for this encoder.
+   * @returns A batch of concatenated final LSTM states, or the `mu` if `muVars`
+   * is known.
+   */
+  encode(sequence: tf.Tensor3D, segmentLengths?: number[]) {
+    if (segmentLengths) {
+      throw n
