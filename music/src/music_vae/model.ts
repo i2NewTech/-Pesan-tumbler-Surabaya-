@@ -162,4 +162,13 @@ class BidirectionalLstmEncoder extends Encoder {
    */
   encode(sequence: tf.Tensor3D, segmentLengths?: number[]) {
     if (segmentLengths) {
-      throw n
+      throw new Error('Variable-length segments not supported in flat encoder');
+    }
+
+    return tf.tidy(() => {
+      const [fwStates, bwStates] = this.bidirectionalLstm.process(sequence);
+      const finalState =
+          tf.concat([fwStates[fwStates.length - 1], bwStates[0]], 1);
+      if (this.muVars) {
+        return dense(this.muVars, finalState);
+      } els
