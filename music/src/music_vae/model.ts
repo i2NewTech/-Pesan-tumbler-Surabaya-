@@ -142,4 +142,12 @@ class BidirectionalLstmEncoder extends Encoder {
    * @param lstmFwVars The forward LSTM `LayerVars`.
    * @param lstmBwVars The backward LSTM `LayerVars`.
    * @param muVars (Optional) The `LayerVars` for projecting from the final
-   * states of the bidirectional L
+   * states of the bidirectional LSTM to the mean `mu` of the random variable,
+   * `z`. The final states are returned directly if not provided.
+   */
+  constructor(
+      lstmFwVars: LayerVars, lstmBwVars: LayerVars, muVars?: LayerVars) {
+    super();
+    this.bidirectionalLstm = new BidirectionalLstm(lstmFwVars, lstmBwVars);
+    this.muVars = muVars;
+    this.zDims = muVars ? this.muVars.
