@@ -187,3 +187,12 @@ class HierarchicalEncoder extends Encoder {
   private numSteps: number[];
   private muVars: LayerVars;
   readonly zDims: number;
+
+  /**
+   * `HierarchicalEncoder` contructor.
+   *
+   * @param baseEncoders An list of `Encoder` objects to use for each.
+   * @param numSteps A list containing the number of steps (outputs) for each
+   * level of the hierarchy. This number should evenly divide the inputs for
+   * each level. The final entry must always be `1`.
+   * @param muVar
