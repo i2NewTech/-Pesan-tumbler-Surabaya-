@@ -203,4 +203,14 @@ class HierarchicalEncoder extends Encoder {
     this.baseEncoders = baseEncoders;
     this.numSteps = numSteps;
     this.muVars = muVars;
-    this.zDims = this.mu
+    this.zDims = this.muVars.bias.shape[0];
+  }
+
+  /**
+   * Encodes a batch of sequences.
+   * @param sequence The batch of sequences to be encoded.
+   * @param segmentLengths (Optional) An array of lengths of the base-level
+   * segments. Must have length `numSteps[0]`. Assumes that batch size is 1.
+   * @returns A batch of `mu` values.
+   */
+  encode(sequence: tf.Tensor3D, segmentLengths?
