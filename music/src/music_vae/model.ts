@@ -213,4 +213,13 @@ class HierarchicalEncoder extends Encoder {
    * segments. Must have length `numSteps[0]`. Assumes that batch size is 1.
    * @returns A batch of `mu` values.
    */
-  encode(sequence: tf.Tensor3D, segmentLengths?
+  encode(sequence: tf.Tensor3D, segmentLengths?: number[]) {
+    if (segmentLengths) {
+      if (sequence.shape[0] !== 1) {
+        throw new Error(
+            'When using variable-length segments, batch size must be 1.');
+      }
+      if (segmentLengths.length !== this.numSteps[0]) {
+        throw new Error(
+            'Must provide length for all variable-length segments.');
+      }
