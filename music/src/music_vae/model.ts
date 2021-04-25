@@ -195,4 +195,12 @@ class HierarchicalEncoder extends Encoder {
    * @param numSteps A list containing the number of steps (outputs) for each
    * level of the hierarchy. This number should evenly divide the inputs for
    * each level. The final entry must always be `1`.
-   * @param muVar
+   * @param muVars The `LayerVars` for projecting from the final
+   * states of the final level to the mean `mu` of the random variable, `z`.
+   */
+  constructor(baseEncoders: Encoder[], numSteps: number[], muVars: LayerVars) {
+    super();
+    this.baseEncoders = baseEncoders;
+    this.numSteps = numSteps;
+    this.muVars = muVars;
+    this.zDims = this.mu
