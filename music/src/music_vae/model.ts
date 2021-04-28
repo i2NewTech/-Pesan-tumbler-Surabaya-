@@ -223,3 +223,12 @@ class HierarchicalEncoder extends Encoder {
         throw new Error(
             'Must provide length for all variable-length segments.');
       }
+    }
+
+    return tf.tidy(() => {
+      let inputs: tf.Tensor3D = sequence;
+
+      for (let level = 0; level < this.baseEncoders.length; ++level) {
+        const levelSteps = this.numSteps[level];
+        const splitInputs: tf.Tensor3D[] = tf.split(inputs, levelSteps, 1);
+        const embeddings: tf.T
