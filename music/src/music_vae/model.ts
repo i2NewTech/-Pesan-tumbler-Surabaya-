@@ -231,4 +231,11 @@ class HierarchicalEncoder extends Encoder {
       for (let level = 0; level < this.baseEncoders.length; ++level) {
         const levelSteps = this.numSteps[level];
         const splitInputs: tf.Tensor3D[] = tf.split(inputs, levelSteps, 1);
-        const embeddings: tf.T
+        const embeddings: tf.Tensor2D[] = [];
+        for (let step = 0; step < levelSteps; ++step) {
+          embeddings.push(this.baseEncoders[level].encode(
+              (level === 0 && segmentLengths) ?
+                  tf.slice3d(
+                      splitInputs[step], [0, 0, 0],
+                      [1, segmentLengths[step], -1]) :
+                  splitInputs[step] as 
