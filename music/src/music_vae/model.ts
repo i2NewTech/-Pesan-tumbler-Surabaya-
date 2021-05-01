@@ -251,4 +251,11 @@ class HierarchicalEncoder extends Encoder {
  * Helper function to create LSTM cells and initial states for decoders.
  *
  * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.   *
- * @param lstmCellVars
+ * @param lstmCellVars The `LayerVars` for each layer of the decoder LSTM.
+ * @param zToInitStateVars The `LayerVars` for projecting from the latent
+ * variable `z` to the initial states of the LSTM layers.
+ * @returns An Object containing the LSTM cells and initial states.
+ * @hidden
+ */
+function initLstmCells(
+    z: tf.Tensor2D, lstmCellVars: LayerV
