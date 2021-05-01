@@ -238,4 +238,17 @@ class HierarchicalEncoder extends Encoder {
                   tf.slice3d(
                       splitInputs[step], [0, 0, 0],
                       [1, segmentLengths[step], -1]) :
-                  splitInputs[step] as 
+                  splitInputs[step] as tf.Tensor3D));
+        }
+        inputs = tf.stack(embeddings, 1) as tf.Tensor3D;
+      }
+      return dense(this.muVars, inputs.squeeze([1]));
+    });
+  }
+}
+
+/**
+ * Helper function to create LSTM cells and initial states for decoders.
+ *
+ * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.   *
+ * @param lstmCellVars
