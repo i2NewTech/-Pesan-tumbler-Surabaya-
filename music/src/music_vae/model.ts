@@ -258,4 +258,12 @@ class HierarchicalEncoder extends Encoder {
  * @hidden
  */
 function initLstmCells(
-    z: tf.Tensor2D, lstmCellVars: LayerV
+    z: tf.Tensor2D, lstmCellVars: LayerVars[], zToInitStateVars: LayerVars) {
+  const lstmCells: tf.LSTMCellFunc[] = [];
+  const c: tf.Tensor2D[] = [];
+  const h: tf.Tensor2D[] = [];
+  const initialStates: tf.Tensor2D[] =
+      tf.split(dense(zToInitStateVars, z).tanh(), 2 * lstmCellVars.length, 1);
+  for (let i = 0; i < lstmCellVars.length; ++i) {
+    const lv = lstmCellVars[i];
+    const forgetBias = t
