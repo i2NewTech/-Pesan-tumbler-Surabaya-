@@ -266,4 +266,16 @@ function initLstmCells(
       tf.split(dense(zToInitStateVars, z).tanh(), 2 * lstmCellVars.length, 1);
   for (let i = 0; i < lstmCellVars.length; ++i) {
     const lv = lstmCellVars[i];
-    const forgetBias = t
+    const forgetBias = tf.scalar(1.0);
+    lstmCells.push(
+        (data: tf.Tensor2D, c: tf.Tensor2D, h: tf.Tensor2D) =>
+            tf.basicLSTMCell(forgetBias, lv.kernel, lv.bias, data, c, h));
+    c.push(initialStates[i * 2]);
+    h.push(initialStates[i * 2 + 1]);
+  }
+  return {'cell': lstmCells, 'c': c, 'h': h};
+}
+
+/**
+ * Abstract Decoder class.
+ *
