@@ -291,4 +291,15 @@ abstract class Decoder {
 /**
  * Abstract base LSTM decoder that implements all functionality except sampler.
  */
-abstr
+abstract class BaseDecoder extends Decoder {
+  protected lstmCellVars: LayerVars[];
+  protected zToInitStateVars: LayerVars;
+  protected outputProjectVars: LayerVars;
+  readonly zDims: number;
+  readonly outputDims: number;
+  readonly controlBidirectionalLstm?: BidirectionalLstm;
+
+  /**
+   * `BaseDecoder` contructor.
+   *
+   * @param lstmCellVars 
