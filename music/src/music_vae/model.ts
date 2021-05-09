@@ -278,4 +278,17 @@ function initLstmCells(
 
 /**
  * Abstract Decoder class.
- *
+ */
+abstract class Decoder {
+  abstract readonly outputDims: number;
+  abstract readonly zDims: number;
+
+  abstract decode(
+      z: tf.Tensor2D, length: number, initialInput?: tf.Tensor2D,
+      temperature?: number, controls?: tf.Tensor2D): tf.Tensor3D;
+}
+
+/**
+ * Abstract base LSTM decoder that implements all functionality except sampler.
+ */
+abstr
