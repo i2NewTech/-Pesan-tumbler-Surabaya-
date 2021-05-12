@@ -302,4 +302,9 @@ abstract class BaseDecoder extends Decoder {
   /**
    * `BaseDecoder` contructor.
    *
-   * @param lstmCellVars 
+   * @param lstmCellVars The `LayerVars` for each layer of the decoder LSTM.
+   * @param zToInitStateVars The `LayerVars` for projecting from the latent
+   * variable `z` to the initial states of the LSTM layers.
+   * @param outputProjectVars The `LayerVars` for projecting from the output
+   * of the LSTM to the logits of the output categorical distrubtion
+   * (if `nade` is null) or to bias values
