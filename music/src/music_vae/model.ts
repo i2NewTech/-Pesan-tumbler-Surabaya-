@@ -313,4 +313,10 @@ abstract class BaseDecoder extends Decoder {
    * each step. If not given, the final projection values are used as logits
    * for a categorical distribution.
    * @param controlLstmFwVars (optional) The `LayerVars` for the forward
-   * dire
+   * direction of a bidirectional LSTM used to process the control tensors.
+   * @param controlLstmBwVars (optional) The `LayerVars` for the backward
+   * direction of a bidirectional LSTM used to process the control tensors.
+   */
+  constructor(
+      lstmCellVars: LayerVars[], zToInitStateVars: LayerVars,
+      outputProjectVars: LayerVars, o
