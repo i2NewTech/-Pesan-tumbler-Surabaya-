@@ -307,4 +307,10 @@ abstract class BaseDecoder extends Decoder {
    * variable `z` to the initial states of the LSTM layers.
    * @param outputProjectVars The `LayerVars` for projecting from the output
    * of the LSTM to the logits of the output categorical distrubtion
-   * (if `nade` is null) or to bias values
+   * (if `nade` is null) or to bias values to use in the NADE (if `nade` is
+   * not null).
+   * @param nade (optional) A `Nade` to use for computing the output vectors at
+   * each step. If not given, the final projection values are used as logits
+   * for a categorical distribution.
+   * @param controlLstmFwVars (optional) The `LayerVars` for the forward
+   * dire
