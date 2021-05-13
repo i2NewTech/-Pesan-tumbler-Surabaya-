@@ -326,4 +326,14 @@ abstract class BaseDecoder extends Decoder {
     this.zToInitStateVars = zToInitStateVars;
     this.outputProjectVars = outputProjectVars;
     this.zDims = this.zToInitStateVars.kernel.shape[0];
-    this.outputDim
+    this.outputDims = outputDims || outputProjectVars.bias.shape[0];
+    if (controlLstmFwVars && controlLstmBwVars) {
+      this.controlBidirectionalLstm =
+          new BidirectionalLstm(controlLstmFwVars, controlLstmBwVars);
+    }
+  }
+
+  /**
+   * Method that returns the sample based on the projected output from the LSTM.
+   *
+   * @param lstmOutput The projected 
