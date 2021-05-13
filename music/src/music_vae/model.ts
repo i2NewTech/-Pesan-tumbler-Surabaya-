@@ -336,4 +336,15 @@ abstract class BaseDecoder extends Decoder {
   /**
    * Method that returns the sample based on the projected output from the LSTM.
    *
-   * @param lstmOutput The projected 
+   * @param lstmOutput The projected output from the LSTM.
+   * @param temperature Softmax temperature.
+   * @returns The sampled output.
+   */
+  protected abstract sample(lstmOutput: tf.Tensor2D, temperature?: number):
+      tf.Tensor2D;
+
+  /**
+   * Decodes a batch of latent vectors, `z`.
+   *
+   * If `nade` is parameterized, samples are generated using the MAP (argmax) of
+   * the Bernoulli random variables fr
