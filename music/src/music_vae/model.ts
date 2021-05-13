@@ -319,4 +319,11 @@ abstract class BaseDecoder extends Decoder {
    */
   constructor(
       lstmCellVars: LayerVars[], zToInitStateVars: LayerVars,
-      outputProjectVars: LayerVars, o
+      outputProjectVars: LayerVars, outputDims?: number,
+      controlLstmFwVars?: LayerVars, controlLstmBwVars?: LayerVars) {
+    super();
+    this.lstmCellVars = lstmCellVars;
+    this.zToInitStateVars = zToInitStateVars;
+    this.outputProjectVars = outputProjectVars;
+    this.zDims = this.zToInitStateVars.kernel.shape[0];
+    this.outputDim
