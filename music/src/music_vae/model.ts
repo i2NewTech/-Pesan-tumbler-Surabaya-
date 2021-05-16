@@ -354,4 +354,11 @@ abstract class BaseDecoder extends Decoder {
    * MAP (argmax) of the logits output by the LSTM, and the onehots of those
    * labels makes up the final dimension of the output.
    *
-   * @param z A batch of latent vectors to decode, sized `[batchSize, zDi
+   * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.
+   * @param length The length of decoded sequences.
+   * @param temperature (Optional) The softmax temperature to use when sampling
+   * from the logits. Argmax is used if not provided.
+   * @param controls (Optional) Control tensors to use for conditioning, sized
+   * `[length, controlDepth]`.
+   *
+   * @returns A float32 tensor containing the decoded seq
