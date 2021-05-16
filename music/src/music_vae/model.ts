@@ -361,4 +361,15 @@ abstract class BaseDecoder extends Decoder {
    * @param controls (Optional) Control tensors to use for conditioning, sized
    * `[length, controlDepth]`.
    *
-   * @returns A float32 tensor containing the decoded seq
+   * @returns A float32 tensor containing the decoded sequences, shaped
+   * `[batchSize, length, depth]`.
+   */
+  decode(
+      z: tf.Tensor2D, length: number, initialInput?: tf.Tensor2D,
+      temperature?: number, controls?: tf.Tensor2D) {
+    const batchSize = z.shape[0];
+
+    return tf.tidy(() => {
+      // Initialize LSTMCells.
+      const lstmCell =
+          initLstmCells
