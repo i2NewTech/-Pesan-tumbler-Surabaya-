@@ -347,4 +347,11 @@ abstract class BaseDecoder extends Decoder {
    * Decodes a batch of latent vectors, `z`.
    *
    * If `nade` is parameterized, samples are generated using the MAP (argmax) of
-   * the Bernoulli random variables fr
+   * the Bernoulli random variables from the NADE, and these bit vector makes up
+   * the final dimension of the output.
+   *
+   * If `nade` is not parameterized, sample labels are generated using the
+   * MAP (argmax) of the logits output by the LSTM, and the onehots of those
+   * labels makes up the final dimension of the output.
+   *
+   * @param z A batch of latent vectors to decode, sized `[batchSize, zDi
