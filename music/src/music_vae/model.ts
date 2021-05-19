@@ -372,4 +372,14 @@ abstract class BaseDecoder extends Decoder {
     return tf.tidy(() => {
       // Initialize LSTMCells.
       const lstmCell =
-          initLstmCells
+          initLstmCells(z, this.lstmCellVars, this.zToInitStateVars);
+
+      // Add batch dimension to controls.
+      let expandedControls: tf.Tensor3D =
+          controls ? tf.expandDims(controls, 0) : undefined;
+
+      // Generate samples.
+      const samples: tf.Tensor2D[] = [];
+      let nextInput = initialInput ?
+          initialInput :
+          tf.zeros([batc
