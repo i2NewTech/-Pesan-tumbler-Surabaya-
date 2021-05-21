@@ -388,4 +388,14 @@ abstract class BaseDecoder extends Decoder {
         const [fwStates, bwStates] =
             this.controlBidirectionalLstm.process(expandedControls);
         expandedControls =
-            tf.concat([tf.stack(fwStates, 1), tf.stack(bwStates, 1)], 
+            tf.concat([tf.stack(fwStates, 1), tf.stack(bwStates, 1)], 2) as
+            tf.Tensor3D;
+      }
+      const splitControls = expandedControls ?
+          tf.split(
+              tf.tile(expandedControls, [batchSize, 1, 1]), controls.shape[0],
+              1) :
+          undefined;
+      for (let i = 0; i < length; ++i) {
+        const toConcat = splitControls ?
+            [nextInput, z, tf.squeeze
