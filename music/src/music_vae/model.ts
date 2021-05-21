@@ -405,4 +405,18 @@ abstract class BaseDecoder extends Decoder {
         const lstmOutput =
             dense(this.outputProjectVars, lstmCell.h[lstmCell.h.length - 1]);
         nextInput = this.sample(lstmOutput, temperature);
-      
+        samples.push(nextInput);
+      }
+
+      return tf.stack(samples, 1) as tf.Tensor3D;
+    });
+  }
+}
+
+/**
+ * Decoder that samples from a Bernoulli distributon. Unlike a NADE, each output
+ * dimension is sampled independently.
+ *
+ * Uses a probability threshold of 0.5 if no temperature is provided.
+ */
+clas
