@@ -398,4 +398,11 @@ abstract class BaseDecoder extends Decoder {
           undefined;
       for (let i = 0; i < length; ++i) {
         const toConcat = splitControls ?
-            [nextInput, z, tf.squeeze
+            [nextInput, z, tf.squeeze(splitControls[i], [1]) as tf.Tensor2D] :
+            [nextInput, z];
+        [lstmCell.c, lstmCell.h] = tf.multiRNNCell(
+            lstmCell.cell, tf.concat(toConcat, 1), lstmCell.c, lstmCell.h);
+        const lstmOutput =
+            dense(this.outputProjectVars, lstmCell.h[lstmCell.h.length - 1]);
+        nextInput = this.sample(lstmOutput, temperature);
+      
