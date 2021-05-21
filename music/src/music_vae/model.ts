@@ -382,4 +382,10 @@ abstract class BaseDecoder extends Decoder {
       const samples: tf.Tensor2D[] = [];
       let nextInput = initialInput ?
           initialInput :
-          tf.zeros([batc
+          tf.zeros([batchSize, this.outputDims]) as tf.Tensor2D;
+      if (this.controlBidirectionalLstm) {
+        // Preprocess the controls with a bidirectional LSTM.
+        const [fwStates, bwStates] =
+            this.controlBidirectionalLstm.process(expandedControls);
+        expandedControls =
+            tf.concat([tf.stack(fwStates, 1), tf.stack(bwStates, 1)], 
