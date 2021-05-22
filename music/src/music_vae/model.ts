@@ -426,4 +426,16 @@ class BooleanDecoder extends BaseDecoder {
                 tf.greaterEqual(
                     tf.sigmoid(
                         logits.div(tf.scalar(temperature)) as tf.Tensor2D),
-                    tf.rando
+                    tf.randomUniform(logits.shape)) :
+                tf.greaterEqual(logits, 0))
+               .toFloat() as tf.Tensor2D;
+  }
+}
+
+/**
+ * Decoder that samples from a Categorical distributon.
+ *
+ * Uses argmax if no temperature is provided.
+ */
+class CategoricalDecoder extends BaseDecoder {
+  sample(lstmOutput: tf.Tensor2D, tempe
