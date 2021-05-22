@@ -419,4 +419,11 @@ abstract class BaseDecoder extends Decoder {
  *
  * Uses a probability threshold of 0.5 if no temperature is provided.
  */
-clas
+class BooleanDecoder extends BaseDecoder {
+  sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
+    const logits = lstmOutput;
+    return (temperature ?
+                tf.greaterEqual(
+                    tf.sigmoid(
+                        logits.div(tf.scalar(temperature)) as tf.Tensor2D),
+                    tf.rando
