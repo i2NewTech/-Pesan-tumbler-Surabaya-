@@ -438,4 +438,12 @@ class BooleanDecoder extends BaseDecoder {
  * Uses argmax if no temperature is provided.
  */
 class CategoricalDecoder extends BaseDecoder {
-  sample(lstmOutput: tf.Tensor2D, tempe
+  sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
+    const logits = lstmOutput;
+    const timeLabels =
+        (temperature ?
+             tf.multinomial(
+                   logits.div(tf.scalar(temperature)) as tf.Tensor2D, 1)
+                 .as1D() :
+             logits.argMax(1).as1D());
+    return tf.oneHot(timeLabels, this.outputDims).toFloat() as tf.T
