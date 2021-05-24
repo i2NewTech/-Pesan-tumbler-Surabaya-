@@ -461,4 +461,13 @@ class NadeDecoder extends BaseDecoder {
   constructor(
       lstmCellVars: LayerVars[], zToInitStateVars: LayerVars,
       outputProjectVars: LayerVars, nade: Nade, controlLstmFwVars?: LayerVars,
-    
+      controlLstmBwVars?: LayerVars) {
+    super(
+        lstmCellVars, zToInitStateVars, outputProjectVars, nade.numDims,
+        controlLstmFwVars, controlLstmBwVars);
+    this.nade = nade;
+  }
+
+  sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
+    const [encBias, decBias] =
+        tf.split(lstmOutput, [this.nade.numHidden, th
