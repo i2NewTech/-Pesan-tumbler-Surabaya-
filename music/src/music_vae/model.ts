@@ -446,4 +446,19 @@ class CategoricalDecoder extends BaseDecoder {
                    logits.div(tf.scalar(temperature)) as tf.Tensor2D, 1)
                  .as1D() :
              logits.argMax(1).as1D());
-    return tf.oneHot(timeLabels, this.outputDims).toFloat() as tf.T
+    return tf.oneHot(timeLabels, this.outputDims).toFloat() as tf.Tensor2D;
+  }
+}
+
+/**
+ * Decoder that samples from a NADE.
+ *
+ * Ignores the temperature, always selects the argmax.
+ */
+class NadeDecoder extends BaseDecoder {
+  private nade: Nade;
+
+  constructor(
+      lstmCellVars: LayerVars[], zToInitStateVars: LayerVars,
+      outputProjectVars: LayerVars, nade: Nade, controlLstmFwVars?: LayerVars,
+    
