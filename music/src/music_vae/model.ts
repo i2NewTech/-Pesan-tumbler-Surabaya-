@@ -470,4 +470,16 @@ class NadeDecoder extends BaseDecoder {
 
   sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
     const [encBias, decBias] =
-        tf.split(lstmOutput, [this.nade.numHidden, th
+        tf.split(lstmOutput, [this.nade.numHidden, this.nade.numDims], 1);
+    return this.nade.sample(encBias as tf.Tensor2D, decBias as tf.Tensor2D);
+  }
+}
+
+/**
+ * Decoder that samples a "groove".
+ *
+ * Uses argmax if no temperature is provided.
+ */
+class GrooveDecoder extends BaseDecoder {
+  sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
+    let [hits, velocities, offsets] = tf.split(lstmOutput, 
