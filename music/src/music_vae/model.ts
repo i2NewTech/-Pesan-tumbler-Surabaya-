@@ -491,4 +491,19 @@ class GrooveDecoder extends BaseDecoder {
       const threshold = tf.randomUniform(hits.shape, 0, 1);
       hits = tf.greater(hits, threshold).toFloat() as tf.Tensor2D;
     } else {
-      hits = tf.greater(tf.sigmoid(hits)
+      hits = tf.greater(tf.sigmoid(hits), 0.5).toFloat() as tf.Tensor2D;
+    }
+
+    return tf.concat([hits, velocities, offsets], 1);
+  }
+}
+
+/**
+ * Split decoder that concatenates the outputs from its component decoders
+ * depth-wise.
+ */
+class SplitDecoder extends Decoder {
+  private coreDecoders: Decoder[];
+  readonly numDecoders: number;
+  readonly zDims: number;
+  readonly outputDims: num
