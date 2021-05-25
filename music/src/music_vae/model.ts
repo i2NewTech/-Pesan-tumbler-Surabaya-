@@ -506,4 +506,17 @@ class SplitDecoder extends Decoder {
   private coreDecoders: Decoder[];
   readonly numDecoders: number;
   readonly zDims: number;
-  readonly outputDims: num
+  readonly outputDims: number;
+
+  /**
+   * `SplitDecoder` contructor.
+   * @param coreDecoders Lower-level `Decoder` objects, each of which gets the
+   * same `z`.
+   */
+  constructor(coreDecoders: Decoder[]) {
+    super();
+    this.coreDecoders = coreDecoders;
+    this.numDecoders = this.coreDecoders.length;
+    this.zDims = this.coreDecoders[0].zDims;
+    this.outputDims =
+        this.coreDecode
