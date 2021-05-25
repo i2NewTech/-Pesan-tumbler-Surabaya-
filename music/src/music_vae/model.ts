@@ -482,4 +482,13 @@ class NadeDecoder extends BaseDecoder {
  */
 class GrooveDecoder extends BaseDecoder {
   sample(lstmOutput: tf.Tensor2D, temperature?: number): tf.Tensor2D {
-    let [hits, velocities, offsets] = tf.split(lstmOutput, 
+    let [hits, velocities, offsets] = tf.split(lstmOutput, 3, 1);
+
+    velocities = tf.sigmoid(velocities);
+    offsets = tf.tanh(offsets);
+    if (temperature) {
+      hits = tf.sigmoid(hits.div(tf.scalar(temperature))) as tf.Tensor2D;
+      const threshold = tf.randomUniform(hits.shape, 0, 1);
+      hits = tf.greater(hits, threshold).toFloat() as tf.Tensor2D;
+    } else {
+      hits = tf.greater(tf.sigmoid(hits)
