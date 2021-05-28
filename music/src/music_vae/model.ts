@@ -519,4 +519,12 @@ class SplitDecoder extends Decoder {
     this.numDecoders = this.coreDecoders.length;
     this.zDims = this.coreDecoders[0].zDims;
     this.outputDims =
-        this.coreDecode
+        this.coreDecoders.reduce((dims, dec) => dims + dec.outputDims, 0);
+  }
+
+  decodeSeparately(
+      z: tf.Tensor2D, length: number, initialInput?: tf.Tensor2D[],
+      temperature?: number, controls?: tf.Tensor2D): tf.Tensor3D[] {
+    const samples: tf.Tensor3D[] = [];
+    for (let i = 0; i < this.coreDecoders.length; ++i) {
+  
