@@ -538,4 +538,13 @@ class SplitDecoder extends Decoder {
    *
    * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.
    * @param length The length of decoded sequences.
-   * @param temperature (Op
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling from the logits. Argmax is used if not provided.
+   * @param controls (Optional) Control tensors to use for conditioning, sized
+   * `[length, controlDepth]`.
+   *
+   * @returns A boolean tensor containing the decoded sequences, shaped
+   * `[batchSize, length, depth]`.
+   */
+  decode(
+      z: tf
