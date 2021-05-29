@@ -527,4 +527,15 @@ class SplitDecoder extends Decoder {
       temperature?: number, controls?: tf.Tensor2D): tf.Tensor3D[] {
     const samples: tf.Tensor3D[] = [];
     for (let i = 0; i < this.coreDecoders.length; ++i) {
-  
+      samples.push(this.coreDecoders[i].decode(
+          z, length, initialInput[i], temperature, controls));
+    }
+    return samples;
+  }
+
+  /**
+   * Decodes a batch of latent vectors, `z`.
+   *
+   * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.
+   * @param length The length of decoded sequences.
+   * @param temperature (Op
