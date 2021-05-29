@@ -547,4 +547,16 @@ class SplitDecoder extends Decoder {
    * `[batchSize, length, depth]`.
    */
   decode(
-      z: tf
+      z: tf.Tensor2D, length: number, initialInput?: tf.Tensor2D,
+      temperature?: number, controls?: tf.Tensor2D) {
+    return tf.tidy(() => {
+      const samples: tf.Tensor3D[] = this.decodeSeparately(
+          z, length, this.coreDecoders.map(_ => initialInput), temperature,
+          controls);
+      return tf.concat(samples, -1);
+    });
+  }
+}
+
+/**
+ * Hierarchical decoder th
