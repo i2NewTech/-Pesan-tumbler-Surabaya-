@@ -559,4 +559,11 @@ class SplitDecoder extends Decoder {
 }
 
 /**
- * Hierarchical decoder th
+ * Hierarchical decoder that produces intermediate embeddings to pass to
+ * lower-level `Decoder` objects. The outputs from different decoders are
+ * concatenated depth-wise (axis 3), and the outputs from different steps of
+ * the conductor are concatenated across time (axis 1).
+ */
+class ConductorDecoder extends Decoder {
+  private splitDecoder: SplitDecoder;
+  private lstmCellVars: Lay
