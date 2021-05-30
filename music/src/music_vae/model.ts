@@ -583,4 +583,12 @@ class ConductorDecoder extends Decoder {
    * produce and pass to the lower-level decoder.
    */
   constructor(
-      coreDecoders: Decod
+      coreDecoders: Decoder[], lstmCellVars: LayerVars[],
+      zToInitStateVars: LayerVars, numSteps: number) {
+    super();
+    this.splitDecoder = new SplitDecoder(coreDecoders);
+    this.lstmCellVars = lstmCellVars;
+    this.zToInitStateVars = zToInitStateVars;
+    this.numSteps = numSteps;
+    this.zDims = this.zToInitStateVars.kernel.shape[0];
+    this.outputDims = this.splitDecode
