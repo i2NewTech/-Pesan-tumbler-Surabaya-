@@ -566,4 +566,14 @@ class SplitDecoder extends Decoder {
  */
 class ConductorDecoder extends Decoder {
   private splitDecoder: SplitDecoder;
-  private lstmCellVars: Lay
+  private lstmCellVars: LayerVars[];
+  private zToInitStateVars: LayerVars;
+  readonly numSteps: number;
+  readonly zDims: number;
+  readonly outputDims: number;
+
+  /**
+   * `Decoder` contructor.
+   * @param coreDecoders Lower-level `Decoder` objects to pass the conductor
+   * LSTM output embeddings to for further decoding.
+   * @param lstmCellVars The `LayerVars` 
