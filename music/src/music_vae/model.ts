@@ -591,4 +591,13 @@ class ConductorDecoder extends Decoder {
     this.zToInitStateVars = zToInitStateVars;
     this.numSteps = numSteps;
     this.zDims = this.zToInitStateVars.kernel.shape[0];
-    this.outputDims = this.splitDecode
+    this.outputDims = this.splitDecoder.outputDims;
+  }
+
+  /**
+   * Hierarchically decodes a batch of latent vectors, `z`.
+   *
+   * @param z A batch of latent vectors to decode, sized `[batchSize, zDims]`.
+   * @param length The length of decoded sequences.
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling from the logit
