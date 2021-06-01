@@ -609,4 +609,14 @@ class ConductorDecoder extends Decoder {
    */
   decode(
       z: tf.Tensor2D, length: number, initialInput?: tf.Tensor2D,
-      tem
+      temperature?: number, controls?: tf.Tensor2D) {
+    const batchSize = z.shape[0];
+
+    return tf.tidy(() => {
+      // Initialize LSTMCells.
+      const lstmCell =
+          initLstmCells(z, this.lstmCellVars, this.zToInitStateVars);
+
+      // Generate embeddings.
+      const samples: tf.Tensor3D[] = [];
+      let ini
