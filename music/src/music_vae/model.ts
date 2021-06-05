@@ -619,4 +619,9 @@ class ConductorDecoder extends Decoder {
 
       // Generate embeddings.
       const samples: tf.Tensor3D[] = [];
-      let ini
+      let initialInput: tf.Tensor2D[] =
+          new Array(this.splitDecoder.numDecoders).fill(undefined);
+      const dummyInput: tf.Tensor2D = tf.zeros([batchSize, 1]);
+      const splitControls: tf.Tensor2D[] | undefined =
+          controls ? tf.split(controls, this.numSteps) : undefined;
+      for (let i = 0; i < this.numSteps; ++
