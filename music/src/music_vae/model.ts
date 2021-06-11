@@ -624,4 +624,11 @@ class ConductorDecoder extends Decoder {
       const dummyInput: tf.Tensor2D = tf.zeros([batchSize, 1]);
       const splitControls: tf.Tensor2D[] | undefined =
           controls ? tf.split(controls, this.numSteps) : undefined;
-      for (let i = 0; i < this.numSteps; ++
+      for (let i = 0; i < this.numSteps; ++i) {
+        [lstmCell.c, lstmCell.h] =
+            tf.multiRNNCell(lstmCell.cell, dummyInput, lstmCell.c, lstmCell.h);
+        const currSamples = this.splitDecoder.decodeSeparately(
+            lstmCell.h[lstmCell.h.length - 1], length / this.numSteps,
+            initialInput, temperature,
+            splitControls ? splitControls[i] : undefined);
+        sa
