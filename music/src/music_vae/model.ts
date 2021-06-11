@@ -645,4 +645,17 @@ class ConductorDecoder extends Decoder {
 }
 
 /**
- *
+ * A Neural Autoregressive Distribution Estimator (NADE).
+ */
+class Nade {
+  encWeights: tf.Tensor2D;
+  decWeightsT: tf.Tensor2D;
+  numDims: number;
+  numHidden: number;
+
+  /**
+   * `Nade` contructor.
+   *
+   * @param encWeights The encoder weights (kernel), sized
+   * `[numDims, numHidden, 1]`.
+   * @param decWeightsT The transposed 
