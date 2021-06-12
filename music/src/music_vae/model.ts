@@ -658,4 +658,12 @@ class Nade {
    *
    * @param encWeights The encoder weights (kernel), sized
    * `[numDims, numHidden, 1]`.
-   * @param decWeightsT The transposed 
+   * @param decWeightsT The transposed decoder weights (kernel), sized
+   * `[numDims, numHidden, 1]`.
+   */
+  constructor(encWeights: tf.Tensor3D, decWeightsT: tf.Tensor3D) {
+    this.numDims = encWeights.shape[0];
+    this.numHidden = encWeights.shape[2];
+
+    this.encWeights = encWeights.as2D(this.numDims, this.numHidden);
+    this.decWeightsT = decWeightsT.as2D(this.numDims, this.numHidd
