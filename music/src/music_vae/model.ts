@@ -677,4 +677,15 @@ class Nade {
    * @param encBias A batch of biases to use when encoding, sized
    * `[batchSize, numHidden]`.
    * @param decBias A batch of biases to use when decoding, sized
-   * `[batchSize, numDims
+   * `[batchSize, numDims]`.
+   */
+  sample(encBias: tf.Tensor2D, decBias: tf.Tensor2D): tf.Tensor2D {
+    const batchSize = encBias.shape[0];
+    return tf.tidy(() => {
+      const samples: tf.Tensor1D[] = [];
+      let a = encBias.clone();
+
+      for (let i = 0; i < this.numDims; i++) {
+        const h = tf.sigmoid(a);
+        const encWeightsI =
+            this.encWeig
