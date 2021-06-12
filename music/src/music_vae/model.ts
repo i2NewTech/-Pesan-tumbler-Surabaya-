@@ -666,4 +666,15 @@ class Nade {
     this.numHidden = encWeights.shape[2];
 
     this.encWeights = encWeights.as2D(this.numDims, this.numHidden);
-    this.decWeightsT = decWeightsT.as2D(this.numDims, this.numHidd
+    this.decWeightsT = decWeightsT.as2D(this.numDims, this.numHidden);
+  }
+
+  /**
+   * Samples from the NADE given a batch of encoder and decoder biases.
+   *
+   * Selects the MAP (argmax) of each Bernoulli random variable.
+   *
+   * @param encBias A batch of biases to use when encoding, sized
+   * `[batchSize, numHidden]`.
+   * @param decBias A batch of biases to use when decoding, sized
+   * `[batchSize, numDims
