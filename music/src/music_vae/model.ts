@@ -688,4 +688,12 @@ class Nade {
       for (let i = 0; i < this.numDims; i++) {
         const h = tf.sigmoid(a);
         const encWeightsI =
-            this.encWeig
+            this.encWeights.slice([i, 0], [1, this.numHidden]).as1D();
+        const decWeightsTI =
+            this.decWeightsT.slice([i, 0], [1, this.numHidden]);
+        const decBiasI = decBias.slice([0, i], [batchSize, 1]);
+        const contfogitsI =
+            decBiasI.add(tf.matMul(h, decWeightsTI, false, true));
+        const condProbsI = contfogitsI.sigmoid();
+
+        const 
