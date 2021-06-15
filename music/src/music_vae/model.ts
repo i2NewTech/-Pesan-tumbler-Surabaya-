@@ -710,4 +710,19 @@ class Nade {
 }
 
 /**
- * Interface for JSON specification of a `MusicVAE` control
+ * Interface for JSON specification of a `MusicVAE` control signal (other than
+ * chords and key).
+ *
+ * @property name Name of the control signal.
+ * @property depth Expected depth of the control signal tensors.
+ */
+export interface MusicVAEControlSpec {
+  name: string;
+  depth: number;
+}
+
+/**
+ * Interface for JSON specification of a `MusicVAE` model.
+ *
+ * @property type The type of the model, `MusicVAE`.
+ *
