@@ -725,4 +725,11 @@ export interface MusicVAEControlSpec {
  * Interface for JSON specification of a `MusicVAE` model.
  *
  * @property type The type of the model, `MusicVAE`.
- *
+ * @property dataConverter: A `DataConverterSpec` specifying the data
+ * converter to use.
+ * @property useBooleanDecoder: If true, use a `BooleanDecoder` instead of a
+ * `CategoricalDecoder`.
+ * @property chordEncoder: (Optional) Type of chord encoder to use when
+ * conditioning on chords.
+ * @property conditionOnKey: If true, model is key-conditioned.
+ 
