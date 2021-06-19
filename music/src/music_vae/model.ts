@@ -751,4 +751,16 @@ export interface MusicVAESpec {
  * symbol strings like "Cmaj7", "Abdim", "C#m7", etc.
  * @property key (Optional) Key, an integer between 0 (C major / A minor) and 11
  * (B major / G# minor).
- * @property extraControls (Optional) Additional named control tenso
+ * @property extraControls (Optional) Additional named control tensors.
+ */
+export interface MusicVAEControlArgs {
+  chordProgression?: string[];
+  key?: number;
+  extraControls?: {[name: string]: tf.Tensor2D};
+}
+
+/**
+ * Main MusicVAE model class.
+ *
+ * A MusicVAE is a variational autoencoder made up of an `Encoder` and
+ * `Decoder`, along with a `DataConverter` for converting between `
