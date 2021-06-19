@@ -732,4 +732,17 @@ export interface MusicVAEControlSpec {
  * @property chordEncoder: (Optional) Type of chord encoder to use when
  * conditioning on chords.
  * @property conditionOnKey: If true, model is key-conditioned.
- 
+ * @property extraControls: (Optional) List of extra control signal names and
+ * depths.
+ */
+export interface MusicVAESpec {
+  type: 'MusicVAE';
+  dataConverter: data.ConverterSpec;
+  useBooleanDecoder: boolean;
+  chordEncoder?: chords.ChordEncoderType;
+  conditionOnKey: boolean;
+  extraControls?: MusicVAEControlSpec[];
+}
+
+/**
+ * Interface for conditionin
