@@ -745,4 +745,10 @@ export interface MusicVAESpec {
 }
 
 /**
- * Interface for conditionin
+ * Interface for conditioning arguments to MusicVAE functions.
+ *
+ * @property chordProgression (Optional) Chord progression, an array of chord
+ * symbol strings like "Cmaj7", "Abdim", "C#m7", etc.
+ * @property key (Optional) Key, an integer between 0 (C major / A minor) and 11
+ * (B major / G# minor).
+ * @property extraControls (Optional) Additional named control tenso
