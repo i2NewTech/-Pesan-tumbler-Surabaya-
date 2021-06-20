@@ -763,4 +763,17 @@ export interface MusicVAEControlArgs {
  * Main MusicVAE model class.
  *
  * A MusicVAE is a variational autoencoder made up of an `Encoder` and
- * `Decoder`, along with a `DataConverter` for converting between `
+ * `Decoder`, along with a `DataConverter` for converting between `Tensor`
+ * and `NoteSequence` objects for input and output.
+ *
+ * Exposes methods for interpolation and sampling of musical sequences.
+ */
+class MusicVAE {
+  private checkpointURL: string;
+  private spec: MusicVAESpec;
+
+  public dataConverter: data.DataConverter;
+  private chordEncoder?: chords.ChordEncoder;
+
+  private encoder: Encoder;
+  private decoder: Decode
