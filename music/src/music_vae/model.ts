@@ -776,4 +776,16 @@ class MusicVAE {
   private chordEncoder?: chords.ChordEncoder;
 
   private encoder: Encoder;
-  private decoder: Decode
+  private decoder: Decoder;
+  private rawVars: {[varName: string]: tf.Tensor};  // Store for disposal.
+
+  public zDims: number;
+
+  initialized = false;
+
+  /**
+   * `MusicVAE` constructor.
+   *
+   * @param checkpointURL Path to the checkpoint directory.
+   * @param spec (Optional) `MusicVAESpec` object. If undefined, will be
+   * loaded from a `config.json` file in t
