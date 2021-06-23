@@ -788,4 +788,16 @@ class MusicVAE {
    *
    * @param checkpointURL Path to the checkpoint directory.
    * @param spec (Optional) `MusicVAESpec` object. If undefined, will be
-   * loaded from a `config.json` file in t
+   * loaded from a `config.json` file in the checkpoint directory.
+   */
+  constructor(checkpointURL: string, spec?: MusicVAESpec) {
+    this.checkpointURL = checkpointURL;
+    this.spec = spec;
+  }
+
+  /**
+   * Instantiates data converter, attention length, chord encoder, and
+   * auxiliary inputs from the `MusicVAESpec`.
+   */
+  private instantiateFromSpec() {
+    thi
