@@ -800,4 +800,14 @@ class MusicVAE {
    * auxiliary inputs from the `MusicVAESpec`.
    */
   private instantiateFromSpec() {
-    thi
+    this.dataConverter = data.converterFromSpec(this.spec.dataConverter);
+    this.chordEncoder = this.spec.chordEncoder ?
+        chords.chordEncoderFromType(this.spec.chordEncoder) :
+        undefined;
+  }
+
+  /**
+   * Disposes of any untracked `Tensors` to avoid GPU memory leaks.
+   */
+  dispose() {
+    if (this.rawVars !== undefine
