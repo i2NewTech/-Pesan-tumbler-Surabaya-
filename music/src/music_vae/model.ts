@@ -810,4 +810,16 @@ class MusicVAE {
    * Disposes of any untracked `Tensors` to avoid GPU memory leaks.
    */
   dispose() {
-    if (this.rawVars !== undefine
+    if (this.rawVars !== undefined) {
+      Object.keys(this.rawVars).forEach(name => this.rawVars[name].dispose());
+    }
+    this.encoder = undefined;
+    this.decoder = undefined;
+    this.initialized = false;
+  }
+
+  private getLstmLayers(
+      cellFormat: string, vars: {[varName: string]: tf.Tensor}) {
+    const lstmLayers: LayerVars[] = [];
+    let l = 0;
+    while (tr
