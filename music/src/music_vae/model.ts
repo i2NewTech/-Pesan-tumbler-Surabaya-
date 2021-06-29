@@ -836,4 +836,16 @@ class MusicVAE {
   }
 
   /**
-   * Loads variables from the checkpo
+   * Loads variables from the checkpoint and instantiates the `Encoder` and
+   * `Decoder`.
+   */
+  async initialize() {
+    this.dispose();
+    const startTime = performance.now();
+
+    if (!this.spec) {
+      await fetch(`${this.checkpointURL}/config.json`)
+          .then((response) => response.json())
+          .then((spec) => {
+            if (spec.type !== 'MusicVAE') {
+              throw new 
