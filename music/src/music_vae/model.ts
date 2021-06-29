@@ -822,4 +822,18 @@ class MusicVAE {
       cellFormat: string, vars: {[varName: string]: tf.Tensor}) {
     const lstmLayers: LayerVars[] = [];
     let l = 0;
-    while (tr
+    while (true) {
+      const cellPrefix = cellFormat.replace('%d', l.toString());
+      if (!(cellPrefix + 'kernel' in vars)) {
+        break;
+      }
+      lstmLayers.push(new LayerVars(
+          vars[cellPrefix + 'kernel'] as tf.Tensor2D,
+          vars[cellPrefix + 'bias'] as tf.Tensor1D));
+      ++l;
+    }
+    return lstmLayers;
+  }
+
+  /**
+   * Loads variables from the checkpo
