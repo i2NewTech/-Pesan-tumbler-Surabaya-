@@ -848,4 +848,16 @@ class MusicVAE {
           .then((response) => response.json())
           .then((spec) => {
             if (spec.type !== 'MusicVAE') {
-              throw new 
+              throw new Error(
+                  `Attempted to instantiate MusicVAE model with incorrect type:
+                  ${spec.type}`);
+            }
+            this.spec = spec;
+          });
+    }
+
+    this.instantiateFromSpec();
+
+    const LSTM_CELL_FORMAT = 'cell_%d/lstm_cell/';
+    const MUTLI_LSTM_CELL_FORMAT = `multi_rnn_cell/${LSTM_CELL_FORMAT}`;
+    const
