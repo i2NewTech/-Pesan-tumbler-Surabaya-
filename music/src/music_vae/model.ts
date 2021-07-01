@@ -860,4 +860,10 @@ class MusicVAE {
 
     const LSTM_CELL_FORMAT = 'cell_%d/lstm_cell/';
     const MUTLI_LSTM_CELL_FORMAT = `multi_rnn_cell/${LSTM_CELL_FORMAT}`;
-    const
+    const CONDUCTOR_PREFIX = 'decoder/hierarchical_level_0/';
+    const BIDI_LSTM_CELL =
+        'cell_%d/bidirectional_rnn/%s/multi_rnn_cell/cell_0/lstm_cell/';
+    const ENCODER_FORMAT = `encoder/${BIDI_LSTM_CELL}`;
+    const HIER_ENCODER_FORMAT =
+        `encoder/hierarchical_level_%d/${BIDI_LSTM_CELL.replace('%d', '0')}`;
+    const CONTROL_
