@@ -873,4 +873,13 @@ class MusicVAE {
                      .then(
                          (manifest: tf.io.WeightsManifestConfig) =>
                              tf.io.loadWeights(manifest, this.checkpointURL));
-  
+    this.rawVars = vars;  // Save for disposal.
+
+    // Encoder variables.
+    const encMu = new LayerVars(
+        vars['encoder/mu/kernel'] as tf.Tensor2D,
+        vars['encoder/mu/bias'] as tf.Tensor1D);
+
+    if (this.dataConverter.numSegments) {
+      const fwLayers =
+          this.getLstmLayers(HIER_ENCODER_FORMAT.r
