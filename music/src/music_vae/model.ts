@@ -882,4 +882,11 @@ class MusicVAE {
 
     if (this.dataConverter.numSegments) {
       const fwLayers =
-          this.getLstmLayers(HIER_ENCODER_FORMAT.r
+          this.getLstmLayers(HIER_ENCODER_FORMAT.replace('%s', 'fw'), vars);
+      const bwLayers =
+          this.getLstmLayers(HIER_ENCODER_FORMAT.replace('%s', 'bw'), vars);
+
+      if (fwLayers.length !== bwLayers.length || fwLayers.length !== 2) {
+        throw Error(
+            'Only 2 hierarchical encoder levels are supported. ' +
+            `Got ${fwLayers.le
