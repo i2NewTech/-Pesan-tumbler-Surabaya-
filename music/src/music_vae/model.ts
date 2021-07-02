@@ -866,4 +866,11 @@ class MusicVAE {
     const ENCODER_FORMAT = `encoder/${BIDI_LSTM_CELL}`;
     const HIER_ENCODER_FORMAT =
         `encoder/hierarchical_level_%d/${BIDI_LSTM_CELL.replace('%d', '0')}`;
-    const CONTROL_
+    const CONTROL_BIDI_LSTM_CELL = `control_preprocessing/${BIDI_LSTM_CELL}`;
+
+    const vars = await fetch(`${this.checkpointURL}/weights_manifest.json`)
+                     .then((response) => response.json())
+                     .then(
+                         (manifest: tf.io.WeightsManifestConfig) =>
+                             tf.io.loadWeights(manifest, this.checkpointURL));
+  
