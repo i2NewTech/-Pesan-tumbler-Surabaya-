@@ -889,4 +889,10 @@ class MusicVAE {
       if (fwLayers.length !== bwLayers.length || fwLayers.length !== 2) {
         throw Error(
             'Only 2 hierarchical encoder levels are supported. ' +
-            `Got ${fwLayers.le
+            `Got ${fwLayers.length} forward and ${bwLayers.length} ` +
+            'backward.');
+      }
+      const baseEncoders: BidirectionalLstmEncoder[] = [0, 1].map(
+          l => new BidirectionalLstmEncoder(fwLayers[l], bwLayers[l]));
+      this.encoder = new HierarchicalEncoder(
+          baseEncoders, [this.dataConverter.numSegments, 1], 
