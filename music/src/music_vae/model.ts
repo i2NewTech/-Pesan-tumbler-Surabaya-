@@ -914,4 +914,13 @@ class MusicVAE {
 
     // Whether or not we have variables for bidirectional control preprocessing.
     const hasControlBidiLayers = `${
-                  
+                                     CONTROL_BIDI_LSTM_CELL.replace('%s', 'fw')
+                                         .replace('%d', '0')}kernel` in vars;
+
+    // BaseDecoder variables.
+    const decVarPrefix =
+        (this.dataConverter.numSegments) ? 'core_decoder/' : '';
+
+    const decVarPrefixes: string[] = [];
+    if (this.dataConverter.NUM_SPLITS) {
+      for (let i =
