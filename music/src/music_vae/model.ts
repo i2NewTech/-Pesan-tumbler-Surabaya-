@@ -904,4 +904,14 @@ class MusicVAE {
           this.getLstmLayers(ENCODER_FORMAT.replace('%s', 'bw'), vars);
       if (fwLayers.length !== bwLayers.length || fwLayers.length !== 1) {
         throw Error(
-            'Only single-layer bidirectional encod
+            'Only single-layer bidirectional encoders are supported. ' +
+            `Got ${fwLayers.length} forward and ${bwLayers.length} ` +
+            'backward.');
+      }
+      this.encoder =
+          new BidirectionalLstmEncoder(fwLayers[0], bwLayers[0], encMu);
+    }
+
+    // Whether or not we have variables for bidirectional control preprocessing.
+    const hasControlBidiLayers = `${
+                  
