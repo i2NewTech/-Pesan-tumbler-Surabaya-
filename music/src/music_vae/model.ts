@@ -895,4 +895,13 @@ class MusicVAE {
       const baseEncoders: BidirectionalLstmEncoder[] = [0, 1].map(
           l => new BidirectionalLstmEncoder(fwLayers[l], bwLayers[l]));
       this.encoder = new HierarchicalEncoder(
-          baseEncoders, [this.dataConverter.numSegments, 1], 
+          baseEncoders, [this.dataConverter.numSegments, 1], encMu);
+
+    } else {
+      const fwLayers =
+          this.getLstmLayers(ENCODER_FORMAT.replace('%s', 'fw'), vars);
+      const bwLayers =
+          this.getLstmLayers(ENCODER_FORMAT.replace('%s', 'bw'), vars);
+      if (fwLayers.length !== bwLayers.length || fwLayers.length !== 1) {
+        throw Error(
+            'Only single-layer bidirectional encod
