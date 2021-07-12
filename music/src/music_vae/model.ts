@@ -923,4 +923,14 @@ class MusicVAE {
 
     const decVarPrefixes: string[] = [];
     if (this.dataConverter.NUM_SPLITS) {
-      for (let i =
+      for (let i = 0; i < this.dataConverter.NUM_SPLITS; ++i) {
+        decVarPrefixes.push(`${decVarPrefix}core_decoder_${i}/decoder/`);
+      }
+    } else {
+      decVarPrefixes.push(`${decVarPrefix}decoder/`);
+    }
+
+    let controlLstmFwLayers: LayerVars[] = [null];
+    let controlLstmBwLayers: LayerVars[] = [null];
+    if (hasControlBidiLayers) {
+      controlLstmFwLay
