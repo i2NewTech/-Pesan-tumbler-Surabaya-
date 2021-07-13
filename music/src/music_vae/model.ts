@@ -939,4 +939,13 @@ class MusicVAE {
           this.getLstmLayers(CONTROL_BIDI_LSTM_CELL.replace('%s', 'bw'), vars);
       if (controlLstmFwLayers.length !== controlLstmBwLayers.length ||
           controlLstmFwLayers.length !== 1) {
-        throw
+        throw Error(
+            'Only single-layer bidirectional control preprocessing is ' +
+            'supported. Got ' +
+            `${controlLstmFwLayers.length} forward and ${
+                controlLstmBwLayers.length} backward.`);
+      }
+    }
+
+    const baseDecoders = decVarPrefixes.map((varPrefix) => {
+      const d
