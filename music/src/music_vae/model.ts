@@ -933,4 +933,10 @@ class MusicVAE {
     let controlLstmFwLayers: LayerVars[] = [null];
     let controlLstmBwLayers: LayerVars[] = [null];
     if (hasControlBidiLayers) {
-      controlLstmFwLay
+      controlLstmFwLayers =
+          this.getLstmLayers(CONTROL_BIDI_LSTM_CELL.replace('%s', 'fw'), vars);
+      controlLstmBwLayers =
+          this.getLstmLayers(CONTROL_BIDI_LSTM_CELL.replace('%s', 'bw'), vars);
+      if (controlLstmFwLayers.length !== controlLstmBwLayers.length ||
+          controlLstmFwLayers.length !== 1) {
+        throw
