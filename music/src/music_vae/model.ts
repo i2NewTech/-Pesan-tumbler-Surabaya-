@@ -948,4 +948,10 @@ class MusicVAE {
     }
 
     const baseDecoders = decVarPrefixes.map((varPrefix) => {
-      const d
+      const decLstmLayers =
+          this.getLstmLayers(varPrefix + MUTLI_LSTM_CELL_FORMAT, vars);
+      const decZtoInitState = new LayerVars(
+          vars[`${varPrefix}z_to_initial_state/kernel`] as tf.Tensor2D,
+          vars[`${varPrefix}z_to_initial_state/bias`] as tf.Tensor1D);
+      const decOutputProjection = new LayerVars(
+          vars[`${varPr
