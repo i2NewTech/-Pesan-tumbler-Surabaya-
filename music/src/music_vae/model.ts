@@ -954,4 +954,11 @@ class MusicVAE {
           vars[`${varPrefix}z_to_initial_state/kernel`] as tf.Tensor2D,
           vars[`${varPrefix}z_to_initial_state/bias`] as tf.Tensor1D);
       const decOutputProjection = new LayerVars(
-          vars[`${varPr
+          vars[`${varPrefix}output_projection/kernel`] as tf.Tensor2D,
+          vars[`${varPrefix}output_projection/bias`] as tf.Tensor1D);
+
+      if (`${varPrefix}nade/w_enc` in vars) {
+        return new NadeDecoder(
+                   decLstmLayers, decZtoInitState, decOutputProjection,
+                   new Nade(
+                       vars[`${varPre
