@@ -961,4 +961,9 @@ class MusicVAE {
         return new NadeDecoder(
                    decLstmLayers, decZtoInitState, decOutputProjection,
                    new Nade(
-                       vars[`${varPre
+                       vars[`${varPrefix}nade/w_enc`] as tf.Tensor3D,
+                       vars[`${varPrefix}nade/w_dec_t`] as tf.Tensor3D),
+                   controlLstmFwLayers[0], controlLstmBwLayers[0]) as Decoder;
+      } else if (this.spec.dataConverter.type === 'GrooveConverter') {
+        return new GrooveDecoder(
+                   decLstmLayers, decZtoInitSta
