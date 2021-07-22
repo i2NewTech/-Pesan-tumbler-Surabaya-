@@ -972,4 +972,15 @@ class MusicVAE {
       } else if (this.spec.useBooleanDecoder) {
         return new BooleanDecoder(
             decLstmLayers, decZtoInitState, decOutputProjection, undefined,
-            controlLstmFwLayers[0], cont
+            controlLstmFwLayers[0], controlLstmBwLayers[0]);
+      } else {
+        return new CategoricalDecoder(
+                   decLstmLayers, decZtoInitState, decOutputProjection,
+                   undefined, controlLstmFwLayers[0], controlLstmBwLayers[0]) as
+            Decoder;
+      }
+    });
+
+    // ConductorDecoder variables.
+    if (this.dataConverter.numSegments) {
+      const condL
