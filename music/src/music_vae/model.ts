@@ -966,4 +966,10 @@ class MusicVAE {
                    controlLstmFwLayers[0], controlLstmBwLayers[0]) as Decoder;
       } else if (this.spec.dataConverter.type === 'GrooveConverter') {
         return new GrooveDecoder(
-                   decLstmLayers, decZtoInitSta
+                   decLstmLayers, decZtoInitState, decOutputProjection,
+                   undefined, controlLstmFwLayers[0], controlLstmBwLayers[0]) as
+            Decoder;
+      } else if (this.spec.useBooleanDecoder) {
+        return new BooleanDecoder(
+            decLstmLayers, decZtoInitState, decOutputProjection, undefined,
+            controlLstmFwLayers[0], cont
