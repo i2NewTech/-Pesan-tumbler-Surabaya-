@@ -989,4 +989,15 @@ class MusicVAE {
           vars[`${CONDUCTOR_PREFIX}initial_state/kernel`] as tf.Tensor2D,
           vars[`${CONDUCTOR_PREFIX}initial_state/bias`] as tf.Tensor1D);
       this.decoder = new ConductorDecoder(
-     
+          baseDecoders, condLstmLayers, condZtoInitState,
+          this.dataConverter.numSegments);
+    } else if (baseDecoders.length === 1) {
+      this.decoder = baseDecoders[0];
+    } else {
+      this.decoder = new SplitDecoder(baseDecoders);
+    }
+
+    this.zDims = this.decoder.zDims;
+
+    this.initialized = true;
+    logging.l
