@@ -983,4 +983,10 @@ class MusicVAE {
 
     // ConductorDecoder variables.
     if (this.dataConverter.numSegments) {
-      const condL
+      const condLstmLayers =
+          this.getLstmLayers(CONDUCTOR_PREFIX + LSTM_CELL_FORMAT, vars);
+      const condZtoInitState = new LayerVars(
+          vars[`${CONDUCTOR_PREFIX}initial_state/kernel`] as tf.Tensor2D,
+          vars[`${CONDUCTOR_PREFIX}initial_state/bias`] as tf.Tensor1D);
+      this.decoder = new ConductorDecoder(
+     
