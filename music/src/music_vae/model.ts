@@ -1000,4 +1000,18 @@ class MusicVAE {
     this.zDims = this.decoder.zDims;
 
     this.initialized = true;
-    logging.l
+    logging.logWithDuration('Initialized model', startTime, 'MusicVAE');
+  }
+
+  /**
+   * Returns true iff model is intialized.
+   */
+  isInitialized() {
+    return this.initialized;
+  }
+
+  /**
+   * Check MusicVAEControlArgs against model configuration for compatibility.
+   */
+  private checkControlArgs(controlArgs: MusicVAEControlArgs) {
+    controlArgs = controlAr
