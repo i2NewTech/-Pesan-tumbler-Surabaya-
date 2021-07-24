@@ -1023,4 +1023,13 @@ class MusicVAE {
     if (!this.chordEncoder && controlArgs.chordProgression) {
       throw new Error('Unexpected chord progression provided.');
     }
-    if (this.chordEncoder && this.
+    if (this.chordEncoder && this.dataConverter.endTensor &&
+        controlArgs.chordProgression.length > 1) {
+      throw new Error(
+          'Multiple chords not supported when using variable-length segments.');
+    }
+
+    if (this.spec.conditionOnKey && controlArgs.key == null) {
+      throw new Error('Key expected but not provided.');
+    }
+    if (!this
