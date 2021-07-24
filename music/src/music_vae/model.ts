@@ -1041,4 +1041,11 @@ class MusicVAE {
     if (this.spec.extraControls) {
       for (const controlSpec of this.spec.extraControls) {
         if (controlSpec.name in extraControls) {
-          if (e
+          if (extraControls[controlSpec.name].shape[1] !== controlSpec.depth) {
+            throw new Error(
+                `Control signal ${controlSpec.name} has invalid depth: ${
+                    extraControls[controlSpec.name].shape[1]} != ${
+                    controlSpec.depth}`);
+          }
+        } else {
+        
