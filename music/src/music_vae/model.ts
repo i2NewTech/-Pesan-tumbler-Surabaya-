@@ -1014,4 +1014,13 @@ class MusicVAE {
    * Check MusicVAEControlArgs against model configuration for compatibility.
    */
   private checkControlArgs(controlArgs: MusicVAEControlArgs) {
-    controlArgs = controlAr
+    controlArgs = controlArgs || {};
+    const extraControls = controlArgs.extraControls || {};
+
+    if (this.chordEncoder && !controlArgs.chordProgression) {
+      throw new Error('Chord progression expected but not provided.');
+    }
+    if (!this.chordEncoder && controlArgs.chordProgression) {
+      throw new Error('Unexpected chord progression provided.');
+    }
+    if (this.chordEncoder && this.
