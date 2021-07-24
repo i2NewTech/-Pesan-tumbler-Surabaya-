@@ -1032,4 +1032,13 @@ class MusicVAE {
     if (this.spec.conditionOnKey && controlArgs.key == null) {
       throw new Error('Key expected but not provided.');
     }
-    if (!this
+    if (!this.spec.conditionOnKey && controlArgs.key != null) {
+      throw new Error('Unexpected key provided.');
+    }
+
+    // Make sure all control signals from the spec are present and have the
+    // correct depths.
+    if (this.spec.extraControls) {
+      for (const controlSpec of this.spec.extraControls) {
+        if (controlSpec.name in extraControls) {
+          if (e
