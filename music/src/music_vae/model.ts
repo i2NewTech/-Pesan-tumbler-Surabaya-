@@ -1048,4 +1048,14 @@ class MusicVAE {
                     controlSpec.depth}`);
           }
         } else {
-        
+          throw new Error(`Missing control signal: ${controlSpec.name}`);
+        }
+      }
+    }
+
+    // Warn about any extraneous control signals.
+    const controlNames = this.spec.extraControls ?
+        new Set<string>(
+            this.spec.extraControls.map((controlSpec) => controlSpec.name)) :
+        new Set<string>();
+    for (const nam
