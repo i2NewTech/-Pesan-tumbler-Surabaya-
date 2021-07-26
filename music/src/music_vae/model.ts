@@ -1058,4 +1058,17 @@ class MusicVAE {
         new Set<string>(
             this.spec.extraControls.map((controlSpec) => controlSpec.name)) :
         new Set<string>();
-    for (const nam
+    for (const name in extraControls) {
+      if (!controlNames.has(name)) {
+        logging.log(
+            `Unspecified control signal provided: ${name}`, 'MusicVAE',
+            logging.Level.WARN);
+      }
+    }
+  }
+
+  /**
+   * Convert MusicVAEControlArgs to `Tensor` (`numSteps`-by-`controlDepth`) to
+   * use as conditioning.
+   */
+  private controlArgsToTen
