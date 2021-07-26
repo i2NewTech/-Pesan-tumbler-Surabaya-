@@ -1082,4 +1082,13 @@ class MusicVAE {
             this.encodeChordProgression(controlArgs.chordProgression);
         controls.push(encodedChords);
       }
-      if (
+      if (controlArgs.key != null) {
+        const encodedKey =
+            tf.oneHot(
+                tf.fill(
+                    [this.dataConverter.numSteps], controlArgs.key, 'int32'),
+                12) as tf.Tensor2D;
+        controls.push(encodedKey);
+      }
+      if (controlArgs.extraControls) {
+        for (const controlSpec
