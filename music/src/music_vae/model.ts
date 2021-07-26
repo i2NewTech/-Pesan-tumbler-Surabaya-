@@ -1091,4 +1091,17 @@ class MusicVAE {
         controls.push(encodedKey);
       }
       if (controlArgs.extraControls) {
-        for (const controlSpec
+        for (const controlSpec of this.spec.extraControls) {
+          controls.push(controlArgs.extraControls[controlSpec.name]);
+        }
+      }
+
+      // Concatenate controls depthwise.
+      return controls.length ? tf.concat2d(controls, 1) : undefined;
+    });
+  }
+
+  /**
+   * Interpolates between the input `Tensor`s in latent space.
+   *
+   * If 2 sequences 
