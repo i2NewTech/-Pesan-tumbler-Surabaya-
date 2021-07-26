@@ -1071,4 +1071,15 @@ class MusicVAE {
    * Convert MusicVAEControlArgs to `Tensor` (`numSteps`-by-`controlDepth`) to
    * use as conditioning.
    */
-  private controlArgsToTen
+  private controlArgsToTensor(controlArgs: MusicVAEControlArgs): tf.Tensor2D {
+    controlArgs = controlArgs || {};
+
+    return tf.tidy(() => {
+      const controls: tf.Tensor2D[] = [];
+
+      if (controlArgs.chordProgression) {
+        const encodedChords =
+            this.encodeChordProgression(controlArgs.chordProgression);
+        controls.push(encodedChords);
+      }
+      if (
