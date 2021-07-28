@@ -1110,4 +1110,13 @@ class MusicVAE {
    * `numInterps` total sequences.
    *
    * If 4 sequences are given, bilinear interpolation is used. The results
-   * are returned in 
+   * are returned in row-major order for a matrix with the following layout:
+   *   | A . . C |
+   *   | . . . . |
+   *   | . . . . |
+   *   | B . . D |
+   * where the letters represent the reconstructions of the four inputs, in
+   * alphabetical order, with the number of output columns and rows specified
+   * by `numInterps`.
+   *
+   * @param inputTensors A 3D `Tensor` containing 2 
