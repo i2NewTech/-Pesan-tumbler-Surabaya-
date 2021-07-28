@@ -1119,4 +1119,10 @@ class MusicVAE {
    * alphabetical order, with the number of output columns and rows specified
    * by `numInterps`.
    *
-   * @param inputTensors A 3D `Tensor` containing 2 
+   * @param inputTensors A 3D `Tensor` containing 2 or 4 sequences to
+   * interpolate between.
+   * @param numInterps The number of pairwise interpolation sequences to
+   * return, including the reconstructions. If 4 inputs are given, this can be
+   * either a single number specifying the side length of a square, or a
+   * `[columnCount, rowCount]` array to specify a rectangle.
+   * @para
