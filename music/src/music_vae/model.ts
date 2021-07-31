@@ -1125,4 +1125,12 @@ class MusicVAE {
    * return, including the reconstructions. If 4 inputs are given, this can be
    * either a single number specifying the side length of a square, or a
    * `[columnCount, rowCount]` array to specify a rectangle.
-   * @para
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling from the logits. Argmax is used if not provided.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns A 3D `Tensor` of interpolations.
+   */
+  async interpolateTensors(
+      inputTensors: tf.Tensor3D, numInterps: number|number[],
