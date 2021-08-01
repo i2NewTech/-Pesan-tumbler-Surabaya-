@@ -1134,3 +1134,12 @@ class MusicVAE {
    */
   async interpolateTensors(
       inputTensors: tf.Tensor3D, numInterps: number|number[],
+      temperature?: number, controlArgs?: MusicVAEControlArgs) {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const inputZs = await this.encodeTensors(inputTensors, controlArgs);
+    const interpZs = tf.tidy(() => this.getInterpolatedZs(inputZs, numInterps));
+    inputZs.dispose();
+    const outputTensors =
+        await this.
