@@ -1142,4 +1142,13 @@ class MusicVAE {
     const interpZs = tf.tidy(() => this.getInterpolatedZs(inputZs, numInterps));
     inputZs.dispose();
     const outputTensors =
-        await this.
+        await this.decodeTensors(interpZs, temperature, controlArgs);
+    interpZs.dispose();
+    return outputTensors;
+  }
+
+  /**
+   * Interpolates between the input `NoteSequence`s in latent space.
+   *
+   * If 2 sequences are given, a single linear interpolation is computed,
+   * with the first output sequence being a reconstruction of sequence 
