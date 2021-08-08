@@ -1168,4 +1168,9 @@ class MusicVAE {
    * @param inputSequences An array of 2 or 4 `NoteSequence`s to interpolate
    * between.
    * @param numInterps The number of pairwise interpolation sequences to
-   * return, i
+   * return, including the reconstructions. If 4 inputs are given, this can be
+   * either a single number specifying the side length of a square, or a
+   * `[columnCount, rowCount]` array to specify a rectangle.
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling from the logits. Argmax is used if not provided.
+   * @param co
