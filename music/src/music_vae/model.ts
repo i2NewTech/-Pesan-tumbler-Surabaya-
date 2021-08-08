@@ -1173,4 +1173,13 @@ class MusicVAE {
    * `[columnCount, rowCount]` array to specify a rectangle.
    * @param temperature (Optional) The softmax temperature to use when
    * sampling from the logits. Argmax is used if not provided.
-   * @param co
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns An array of interpolation `NoteSequence` objects, as described
+   * above.
+   */
+  async interpolate(
+      inputSequences: INoteSequence[], numInterps: number|number[],
+      temperature?: number, controlArgs?: MusicVAEControlArgs) {
+    this.checkControlArgs(co
