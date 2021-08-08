@@ -1151,4 +1151,14 @@ class MusicVAE {
    * Interpolates between the input `NoteSequence`s in latent space.
    *
    * If 2 sequences are given, a single linear interpolation is computed,
-   * with the first output sequence being a reconstruction of sequence 
+   * with the first output sequence being a reconstruction of sequence A and
+   * the final output being a reconstruction of sequence B, with
+   * `numInterps` total sequences.
+   *
+   * If 4 sequences are given, bilinear interpolation is used. The results
+   * are returned in row-major order for a matrix with the following layout:
+   *   | A . . C |
+   *   | . . . . |
+   *   | . . . . |
+   *   | B . . D |
+ 
