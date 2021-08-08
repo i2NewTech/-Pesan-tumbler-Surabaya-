@@ -1161,4 +1161,11 @@ class MusicVAE {
    *   | . . . . |
    *   | . . . . |
    *   | B . . D |
- 
+   * where the letters represent the reconstructions of the four inputs, in
+   * alphabetical order, with the number of output columns and rows specified
+   * by `numInterps`.
+   *
+   * @param inputSequences An array of 2 or 4 `NoteSequence`s to interpolate
+   * between.
+   * @param numInterps The number of pairwise interpolation sequences to
+   * return, i
