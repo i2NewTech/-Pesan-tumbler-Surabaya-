@@ -1206,4 +1206,15 @@ class MusicVAE {
    * Get segment lengths for variable-length segments.
    */
   private async getSegmentLengths(inputTensors: tf.Tensor3D) {
-    if (inputTensors.shape[0
+    if (inputTensors.shape[0] > 1) {
+      throw new Error(
+          'Variable-length segments not supported for batch size > 1.');
+    }
+
+    const numSteps = this.dataConverter.numSteps;
+    const numSegments = this.dataConverter.numSegments;
+
+    // Determine the segment lengths by finding the `endTensor` sentinel
+    // value.
+    const isEndTensor: tf.Tensor1D = tf.tidy(
+        () => tf.min
