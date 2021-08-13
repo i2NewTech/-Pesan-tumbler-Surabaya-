@@ -1182,4 +1182,16 @@ class MusicVAE {
   async interpolate(
       inputSequences: INoteSequence[], numInterps: number|number[],
       temperature?: number, controlArgs?: MusicVAEControlArgs) {
-    this.checkControlArgs(co
+    this.checkControlArgs(controlArgs);
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const startTime = 0;
+
+    const inputZs = await this.encode(inputSequences, controlArgs);
+    const interpZs = tf.tidy(() => this.getInterpolatedZs(inputZs, numInterps));
+    inputZs.dispose();
+
+    const outputSequences = this.decode(interpZs, temperature, controlArgs);
+    interpZs.dispose()
