@@ -1194,4 +1194,16 @@ class MusicVAE {
     inputZs.dispose();
 
     const outputSequences = this.decode(interpZs, temperature, controlArgs);
-    interpZs.dispose()
+    interpZs.dispose();
+    outputSequences.then(
+        () => logging.logWithDuration(
+            'Interpolation completed', startTime, 'MusicVAE',
+            logging.Level.DEBUG));
+    return outputSequences;
+  }
+
+  /**
+   * Get segment lengths for variable-length segments.
+   */
+  private async getSegmentLengths(inputTensors: tf.Tensor3D) {
+    if (inputTensors.shape[0
