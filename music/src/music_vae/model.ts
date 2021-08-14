@@ -1217,4 +1217,15 @@ class MusicVAE {
     // Determine the segment lengths by finding the `endTensor` sentinel
     // value.
     const isEndTensor: tf.Tensor1D = tf.tidy(
-        () => tf.min
+        () => tf.min(
+            tf.equal(
+                inputTensors.squeeze([0]),
+                this.dataConverter.endTensor.expandDims(0)),
+            1));
+    const isEndArray = await isEndTensor.data();
+    isEndTensor.dispose();
+
+    const maxSegmentLength = numSteps / numSegments;
+    const segmentLengths = [];
+
+    // The data converter pads
