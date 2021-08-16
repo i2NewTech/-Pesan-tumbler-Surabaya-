@@ -1235,4 +1235,18 @@ class MusicVAE {
     let fromIndex = isEndArray.indexOf(1);
     while (fromIndex !== -1) {
       segmentLengths.push(fromIndex - offset + 1);
-      offset += maxSegmentLe
+      offset += maxSegmentLength;
+      fromIndex = isEndArray.indexOf(1, offset);
+    }
+
+    if (segmentLengths.length !== numSegments) {
+      throw new Error(`Incorrect number of segments: ${
+          segmentLengths.length} != ${numSegments}`);
+    }
+
+    return segmentLengths;
+  }
+
+  /**
+   * Construct the chord-conditioning tensors. For models where each segment
+   * is a separa
