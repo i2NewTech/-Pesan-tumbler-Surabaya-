@@ -1228,4 +1228,11 @@ class MusicVAE {
     const maxSegmentLength = numSteps / numSegments;
     const segmentLengths = [];
 
-    // The data converter pads
+    // The data converter pads each segment to the maximum length. We need to
+    // look for exactly one "end tensor" per segment to determine its actual
+    // length.
+    let offset = 0;
+    let fromIndex = isEndArray.indexOf(1);
+    while (fromIndex !== -1) {
+      segmentLengths.push(fromIndex - offset + 1);
+      offset += maxSegmentLe
