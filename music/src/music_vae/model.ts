@@ -1249,4 +1249,12 @@ class MusicVAE {
 
   /**
    * Construct the chord-conditioning tensors. For models where each segment
-   * is a separa
+   * is a separate track, the same chords should be used for each segment.
+   * Additionally, "no-chord" should be used for the first step (the
+   * instrument- select / skip-track step).
+   */
+  private encodeChordProgression(chordProgression: string[]) {
+    const numSteps = this.dataConverter.numSteps;
+    const numSegments = this.dataConverter.numSegments;
+
+   
