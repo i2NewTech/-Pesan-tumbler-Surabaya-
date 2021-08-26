@@ -1265,3 +1265,13 @@ class MusicVAE {
             [
               this.chordEncoder.encode(constants.NO_CHORD)
                 .expandDims(0) as tf.Tensor2D,
+              this.chordEncoder.encodeProgression(
+                  chordProgression, numChordSteps - 1)
+            ],
+            0) :
+        this.chordEncoder.encodeProgression(chordProgression, numChordSteps);
+    return this.dataConverter.SEGMENTED_BY_TRACK ?
+        tf.tile(encodedChordProgression, [numSegments, 1]) :
+        encodedChordProgression;
+  }
+
