@@ -1257,4 +1257,11 @@ class MusicVAE {
     const numSteps = this.dataConverter.numSteps;
     const numSegments = this.dataConverter.numSegments;
 
-   
+    const numChordSteps = this.dataConverter.SEGMENTED_BY_TRACK ?
+        numSteps / numSegments :
+        numSteps;
+    const encodedChordProgression = this.dataConverter.SEGMENTED_BY_TRACK ?
+        tf.concat2d(
+            [
+              this.chordEncoder.encode(constants.NO_CHORD)
+                .expandDims(0) as tf.Tensor2D,
