@@ -1275,3 +1275,23 @@ class MusicVAE {
         encodedChordProgression;
   }
 
+  /**
+   * Encodes the input `Tensor`s into latent vectors.
+   *
+   * @param inputTensors A 3D `Tensor` of sequences to encode.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   * @returns A `Tensor` containing the batch of latent vectors, sized
+   * `[inputTensors.shape[0], zSize]`.
+   */
+  async encodeTensors(
+      inputTensors: tf.Tensor3D, controlArgs: MusicVAEControlArgs) {
+    this.checkControlArgs(controlArgs);
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const segmentLengths = this.dataConverter.endTensor ?
+        await this.getSegmentLengths(inputTensors) :
+        undef
