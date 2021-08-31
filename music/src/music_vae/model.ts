@@ -1304,4 +1304,11 @@ class MusicVAE {
       const inputsAndControls: tf.Tensor3D[] = [inputTensors];
       if (controlTensor) {
         const tiles = tf.tile(
-          tf.expandDims
+          tf.expandDims(controlTensor, 0),
+            [inputTensors.shape[0], 1, 1]) as tf.Tensor3D;
+        inputsAndControls.push(tiles);
+      }
+      const inputTensorsWithControls = tf.concat3d(inputsAndControls, 2);
+
+      // Use the mean `mu` of the latent variable as the best estimate of `z`.
+      return this.encoder.encode(inputTensorsW
