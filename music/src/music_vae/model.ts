@@ -1294,4 +1294,14 @@ class MusicVAE {
 
     const segmentLengths = this.dataConverter.endTensor ?
         await this.getSegmentLengths(inputTensors) :
-        undef
+        undefined;
+
+    return tf.tidy(() => {
+      const controlTensor = this.controlArgsToTensor(controlArgs);
+
+      // Stack input tensors and control tensor (with batch dimension added)
+      // depthwise.
+      const inputsAndControls: tf.Tensor3D[] = [inputTensors];
+      if (controlTensor) {
+        const tiles = tf.tile(
+          tf.expandDims
