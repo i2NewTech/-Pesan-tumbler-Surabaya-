@@ -1311,4 +1311,15 @@ class MusicVAE {
       const inputTensorsWithControls = tf.concat3d(inputsAndControls, 2);
 
       // Use the mean `mu` of the latent variable as the best estimate of `z`.
-      return this.encoder.encode(inputTensorsW
+      return this.encoder.encode(inputTensorsWithControls, segmentLengths);
+    });
+  }
+
+  /**
+   * Encodes the input `NoteSequence`s into latent vectors.
+   *
+   * @param inputSequences An array of `NoteSequence`s to encode.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns A `Tensor` containing the batch of latent vect
