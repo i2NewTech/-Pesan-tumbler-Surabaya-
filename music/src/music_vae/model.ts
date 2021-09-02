@@ -1350,4 +1350,12 @@ class MusicVAE {
   /**
    * Decodes the input latent vectors into tensors.
    *
-   * @param
+   * @param z The latent vectors to decode, sized `[batchSize, zSize]`.
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling. The argmax is used if not provided.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns The decoded tensors.
+   */
+  async decodeTensor
