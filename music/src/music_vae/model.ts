@@ -1335,4 +1335,19 @@ class MusicVAE {
 
     const inputTensors = tf.tidy(
         () => tf.stack(inputSequences.map(
-         
+                  t => this.dataConverter.toTensor(t) as tf.Tensor2D)) as
+            tf.Tensor3D);
+
+    const z = await this.encodeTensors(inputTensors, controlArgs);
+
+    inputTensors.dispose();
+
+    logging.logWithDuration(
+        'Encoding completed', startTime, 'MusicVAE', logging.Level.DEBUG);
+    return z;
+  }
+
+  /**
+   * Decodes the input latent vectors into tensors.
+   *
+   * @param
