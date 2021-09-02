@@ -1322,4 +1322,17 @@ class MusicVAE {
    * @param controlArgs (Optional) MusicVAEControlArgs object to use as
    * conditioning.
    *
-   * @returns A `Tensor` containing the batch of latent vect
+   * @returns A `Tensor` containing the batch of latent vectors, sized
+   * `[inputSequences.length, zSize]`.
+   */
+  async encode(
+      inputSequences: INoteSequence[], controlArgs?: MusicVAEControlArgs) {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const startTime = performance.now();
+
+    const inputTensors = tf.tidy(
+        () => tf.stack(inputSequences.map(
+         
