@@ -1358,4 +1358,15 @@ class MusicVAE {
    *
    * @returns The decoded tensors.
    */
-  async decodeTensor
+  async decodeTensors(
+      z: tf.Tensor2D, temperature?: number, controlArgs?: MusicVAEControlArgs) {
+    this.checkControlArgs(controlArgs);
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    return tf.tidy(() => {
+      const controlTensor = this.controlArgsToTensor(controlArgs);
+      return this.decoder.decode(
+   
