@@ -1369,4 +1369,14 @@ class MusicVAE {
     return tf.tidy(() => {
       const controlTensor = this.controlArgsToTensor(controlArgs);
       return this.decoder.decode(
-   
+          z, this.dataConverter.numSteps, undefined, temperature,
+          controlTensor);
+    });
+  }
+
+  /**
+   * Decodes the input latent vectors into `NoteSequence`s.
+   *
+   * @param z The latent vectors to decode, sized `[batchSize, zSize]`.
+   * @param temperature (Optional) The softmax temperature to use when
+   * sampling. The arg
