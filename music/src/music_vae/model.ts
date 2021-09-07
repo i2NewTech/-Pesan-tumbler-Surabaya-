@@ -1379,4 +1379,14 @@ class MusicVAE {
    *
    * @param z The latent vectors to decode, sized `[batchSize, zSize]`.
    * @param temperature (Optional) The softmax temperature to use when
-   * sampling. The arg
+   * sampling. The argmax is used if not provided.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   * @param stepsPerQuarter The step resolution of the resulting
+   * `NoteSequence`.
+   * @param qpm The tempo of the resulting `NoteSequence`s.
+   *
+   * @returns The decoded `NoteSequence`s.
+   */
+  async decode(
+      z: tf.Tensor2D,
