@@ -1389,4 +1389,13 @@ class MusicVAE {
    * @returns The decoded `NoteSequence`s.
    */
   async decode(
-      z: tf.Tensor2D,
+      z: tf.Tensor2D, temperature?: number, controlArgs?: MusicVAEControlArgs,
+      stepsPerQuarter = constants.DEFAULT_STEPS_PER_QUARTER,
+      qpm = constants.DEFAULT_QUARTERS_PER_MINUTE) {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    const startTime = performance.now();
+
+    const tensors = await this.decodeTensors(
