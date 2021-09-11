@@ -1407,4 +1407,18 @@ class MusicVAE {
     const outputSequences: INoteSequence[] = [];
     for (const oh of ohSeqs) {
       outputSequences.push(
-          await this.dataConverter.toNoteSequence(oh
+          await this.dataConverter.toNoteSequence(oh, stepsPerQuarter, qpm));
+      oh.dispose();
+    }
+
+    tensors.dispose();
+
+    logging.logWithDuration(
+        'Decoding completed', startTime, 'MusicVAE', logging.Level.DEBUG);
+    return outputSequences;
+  }
+
+  private getInterpolatedZs(z: tf.Tensor2D, numInterps: number|number[]) {
+    if (typeof numInterps === 'number') {
+      numInterps = [numInterps];
+    }
