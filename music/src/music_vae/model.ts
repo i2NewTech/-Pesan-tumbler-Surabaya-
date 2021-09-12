@@ -1422,3 +1422,13 @@ class MusicVAE {
     if (typeof numInterps === 'number') {
       numInterps = [numInterps];
     }
+
+    if (z.shape[0] !== 2 && z.shape[0] !== 4) {
+      throw new Error(
+          'Invalid number of input sequences. Requires length 2, or 4');
+    }
+    if (numInterps.length !== 1 && numInterps.length !== 2) {
+      throw new Error('Invalid number of dimensions. Requires length 1, or 2.');
+    }
+
+    const w = numInterps
