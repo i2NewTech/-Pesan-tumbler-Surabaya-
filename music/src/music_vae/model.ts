@@ -1439,4 +1439,11 @@ class MusicVAE {
       const rangeX = tf.linspace(0.0, 1.0, w);
 
       const z0 = z.slice([0, 0], [1, z.shape[1]]).as1D();
-      const z1 = z.slice([1, 0], [1, z.sh
+      const z1 = z.slice([1, 0], [1, z.shape[1]]).as1D();
+
+      if (z.shape[0] === 2) {
+        const zDiff = z1.sub(z0) as tf.Tensor1D;
+        return tf.outerProduct(rangeX, zDiff).add(z0) as tf.Tensor2D;
+      } else if (z.shape[0] === 4) {
+        const rangeY = tf.linspace(0.0, 1.0, h);
+        const z2 = z.slice([2, 0], [1, z
