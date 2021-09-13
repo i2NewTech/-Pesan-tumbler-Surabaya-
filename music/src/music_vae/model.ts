@@ -1431,4 +1431,12 @@ class MusicVAE {
       throw new Error('Invalid number of dimensions. Requires length 1, or 2.');
     }
 
-    const w = numInterps
+    const w = numInterps[0];
+    const h = numInterps.length === 2 ? numInterps[1] : w;
+
+    // Compute the interpolations of the latent variable.
+    const interpolatedZs: tf.Tensor2D = tf.tidy(() => {
+      const rangeX = tf.linspace(0.0, 1.0, w);
+
+      const z0 = z.slice([0, 0], [1, z.shape[1]]).as1D();
+      const z1 = z.slice([1, 0], [1, z.sh
