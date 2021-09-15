@@ -1454,4 +1454,11 @@ class MusicVAE {
 
         let finalZs =
             z0.mul(tf.outerProduct(revRangeY, revRangeX).as3D(h, w, 1));
-        finalZs = tf
+        finalZs = tf.addStrict(
+            finalZs, z1.mul(tf.outerProduct(rangeY, revRangeX).as3D(h, w, 1)));
+        finalZs = tf.addStrict(
+            finalZs, z2.mul(tf.outerProduct(revRangeY, rangeX).as3D(h, w, 1)));
+        finalZs = tf.addStrict(
+            finalZs, z3.mul(tf.outerProduct(rangeY, rangeX).as3D(h, w, 1)));
+
+        return finalZs.as2D(w
