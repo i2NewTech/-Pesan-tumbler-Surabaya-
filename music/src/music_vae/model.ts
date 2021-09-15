@@ -1461,4 +1461,17 @@ class MusicVAE {
         finalZs = tf.addStrict(
             finalZs, z3.mul(tf.outerProduct(rangeY, rangeX).as3D(h, w, 1)));
 
-        return finalZs.as2D(w
+        return finalZs.as2D(w * h, z.shape[1]);
+      } else {
+        throw new Error(
+            'Invalid number of note sequences. Requires length 2, or 4');
+      }
+    });
+    return interpolatedZs;
+  }
+
+  /**
+   * Samples tensors from the model prior.
+   *
+   * @param numSamples The number of samples to return.
+   * @param temperature The softmax temperature
