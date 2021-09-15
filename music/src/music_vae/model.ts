@@ -1474,4 +1474,15 @@ class MusicVAE {
    * Samples tensors from the model prior.
    *
    * @param numSamples The number of samples to return.
-   * @param temperature The softmax temperature
+   * @param temperature The softmax temperature to use when sampling.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns A `Tensor3D` of samples.
+   */
+  async sampleTensors(
+      numSamples: number, temperature = 0.5,
+      controlArgs?: MusicVAEControlArgs) {
+    this.checkControlArgs(controlArgs);
+
+    if (!this.init
