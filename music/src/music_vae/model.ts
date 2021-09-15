@@ -1485,4 +1485,16 @@ class MusicVAE {
       controlArgs?: MusicVAEControlArgs) {
     this.checkControlArgs(controlArgs);
 
-    if (!this.init
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const randZs: tf.Tensor2D =
+        tf.tidy(() => tf.randomNormal([numSamples, this.decoder.zDims]));
+    const outputTensors =
+        await this.decodeTensors(randZs, temperature, controlArgs);
+    randZs.dispose();
+    return outputTensors;
+  }
+
+  /**
+   * Samples sequences from
