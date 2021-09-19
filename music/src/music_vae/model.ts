@@ -1505,4 +1505,12 @@ class MusicVAE {
    * conditioning.
    * @param stepsPerQuarter The step resolution of the resulting
    * `NoteSequence`s.
-   * @
+   * @param qpm The tempo of the resulting `NoteSequence`s.
+   *
+   * @returns An array of sampled `NoteSequence` objects.
+   */
+  async sample(
+      numSamples: number, temperature = 0.5, controlArgs?: MusicVAEControlArgs,
+      stepsPerQuarter = constants.DEFAULT_STEPS_PER_QUARTER,
+      qpm = constants.DEFAULT_QUARTERS_PER_MINUTE) {
+    this.c
