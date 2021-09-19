@@ -1497,4 +1497,12 @@ class MusicVAE {
   }
 
   /**
-   * Samples sequences from
+   * Samples sequences from the model prior.
+   *
+   * @param numSamples The number of samples to return.
+   * @param temperature The softmax temperature to use when sampling.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   * @param stepsPerQuarter The step resolution of the resulting
+   * `NoteSequence`s.
+   * @
