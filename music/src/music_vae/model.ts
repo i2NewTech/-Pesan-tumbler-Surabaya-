@@ -1524,4 +1524,15 @@ class MusicVAE {
         tf.tidy(() => tf.randomNormal([numSamples, this.decoder.zDims]));
     const outputSequences =
         this.decode(randZs, temperature, controlArgs, stepsPerQuarter, qpm);
-   
+    randZs.dispose();
+    outputSequences.then(
+        () => logging.logWithDuration(
+            'Sampling completed', startTime, 'MusicVAE', logging.Level.DEBUG));
+    return outputSequences;
+  }
+
+  /**
+   * Generates similar tensors to an input tensor.
+   *
+   * This is done by sampling new Zs from a unit Gaussian and interpolating
+   * be
