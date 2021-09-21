@@ -1535,4 +1535,10 @@ class MusicVAE {
    * Generates similar tensors to an input tensor.
    *
    * This is done by sampling new Zs from a unit Gaussian and interpolating
-   * be
+   * between the encoded input tensor and the sampled Zs.
+   *
+   * @param inputTensor The input tensor, a `Tensor2D`.
+   * @param numSamples The number of samples to return.
+   * @param similarity The degree of similarity between the generated tensors
+   * and the input tensor. Must be between 0 and 1, where 1 is most similar and
+   * 0 is least 
