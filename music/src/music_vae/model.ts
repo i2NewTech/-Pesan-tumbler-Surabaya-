@@ -1513,4 +1513,15 @@ class MusicVAE {
       numSamples: number, temperature = 0.5, controlArgs?: MusicVAEControlArgs,
       stepsPerQuarter = constants.DEFAULT_STEPS_PER_QUARTER,
       qpm = constants.DEFAULT_QUARTERS_PER_MINUTE) {
-    this.c
+    this.checkControlArgs(controlArgs);
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const startTime = performance.now();
+
+    const randZs: tf.Tensor2D =
+        tf.tidy(() => tf.randomNormal([numSamples, this.decoder.zDims]));
+    const outputSequences =
+        this.decode(randZs, temperature, controlArgs, stepsPerQuarter, qpm);
+   
