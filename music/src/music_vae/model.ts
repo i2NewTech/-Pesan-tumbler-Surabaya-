@@ -1541,4 +1541,13 @@ class MusicVAE {
    * @param numSamples The number of samples to return.
    * @param similarity The degree of similarity between the generated tensors
    * and the input tensor. Must be between 0 and 1, where 1 is most similar and
-   * 0 is least 
+   * 0 is least similar.
+   * @param temperature The softmax temperature to use when sampling.
+   * @param controlArgs (Optional) MusicVAEControlArgs object to use as
+   * conditioning.
+   *
+   * @returns A `Tensor3D` of samples.
+   */
+  async similarTensors(
+      inputTensor: tf.Tensor2D, numSamples: number, similarity: number,
+      temp
