@@ -1575,4 +1575,10 @@ class MusicVAE {
   /**
    * Generates similar `NoteSequence`s to an input `NoteSequence`.
    *
-   * This is done by sampling new Zs from
+   * This is done by sampling new Zs from a unit Gaussian and interpolating
+   * between the encoded input `NoteSequence` and the sampled Zs.
+   *
+   * @param inputSequence The input `NoteSequence`.
+   * @param numSamples The number of samples to return.
+   * @param similarity The degree of similarity between the generated sequences
+   * and the input sequence. Must be between 0 and 1, where 1 is m
