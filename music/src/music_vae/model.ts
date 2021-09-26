@@ -1557,4 +1557,10 @@ class MusicVAE {
     if (!this.initialized) {
       await this.initialize();
     }
-    const inputTensors = tf.expandDims(inputTenso
+    const inputTensors = tf.expandDims(inputTensor, 0) as tf.Tensor3D;
+    const inputZs = await this.encodeTensors(inputTensors, controlArgs);
+    inputTensors.dispose();
+    const similarZs: tf.Tensor2D = tf.tidy(() => {
+      const randZs = tf.randomNormal([numSamples, this.decoder.zDims]);
+      // TODO(iansimon): use slerp instead of linear interpolation
+      return tf.add(inputZs
