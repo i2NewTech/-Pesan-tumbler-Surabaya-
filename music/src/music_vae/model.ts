@@ -1550,4 +1550,11 @@ class MusicVAE {
    */
   async similarTensors(
       inputTensor: tf.Tensor2D, numSamples: number, similarity: number,
-      temp
+      temperature?: number, controlArgs?: MusicVAEControlArgs) {
+    if (similarity < 0 || similarity > 1) {
+      throw new Error('Similarity must be between 0 and 1.');
+    }
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const inputTensors = tf.expandDims(inputTenso
