@@ -1563,4 +1563,16 @@ class MusicVAE {
     const similarZs: tf.Tensor2D = tf.tidy(() => {
       const randZs = tf.randomNormal([numSamples, this.decoder.zDims]);
       // TODO(iansimon): use slerp instead of linear interpolation
-      return tf.add(inputZs
+      return tf.add(inputZs.mul(similarity), randZs.mul(1 - similarity));
+    });
+    inputZs.dispose();
+    const outputTensors =
+        await this.decodeTensors(similarZs, temperature, controlArgs);
+    similarZs.dispose();
+    return outputTensors;
+  }
+
+  /**
+   * Generates similar `NoteSequence`s to an input `NoteSequence`.
+   *
+   * This is done by sampling new Zs from
