@@ -1590,4 +1590,17 @@ class MusicVAE {
    * @returns An array of generated `NoteSequence` objects.
    */
   async similar(
-      inputSequence: INoteSequence, numSamples
+      inputSequence: INoteSequence, numSamples: number, similarity: number,
+      temperature?: number, controlArgs?: MusicVAEControlArgs) {
+    this.checkControlArgs(controlArgs);
+
+    if (similarity < 0 || similarity > 1) {
+      throw new Error('Similarity must be between 0 and 1.');
+    }
+
+    if (!this.initialized) {
+      await this.initialize();
+    }
+    const startTime = 0;
+
+    const
