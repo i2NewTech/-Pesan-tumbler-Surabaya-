@@ -1603,4 +1603,10 @@ class MusicVAE {
     }
     const startTime = 0;
 
-    const
+    const inputZs = await this.encode([inputSequence], controlArgs);
+    const similarZs: tf.Tensor2D = tf.tidy(() => {
+      const randZs = tf.randomNormal([numSamples, this.decoder.zDims]);
+      // TODO(iansimon): use slerp instead of linear interpolation
+      return tf.add(inputZs.mul(similarity), randZs.mul(1 - similarity));
+    });
+    i
