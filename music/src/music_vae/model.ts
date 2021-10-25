@@ -1609,4 +1609,18 @@ class MusicVAE {
       // TODO(iansimon): use slerp instead of linear interpolation
       return tf.add(inputZs.mul(similarity), randZs.mul(1 - similarity));
     });
-    i
+    inputZs.dispose();
+
+    const outputSequences = this.decode(similarZs, temperature, controlArgs);
+    similarZs.dispose();
+    outputSequences.then(
+        () => logging.logWithDuration(
+            'Similar sequence generation completed', startTime, 'MusicVAE',
+            logging.Level.DEBUG));
+    return outputSequences;
+  }
+}
+
+export {
+  LayerVars,
+  Enc
