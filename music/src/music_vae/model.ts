@@ -1623,4 +1623,8 @@ class MusicVAE {
 
 export {
   LayerVars,
-  Enc
+  Encoder,
+  Decoder,
+  Nade,
+  MusicVAE,
+};
