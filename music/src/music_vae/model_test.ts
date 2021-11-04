@@ -15,4 +15,14 @@
  * limitations under the License.
  */
 
-impo
+import * as tf from '@tensorflow/tfjs';
+import * as test from 'tape';
+import {INoteSequence} from '..';
+import {MusicVAE} from './model';
+
+const MEL_CKPT =
+    // tslint:disable-next-line:max-line-length
+    'https://storage.googleapis.com/magentadata/js/checkpoints/music_vae/mel_2bar_small';
+const MEL_TEAPOT: INoteSequence = {
+  notes: [
+    {pitch: 69, quantized
