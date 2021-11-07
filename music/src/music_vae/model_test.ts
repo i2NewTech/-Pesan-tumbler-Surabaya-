@@ -50,4 +50,16 @@ test('MusicVAE can be initialized', async (t: test.Test) => {
   t.end();
 });
 
-test('MusicVAE can encode ', async (t: test.T
+test('MusicVAE can encode ', async (t: test.Test) => {
+  const startMemory = tf.memory().numBytes;
+  const z = await mvae.encode([MEL_TEAPOT]);
+  t.deepEquals(z.shape, [1, 256]);
+  z.dispose();
+  // Doesn't leak memory.
+  t.isEqual(tf.memory().numBytes, startMemory);
+  t.end();
+});
+
+test('MusicVAE can decode ', async (t: test.Test) => {
+  const startMemory = tf.memory().numBytes;
+  c
