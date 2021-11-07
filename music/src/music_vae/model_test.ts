@@ -76,4 +76,8 @@ test('MusicVAE can decode ', async (t: test.Test) => {
   t.end();
 });
 
-test('MusicVAE can be disposed', async
+test('MusicVAE can be disposed', async (t: test.Test) => {
+  mvae.dispose();
+  t.isEqual(tf.memory().numBytes, initialBytes);
+  t.end();
+});
