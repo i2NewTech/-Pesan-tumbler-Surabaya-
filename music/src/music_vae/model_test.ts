@@ -62,4 +62,18 @@ test('MusicVAE can encode ', async (t: test.Test) => {
 
 test('MusicVAE can decode ', async (t: test.Test) => {
   const startMemory = tf.memory().numBytes;
-  c
+  const z = await mvae.encode([MEL_TEAPOT]);
+  const recon = await mvae.decode(z);
+  t.ok(recon);
+  t.isEqual(recon.length, 1);
+  z.dispose();
+
+  const notes = recon[0].notes;
+  t.true(notes.length > 0);
+
+  // Doesn't leak memory.
+  t.isEqual(tf.memory().numBytes, startMemory);
+  t.end();
+});
+
+test('MusicVAE can be disposed', async
