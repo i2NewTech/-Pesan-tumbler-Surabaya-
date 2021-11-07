@@ -35,4 +35,19 @@ const MEL_TEAPOT: INoteSequence = {
     {pitch: 81, quantizedStartStep: 20, quantizedEndStep: 24, program: 0},
     {pitch: 76, quantizedStartStep: 24, quantizedEndStep: 32, program: 0}
   ],
-  quantizationInfo:
+  quantizationInfo: {stepsPerQuarter: 4},
+  totalQuantizedSteps: 32,
+};
+
+let mvae: MusicVAE;
+let initialBytes: number;
+
+test('MusicVAE can be initialized', async (t: test.Test) => {
+  initialBytes = tf.memory().numBytes;
+  mvae = new MusicVAE(MEL_CKPT);
+  await mvae.initialize();
+  t.true(mvae.isInitialized);
+  t.end();
+});
+
+test('MusicVAE can encode ', async (t: test.T
