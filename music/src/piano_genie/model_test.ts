@@ -169,3 +169,35 @@ test('Piano Genie Model Correctness', async (t: test.Test) => {
     genie.overrideDeltaTime(1.);
     genie.overrideLastOutput(45);
     genie.nextWithCustomSamplingFunction(2, sampleFunc);
+  });
+
+  // Reset model.
+  genie.resetState();
+
+  // Ensures that JavaScript model outputs match test outputs from Python.
+  tf.tidy(() => {
+    genie.overrideDeltaTime(0.125);
+    genie.next(1);
+
+    genie.overrideDeltaTime(0.25);
+    genie.overrideLastOutput(44);
+    genie.next(2);
+
+    const sampleFunc = testSampleFuncFactory([
+      [43, 0.18577],
+      [44, 0.813153],
+      [45, 2.67857e-05],
+    ]);
+    genie.overrideDeltaTime(1.5);
+    genie.overrideLastOutput(46);
+    genie.nextWithCustomSamplingFunction(3, sampleFunc);
+  });
+
+  // Dispose model.
+  genie.dispose();
+
+  // Ensure no memory leaks from PianoGenie
+  t.equal(tf.memory().numBytes, initialMemory.numBytes);
+
+  t.end();
+});
