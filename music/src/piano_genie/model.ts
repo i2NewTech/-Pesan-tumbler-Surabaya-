@@ -555,3 +555,191 @@ class PianoGenieAutoregressiveDeltaTimeChord
    * @param chordRoot Root pitch.
    */
   setChordRoot(chordRoot: PitchClass) {
+    this.chordRoot = chordRoot;
+  }
+
+  /**
+   * Sets the family of the chord for subsequent predictions (e.g. Aug=3).
+   *
+   * @param chordFamily Chord family.
+   */
+  setChordFamily(chordFamily: ChordFamily) {
+    this.chordFamily = chordFamily;
+  }
+
+  resetState() {
+    super.resetState();
+    this.chordRoot = PitchClass.None;
+    this.chordFamily = ChordFamily.None;
+  }
+}
+
+/**
+ * Piano Genie conditioned on key signature.
+ */
+class PianoGenieAutoregressiveDeltaTimeKeysig
+  extends PianoGenieAutoregressiveDeltaTime {
+  private keySignature: PitchClass;
+
+  protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Initialize decoder feats array.
+      const feats1d = super.getRnnInputFeats();
+      const featsArr: tf.Tensor1D[] = [feats1d];
+
+      // Add key signature to decoder feats.
+      const keySigTensor = tf.scalar(this.keySignature, 'int32');
+      const keySigTensorSubOne =
+        tf.subStrict(keySigTensor, tf.scalar(1, 'int32'));
+      const keySigTensorOh = tf.cast(
+        tf.oneHot(keySigTensorSubOne, 12), 'float32') as tf.Tensor1D;
+      featsArr.push(keySigTensorOh);
+
+      return tf.concat1d(featsArr);
+    });
+
+    return feats;
+  }
+
+  /**
+   * Sets the key signature for subsequent predictions (e.g. D=3).
+   *
+   * @param keySignature Key signature.
+   */
+  setKeySignature(keySignature: PitchClass) {
+    this.keySignature = keySignature;
+  }
+
+  resetState() {
+    super.resetState();
+    this.keySignature = PitchClass.None;
+  }
+}
+
+// TypeScript does not support multiple inheritance.
+/**
+ * Piano Genie conditioned on key signature and chord.
+ */
+class PianoGenieAutoregressiveDeltaTimeKeysigChord
+  extends PianoGenieAutoregressiveDeltaTimeKeysig {
+  private chordRoot: PitchClass;
+  private chordFamily: ChordFamily;
+
+  protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Initialize decoder feats array.
+      const feats1d = super.getRnnInputFeats();
+      const featsArr: tf.Tensor1D[] = [feats1d];
+
+      // Add chord root to decoder feats.
+      const chordRootTensor = tf.scalar(this.chordRoot, 'int32');
+      const chordRootTensorSubOne =
+        tf.subStrict(chordRootTensor, tf.scalar(1, 'int32'));
+      const chordRootTensorOh = tf.cast(
+        tf.oneHot(chordRootTensorSubOne, 12), 'float32') as tf.Tensor1D;
+      featsArr.push(chordRootTensorOh);
+
+      // Add chord family to decoder feats.
+      const chordFamilyTensor = tf.scalar(this.chordFamily, 'int32');
+      const chordFamilyTensorSubOne =
+        tf.subStrict(chordFamilyTensor, tf.scalar(1, 'int32'));
+      const chordFamilyTensorOh = tf.cast(
+        tf.oneHot(chordFamilyTensorSubOne, 8), 'float32') as tf.Tensor1D;
+      featsArr.push(chordFamilyTensorOh);
+
+      return tf.concat1d(featsArr);
+    });
+
+    return feats;
+  }
+
+  /**
+   * Sets the root pitch of the chord for subsequent predictions (e.g. D=3).
+   *
+   * @param chordRoot Root pitch.
+   */
+  setChordRoot(chordRoot: PitchClass) {
+    this.chordRoot = chordRoot;
+  }
+
+  /**
+   * Sets the family of the chord for subsequent predictions (e.g. Aug=3).
+   *
+   * @param chordFamily Chord family.
+   */
+  setChordFamily(chordFamily: ChordFamily) {
+    this.chordFamily = chordFamily;
+  }
+
+  resetState() {
+    super.resetState();
+    this.chordRoot = PitchClass.None;
+    this.chordFamily = ChordFamily.None;
+  }
+}
+
+/**
+ * Piano Genie conditioned on key signature and chord family.
+ */
+class PianoGenieAutoregressiveDeltaTimeKeysigChordFamily
+  extends PianoGenieAutoregressiveDeltaTimeKeysig {
+  private chordFamily: ChordFamily;
+
+  protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Initialize decoder feats array.
+      const feats1d = super.getRnnInputFeats();
+      const featsArr: tf.Tensor1D[] = [feats1d];
+
+      // Add chord family to decoder feats.
+      const chordFamilyTensor = tf.scalar(this.chordFamily, 'int32');
+      const chordFamilyTensorSubOne =
+        tf.subStrict(chordFamilyTensor, tf.scalar(1, 'int32'));
+      const chordFamilyTensorOh = tf.cast(
+        tf.oneHot(chordFamilyTensorSubOne, 8), 'float32') as tf.Tensor1D;
+      featsArr.push(chordFamilyTensorOh);
+
+      return tf.concat1d(featsArr);
+    });
+
+    return feats;
+  }
+
+  /**
+   * Sets the family of the chord for subsequent predictions (e.g. Aug=3).
+   *
+   * @param chordFamily Chord family.
+   */
+  setChordFamily(chordFamily: ChordFamily) {
+    this.chordFamily = chordFamily;
+  }
+
+  resetState() {
+    super.resetState();
+    this.chordFamily = ChordFamily.None;
+  }
+}
+
+/**
+ * Simplify public API names and preserve original API.
+ */
+class PianoGenie extends PianoGenieAutoregressiveDeltaTime { }
+class PianoGenieChord extends PianoGenieAutoregressiveDeltaTimeChord { }
+class PianoGenieKeysig extends PianoGenieAutoregressiveDeltaTimeKeysig { }
+class PianoGenieKeysigChord extends
+  PianoGenieAutoregressiveDeltaTimeKeysigChord { }
+class PianoGenieKeysigChordFamily extends
+  PianoGenieAutoregressiveDeltaTimeKeysigChordFamily { }
+
+export {
+  PianoGenie,
+  PianoGenieChord,
+  PianoGenieKeysig,
+  PianoGenieKeysigChord,
+  PianoGenieKeysigChordFamily,
+  PitchClass,
+  ChordFamily
+};
