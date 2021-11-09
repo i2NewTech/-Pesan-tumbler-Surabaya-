@@ -185,3 +185,373 @@ class PianoGenieBase {
    * Gets RNN input features based on current model state.
    */
   protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Add button input to decoder feats and translate to [-1, 1].
+      const buttonTensor = tf.tensor1d([this.button], 'float32');
+      const buttonScaled =
+        tf.sub(tf.mul(2., tf.div(buttonTensor, NUM_BUTTONS - 1)), 1);
+
+      return buttonScaled.as1D();
+    });
+
+    return feats;
+  }
+
+  /**
+   * Given a button number with optional sampling temperature and seed,
+   * evaluates Piano Genie to produce a piano key note {0, 1, ... 87}. This is
+   * the simplest access point for Piano Genie, designed to be called by your
+   * application in real time (it keeps track of time internally).
+   *
+   * @param button Button number (one of {0, 1, 2, 3, 4, 5, 6, 7}).
+   * @param temperature Temperature. From 0 to 1, goes from argmax to random.
+   * @param seed Random seed. Use a fixed number to get reproducible output.
+   */
+  next(button: number, temperature?: number, seed?: number) {
+    const sampleFunc = (logits: tf.Tensor1D) => {
+      return sampleLogits(logits, temperature, seed);
+    };
+    return this.nextWithCustomSamplingFunction(button, sampleFunc);
+  }
+
+  /**
+   * Given a button number and a list of piano keys, evaluates Piano Genie
+   * to produce a piano key note {0, 1, ..., 87}. Use this if you would like to
+   * restrict Piano Genie's outputs to a subset of the keys (e.g. a particular
+   * scale or range of the piano). For example, if you wanted to restrict Piano
+   * Genie's outputs to be C major from middle C to one octave above, you would
+   * pass [39, 41, 43, 44, 46, 48, 50, 51] as the list.
+   *
+   * @param button Button number (one of {0, 1, 2, 3, 4, 5, 6, 7}).
+   * @param keyList Subset of keys restricting possible note outputs.
+   * @param temperature Temperature. From 0 to 1, goes from argmax to random.
+   * @param seed Random seed. Use a fixed number to get reproducible output.
+   */
+  nextFromKeyList(
+    button: number,
+    keyList: number[],
+    temperature?: number,
+    seed?: number) {
+    const sampleFunc = (logits: tf.Tensor1D) => {
+      const keySubsetTensor = tf.tensor1d(keyList, 'int32');
+      // Discard logits outside of the allowed list.
+      logits = tf.gather(logits, keySubsetTensor);
+      // Sample from allowed logits.
+      let result = sampleLogits(logits, temperature, seed);
+      // Map the subsampled logit ID back to the appropriate piano key.
+      const result1d = tf.gather(keySubsetTensor, tf.reshape(result, [1]));
+      result = tf.reshape(result1d, []) as tf.Scalar;
+      return result;
+    };
+    return this.nextWithCustomSamplingFunction(button, sampleFunc);
+  }
+
+  /**
+   * @deprecated
+   * Alias for nextFromKeyList() to maintain backwards compatibility.
+   */
+  nextFromKeyWhitelist(button: number,
+    keyList: number[],
+    temperature?: number,
+    seed?: number) {
+      logging.log(
+        'nextFromKeyWhitelist() is deprecated, and will be removed in a future \
+         version. Please use nextFromKeyList() instead',
+        'PianoGenie', logging.Level.WARN);
+
+      return this.nextFromKeyList(button, keyList, temperature, seed);
+    }
+  /**
+   * Given a button number, evaluates Piano Genie to produce unnormalized logits
+   * then samples from these logits with a custom function. Use this if you
+   * want to define custom sampling behavior (e.g. a neural cache).
+   *
+   * @param button Button number (one of {0, 1, 2, 3, 4, 5, 6, 7}).
+   * @param sampleFunc Sampling function mapping unweighted model logits
+   * (tf.Tensor1D of size 88) to an integer (tf.Scalar) representing one of
+   * them (e.g. 60).
+   */
+  nextWithCustomSamplingFunction(
+    button: number,
+    sampleFunc: (logits: tf.Tensor1D) => tf.Scalar) {
+    const lastState = this.lastState;
+    this.button = button;
+
+    const rnnInput = this.getRnnInputFeats();
+    const [state, output] = this.evaluateModelAndSample(
+      rnnInput, lastState, sampleFunc);
+    rnnInput.dispose();
+
+    disposeState(this.lastState);
+    this.lastState = state;
+
+    return output;
+  }
+
+  /**
+   * Given an LSTM input, evaluates Piano Genie producing a piano key number.
+   * Does not update state.
+   *
+   * @param rnnInput1d The LSTM input feature vector.
+   * @param initialState The LSTM state at the previous timestep.
+   * @param sampleFunc Sampling function mapping unweighted model logits
+   * (tf.Tensor1D of size 88) to an integer (tf.Scalar) representing one of
+   * them (e.g. 60).
+   */
+  private evaluateModelAndSample(
+    rnnInput1d: tf.Tensor1D,
+    initialState: LSTMState,
+    sampleFunc: (logits: tf.Tensor1D) => tf.Scalar) {
+    // TODO(chrisdonahue): Make this function asynchronous.
+    // This function is (currently) synchronous, blocking other execution
+    // to provide mutual exclusion. This is a workaround for race conditions
+    // where the LSTM state is not updated from the current call before it is
+    // needed in subsequent calls. More research is required to figure out an
+    // adequate asynchronous solution.
+
+    // Ensure that the model is initialized.
+    if (!this.initialized) {
+      // This should be an error in real-time context because the model isn't
+      // ready to be evaluated.
+      throw new Error('Model is not initialized.');
+    }
+
+    // Compute logits and sample.
+    const [finalState, output]: [LSTMState, number] = tf.tidy(() => {
+      // Project feats array through RNN input matrix.
+      let rnnInput: tf.Tensor2D = tf.matMul(
+        tf.expandDims(rnnInput1d, 0) as tf.Tensor2D,
+        this.modelVars[
+        'phero_model/decoder/rnn_input/dense/kernel'] as tf.Tensor2D);
+      rnnInput = tf.add(
+        rnnInput,
+        this.modelVars[
+        'phero_model/decoder/rnn_input/dense/bias'] as tf.Tensor1D);
+
+      // Evaluate RNN.
+      const [c, h] = tf.multiRNNCell(
+        this.decLSTMCells, rnnInput, initialState.c, initialState.h);
+      const finalState: LSTMState = { c, h };
+
+      // Project to logits.
+      let logits: tf.Tensor2D = tf.matMul(
+        h[RNN_NLAYERS - 1],
+        this.modelVars[
+        'phero_model/decoder/pitches/dense/kernel'] as tf.Tensor2D);
+      logits = tf.add(
+        logits,
+        this.modelVars[
+        'phero_model/decoder/pitches/dense/bias'] as tf.Tensor1D);
+
+      // Remove batch axis to produce piano key (n=88) logits.
+      const logits1D = tf.reshape(logits, [NUM_PIANOKEYS]) as tf.Tensor1D;
+
+      // Sample from logits.
+      const sample = sampleFunc(logits1D);
+      const output = sample.dataSync()[0];
+
+      return [finalState, output] as [LSTMState, number];
+    });
+
+    return [finalState, output] as [LSTMState, number];
+  }
+
+  /**
+   * Resets Piano Genie LSTM state.
+   */
+  resetState() {
+    if (this.lastState !== undefined) {
+      disposeState(this.lastState);
+    }
+    this.lastState = createZeroState();
+  }
+
+  /**
+   * Disposes model from (GPU) memory.
+   */
+  dispose() {
+    if (!this.initialized) {
+      return;
+    }
+    Object.keys(this.modelVars).forEach(
+      name => this.modelVars[name].dispose());
+    this.decForgetBias.dispose();
+    disposeState(this.lastState);
+    this.initialized = false;
+  }
+}
+
+/**
+ * Original Piano Genie config with autoregression and delta time features.
+ */
+class PianoGenieAutoregressiveDeltaTime extends PianoGenieBase {
+  // Execution state.
+  private lastOutput: number;
+  private lastTime: Date;
+  private time: Date;
+  private deltaTimeOverride: number;
+
+  protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Initialize decoder feats array.
+      const featsArr: tf.Tensor1D[] = [super.getRnnInputFeats()];
+
+      const lastOutput = this.lastOutput;
+      const lastTime = this.lastTime;
+      const time = this.time;
+
+      let deltaTime: number;
+      if (this.deltaTimeOverride === undefined) {
+        deltaTime = (time.getTime() - lastTime.getTime()) / 1000;
+      } else {
+        deltaTime = this.deltaTimeOverride;
+        this.deltaTimeOverride = undefined;
+      }
+
+      // Add autoregression (history) to decoder feats.
+      const lastOutputTensor = tf.scalar(lastOutput, 'int32');
+      const lastOutputInc =
+        tf.addStrict(lastOutputTensor, tf.scalar(1, 'int32'));
+      const lastOutputOh =
+        tf.cast(tf.oneHot(lastOutputInc, NUM_PIANOKEYS + 1),
+          'float32') as tf.Tensor1D;
+      featsArr.push(lastOutputOh);
+
+      // Add delta times to decoder feats.
+      const deltaTimeTensor = tf.scalar(deltaTime, 'float32');
+      const deltaTimeBin =
+        tf.round(tf.mul(deltaTimeTensor, DATA_TIME_QUANTIZE_RATE));
+      const deltaTimeTrunc = tf.minimum(deltaTimeBin, DATA_MAX_DISCRETE_TIMES);
+      const deltaTimeInt =
+        tf.cast(tf.add(deltaTimeTrunc, 1e-4), 'int32') as tf.Tensor1D;
+      const deltaTimeOh = tf.oneHot(deltaTimeInt, DATA_MAX_DISCRETE_TIMES + 1);
+      const deltaTimeOhFloat = tf.cast(deltaTimeOh, 'float32') as tf.Tensor1D;
+      featsArr.push(deltaTimeOhFloat);
+
+      this.lastTime = time;
+
+      return tf.concat1d(featsArr);
+    });
+
+    return feats;
+  }
+
+  nextWithCustomSamplingFunction(
+    button: number,
+    sampleFunc: (logits: tf.Tensor1D) => tf.Scalar) {
+    this.time = new Date();
+    const output = super.nextWithCustomSamplingFunction(button, sampleFunc);
+    this.lastOutput = output;
+    this.lastTime = this.time;
+    return output;
+  }
+
+  /**
+   * Overrides the model's state for its last output. Mainly used to test the
+   * model, but can also be used in combination with custom sampling behavior.
+   *
+   * @param lastOutput Previous piano key sampled from the model logits.
+   */
+  overrideLastOutput(lastOutput: number) {
+    this.lastOutput = lastOutput;
+  }
+
+  /**
+   * Overrides the model's internal clock with a designated time. Mainly used
+   * to test the model, but can also be used to remove user control over note
+   * timing or to run preprogrammed sequences through the model.
+   *
+   * @param deltaTime Amount of elapsed time in seconds since previous note.
+   */
+  overrideDeltaTime(deltaTime: number) {
+    this.deltaTimeOverride = deltaTime;
+  }
+
+  resetState() {
+    super.resetState();
+    this.lastOutput = -1;
+    this.lastTime = new Date();
+    this.lastTime.setSeconds(this.lastTime.getSeconds() - 100000);
+    this.time = new Date();
+  }
+}
+
+/**
+ * Root note of chord for chord-conditioned models.
+ */
+enum PitchClass {
+  None = 0,
+  C,
+  Cs,
+  D,
+  Eb,
+  E,
+  F,
+  Fs,
+  G,
+  Ab,
+  A,
+  Bb,
+  B
+}
+
+/**
+ * Chord family for chord-conditioned models.
+ */
+enum ChordFamily {
+  None = 0,
+  Maj,
+  Min,
+  Aug,
+  Dim,
+  Seven,
+  Maj7,
+  Min7,
+  Min7b5
+}
+
+/**
+ * Piano Genie conditioned on chords.
+ */
+class PianoGenieAutoregressiveDeltaTimeChord
+  extends PianoGenieAutoregressiveDeltaTime {
+  private chordRoot: PitchClass;
+  private chordFamily: ChordFamily;
+
+  protected getRnnInputFeats() {
+    // Initialize decoder feats array.
+    const feats: tf.Tensor1D = tf.tidy(() => {
+      // Initialize decoder feats array.
+      const feats1d = super.getRnnInputFeats();
+      const featsArr: tf.Tensor1D[] = [feats1d];
+
+      // Add chord root to decoder feats.
+      const chordRootTensor = tf.scalar(this.chordRoot, 'int32');
+      const chordRootTensorSubOne =
+        tf.subStrict(chordRootTensor, tf.scalar(1, 'int32'));
+      const chordRootTensorOh = tf.cast(
+        tf.oneHot(chordRootTensorSubOne, 12), 'float32') as tf.Tensor1D;
+      featsArr.push(chordRootTensorOh);
+
+      // Add chord family to decoder feats.
+      const chordFamilyTensor = tf.scalar(this.chordFamily, 'int32');
+      const chordFamilyTensorSubOne =
+        tf.subStrict(chordFamilyTensor, tf.scalar(1, 'int32'));
+      const chordFamilyTensorOh = tf.cast(
+        tf.oneHot(chordFamilyTensorSubOne, 8), 'float32') as tf.Tensor1D;
+      featsArr.push(chordFamilyTensorOh);
+
+      return tf.concat1d(featsArr);
+    });
+
+    return feats;
+  }
+
+  /**
+   * Sets the root pitch of the chord for subsequent predictions (e.g. D=3).
+   *
+   * @param chordRoot Root pitch.
+   */
+  setChordRoot(chordRoot: PitchClass) {
