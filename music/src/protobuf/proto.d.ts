@@ -544,3 +544,320 @@ export namespace tensorflow {
 
             /** Represents a KeySignature. */
             class KeySignature implements IKeySignature {
+
+                /**
+                 * Constructs a new KeySignature.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.IKeySignature);
+
+                /** KeySignature time. */
+                public time: number;
+
+                /** KeySignature key. */
+                public key: tensorflow.magenta.NoteSequence.KeySignature.Key;
+
+                /** KeySignature mode. */
+                public mode: tensorflow.magenta.NoteSequence.KeySignature.Mode;
+
+                /**
+                 * Creates a new KeySignature instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns KeySignature instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.IKeySignature): tensorflow.magenta.NoteSequence.KeySignature;
+
+                /**
+                 * Encodes the specified KeySignature message. Does not implicitly {@link tensorflow.magenta.NoteSequence.KeySignature.verify|verify} messages.
+                 * @param message KeySignature message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.IKeySignature, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified KeySignature message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.KeySignature.verify|verify} messages.
+                 * @param message KeySignature message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.IKeySignature, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a KeySignature message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns KeySignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.KeySignature;
+
+                /**
+                 * Decodes a KeySignature message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns KeySignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.KeySignature;
+
+                /**
+                 * Verifies a KeySignature message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a KeySignature message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns KeySignature
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.KeySignature;
+
+                /**
+                 * Creates a plain object from a KeySignature message. Also converts values to other types if specified.
+                 * @param message KeySignature
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.KeySignature, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this KeySignature to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace KeySignature {
+
+                /** Key enum. */
+                enum Key {
+                    C = 0,
+                    C_SHARP = 1,
+                    D_FLAT = 1,
+                    D = 2,
+                    D_SHARP = 3,
+                    E_FLAT = 3,
+                    E = 4,
+                    F = 5,
+                    F_SHARP = 6,
+                    G_FLAT = 6,
+                    G = 7,
+                    G_SHARP = 8,
+                    A_FLAT = 8,
+                    A = 9,
+                    A_SHARP = 10,
+                    B_FLAT = 10,
+                    B = 11
+                }
+
+                /** Mode enum. */
+                enum Mode {
+                    MAJOR = 0,
+                    MINOR = 1,
+                    NOT_SPECIFIED = 2,
+                    MIXOLYDIAN = 3,
+                    DORIAN = 4,
+                    PHRYGIAN = 5,
+                    LYDIAN = 6,
+                    LOCRIAN = 7
+                }
+            }
+
+            /** Properties of a Tempo. */
+            interface ITempo {
+
+                /** Tempo time */
+                time?: (number|null);
+
+                /** Tempo qpm */
+                qpm?: (number|null);
+            }
+
+            /** Represents a Tempo. */
+            class Tempo implements ITempo {
+
+                /**
+                 * Constructs a new Tempo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ITempo);
+
+                /** Tempo time. */
+                public time: number;
+
+                /** Tempo qpm. */
+                public qpm: number;
+
+                /**
+                 * Creates a new Tempo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Tempo instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ITempo): tensorflow.magenta.NoteSequence.Tempo;
+
+                /**
+                 * Encodes the specified Tempo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.Tempo.verify|verify} messages.
+                 * @param message Tempo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ITempo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Tempo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.Tempo.verify|verify} messages.
+                 * @param message Tempo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ITempo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Tempo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Tempo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.Tempo;
+
+                /**
+                 * Decodes a Tempo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Tempo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.Tempo;
+
+                /**
+                 * Verifies a Tempo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Tempo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Tempo
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.Tempo;
+
+                /**
+                 * Creates a plain object from a Tempo message. Also converts values to other types if specified.
+                 * @param message Tempo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.Tempo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Tempo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a PitchBend. */
+            interface IPitchBend {
+
+                /** PitchBend time */
+                time?: (number|null);
+
+                /** PitchBend bend */
+                bend?: (number|null);
+
+                /** PitchBend instrument */
+                instrument?: (number|null);
+
+                /** PitchBend program */
+                program?: (number|null);
+
+                /** PitchBend isDrum */
+                isDrum?: (boolean|null);
+            }
+
+            /** Represents a PitchBend. */
+            class PitchBend implements IPitchBend {
+
+                /**
+                 * Constructs a new PitchBend.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.IPitchBend);
+
+                /** PitchBend time. */
+                public time: number;
+
+                /** PitchBend bend. */
+                public bend: number;
+
+                /** PitchBend instrument. */
+                public instrument: number;
+
+                /** PitchBend program. */
+                public program: number;
+
+                /** PitchBend isDrum. */
+                public isDrum: boolean;
+
+                /**
+                 * Creates a new PitchBend instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PitchBend instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.IPitchBend): tensorflow.magenta.NoteSequence.PitchBend;
+
+                /**
+                 * Encodes the specified PitchBend message. Does not implicitly {@link tensorflow.magenta.NoteSequence.PitchBend.verify|verify} messages.
+                 * @param message PitchBend message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.IPitchBend, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PitchBend message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.PitchBend.verify|verify} messages.
+                 * @param message PitchBend message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.IPitchBend, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PitchBend message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PitchBend
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.PitchBend;
+
+                /**
+                 * Decodes a PitchBend message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PitchBend
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.PitchBend;
+
+                /**
+                 * Verifies a PitchBend message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PitchBend message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PitchBend
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.PitchBend;
