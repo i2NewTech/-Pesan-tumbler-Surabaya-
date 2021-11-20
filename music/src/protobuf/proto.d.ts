@@ -861,3 +861,312 @@ export namespace tensorflow {
                  * @returns PitchBend
                  */
                 public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.PitchBend;
+
+                /**
+                 * Creates a plain object from a PitchBend message. Also converts values to other types if specified.
+                 * @param message PitchBend
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.PitchBend, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PitchBend to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a ControlChange. */
+            interface IControlChange {
+
+                /** ControlChange time */
+                time?: (number|null);
+
+                /** ControlChange quantizedStep */
+                quantizedStep?: (number|null);
+
+                /** ControlChange controlNumber */
+                controlNumber?: (number|null);
+
+                /** ControlChange controlValue */
+                controlValue?: (number|null);
+
+                /** ControlChange instrument */
+                instrument?: (number|null);
+
+                /** ControlChange program */
+                program?: (number|null);
+
+                /** ControlChange isDrum */
+                isDrum?: (boolean|null);
+            }
+
+            /** Represents a ControlChange. */
+            class ControlChange implements IControlChange {
+
+                /**
+                 * Constructs a new ControlChange.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.IControlChange);
+
+                /** ControlChange time. */
+                public time: number;
+
+                /** ControlChange quantizedStep. */
+                public quantizedStep: number;
+
+                /** ControlChange controlNumber. */
+                public controlNumber: number;
+
+                /** ControlChange controlValue. */
+                public controlValue: number;
+
+                /** ControlChange instrument. */
+                public instrument: number;
+
+                /** ControlChange program. */
+                public program: number;
+
+                /** ControlChange isDrum. */
+                public isDrum: boolean;
+
+                /**
+                 * Creates a new ControlChange instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns ControlChange instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.IControlChange): tensorflow.magenta.NoteSequence.ControlChange;
+
+                /**
+                 * Encodes the specified ControlChange message. Does not implicitly {@link tensorflow.magenta.NoteSequence.ControlChange.verify|verify} messages.
+                 * @param message ControlChange message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.IControlChange, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified ControlChange message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.ControlChange.verify|verify} messages.
+                 * @param message ControlChange message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.IControlChange, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a ControlChange message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns ControlChange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.ControlChange;
+
+                /**
+                 * Decodes a ControlChange message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns ControlChange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.ControlChange;
+
+                /**
+                 * Verifies a ControlChange message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a ControlChange message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns ControlChange
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.ControlChange;
+
+                /**
+                 * Creates a plain object from a ControlChange message. Also converts values to other types if specified.
+                 * @param message ControlChange
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.ControlChange, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this ControlChange to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a PartInfo. */
+            interface IPartInfo {
+
+                /** PartInfo part */
+                part?: (number|null);
+
+                /** PartInfo name */
+                name?: (string|null);
+            }
+
+            /** Represents a PartInfo. */
+            class PartInfo implements IPartInfo {
+
+                /**
+                 * Constructs a new PartInfo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.IPartInfo);
+
+                /** PartInfo part. */
+                public part: number;
+
+                /** PartInfo name. */
+                public name: string;
+
+                /**
+                 * Creates a new PartInfo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns PartInfo instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.IPartInfo): tensorflow.magenta.NoteSequence.PartInfo;
+
+                /**
+                 * Encodes the specified PartInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.PartInfo.verify|verify} messages.
+                 * @param message PartInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.IPartInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified PartInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.PartInfo.verify|verify} messages.
+                 * @param message PartInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.IPartInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a PartInfo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns PartInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.PartInfo;
+
+                /**
+                 * Decodes a PartInfo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns PartInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.PartInfo;
+
+                /**
+                 * Verifies a PartInfo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a PartInfo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns PartInfo
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.PartInfo;
+
+                /**
+                 * Creates a plain object from a PartInfo message. Also converts values to other types if specified.
+                 * @param message PartInfo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.PartInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this PartInfo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SourceInfo. */
+            interface ISourceInfo {
+
+                /** SourceInfo sourceType */
+                sourceType?: (tensorflow.magenta.NoteSequence.SourceInfo.SourceType|null);
+
+                /** SourceInfo encodingType */
+                encodingType?: (tensorflow.magenta.NoteSequence.SourceInfo.EncodingType|null);
+
+                /** SourceInfo parser */
+                parser?: (tensorflow.magenta.NoteSequence.SourceInfo.Parser|null);
+            }
+
+            /** Represents a SourceInfo. */
+            class SourceInfo implements ISourceInfo {
+
+                /**
+                 * Constructs a new SourceInfo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ISourceInfo);
+
+                /** SourceInfo sourceType. */
+                public sourceType: tensorflow.magenta.NoteSequence.SourceInfo.SourceType;
+
+                /** SourceInfo encodingType. */
+                public encodingType: tensorflow.magenta.NoteSequence.SourceInfo.EncodingType;
+
+                /** SourceInfo parser. */
+                public parser: tensorflow.magenta.NoteSequence.SourceInfo.Parser;
+
+                /**
+                 * Creates a new SourceInfo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SourceInfo instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ISourceInfo): tensorflow.magenta.NoteSequence.SourceInfo;
+
+                /**
+                 * Encodes the specified SourceInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SourceInfo.verify|verify} messages.
+                 * @param message SourceInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ISourceInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SourceInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SourceInfo.verify|verify} messages.
+                 * @param message SourceInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ISourceInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SourceInfo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SourceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.SourceInfo;
+
+                /**
+                 * Decodes a SourceInfo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SourceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
