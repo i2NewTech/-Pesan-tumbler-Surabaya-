@@ -1170,3 +1170,364 @@ export namespace tensorflow {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.SourceInfo;
+
+                /**
+                 * Verifies a SourceInfo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SourceInfo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SourceInfo
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.SourceInfo;
+
+                /**
+                 * Creates a plain object from a SourceInfo message. Also converts values to other types if specified.
+                 * @param message SourceInfo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.SourceInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SourceInfo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace SourceInfo {
+
+                /** SourceType enum. */
+                enum SourceType {
+                    UNKNOWN_SOURCE_TYPE = 0,
+                    SCORE_BASED = 1,
+                    PERFORMANCE_BASED = 2
+                }
+
+                /** EncodingType enum. */
+                enum EncodingType {
+                    UNKNOWN_ENCODING_TYPE = 0,
+                    MUSIC_XML = 1,
+                    ABC = 2,
+                    MIDI = 3,
+                    MUSICNET = 4
+                }
+
+                /** Parser enum. */
+                enum Parser {
+                    UNKNOWN_PARSER = 0,
+                    MUSIC21 = 1,
+                    PRETTY_MIDI = 2,
+                    MAGENTA_MUSIC_XML = 3,
+                    MAGENTA_MUSICNET = 4,
+                    MAGENTA_ABC = 5,
+                    TONEJS_MIDI_CONVERT = 6
+                }
+            }
+
+            /** Properties of a TextAnnotation. */
+            interface ITextAnnotation {
+
+                /** TextAnnotation time */
+                time?: (number|null);
+
+                /** TextAnnotation quantizedStep */
+                quantizedStep?: (number|null);
+
+                /** TextAnnotation text */
+                text?: (string|null);
+
+                /** TextAnnotation annotationType */
+                annotationType?: (tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType|null);
+            }
+
+            /** Represents a TextAnnotation. */
+            class TextAnnotation implements ITextAnnotation {
+
+                /**
+                 * Constructs a new TextAnnotation.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ITextAnnotation);
+
+                /** TextAnnotation time. */
+                public time: number;
+
+                /** TextAnnotation quantizedStep. */
+                public quantizedStep: number;
+
+                /** TextAnnotation text. */
+                public text: string;
+
+                /** TextAnnotation annotationType. */
+                public annotationType: tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType;
+
+                /**
+                 * Creates a new TextAnnotation instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns TextAnnotation instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ITextAnnotation): tensorflow.magenta.NoteSequence.TextAnnotation;
+
+                /**
+                 * Encodes the specified TextAnnotation message. Does not implicitly {@link tensorflow.magenta.NoteSequence.TextAnnotation.verify|verify} messages.
+                 * @param message TextAnnotation message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ITextAnnotation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified TextAnnotation message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.TextAnnotation.verify|verify} messages.
+                 * @param message TextAnnotation message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ITextAnnotation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a TextAnnotation message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns TextAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.TextAnnotation;
+
+                /**
+                 * Decodes a TextAnnotation message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns TextAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.TextAnnotation;
+
+                /**
+                 * Verifies a TextAnnotation message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a TextAnnotation message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns TextAnnotation
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.TextAnnotation;
+
+                /**
+                 * Creates a plain object from a TextAnnotation message. Also converts values to other types if specified.
+                 * @param message TextAnnotation
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.TextAnnotation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this TextAnnotation to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace TextAnnotation {
+
+                /** TextAnnotationType enum. */
+                enum TextAnnotationType {
+                    UNKNOWN = 0,
+                    CHORD_SYMBOL = 1,
+                    BEAT = 2
+                }
+            }
+
+            /** Properties of a QuantizationInfo. */
+            interface IQuantizationInfo {
+
+                /** QuantizationInfo stepsPerQuarter */
+                stepsPerQuarter?: (number|null);
+
+                /** QuantizationInfo stepsPerSecond */
+                stepsPerSecond?: (number|null);
+            }
+
+            /** Represents a QuantizationInfo. */
+            class QuantizationInfo implements IQuantizationInfo {
+
+                /**
+                 * Constructs a new QuantizationInfo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.IQuantizationInfo);
+
+                /** QuantizationInfo stepsPerQuarter. */
+                public stepsPerQuarter: number;
+
+                /** QuantizationInfo stepsPerSecond. */
+                public stepsPerSecond: number;
+
+                /** QuantizationInfo resolution. */
+                public resolution?: ("stepsPerQuarter"|"stepsPerSecond");
+
+                /**
+                 * Creates a new QuantizationInfo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns QuantizationInfo instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.IQuantizationInfo): tensorflow.magenta.NoteSequence.QuantizationInfo;
+
+                /**
+                 * Encodes the specified QuantizationInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.QuantizationInfo.verify|verify} messages.
+                 * @param message QuantizationInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.IQuantizationInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified QuantizationInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.QuantizationInfo.verify|verify} messages.
+                 * @param message QuantizationInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.IQuantizationInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a QuantizationInfo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns QuantizationInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.QuantizationInfo;
+
+                /**
+                 * Decodes a QuantizationInfo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns QuantizationInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.QuantizationInfo;
+
+                /**
+                 * Verifies a QuantizationInfo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a QuantizationInfo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns QuantizationInfo
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.QuantizationInfo;
+
+                /**
+                 * Creates a plain object from a QuantizationInfo message. Also converts values to other types if specified.
+                 * @param message QuantizationInfo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.QuantizationInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this QuantizationInfo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SubsequenceInfo. */
+            interface ISubsequenceInfo {
+
+                /** SubsequenceInfo startTimeOffset */
+                startTimeOffset?: (number|null);
+
+                /** SubsequenceInfo endTimeOffset */
+                endTimeOffset?: (number|null);
+            }
+
+            /** Represents a SubsequenceInfo. */
+            class SubsequenceInfo implements ISubsequenceInfo {
+
+                /**
+                 * Constructs a new SubsequenceInfo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ISubsequenceInfo);
+
+                /** SubsequenceInfo startTimeOffset. */
+                public startTimeOffset: number;
+
+                /** SubsequenceInfo endTimeOffset. */
+                public endTimeOffset: number;
+
+                /**
+                 * Creates a new SubsequenceInfo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SubsequenceInfo instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ISubsequenceInfo): tensorflow.magenta.NoteSequence.SubsequenceInfo;
+
+                /**
+                 * Encodes the specified SubsequenceInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SubsequenceInfo.verify|verify} messages.
+                 * @param message SubsequenceInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ISubsequenceInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SubsequenceInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SubsequenceInfo.verify|verify} messages.
+                 * @param message SubsequenceInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ISubsequenceInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SubsequenceInfo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SubsequenceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.SubsequenceInfo;
+
+                /**
+                 * Decodes a SubsequenceInfo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SubsequenceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.SubsequenceInfo;
+
+                /**
+                 * Verifies a SubsequenceInfo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SubsequenceInfo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SubsequenceInfo
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.SubsequenceInfo;
+
+                /**
+                 * Creates a plain object from a SubsequenceInfo message. Also converts values to other types if specified.
