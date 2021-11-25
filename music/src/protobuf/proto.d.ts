@@ -1531,3 +1531,344 @@ export namespace tensorflow {
 
                 /**
                  * Creates a plain object from a SubsequenceInfo message. Also converts values to other types if specified.
+                 * @param message SubsequenceInfo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.SubsequenceInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SubsequenceInfo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SectionAnnotation. */
+            interface ISectionAnnotation {
+
+                /** SectionAnnotation time */
+                time?: (number|null);
+
+                /** SectionAnnotation sectionId */
+                sectionId?: (number|null);
+            }
+
+            /** Represents a SectionAnnotation. */
+            class SectionAnnotation implements ISectionAnnotation {
+
+                /**
+                 * Constructs a new SectionAnnotation.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ISectionAnnotation);
+
+                /** SectionAnnotation time. */
+                public time: number;
+
+                /** SectionAnnotation sectionId. */
+                public sectionId: number;
+
+                /**
+                 * Creates a new SectionAnnotation instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SectionAnnotation instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ISectionAnnotation): tensorflow.magenta.NoteSequence.SectionAnnotation;
+
+                /**
+                 * Encodes the specified SectionAnnotation message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionAnnotation.verify|verify} messages.
+                 * @param message SectionAnnotation message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ISectionAnnotation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SectionAnnotation message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionAnnotation.verify|verify} messages.
+                 * @param message SectionAnnotation message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ISectionAnnotation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SectionAnnotation message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SectionAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.SectionAnnotation;
+
+                /**
+                 * Decodes a SectionAnnotation message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SectionAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.SectionAnnotation;
+
+                /**
+                 * Verifies a SectionAnnotation message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SectionAnnotation message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SectionAnnotation
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.SectionAnnotation;
+
+                /**
+                 * Creates a plain object from a SectionAnnotation message. Also converts values to other types if specified.
+                 * @param message SectionAnnotation
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.SectionAnnotation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SectionAnnotation to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Section. */
+            interface ISection {
+
+                /** Section sectionId */
+                sectionId?: (number|null);
+
+                /** Section sectionGroup */
+                sectionGroup?: (tensorflow.magenta.NoteSequence.ISectionGroup|null);
+            }
+
+            /** Represents a Section. */
+            class Section implements ISection {
+
+                /**
+                 * Constructs a new Section.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ISection);
+
+                /** Section sectionId. */
+                public sectionId: number;
+
+                /** Section sectionGroup. */
+                public sectionGroup?: (tensorflow.magenta.NoteSequence.ISectionGroup|null);
+
+                /** Section sectionType. */
+                public sectionType?: ("sectionId"|"sectionGroup");
+
+                /**
+                 * Creates a new Section instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Section instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ISection): tensorflow.magenta.NoteSequence.Section;
+
+                /**
+                 * Encodes the specified Section message. Does not implicitly {@link tensorflow.magenta.NoteSequence.Section.verify|verify} messages.
+                 * @param message Section message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ISection, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Section message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.Section.verify|verify} messages.
+                 * @param message Section message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ISection, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Section message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Section
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.Section;
+
+                /**
+                 * Decodes a Section message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Section
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.Section;
+
+                /**
+                 * Verifies a Section message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Section message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Section
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.Section;
+
+                /**
+                 * Creates a plain object from a Section message. Also converts values to other types if specified.
+                 * @param message Section
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.Section, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Section to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SectionGroup. */
+            interface ISectionGroup {
+
+                /** SectionGroup sections */
+                sections?: (tensorflow.magenta.NoteSequence.ISection[]|null);
+
+                /** SectionGroup numTimes */
+                numTimes?: (number|null);
+            }
+
+            /** Represents a SectionGroup. */
+            class SectionGroup implements ISectionGroup {
+
+                /**
+                 * Constructs a new SectionGroup.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: tensorflow.magenta.NoteSequence.ISectionGroup);
+
+                /** SectionGroup sections. */
+                public sections: tensorflow.magenta.NoteSequence.ISection[];
+
+                /** SectionGroup numTimes. */
+                public numTimes: number;
+
+                /**
+                 * Creates a new SectionGroup instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SectionGroup instance
+                 */
+                public static create(properties?: tensorflow.magenta.NoteSequence.ISectionGroup): tensorflow.magenta.NoteSequence.SectionGroup;
+
+                /**
+                 * Encodes the specified SectionGroup message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionGroup.verify|verify} messages.
+                 * @param message SectionGroup message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: tensorflow.magenta.NoteSequence.ISectionGroup, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SectionGroup message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionGroup.verify|verify} messages.
+                 * @param message SectionGroup message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: tensorflow.magenta.NoteSequence.ISectionGroup, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SectionGroup message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SectionGroup
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tensorflow.magenta.NoteSequence.SectionGroup;
+
+                /**
+                 * Decodes a SectionGroup message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SectionGroup
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tensorflow.magenta.NoteSequence.SectionGroup;
+
+                /**
+                 * Verifies a SectionGroup message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SectionGroup message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SectionGroup
+                 */
+                public static fromObject(object: { [k: string]: any }): tensorflow.magenta.NoteSequence.SectionGroup;
+
+                /**
+                 * Creates a plain object from a SectionGroup message. Also converts values to other types if specified.
+                 * @param message SectionGroup
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: tensorflow.magenta.NoteSequence.SectionGroup, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SectionGroup to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+        }
+
+        /** Properties of a SequenceMetadata. */
+        interface ISequenceMetadata {
+
+            /** SequenceMetadata title */
+            title?: (string|null);
+
+            /** SequenceMetadata artist */
+            artist?: (string|null);
+
+            /** SequenceMetadata genre */
+            genre?: (string[]|null);
+
+            /** SequenceMetadata composers */
+            composers?: (string[]|null);
+        }
+
+        /** Represents a SequenceMetadata. */
+        class SequenceMetadata implements ISequenceMetadata {
+
+            /**
+             * Constructs a new SequenceMetadata.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: tensorflow.magenta.ISequenceMetadata);
+
+            /** SequenceMetadata title. */
+            public title: string;
+
+            /** SequenceMetadata artist. */
+            public artist: string;
+
+            /** SequenceMetadata genre. */
+            public genre: string[];
+
+            /** SequenceMetadata composers. */
+            public composers: string[];
