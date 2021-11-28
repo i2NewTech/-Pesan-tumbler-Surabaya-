@@ -532,3 +532,336 @@ $root.tensorflow = (function() {
                 if (message.totalTime != null && message.hasOwnProperty("totalTime"))
                     if (typeof message.totalTime !== "number")
                         return "totalTime: number expected";
+                if (message.totalQuantizedSteps != null && message.hasOwnProperty("totalQuantizedSteps"))
+                    if (!$util.isInteger(message.totalQuantizedSteps) && !(message.totalQuantizedSteps && $util.isInteger(message.totalQuantizedSteps.low) && $util.isInteger(message.totalQuantizedSteps.high)))
+                        return "totalQuantizedSteps: integer|Long expected";
+                if (message.pitchBends != null && message.hasOwnProperty("pitchBends")) {
+                    if (!Array.isArray(message.pitchBends))
+                        return "pitchBends: array expected";
+                    for (var i = 0; i < message.pitchBends.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.PitchBend.verify(message.pitchBends[i]);
+                        if (error)
+                            return "pitchBends." + error;
+                    }
+                }
+                if (message.controlChanges != null && message.hasOwnProperty("controlChanges")) {
+                    if (!Array.isArray(message.controlChanges))
+                        return "controlChanges: array expected";
+                    for (var i = 0; i < message.controlChanges.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.ControlChange.verify(message.controlChanges[i]);
+                        if (error)
+                            return "controlChanges." + error;
+                    }
+                }
+                if (message.partInfos != null && message.hasOwnProperty("partInfos")) {
+                    if (!Array.isArray(message.partInfos))
+                        return "partInfos: array expected";
+                    for (var i = 0; i < message.partInfos.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.PartInfo.verify(message.partInfos[i]);
+                        if (error)
+                            return "partInfos." + error;
+                    }
+                }
+                if (message.sourceInfo != null && message.hasOwnProperty("sourceInfo")) {
+                    var error = $root.tensorflow.magenta.NoteSequence.SourceInfo.verify(message.sourceInfo);
+                    if (error)
+                        return "sourceInfo." + error;
+                }
+                if (message.textAnnotations != null && message.hasOwnProperty("textAnnotations")) {
+                    if (!Array.isArray(message.textAnnotations))
+                        return "textAnnotations: array expected";
+                    for (var i = 0; i < message.textAnnotations.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.TextAnnotation.verify(message.textAnnotations[i]);
+                        if (error)
+                            return "textAnnotations." + error;
+                    }
+                }
+                if (message.sectionAnnotations != null && message.hasOwnProperty("sectionAnnotations")) {
+                    if (!Array.isArray(message.sectionAnnotations))
+                        return "sectionAnnotations: array expected";
+                    for (var i = 0; i < message.sectionAnnotations.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.SectionAnnotation.verify(message.sectionAnnotations[i]);
+                        if (error)
+                            return "sectionAnnotations." + error;
+                    }
+                }
+                if (message.sectionGroups != null && message.hasOwnProperty("sectionGroups")) {
+                    if (!Array.isArray(message.sectionGroups))
+                        return "sectionGroups: array expected";
+                    for (var i = 0; i < message.sectionGroups.length; ++i) {
+                        var error = $root.tensorflow.magenta.NoteSequence.SectionGroup.verify(message.sectionGroups[i]);
+                        if (error)
+                            return "sectionGroups." + error;
+                    }
+                }
+                if (message.quantizationInfo != null && message.hasOwnProperty("quantizationInfo")) {
+                    var error = $root.tensorflow.magenta.NoteSequence.QuantizationInfo.verify(message.quantizationInfo);
+                    if (error)
+                        return "quantizationInfo." + error;
+                }
+                if (message.subsequenceInfo != null && message.hasOwnProperty("subsequenceInfo")) {
+                    var error = $root.tensorflow.magenta.NoteSequence.SubsequenceInfo.verify(message.subsequenceInfo);
+                    if (error)
+                        return "subsequenceInfo." + error;
+                }
+                if (message.sequenceMetadata != null && message.hasOwnProperty("sequenceMetadata")) {
+                    var error = $root.tensorflow.magenta.SequenceMetadata.verify(message.sequenceMetadata);
+                    if (error)
+                        return "sequenceMetadata." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a NoteSequence message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tensorflow.magenta.NoteSequence
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tensorflow.magenta.NoteSequence} NoteSequence
+             */
+            NoteSequence.fromObject = function fromObject(object) {
+                if (object instanceof $root.tensorflow.magenta.NoteSequence)
+                    return object;
+                var message = new $root.tensorflow.magenta.NoteSequence();
+                if (object.id != null)
+                    message.id = String(object.id);
+                if (object.filename != null)
+                    message.filename = String(object.filename);
+                if (object.referenceNumber != null)
+                    if ($util.Long)
+                        (message.referenceNumber = $util.Long.fromValue(object.referenceNumber)).unsigned = false;
+                    else if (typeof object.referenceNumber === "string")
+                        message.referenceNumber = parseInt(object.referenceNumber, 10);
+                    else if (typeof object.referenceNumber === "number")
+                        message.referenceNumber = object.referenceNumber;
+                    else if (typeof object.referenceNumber === "object")
+                        message.referenceNumber = new $util.LongBits(object.referenceNumber.low >>> 0, object.referenceNumber.high >>> 0).toNumber();
+                if (object.collectionName != null)
+                    message.collectionName = String(object.collectionName);
+                if (object.ticksPerQuarter != null)
+                    message.ticksPerQuarter = object.ticksPerQuarter | 0;
+                if (object.timeSignatures) {
+                    if (!Array.isArray(object.timeSignatures))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.timeSignatures: array expected");
+                    message.timeSignatures = [];
+                    for (var i = 0; i < object.timeSignatures.length; ++i) {
+                        if (typeof object.timeSignatures[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.timeSignatures: object expected");
+                        message.timeSignatures[i] = $root.tensorflow.magenta.NoteSequence.TimeSignature.fromObject(object.timeSignatures[i]);
+                    }
+                }
+                if (object.keySignatures) {
+                    if (!Array.isArray(object.keySignatures))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.keySignatures: array expected");
+                    message.keySignatures = [];
+                    for (var i = 0; i < object.keySignatures.length; ++i) {
+                        if (typeof object.keySignatures[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.keySignatures: object expected");
+                        message.keySignatures[i] = $root.tensorflow.magenta.NoteSequence.KeySignature.fromObject(object.keySignatures[i]);
+                    }
+                }
+                if (object.tempos) {
+                    if (!Array.isArray(object.tempos))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.tempos: array expected");
+                    message.tempos = [];
+                    for (var i = 0; i < object.tempos.length; ++i) {
+                        if (typeof object.tempos[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.tempos: object expected");
+                        message.tempos[i] = $root.tensorflow.magenta.NoteSequence.Tempo.fromObject(object.tempos[i]);
+                    }
+                }
+                if (object.notes) {
+                    if (!Array.isArray(object.notes))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.notes: array expected");
+                    message.notes = [];
+                    for (var i = 0; i < object.notes.length; ++i) {
+                        if (typeof object.notes[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.notes: object expected");
+                        message.notes[i] = $root.tensorflow.magenta.NoteSequence.Note.fromObject(object.notes[i]);
+                    }
+                }
+                if (object.totalTime != null)
+                    message.totalTime = Number(object.totalTime);
+                if (object.totalQuantizedSteps != null)
+                    if ($util.Long)
+                        (message.totalQuantizedSteps = $util.Long.fromValue(object.totalQuantizedSteps)).unsigned = false;
+                    else if (typeof object.totalQuantizedSteps === "string")
+                        message.totalQuantizedSteps = parseInt(object.totalQuantizedSteps, 10);
+                    else if (typeof object.totalQuantizedSteps === "number")
+                        message.totalQuantizedSteps = object.totalQuantizedSteps;
+                    else if (typeof object.totalQuantizedSteps === "object")
+                        message.totalQuantizedSteps = new $util.LongBits(object.totalQuantizedSteps.low >>> 0, object.totalQuantizedSteps.high >>> 0).toNumber();
+                if (object.pitchBends) {
+                    if (!Array.isArray(object.pitchBends))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.pitchBends: array expected");
+                    message.pitchBends = [];
+                    for (var i = 0; i < object.pitchBends.length; ++i) {
+                        if (typeof object.pitchBends[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.pitchBends: object expected");
+                        message.pitchBends[i] = $root.tensorflow.magenta.NoteSequence.PitchBend.fromObject(object.pitchBends[i]);
+                    }
+                }
+                if (object.controlChanges) {
+                    if (!Array.isArray(object.controlChanges))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.controlChanges: array expected");
+                    message.controlChanges = [];
+                    for (var i = 0; i < object.controlChanges.length; ++i) {
+                        if (typeof object.controlChanges[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.controlChanges: object expected");
+                        message.controlChanges[i] = $root.tensorflow.magenta.NoteSequence.ControlChange.fromObject(object.controlChanges[i]);
+                    }
+                }
+                if (object.partInfos) {
+                    if (!Array.isArray(object.partInfos))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.partInfos: array expected");
+                    message.partInfos = [];
+                    for (var i = 0; i < object.partInfos.length; ++i) {
+                        if (typeof object.partInfos[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.partInfos: object expected");
+                        message.partInfos[i] = $root.tensorflow.magenta.NoteSequence.PartInfo.fromObject(object.partInfos[i]);
+                    }
+                }
+                if (object.sourceInfo != null) {
+                    if (typeof object.sourceInfo !== "object")
+                        throw TypeError(".tensorflow.magenta.NoteSequence.sourceInfo: object expected");
+                    message.sourceInfo = $root.tensorflow.magenta.NoteSequence.SourceInfo.fromObject(object.sourceInfo);
+                }
+                if (object.textAnnotations) {
+                    if (!Array.isArray(object.textAnnotations))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.textAnnotations: array expected");
+                    message.textAnnotations = [];
+                    for (var i = 0; i < object.textAnnotations.length; ++i) {
+                        if (typeof object.textAnnotations[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.textAnnotations: object expected");
+                        message.textAnnotations[i] = $root.tensorflow.magenta.NoteSequence.TextAnnotation.fromObject(object.textAnnotations[i]);
+                    }
+                }
+                if (object.sectionAnnotations) {
+                    if (!Array.isArray(object.sectionAnnotations))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.sectionAnnotations: array expected");
+                    message.sectionAnnotations = [];
+                    for (var i = 0; i < object.sectionAnnotations.length; ++i) {
+                        if (typeof object.sectionAnnotations[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.sectionAnnotations: object expected");
+                        message.sectionAnnotations[i] = $root.tensorflow.magenta.NoteSequence.SectionAnnotation.fromObject(object.sectionAnnotations[i]);
+                    }
+                }
+                if (object.sectionGroups) {
+                    if (!Array.isArray(object.sectionGroups))
+                        throw TypeError(".tensorflow.magenta.NoteSequence.sectionGroups: array expected");
+                    message.sectionGroups = [];
+                    for (var i = 0; i < object.sectionGroups.length; ++i) {
+                        if (typeof object.sectionGroups[i] !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.sectionGroups: object expected");
+                        message.sectionGroups[i] = $root.tensorflow.magenta.NoteSequence.SectionGroup.fromObject(object.sectionGroups[i]);
+                    }
+                }
+                if (object.quantizationInfo != null) {
+                    if (typeof object.quantizationInfo !== "object")
+                        throw TypeError(".tensorflow.magenta.NoteSequence.quantizationInfo: object expected");
+                    message.quantizationInfo = $root.tensorflow.magenta.NoteSequence.QuantizationInfo.fromObject(object.quantizationInfo);
+                }
+                if (object.subsequenceInfo != null) {
+                    if (typeof object.subsequenceInfo !== "object")
+                        throw TypeError(".tensorflow.magenta.NoteSequence.subsequenceInfo: object expected");
+                    message.subsequenceInfo = $root.tensorflow.magenta.NoteSequence.SubsequenceInfo.fromObject(object.subsequenceInfo);
+                }
+                if (object.sequenceMetadata != null) {
+                    if (typeof object.sequenceMetadata !== "object")
+                        throw TypeError(".tensorflow.magenta.NoteSequence.sequenceMetadata: object expected");
+                    message.sequenceMetadata = $root.tensorflow.magenta.SequenceMetadata.fromObject(object.sequenceMetadata);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a NoteSequence message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tensorflow.magenta.NoteSequence
+             * @static
+             * @param {tensorflow.magenta.NoteSequence} message NoteSequence
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NoteSequence.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults) {
+                    object.timeSignatures = [];
+                    object.keySignatures = [];
+                    object.tempos = [];
+                    object.notes = [];
+                    object.pitchBends = [];
+                    object.controlChanges = [];
+                    object.partInfos = [];
+                    object.textAnnotations = [];
+                    object.sectionAnnotations = [];
+                    object.sectionGroups = [];
+                }
+                if (options.defaults) {
+                    object.id = "";
+                    object.filename = "";
+                    object.collectionName = "";
+                    object.ticksPerQuarter = 0;
+                    object.totalTime = 0;
+                    object.sourceInfo = null;
+                    object.quantizationInfo = null;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.totalQuantizedSteps = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.totalQuantizedSteps = options.longs === String ? "0" : 0;
+                    object.subsequenceInfo = null;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.referenceNumber = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.referenceNumber = options.longs === String ? "0" : 0;
+                    object.sequenceMetadata = null;
+                }
+                if (message.id != null && message.hasOwnProperty("id"))
+                    object.id = message.id;
+                if (message.filename != null && message.hasOwnProperty("filename"))
+                    object.filename = message.filename;
+                if (message.collectionName != null && message.hasOwnProperty("collectionName"))
+                    object.collectionName = message.collectionName;
+                if (message.ticksPerQuarter != null && message.hasOwnProperty("ticksPerQuarter"))
+                    object.ticksPerQuarter = message.ticksPerQuarter;
+                if (message.timeSignatures && message.timeSignatures.length) {
+                    object.timeSignatures = [];
+                    for (var j = 0; j < message.timeSignatures.length; ++j)
+                        object.timeSignatures[j] = $root.tensorflow.magenta.NoteSequence.TimeSignature.toObject(message.timeSignatures[j], options);
+                }
+                if (message.keySignatures && message.keySignatures.length) {
+                    object.keySignatures = [];
+                    for (var j = 0; j < message.keySignatures.length; ++j)
+                        object.keySignatures[j] = $root.tensorflow.magenta.NoteSequence.KeySignature.toObject(message.keySignatures[j], options);
+                }
+                if (message.tempos && message.tempos.length) {
+                    object.tempos = [];
+                    for (var j = 0; j < message.tempos.length; ++j)
+                        object.tempos[j] = $root.tensorflow.magenta.NoteSequence.Tempo.toObject(message.tempos[j], options);
+                }
+                if (message.notes && message.notes.length) {
+                    object.notes = [];
+                    for (var j = 0; j < message.notes.length; ++j)
+                        object.notes[j] = $root.tensorflow.magenta.NoteSequence.Note.toObject(message.notes[j], options);
+                }
+                if (message.totalTime != null && message.hasOwnProperty("totalTime"))
+                    object.totalTime = options.json && !isFinite(message.totalTime) ? String(message.totalTime) : message.totalTime;
+                if (message.pitchBends && message.pitchBends.length) {
+                    object.pitchBends = [];
+                    for (var j = 0; j < message.pitchBends.length; ++j)
+                        object.pitchBends[j] = $root.tensorflow.magenta.NoteSequence.PitchBend.toObject(message.pitchBends[j], options);
+                }
+                if (message.controlChanges && message.controlChanges.length) {
+                    object.controlChanges = [];
+                    for (var j = 0; j < message.controlChanges.length; ++j)
+                        object.controlChanges[j] = $root.tensorflow.magenta.NoteSequence.ControlChange.toObject(message.controlChanges[j], options);
+                }
+                if (message.partInfos && message.partInfos.length) {
+                    object.partInfos = [];
+                    for (var j = 0; j < message.partInfos.length; ++j)
+                        object.partInfos[j] = $root.tensorflow.magenta.NoteSequence.PartInfo.toObject(message.partInfos[j], options);
