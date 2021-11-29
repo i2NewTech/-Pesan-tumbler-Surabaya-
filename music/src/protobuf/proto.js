@@ -865,3 +865,351 @@ $root.tensorflow = (function() {
                     object.partInfos = [];
                     for (var j = 0; j < message.partInfos.length; ++j)
                         object.partInfos[j] = $root.tensorflow.magenta.NoteSequence.PartInfo.toObject(message.partInfos[j], options);
+                }
+                if (message.sourceInfo != null && message.hasOwnProperty("sourceInfo"))
+                    object.sourceInfo = $root.tensorflow.magenta.NoteSequence.SourceInfo.toObject(message.sourceInfo, options);
+                if (message.textAnnotations && message.textAnnotations.length) {
+                    object.textAnnotations = [];
+                    for (var j = 0; j < message.textAnnotations.length; ++j)
+                        object.textAnnotations[j] = $root.tensorflow.magenta.NoteSequence.TextAnnotation.toObject(message.textAnnotations[j], options);
+                }
+                if (message.quantizationInfo != null && message.hasOwnProperty("quantizationInfo"))
+                    object.quantizationInfo = $root.tensorflow.magenta.NoteSequence.QuantizationInfo.toObject(message.quantizationInfo, options);
+                if (message.totalQuantizedSteps != null && message.hasOwnProperty("totalQuantizedSteps"))
+                    if (typeof message.totalQuantizedSteps === "number")
+                        object.totalQuantizedSteps = options.longs === String ? String(message.totalQuantizedSteps) : message.totalQuantizedSteps;
+                    else
+                        object.totalQuantizedSteps = options.longs === String ? $util.Long.prototype.toString.call(message.totalQuantizedSteps) : options.longs === Number ? new $util.LongBits(message.totalQuantizedSteps.low >>> 0, message.totalQuantizedSteps.high >>> 0).toNumber() : message.totalQuantizedSteps;
+                if (message.subsequenceInfo != null && message.hasOwnProperty("subsequenceInfo"))
+                    object.subsequenceInfo = $root.tensorflow.magenta.NoteSequence.SubsequenceInfo.toObject(message.subsequenceInfo, options);
+                if (message.referenceNumber != null && message.hasOwnProperty("referenceNumber"))
+                    if (typeof message.referenceNumber === "number")
+                        object.referenceNumber = options.longs === String ? String(message.referenceNumber) : message.referenceNumber;
+                    else
+                        object.referenceNumber = options.longs === String ? $util.Long.prototype.toString.call(message.referenceNumber) : options.longs === Number ? new $util.LongBits(message.referenceNumber.low >>> 0, message.referenceNumber.high >>> 0).toNumber() : message.referenceNumber;
+                if (message.sequenceMetadata != null && message.hasOwnProperty("sequenceMetadata"))
+                    object.sequenceMetadata = $root.tensorflow.magenta.SequenceMetadata.toObject(message.sequenceMetadata, options);
+                if (message.sectionAnnotations && message.sectionAnnotations.length) {
+                    object.sectionAnnotations = [];
+                    for (var j = 0; j < message.sectionAnnotations.length; ++j)
+                        object.sectionAnnotations[j] = $root.tensorflow.magenta.NoteSequence.SectionAnnotation.toObject(message.sectionAnnotations[j], options);
+                }
+                if (message.sectionGroups && message.sectionGroups.length) {
+                    object.sectionGroups = [];
+                    for (var j = 0; j < message.sectionGroups.length; ++j)
+                        object.sectionGroups[j] = $root.tensorflow.magenta.NoteSequence.SectionGroup.toObject(message.sectionGroups[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this NoteSequence to JSON.
+             * @function toJSON
+             * @memberof tensorflow.magenta.NoteSequence
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NoteSequence.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            NoteSequence.Note = (function() {
+
+                /**
+                 * Properties of a Note.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface INote
+                 * @property {number|null} [pitch] Note pitch
+                 * @property {tensorflow.magenta.NoteSequence.PitchName|null} [pitchName] Note pitchName
+                 * @property {number|null} [velocity] Note velocity
+                 * @property {number|null} [startTime] Note startTime
+                 * @property {number|null} [quantizedStartStep] Note quantizedStartStep
+                 * @property {number|null} [endTime] Note endTime
+                 * @property {number|null} [quantizedEndStep] Note quantizedEndStep
+                 * @property {number|null} [numerator] Note numerator
+                 * @property {number|null} [denominator] Note denominator
+                 * @property {number|null} [instrument] Note instrument
+                 * @property {number|null} [program] Note program
+                 * @property {boolean|null} [isDrum] Note isDrum
+                 * @property {number|null} [part] Note part
+                 * @property {number|null} [voice] Note voice
+                 */
+
+                /**
+                 * Constructs a new Note.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a Note.
+                 * @implements INote
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.INote=} [properties] Properties to set
+                 */
+                function Note(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Note pitch.
+                 * @member {number} pitch
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.pitch = 0;
+
+                /**
+                 * Note pitchName.
+                 * @member {tensorflow.magenta.NoteSequence.PitchName} pitchName
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.pitchName = 0;
+
+                /**
+                 * Note velocity.
+                 * @member {number} velocity
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.velocity = 0;
+
+                /**
+                 * Note startTime.
+                 * @member {number} startTime
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.startTime = 0;
+
+                /**
+                 * Note quantizedStartStep.
+                 * @member {number} quantizedStartStep
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.quantizedStartStep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Note endTime.
+                 * @member {number} endTime
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.endTime = 0;
+
+                /**
+                 * Note quantizedEndStep.
+                 * @member {number} quantizedEndStep
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.quantizedEndStep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Note numerator.
+                 * @member {number} numerator
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.numerator = 0;
+
+                /**
+                 * Note denominator.
+                 * @member {number} denominator
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.denominator = 0;
+
+                /**
+                 * Note instrument.
+                 * @member {number} instrument
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.instrument = 0;
+
+                /**
+                 * Note program.
+                 * @member {number} program
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.program = 0;
+
+                /**
+                 * Note isDrum.
+                 * @member {boolean} isDrum
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.isDrum = false;
+
+                /**
+                 * Note part.
+                 * @member {number} part
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.part = 0;
+
+                /**
+                 * Note voice.
+                 * @member {number} voice
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 */
+                Note.prototype.voice = 0;
+
+                /**
+                 * Creates a new Note instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.INote=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.Note} Note instance
+                 */
+                Note.create = function create(properties) {
+                    return new Note(properties);
+                };
+
+                /**
+                 * Encodes the specified Note message. Does not implicitly {@link tensorflow.magenta.NoteSequence.Note.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.INote} message Note message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Note.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.pitch != null && message.hasOwnProperty("pitch"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.pitch);
+                    if (message.velocity != null && message.hasOwnProperty("velocity"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.velocity);
+                    if (message.startTime != null && message.hasOwnProperty("startTime"))
+                        writer.uint32(/* id 3, wireType 1 =*/25).double(message.startTime);
+                    if (message.endTime != null && message.hasOwnProperty("endTime"))
+                        writer.uint32(/* id 4, wireType 1 =*/33).double(message.endTime);
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).int32(message.numerator);
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).int32(message.denominator);
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int32(message.instrument);
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        writer.uint32(/* id 8, wireType 0 =*/64).int32(message.program);
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).bool(message.isDrum);
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        writer.uint32(/* id 10, wireType 0 =*/80).int32(message.part);
+                    if (message.pitchName != null && message.hasOwnProperty("pitchName"))
+                        writer.uint32(/* id 11, wireType 0 =*/88).int32(message.pitchName);
+                    if (message.voice != null && message.hasOwnProperty("voice"))
+                        writer.uint32(/* id 12, wireType 0 =*/96).int32(message.voice);
+                    if (message.quantizedStartStep != null && message.hasOwnProperty("quantizedStartStep"))
+                        writer.uint32(/* id 13, wireType 0 =*/104).int64(message.quantizedStartStep);
+                    if (message.quantizedEndStep != null && message.hasOwnProperty("quantizedEndStep"))
+                        writer.uint32(/* id 14, wireType 0 =*/112).int64(message.quantizedEndStep);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Note message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.Note.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.INote} message Note message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Note.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Note message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.Note} Note
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Note.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.Note();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.pitch = reader.int32();
+                            break;
+                        case 11:
+                            message.pitchName = reader.int32();
+                            break;
+                        case 2:
+                            message.velocity = reader.int32();
+                            break;
+                        case 3:
+                            message.startTime = reader.double();
+                            break;
+                        case 13:
+                            message.quantizedStartStep = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        case 4:
+                            message.endTime = reader.double();
+                            break;
+                        case 14:
+                            message.quantizedEndStep = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        case 5:
+                            message.numerator = reader.int32();
+                            break;
+                        case 6:
+                            message.denominator = reader.int32();
+                            break;
+                        case 7:
+                            message.instrument = reader.int32();
+                            break;
+                        case 8:
+                            message.program = reader.int32();
+                            break;
+                        case 9:
+                            message.isDrum = reader.bool();
+                            break;
+                        case 10:
+                            message.part = reader.int32();
+                            break;
+                        case 12:
+                            message.voice = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Note message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.Note} Note
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Note.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
