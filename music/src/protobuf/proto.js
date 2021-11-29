@@ -1213,3 +1213,363 @@ $root.tensorflow = (function() {
                         reader = new $Reader(reader);
                     return this.decode(reader, reader.uint32());
                 };
+
+                /**
+                 * Verifies a Note message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Note.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.pitch != null && message.hasOwnProperty("pitch"))
+                        if (!$util.isInteger(message.pitch))
+                            return "pitch: integer expected";
+                    if (message.pitchName != null && message.hasOwnProperty("pitchName"))
+                        switch (message.pitchName) {
+                        default:
+                            return "pitchName: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 13:
+                        case 14:
+                        case 15:
+                        case 16:
+                        case 17:
+                        case 18:
+                        case 19:
+                        case 20:
+                        case 21:
+                        case 22:
+                        case 23:
+                        case 24:
+                        case 25:
+                        case 26:
+                        case 27:
+                        case 28:
+                        case 29:
+                        case 30:
+                        case 31:
+                        case 32:
+                        case 33:
+                        case 34:
+                        case 35:
+                            break;
+                        }
+                    if (message.velocity != null && message.hasOwnProperty("velocity"))
+                        if (!$util.isInteger(message.velocity))
+                            return "velocity: integer expected";
+                    if (message.startTime != null && message.hasOwnProperty("startTime"))
+                        if (typeof message.startTime !== "number")
+                            return "startTime: number expected";
+                    if (message.quantizedStartStep != null && message.hasOwnProperty("quantizedStartStep"))
+                        if (!$util.isInteger(message.quantizedStartStep) && !(message.quantizedStartStep && $util.isInteger(message.quantizedStartStep.low) && $util.isInteger(message.quantizedStartStep.high)))
+                            return "quantizedStartStep: integer|Long expected";
+                    if (message.endTime != null && message.hasOwnProperty("endTime"))
+                        if (typeof message.endTime !== "number")
+                            return "endTime: number expected";
+                    if (message.quantizedEndStep != null && message.hasOwnProperty("quantizedEndStep"))
+                        if (!$util.isInteger(message.quantizedEndStep) && !(message.quantizedEndStep && $util.isInteger(message.quantizedEndStep.low) && $util.isInteger(message.quantizedEndStep.high)))
+                            return "quantizedEndStep: integer|Long expected";
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        if (!$util.isInteger(message.numerator))
+                            return "numerator: integer expected";
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        if (!$util.isInteger(message.denominator))
+                            return "denominator: integer expected";
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        if (!$util.isInteger(message.instrument))
+                            return "instrument: integer expected";
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        if (!$util.isInteger(message.program))
+                            return "program: integer expected";
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        if (typeof message.isDrum !== "boolean")
+                            return "isDrum: boolean expected";
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        if (!$util.isInteger(message.part))
+                            return "part: integer expected";
+                    if (message.voice != null && message.hasOwnProperty("voice"))
+                        if (!$util.isInteger(message.voice))
+                            return "voice: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Note message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.Note} Note
+                 */
+                Note.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.Note)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.Note();
+                    if (object.pitch != null)
+                        message.pitch = object.pitch | 0;
+                    switch (object.pitchName) {
+                    case "UNKNOWN_PITCH_NAME":
+                    case 0:
+                        message.pitchName = 0;
+                        break;
+                    case "F_FLAT_FLAT":
+                    case 1:
+                        message.pitchName = 1;
+                        break;
+                    case "C_FLAT_FLAT":
+                    case 2:
+                        message.pitchName = 2;
+                        break;
+                    case "G_FLAT_FLAT":
+                    case 3:
+                        message.pitchName = 3;
+                        break;
+                    case "D_FLAT_FLAT":
+                    case 4:
+                        message.pitchName = 4;
+                        break;
+                    case "A_FLAT_FLAT":
+                    case 5:
+                        message.pitchName = 5;
+                        break;
+                    case "E_FLAT_FLAT":
+                    case 6:
+                        message.pitchName = 6;
+                        break;
+                    case "B_FLAT_FLAT":
+                    case 7:
+                        message.pitchName = 7;
+                        break;
+                    case "F_FLAT":
+                    case 8:
+                        message.pitchName = 8;
+                        break;
+                    case "C_FLAT":
+                    case 9:
+                        message.pitchName = 9;
+                        break;
+                    case "G_FLAT":
+                    case 10:
+                        message.pitchName = 10;
+                        break;
+                    case "D_FLAT":
+                    case 11:
+                        message.pitchName = 11;
+                        break;
+                    case "A_FLAT":
+                    case 12:
+                        message.pitchName = 12;
+                        break;
+                    case "E_FLAT":
+                    case 13:
+                        message.pitchName = 13;
+                        break;
+                    case "B_FLAT":
+                    case 14:
+                        message.pitchName = 14;
+                        break;
+                    case "F":
+                    case 15:
+                        message.pitchName = 15;
+                        break;
+                    case "C":
+                    case 16:
+                        message.pitchName = 16;
+                        break;
+                    case "G":
+                    case 17:
+                        message.pitchName = 17;
+                        break;
+                    case "D":
+                    case 18:
+                        message.pitchName = 18;
+                        break;
+                    case "A":
+                    case 19:
+                        message.pitchName = 19;
+                        break;
+                    case "E":
+                    case 20:
+                        message.pitchName = 20;
+                        break;
+                    case "B":
+                    case 21:
+                        message.pitchName = 21;
+                        break;
+                    case "F_SHARP":
+                    case 22:
+                        message.pitchName = 22;
+                        break;
+                    case "C_SHARP":
+                    case 23:
+                        message.pitchName = 23;
+                        break;
+                    case "G_SHARP":
+                    case 24:
+                        message.pitchName = 24;
+                        break;
+                    case "D_SHARP":
+                    case 25:
+                        message.pitchName = 25;
+                        break;
+                    case "A_SHARP":
+                    case 26:
+                        message.pitchName = 26;
+                        break;
+                    case "E_SHARP":
+                    case 27:
+                        message.pitchName = 27;
+                        break;
+                    case "B_SHARP":
+                    case 28:
+                        message.pitchName = 28;
+                        break;
+                    case "F_SHARP_SHARP":
+                    case 29:
+                        message.pitchName = 29;
+                        break;
+                    case "C_SHARP_SHARP":
+                    case 30:
+                        message.pitchName = 30;
+                        break;
+                    case "G_SHARP_SHARP":
+                    case 31:
+                        message.pitchName = 31;
+                        break;
+                    case "D_SHARP_SHARP":
+                    case 32:
+                        message.pitchName = 32;
+                        break;
+                    case "A_SHARP_SHARP":
+                    case 33:
+                        message.pitchName = 33;
+                        break;
+                    case "E_SHARP_SHARP":
+                    case 34:
+                        message.pitchName = 34;
+                        break;
+                    case "B_SHARP_SHARP":
+                    case 35:
+                        message.pitchName = 35;
+                        break;
+                    }
+                    if (object.velocity != null)
+                        message.velocity = object.velocity | 0;
+                    if (object.startTime != null)
+                        message.startTime = Number(object.startTime);
+                    if (object.quantizedStartStep != null)
+                        if ($util.Long)
+                            (message.quantizedStartStep = $util.Long.fromValue(object.quantizedStartStep)).unsigned = false;
+                        else if (typeof object.quantizedStartStep === "string")
+                            message.quantizedStartStep = parseInt(object.quantizedStartStep, 10);
+                        else if (typeof object.quantizedStartStep === "number")
+                            message.quantizedStartStep = object.quantizedStartStep;
+                        else if (typeof object.quantizedStartStep === "object")
+                            message.quantizedStartStep = new $util.LongBits(object.quantizedStartStep.low >>> 0, object.quantizedStartStep.high >>> 0).toNumber();
+                    if (object.endTime != null)
+                        message.endTime = Number(object.endTime);
+                    if (object.quantizedEndStep != null)
+                        if ($util.Long)
+                            (message.quantizedEndStep = $util.Long.fromValue(object.quantizedEndStep)).unsigned = false;
+                        else if (typeof object.quantizedEndStep === "string")
+                            message.quantizedEndStep = parseInt(object.quantizedEndStep, 10);
+                        else if (typeof object.quantizedEndStep === "number")
+                            message.quantizedEndStep = object.quantizedEndStep;
+                        else if (typeof object.quantizedEndStep === "object")
+                            message.quantizedEndStep = new $util.LongBits(object.quantizedEndStep.low >>> 0, object.quantizedEndStep.high >>> 0).toNumber();
+                    if (object.numerator != null)
+                        message.numerator = object.numerator | 0;
+                    if (object.denominator != null)
+                        message.denominator = object.denominator | 0;
+                    if (object.instrument != null)
+                        message.instrument = object.instrument | 0;
+                    if (object.program != null)
+                        message.program = object.program | 0;
+                    if (object.isDrum != null)
+                        message.isDrum = Boolean(object.isDrum);
+                    if (object.part != null)
+                        message.part = object.part | 0;
+                    if (object.voice != null)
+                        message.voice = object.voice | 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Note message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.Note} message Note
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Note.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.pitch = 0;
+                        object.velocity = 0;
+                        object.startTime = 0;
+                        object.endTime = 0;
+                        object.numerator = 0;
+                        object.denominator = 0;
+                        object.instrument = 0;
+                        object.program = 0;
+                        object.isDrum = false;
+                        object.part = 0;
+                        object.pitchName = options.enums === String ? "UNKNOWN_PITCH_NAME" : 0;
+                        object.voice = 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.quantizedStartStep = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.quantizedStartStep = options.longs === String ? "0" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.quantizedEndStep = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.quantizedEndStep = options.longs === String ? "0" : 0;
+                    }
+                    if (message.pitch != null && message.hasOwnProperty("pitch"))
+                        object.pitch = message.pitch;
+                    if (message.velocity != null && message.hasOwnProperty("velocity"))
+                        object.velocity = message.velocity;
+                    if (message.startTime != null && message.hasOwnProperty("startTime"))
+                        object.startTime = options.json && !isFinite(message.startTime) ? String(message.startTime) : message.startTime;
+                    if (message.endTime != null && message.hasOwnProperty("endTime"))
+                        object.endTime = options.json && !isFinite(message.endTime) ? String(message.endTime) : message.endTime;
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        object.numerator = message.numerator;
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        object.denominator = message.denominator;
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        object.instrument = message.instrument;
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        object.program = message.program;
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        object.isDrum = message.isDrum;
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        object.part = message.part;
+                    if (message.pitchName != null && message.hasOwnProperty("pitchName"))
+                        object.pitchName = options.enums === String ? $root.tensorflow.magenta.NoteSequence.PitchName[message.pitchName] : message.pitchName;
+                    if (message.voice != null && message.hasOwnProperty("voice"))
+                        object.voice = message.voice;
+                    if (message.quantizedStartStep != null && message.hasOwnProperty("quantizedStartStep"))
+                        if (typeof message.quantizedStartStep === "number")
