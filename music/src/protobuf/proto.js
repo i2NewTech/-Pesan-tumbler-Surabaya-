@@ -1573,3 +1573,325 @@ $root.tensorflow = (function() {
                         object.voice = message.voice;
                     if (message.quantizedStartStep != null && message.hasOwnProperty("quantizedStartStep"))
                         if (typeof message.quantizedStartStep === "number")
+                            object.quantizedStartStep = options.longs === String ? String(message.quantizedStartStep) : message.quantizedStartStep;
+                        else
+                            object.quantizedStartStep = options.longs === String ? $util.Long.prototype.toString.call(message.quantizedStartStep) : options.longs === Number ? new $util.LongBits(message.quantizedStartStep.low >>> 0, message.quantizedStartStep.high >>> 0).toNumber() : message.quantizedStartStep;
+                    if (message.quantizedEndStep != null && message.hasOwnProperty("quantizedEndStep"))
+                        if (typeof message.quantizedEndStep === "number")
+                            object.quantizedEndStep = options.longs === String ? String(message.quantizedEndStep) : message.quantizedEndStep;
+                        else
+                            object.quantizedEndStep = options.longs === String ? $util.Long.prototype.toString.call(message.quantizedEndStep) : options.longs === Number ? new $util.LongBits(message.quantizedEndStep.low >>> 0, message.quantizedEndStep.high >>> 0).toNumber() : message.quantizedEndStep;
+                    return object;
+                };
+
+                /**
+                 * Converts this Note to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.Note
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Note.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Note;
+            })();
+
+            /**
+             * PitchName enum.
+             * @name tensorflow.magenta.NoteSequence.PitchName
+             * @enum {string}
+             * @property {number} UNKNOWN_PITCH_NAME=0 UNKNOWN_PITCH_NAME value
+             * @property {number} F_FLAT_FLAT=1 F_FLAT_FLAT value
+             * @property {number} C_FLAT_FLAT=2 C_FLAT_FLAT value
+             * @property {number} G_FLAT_FLAT=3 G_FLAT_FLAT value
+             * @property {number} D_FLAT_FLAT=4 D_FLAT_FLAT value
+             * @property {number} A_FLAT_FLAT=5 A_FLAT_FLAT value
+             * @property {number} E_FLAT_FLAT=6 E_FLAT_FLAT value
+             * @property {number} B_FLAT_FLAT=7 B_FLAT_FLAT value
+             * @property {number} F_FLAT=8 F_FLAT value
+             * @property {number} C_FLAT=9 C_FLAT value
+             * @property {number} G_FLAT=10 G_FLAT value
+             * @property {number} D_FLAT=11 D_FLAT value
+             * @property {number} A_FLAT=12 A_FLAT value
+             * @property {number} E_FLAT=13 E_FLAT value
+             * @property {number} B_FLAT=14 B_FLAT value
+             * @property {number} F=15 F value
+             * @property {number} C=16 C value
+             * @property {number} G=17 G value
+             * @property {number} D=18 D value
+             * @property {number} A=19 A value
+             * @property {number} E=20 E value
+             * @property {number} B=21 B value
+             * @property {number} F_SHARP=22 F_SHARP value
+             * @property {number} C_SHARP=23 C_SHARP value
+             * @property {number} G_SHARP=24 G_SHARP value
+             * @property {number} D_SHARP=25 D_SHARP value
+             * @property {number} A_SHARP=26 A_SHARP value
+             * @property {number} E_SHARP=27 E_SHARP value
+             * @property {number} B_SHARP=28 B_SHARP value
+             * @property {number} F_SHARP_SHARP=29 F_SHARP_SHARP value
+             * @property {number} C_SHARP_SHARP=30 C_SHARP_SHARP value
+             * @property {number} G_SHARP_SHARP=31 G_SHARP_SHARP value
+             * @property {number} D_SHARP_SHARP=32 D_SHARP_SHARP value
+             * @property {number} A_SHARP_SHARP=33 A_SHARP_SHARP value
+             * @property {number} E_SHARP_SHARP=34 E_SHARP_SHARP value
+             * @property {number} B_SHARP_SHARP=35 B_SHARP_SHARP value
+             */
+            NoteSequence.PitchName = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNKNOWN_PITCH_NAME"] = 0;
+                values[valuesById[1] = "F_FLAT_FLAT"] = 1;
+                values[valuesById[2] = "C_FLAT_FLAT"] = 2;
+                values[valuesById[3] = "G_FLAT_FLAT"] = 3;
+                values[valuesById[4] = "D_FLAT_FLAT"] = 4;
+                values[valuesById[5] = "A_FLAT_FLAT"] = 5;
+                values[valuesById[6] = "E_FLAT_FLAT"] = 6;
+                values[valuesById[7] = "B_FLAT_FLAT"] = 7;
+                values[valuesById[8] = "F_FLAT"] = 8;
+                values[valuesById[9] = "C_FLAT"] = 9;
+                values[valuesById[10] = "G_FLAT"] = 10;
+                values[valuesById[11] = "D_FLAT"] = 11;
+                values[valuesById[12] = "A_FLAT"] = 12;
+                values[valuesById[13] = "E_FLAT"] = 13;
+                values[valuesById[14] = "B_FLAT"] = 14;
+                values[valuesById[15] = "F"] = 15;
+                values[valuesById[16] = "C"] = 16;
+                values[valuesById[17] = "G"] = 17;
+                values[valuesById[18] = "D"] = 18;
+                values[valuesById[19] = "A"] = 19;
+                values[valuesById[20] = "E"] = 20;
+                values[valuesById[21] = "B"] = 21;
+                values[valuesById[22] = "F_SHARP"] = 22;
+                values[valuesById[23] = "C_SHARP"] = 23;
+                values[valuesById[24] = "G_SHARP"] = 24;
+                values[valuesById[25] = "D_SHARP"] = 25;
+                values[valuesById[26] = "A_SHARP"] = 26;
+                values[valuesById[27] = "E_SHARP"] = 27;
+                values[valuesById[28] = "B_SHARP"] = 28;
+                values[valuesById[29] = "F_SHARP_SHARP"] = 29;
+                values[valuesById[30] = "C_SHARP_SHARP"] = 30;
+                values[valuesById[31] = "G_SHARP_SHARP"] = 31;
+                values[valuesById[32] = "D_SHARP_SHARP"] = 32;
+                values[valuesById[33] = "A_SHARP_SHARP"] = 33;
+                values[valuesById[34] = "E_SHARP_SHARP"] = 34;
+                values[valuesById[35] = "B_SHARP_SHARP"] = 35;
+                return values;
+            })();
+
+            NoteSequence.TimeSignature = (function() {
+
+                /**
+                 * Properties of a TimeSignature.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ITimeSignature
+                 * @property {number|null} [time] TimeSignature time
+                 * @property {number|null} [numerator] TimeSignature numerator
+                 * @property {number|null} [denominator] TimeSignature denominator
+                 */
+
+                /**
+                 * Constructs a new TimeSignature.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a TimeSignature.
+                 * @implements ITimeSignature
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ITimeSignature=} [properties] Properties to set
+                 */
+                function TimeSignature(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * TimeSignature time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @instance
+                 */
+                TimeSignature.prototype.time = 0;
+
+                /**
+                 * TimeSignature numerator.
+                 * @member {number} numerator
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @instance
+                 */
+                TimeSignature.prototype.numerator = 0;
+
+                /**
+                 * TimeSignature denominator.
+                 * @member {number} denominator
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @instance
+                 */
+                TimeSignature.prototype.denominator = 0;
+
+                /**
+                 * Creates a new TimeSignature instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITimeSignature=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.TimeSignature} TimeSignature instance
+                 */
+                TimeSignature.create = function create(properties) {
+                    return new TimeSignature(properties);
+                };
+
+                /**
+                 * Encodes the specified TimeSignature message. Does not implicitly {@link tensorflow.magenta.NoteSequence.TimeSignature.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITimeSignature} message TimeSignature message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TimeSignature.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.numerator);
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.denominator);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified TimeSignature message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.TimeSignature.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITimeSignature} message TimeSignature message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TimeSignature.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a TimeSignature message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.TimeSignature} TimeSignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TimeSignature.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.TimeSignature();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 2:
+                            message.numerator = reader.int32();
+                            break;
+                        case 3:
+                            message.denominator = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a TimeSignature message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.TimeSignature} TimeSignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TimeSignature.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a TimeSignature message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                TimeSignature.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        if (!$util.isInteger(message.numerator))
+                            return "numerator: integer expected";
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        if (!$util.isInteger(message.denominator))
+                            return "denominator: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a TimeSignature message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.TimeSignature} TimeSignature
+                 */
+                TimeSignature.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.TimeSignature)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.TimeSignature();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.numerator != null)
+                        message.numerator = object.numerator | 0;
+                    if (object.denominator != null)
+                        message.denominator = object.denominator | 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a TimeSignature message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.TimeSignature} message TimeSignature
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                TimeSignature.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.numerator = 0;
+                        object.denominator = 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.numerator != null && message.hasOwnProperty("numerator"))
+                        object.numerator = message.numerator;
+                    if (message.denominator != null && message.hasOwnProperty("denominator"))
+                        object.denominator = message.denominator;
