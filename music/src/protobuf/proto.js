@@ -1895,3 +1895,359 @@ $root.tensorflow = (function() {
                         object.numerator = message.numerator;
                     if (message.denominator != null && message.hasOwnProperty("denominator"))
                         object.denominator = message.denominator;
+                    return object;
+                };
+
+                /**
+                 * Converts this TimeSignature to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.TimeSignature
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                TimeSignature.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return TimeSignature;
+            })();
+
+            NoteSequence.KeySignature = (function() {
+
+                /**
+                 * Properties of a KeySignature.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface IKeySignature
+                 * @property {number|null} [time] KeySignature time
+                 * @property {tensorflow.magenta.NoteSequence.KeySignature.Key|null} [key] KeySignature key
+                 * @property {tensorflow.magenta.NoteSequence.KeySignature.Mode|null} [mode] KeySignature mode
+                 */
+
+                /**
+                 * Constructs a new KeySignature.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a KeySignature.
+                 * @implements IKeySignature
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.IKeySignature=} [properties] Properties to set
+                 */
+                function KeySignature(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * KeySignature time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @instance
+                 */
+                KeySignature.prototype.time = 0;
+
+                /**
+                 * KeySignature key.
+                 * @member {tensorflow.magenta.NoteSequence.KeySignature.Key} key
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @instance
+                 */
+                KeySignature.prototype.key = 0;
+
+                /**
+                 * KeySignature mode.
+                 * @member {tensorflow.magenta.NoteSequence.KeySignature.Mode} mode
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @instance
+                 */
+                KeySignature.prototype.mode = 0;
+
+                /**
+                 * Creates a new KeySignature instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IKeySignature=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.KeySignature} KeySignature instance
+                 */
+                KeySignature.create = function create(properties) {
+                    return new KeySignature(properties);
+                };
+
+                /**
+                 * Encodes the specified KeySignature message. Does not implicitly {@link tensorflow.magenta.NoteSequence.KeySignature.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IKeySignature} message KeySignature message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                KeySignature.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.key != null && message.hasOwnProperty("key"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.key);
+                    if (message.mode != null && message.hasOwnProperty("mode"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.mode);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified KeySignature message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.KeySignature.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IKeySignature} message KeySignature message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                KeySignature.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a KeySignature message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.KeySignature} KeySignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                KeySignature.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.KeySignature();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 2:
+                            message.key = reader.int32();
+                            break;
+                        case 3:
+                            message.mode = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a KeySignature message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.KeySignature} KeySignature
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                KeySignature.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a KeySignature message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                KeySignature.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.key != null && message.hasOwnProperty("key"))
+                        switch (message.key) {
+                        default:
+                            return "key: enum value expected";
+                        case 0:
+                        case 1:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 10:
+                        case 11:
+                            break;
+                        }
+                    if (message.mode != null && message.hasOwnProperty("mode"))
+                        switch (message.mode) {
+                        default:
+                            return "mode: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a KeySignature message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.KeySignature} KeySignature
+                 */
+                KeySignature.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.KeySignature)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.KeySignature();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    switch (object.key) {
+                    case "C":
+                    case 0:
+                        message.key = 0;
+                        break;
+                    case "C_SHARP":
+                    case 1:
+                        message.key = 1;
+                        break;
+                    case "D_FLAT":
+                    case 1:
+                        message.key = 1;
+                        break;
+                    case "D":
+                    case 2:
+                        message.key = 2;
+                        break;
+                    case "D_SHARP":
+                    case 3:
+                        message.key = 3;
+                        break;
+                    case "E_FLAT":
+                    case 3:
+                        message.key = 3;
+                        break;
+                    case "E":
+                    case 4:
+                        message.key = 4;
+                        break;
+                    case "F":
+                    case 5:
+                        message.key = 5;
+                        break;
+                    case "F_SHARP":
+                    case 6:
+                        message.key = 6;
+                        break;
+                    case "G_FLAT":
+                    case 6:
+                        message.key = 6;
+                        break;
+                    case "G":
+                    case 7:
+                        message.key = 7;
+                        break;
+                    case "G_SHARP":
+                    case 8:
+                        message.key = 8;
+                        break;
+                    case "A_FLAT":
+                    case 8:
+                        message.key = 8;
+                        break;
+                    case "A":
+                    case 9:
+                        message.key = 9;
+                        break;
+                    case "A_SHARP":
+                    case 10:
+                        message.key = 10;
+                        break;
+                    case "B_FLAT":
+                    case 10:
+                        message.key = 10;
+                        break;
+                    case "B":
+                    case 11:
+                        message.key = 11;
+                        break;
+                    }
+                    switch (object.mode) {
+                    case "MAJOR":
+                    case 0:
+                        message.mode = 0;
+                        break;
+                    case "MINOR":
+                    case 1:
+                        message.mode = 1;
+                        break;
+                    case "NOT_SPECIFIED":
+                    case 2:
+                        message.mode = 2;
+                        break;
+                    case "MIXOLYDIAN":
+                    case 3:
+                        message.mode = 3;
+                        break;
+                    case "DORIAN":
+                    case 4:
+                        message.mode = 4;
+                        break;
+                    case "PHRYGIAN":
+                    case 5:
+                        message.mode = 5;
+                        break;
+                    case "LYDIAN":
+                    case 6:
+                        message.mode = 6;
+                        break;
+                    case "LOCRIAN":
+                    case 7:
+                        message.mode = 7;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a KeySignature message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.KeySignature} message KeySignature
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                KeySignature.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.key = options.enums === String ? "C" : 0;
+                        object.mode = options.enums === String ? "MAJOR" : 0;
