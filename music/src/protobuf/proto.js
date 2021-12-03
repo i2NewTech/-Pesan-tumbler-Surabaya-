@@ -2598,3 +2598,333 @@ $root.tensorflow = (function() {
                  * @instance
                  */
                 PitchBend.prototype.bend = 0;
+
+                /**
+                 * PitchBend instrument.
+                 * @member {number} instrument
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 */
+                PitchBend.prototype.instrument = 0;
+
+                /**
+                 * PitchBend program.
+                 * @member {number} program
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 */
+                PitchBend.prototype.program = 0;
+
+                /**
+                 * PitchBend isDrum.
+                 * @member {boolean} isDrum
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 */
+                PitchBend.prototype.isDrum = false;
+
+                /**
+                 * Creates a new PitchBend instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPitchBend=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.PitchBend} PitchBend instance
+                 */
+                PitchBend.create = function create(properties) {
+                    return new PitchBend(properties);
+                };
+
+                /**
+                 * Encodes the specified PitchBend message. Does not implicitly {@link tensorflow.magenta.NoteSequence.PitchBend.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPitchBend} message PitchBend message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PitchBend.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.bend != null && message.hasOwnProperty("bend"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.bend);
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.instrument);
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.program);
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).bool(message.isDrum);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PitchBend message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.PitchBend.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPitchBend} message PitchBend message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PitchBend.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PitchBend message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.PitchBend} PitchBend
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PitchBend.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.PitchBend();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 2:
+                            message.bend = reader.int32();
+                            break;
+                        case 3:
+                            message.instrument = reader.int32();
+                            break;
+                        case 4:
+                            message.program = reader.int32();
+                            break;
+                        case 5:
+                            message.isDrum = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PitchBend message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.PitchBend} PitchBend
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PitchBend.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PitchBend message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PitchBend.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.bend != null && message.hasOwnProperty("bend"))
+                        if (!$util.isInteger(message.bend))
+                            return "bend: integer expected";
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        if (!$util.isInteger(message.instrument))
+                            return "instrument: integer expected";
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        if (!$util.isInteger(message.program))
+                            return "program: integer expected";
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        if (typeof message.isDrum !== "boolean")
+                            return "isDrum: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a PitchBend message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.PitchBend} PitchBend
+                 */
+                PitchBend.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.PitchBend)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.PitchBend();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.bend != null)
+                        message.bend = object.bend | 0;
+                    if (object.instrument != null)
+                        message.instrument = object.instrument | 0;
+                    if (object.program != null)
+                        message.program = object.program | 0;
+                    if (object.isDrum != null)
+                        message.isDrum = Boolean(object.isDrum);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PitchBend message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.PitchBend} message PitchBend
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PitchBend.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.bend = 0;
+                        object.instrument = 0;
+                        object.program = 0;
+                        object.isDrum = false;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.bend != null && message.hasOwnProperty("bend"))
+                        object.bend = message.bend;
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        object.instrument = message.instrument;
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        object.program = message.program;
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        object.isDrum = message.isDrum;
+                    return object;
+                };
+
+                /**
+                 * Converts this PitchBend to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PitchBend.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PitchBend;
+            })();
+
+            NoteSequence.ControlChange = (function() {
+
+                /**
+                 * Properties of a ControlChange.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface IControlChange
+                 * @property {number|null} [time] ControlChange time
+                 * @property {number|null} [quantizedStep] ControlChange quantizedStep
+                 * @property {number|null} [controlNumber] ControlChange controlNumber
+                 * @property {number|null} [controlValue] ControlChange controlValue
+                 * @property {number|null} [instrument] ControlChange instrument
+                 * @property {number|null} [program] ControlChange program
+                 * @property {boolean|null} [isDrum] ControlChange isDrum
+                 */
+
+                /**
+                 * Constructs a new ControlChange.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a ControlChange.
+                 * @implements IControlChange
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.IControlChange=} [properties] Properties to set
+                 */
+                function ControlChange(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ControlChange time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.time = 0;
+
+                /**
+                 * ControlChange quantizedStep.
+                 * @member {number} quantizedStep
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.quantizedStep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * ControlChange controlNumber.
+                 * @member {number} controlNumber
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.controlNumber = 0;
+
+                /**
+                 * ControlChange controlValue.
+                 * @member {number} controlValue
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.controlValue = 0;
+
+                /**
+                 * ControlChange instrument.
+                 * @member {number} instrument
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.instrument = 0;
+
+                /**
+                 * ControlChange program.
+                 * @member {number} program
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.program = 0;
+
+                /**
+                 * ControlChange isDrum.
+                 * @member {boolean} isDrum
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 */
+                ControlChange.prototype.isDrum = false;
+
+                /**
+                 * Creates a new ControlChange instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IControlChange=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.ControlChange} ControlChange instance
+                 */
+                ControlChange.create = function create(properties) {
+                    return new ControlChange(properties);
+                };
