@@ -2928,3 +2928,346 @@ $root.tensorflow = (function() {
                 ControlChange.create = function create(properties) {
                     return new ControlChange(properties);
                 };
+
+                /**
+                 * Encodes the specified ControlChange message. Does not implicitly {@link tensorflow.magenta.NoteSequence.ControlChange.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IControlChange} message ControlChange message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ControlChange.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.controlNumber != null && message.hasOwnProperty("controlNumber"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.controlNumber);
+                    if (message.controlValue != null && message.hasOwnProperty("controlValue"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.controlValue);
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.instrument);
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).int32(message.program);
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).bool(message.isDrum);
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int64(message.quantizedStep);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ControlChange message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.ControlChange.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IControlChange} message ControlChange message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ControlChange.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ControlChange message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.ControlChange} ControlChange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ControlChange.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.ControlChange();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 7:
+                            message.quantizedStep = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        case 2:
+                            message.controlNumber = reader.int32();
+                            break;
+                        case 3:
+                            message.controlValue = reader.int32();
+                            break;
+                        case 4:
+                            message.instrument = reader.int32();
+                            break;
+                        case 5:
+                            message.program = reader.int32();
+                            break;
+                        case 6:
+                            message.isDrum = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ControlChange message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.ControlChange} ControlChange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ControlChange.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ControlChange message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ControlChange.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        if (!$util.isInteger(message.quantizedStep) && !(message.quantizedStep && $util.isInteger(message.quantizedStep.low) && $util.isInteger(message.quantizedStep.high)))
+                            return "quantizedStep: integer|Long expected";
+                    if (message.controlNumber != null && message.hasOwnProperty("controlNumber"))
+                        if (!$util.isInteger(message.controlNumber))
+                            return "controlNumber: integer expected";
+                    if (message.controlValue != null && message.hasOwnProperty("controlValue"))
+                        if (!$util.isInteger(message.controlValue))
+                            return "controlValue: integer expected";
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        if (!$util.isInteger(message.instrument))
+                            return "instrument: integer expected";
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        if (!$util.isInteger(message.program))
+                            return "program: integer expected";
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        if (typeof message.isDrum !== "boolean")
+                            return "isDrum: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a ControlChange message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.ControlChange} ControlChange
+                 */
+                ControlChange.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.ControlChange)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.ControlChange();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.quantizedStep != null)
+                        if ($util.Long)
+                            (message.quantizedStep = $util.Long.fromValue(object.quantizedStep)).unsigned = false;
+                        else if (typeof object.quantizedStep === "string")
+                            message.quantizedStep = parseInt(object.quantizedStep, 10);
+                        else if (typeof object.quantizedStep === "number")
+                            message.quantizedStep = object.quantizedStep;
+                        else if (typeof object.quantizedStep === "object")
+                            message.quantizedStep = new $util.LongBits(object.quantizedStep.low >>> 0, object.quantizedStep.high >>> 0).toNumber();
+                    if (object.controlNumber != null)
+                        message.controlNumber = object.controlNumber | 0;
+                    if (object.controlValue != null)
+                        message.controlValue = object.controlValue | 0;
+                    if (object.instrument != null)
+                        message.instrument = object.instrument | 0;
+                    if (object.program != null)
+                        message.program = object.program | 0;
+                    if (object.isDrum != null)
+                        message.isDrum = Boolean(object.isDrum);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ControlChange message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ControlChange} message ControlChange
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ControlChange.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.controlNumber = 0;
+                        object.controlValue = 0;
+                        object.instrument = 0;
+                        object.program = 0;
+                        object.isDrum = false;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.quantizedStep = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.quantizedStep = options.longs === String ? "0" : 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.controlNumber != null && message.hasOwnProperty("controlNumber"))
+                        object.controlNumber = message.controlNumber;
+                    if (message.controlValue != null && message.hasOwnProperty("controlValue"))
+                        object.controlValue = message.controlValue;
+                    if (message.instrument != null && message.hasOwnProperty("instrument"))
+                        object.instrument = message.instrument;
+                    if (message.program != null && message.hasOwnProperty("program"))
+                        object.program = message.program;
+                    if (message.isDrum != null && message.hasOwnProperty("isDrum"))
+                        object.isDrum = message.isDrum;
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        if (typeof message.quantizedStep === "number")
+                            object.quantizedStep = options.longs === String ? String(message.quantizedStep) : message.quantizedStep;
+                        else
+                            object.quantizedStep = options.longs === String ? $util.Long.prototype.toString.call(message.quantizedStep) : options.longs === Number ? new $util.LongBits(message.quantizedStep.low >>> 0, message.quantizedStep.high >>> 0).toNumber() : message.quantizedStep;
+                    return object;
+                };
+
+                /**
+                 * Converts this ControlChange to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.ControlChange
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ControlChange.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ControlChange;
+            })();
+
+            NoteSequence.PartInfo = (function() {
+
+                /**
+                 * Properties of a PartInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface IPartInfo
+                 * @property {number|null} [part] PartInfo part
+                 * @property {string|null} [name] PartInfo name
+                 */
+
+                /**
+                 * Constructs a new PartInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a PartInfo.
+                 * @implements IPartInfo
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.IPartInfo=} [properties] Properties to set
+                 */
+                function PartInfo(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PartInfo part.
+                 * @member {number} part
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @instance
+                 */
+                PartInfo.prototype.part = 0;
+
+                /**
+                 * PartInfo name.
+                 * @member {string} name
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @instance
+                 */
+                PartInfo.prototype.name = "";
+
+                /**
+                 * Creates a new PartInfo instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPartInfo=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.PartInfo} PartInfo instance
+                 */
+                PartInfo.create = function create(properties) {
+                    return new PartInfo(properties);
+                };
+
+                /**
+                 * Encodes the specified PartInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.PartInfo.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPartInfo} message PartInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PartInfo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.part);
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified PartInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.PartInfo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IPartInfo} message PartInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                PartInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a PartInfo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.PartInfo} PartInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PartInfo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.PartInfo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.part = reader.int32();
+                            break;
