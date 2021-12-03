@@ -2251,3 +2251,350 @@ $root.tensorflow = (function() {
                         object.time = 0;
                         object.key = options.enums === String ? "C" : 0;
                         object.mode = options.enums === String ? "MAJOR" : 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.key != null && message.hasOwnProperty("key"))
+                        object.key = options.enums === String ? $root.tensorflow.magenta.NoteSequence.KeySignature.Key[message.key] : message.key;
+                    if (message.mode != null && message.hasOwnProperty("mode"))
+                        object.mode = options.enums === String ? $root.tensorflow.magenta.NoteSequence.KeySignature.Mode[message.mode] : message.mode;
+                    return object;
+                };
+
+                /**
+                 * Converts this KeySignature to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.KeySignature
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                KeySignature.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Key enum.
+                 * @name tensorflow.magenta.NoteSequence.KeySignature.Key
+                 * @enum {string}
+                 * @property {number} C=0 C value
+                 * @property {number} C_SHARP=1 C_SHARP value
+                 * @property {number} D_FLAT=1 D_FLAT value
+                 * @property {number} D=2 D value
+                 * @property {number} D_SHARP=3 D_SHARP value
+                 * @property {number} E_FLAT=3 E_FLAT value
+                 * @property {number} E=4 E value
+                 * @property {number} F=5 F value
+                 * @property {number} F_SHARP=6 F_SHARP value
+                 * @property {number} G_FLAT=6 G_FLAT value
+                 * @property {number} G=7 G value
+                 * @property {number} G_SHARP=8 G_SHARP value
+                 * @property {number} A_FLAT=8 A_FLAT value
+                 * @property {number} A=9 A value
+                 * @property {number} A_SHARP=10 A_SHARP value
+                 * @property {number} B_FLAT=10 B_FLAT value
+                 * @property {number} B=11 B value
+                 */
+                KeySignature.Key = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "C"] = 0;
+                    values[valuesById[1] = "C_SHARP"] = 1;
+                    values["D_FLAT"] = 1;
+                    values[valuesById[2] = "D"] = 2;
+                    values[valuesById[3] = "D_SHARP"] = 3;
+                    values["E_FLAT"] = 3;
+                    values[valuesById[4] = "E"] = 4;
+                    values[valuesById[5] = "F"] = 5;
+                    values[valuesById[6] = "F_SHARP"] = 6;
+                    values["G_FLAT"] = 6;
+                    values[valuesById[7] = "G"] = 7;
+                    values[valuesById[8] = "G_SHARP"] = 8;
+                    values["A_FLAT"] = 8;
+                    values[valuesById[9] = "A"] = 9;
+                    values[valuesById[10] = "A_SHARP"] = 10;
+                    values["B_FLAT"] = 10;
+                    values[valuesById[11] = "B"] = 11;
+                    return values;
+                })();
+
+                /**
+                 * Mode enum.
+                 * @name tensorflow.magenta.NoteSequence.KeySignature.Mode
+                 * @enum {string}
+                 * @property {number} MAJOR=0 MAJOR value
+                 * @property {number} MINOR=1 MINOR value
+                 * @property {number} NOT_SPECIFIED=2 NOT_SPECIFIED value
+                 * @property {number} MIXOLYDIAN=3 MIXOLYDIAN value
+                 * @property {number} DORIAN=4 DORIAN value
+                 * @property {number} PHRYGIAN=5 PHRYGIAN value
+                 * @property {number} LYDIAN=6 LYDIAN value
+                 * @property {number} LOCRIAN=7 LOCRIAN value
+                 */
+                KeySignature.Mode = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "MAJOR"] = 0;
+                    values[valuesById[1] = "MINOR"] = 1;
+                    values[valuesById[2] = "NOT_SPECIFIED"] = 2;
+                    values[valuesById[3] = "MIXOLYDIAN"] = 3;
+                    values[valuesById[4] = "DORIAN"] = 4;
+                    values[valuesById[5] = "PHRYGIAN"] = 5;
+                    values[valuesById[6] = "LYDIAN"] = 6;
+                    values[valuesById[7] = "LOCRIAN"] = 7;
+                    return values;
+                })();
+
+                return KeySignature;
+            })();
+
+            NoteSequence.Tempo = (function() {
+
+                /**
+                 * Properties of a Tempo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ITempo
+                 * @property {number|null} [time] Tempo time
+                 * @property {number|null} [qpm] Tempo qpm
+                 */
+
+                /**
+                 * Constructs a new Tempo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a Tempo.
+                 * @implements ITempo
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ITempo=} [properties] Properties to set
+                 */
+                function Tempo(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Tempo time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @instance
+                 */
+                Tempo.prototype.time = 0;
+
+                /**
+                 * Tempo qpm.
+                 * @member {number} qpm
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @instance
+                 */
+                Tempo.prototype.qpm = 0;
+
+                /**
+                 * Creates a new Tempo instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITempo=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.Tempo} Tempo instance
+                 */
+                Tempo.create = function create(properties) {
+                    return new Tempo(properties);
+                };
+
+                /**
+                 * Encodes the specified Tempo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.Tempo.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITempo} message Tempo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Tempo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.qpm != null && message.hasOwnProperty("qpm"))
+                        writer.uint32(/* id 2, wireType 1 =*/17).double(message.qpm);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Tempo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.Tempo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITempo} message Tempo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Tempo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Tempo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.Tempo} Tempo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Tempo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.Tempo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 2:
+                            message.qpm = reader.double();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Tempo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.Tempo} Tempo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Tempo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Tempo message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Tempo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.qpm != null && message.hasOwnProperty("qpm"))
+                        if (typeof message.qpm !== "number")
+                            return "qpm: number expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Tempo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.Tempo} Tempo
+                 */
+                Tempo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.Tempo)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.Tempo();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.qpm != null)
+                        message.qpm = Number(object.qpm);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Tempo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.Tempo} message Tempo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Tempo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.qpm = 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.qpm != null && message.hasOwnProperty("qpm"))
+                        object.qpm = options.json && !isFinite(message.qpm) ? String(message.qpm) : message.qpm;
+                    return object;
+                };
+
+                /**
+                 * Converts this Tempo to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.Tempo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Tempo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Tempo;
+            })();
+
+            NoteSequence.PitchBend = (function() {
+
+                /**
+                 * Properties of a PitchBend.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface IPitchBend
+                 * @property {number|null} [time] PitchBend time
+                 * @property {number|null} [bend] PitchBend bend
+                 * @property {number|null} [instrument] PitchBend instrument
+                 * @property {number|null} [program] PitchBend program
+                 * @property {boolean|null} [isDrum] PitchBend isDrum
+                 */
+
+                /**
+                 * Constructs a new PitchBend.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a PitchBend.
+                 * @implements IPitchBend
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.IPitchBend=} [properties] Properties to set
+                 */
+                function PitchBend(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * PitchBend time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 */
+                PitchBend.prototype.time = 0;
+
+                /**
+                 * PitchBend bend.
+                 * @member {number} bend
+                 * @memberof tensorflow.magenta.NoteSequence.PitchBend
+                 * @instance
+                 */
+                PitchBend.prototype.bend = 0;
