@@ -3591,3 +3591,334 @@ $root.tensorflow = (function() {
                         message.sourceType = 1;
                         break;
                     case "PERFORMANCE_BASED":
+                    case 2:
+                        message.sourceType = 2;
+                        break;
+                    }
+                    switch (object.encodingType) {
+                    case "UNKNOWN_ENCODING_TYPE":
+                    case 0:
+                        message.encodingType = 0;
+                        break;
+                    case "MUSIC_XML":
+                    case 1:
+                        message.encodingType = 1;
+                        break;
+                    case "ABC":
+                    case 2:
+                        message.encodingType = 2;
+                        break;
+                    case "MIDI":
+                    case 3:
+                        message.encodingType = 3;
+                        break;
+                    case "MUSICNET":
+                    case 4:
+                        message.encodingType = 4;
+                        break;
+                    }
+                    switch (object.parser) {
+                    case "UNKNOWN_PARSER":
+                    case 0:
+                        message.parser = 0;
+                        break;
+                    case "MUSIC21":
+                    case 1:
+                        message.parser = 1;
+                        break;
+                    case "PRETTY_MIDI":
+                    case 2:
+                        message.parser = 2;
+                        break;
+                    case "MAGENTA_MUSIC_XML":
+                    case 3:
+                        message.parser = 3;
+                        break;
+                    case "MAGENTA_MUSICNET":
+                    case 4:
+                        message.parser = 4;
+                        break;
+                    case "MAGENTA_ABC":
+                    case 5:
+                        message.parser = 5;
+                        break;
+                    case "TONEJS_MIDI_CONVERT":
+                    case 6:
+                        message.parser = 6;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SourceInfo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.SourceInfo} message SourceInfo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SourceInfo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.sourceType = options.enums === String ? "UNKNOWN_SOURCE_TYPE" : 0;
+                        object.encodingType = options.enums === String ? "UNKNOWN_ENCODING_TYPE" : 0;
+                        object.parser = options.enums === String ? "UNKNOWN_PARSER" : 0;
+                    }
+                    if (message.sourceType != null && message.hasOwnProperty("sourceType"))
+                        object.sourceType = options.enums === String ? $root.tensorflow.magenta.NoteSequence.SourceInfo.SourceType[message.sourceType] : message.sourceType;
+                    if (message.encodingType != null && message.hasOwnProperty("encodingType"))
+                        object.encodingType = options.enums === String ? $root.tensorflow.magenta.NoteSequence.SourceInfo.EncodingType[message.encodingType] : message.encodingType;
+                    if (message.parser != null && message.hasOwnProperty("parser"))
+                        object.parser = options.enums === String ? $root.tensorflow.magenta.NoteSequence.SourceInfo.Parser[message.parser] : message.parser;
+                    return object;
+                };
+
+                /**
+                 * Converts this SourceInfo to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SourceInfo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * SourceType enum.
+                 * @name tensorflow.magenta.NoteSequence.SourceInfo.SourceType
+                 * @enum {string}
+                 * @property {number} UNKNOWN_SOURCE_TYPE=0 UNKNOWN_SOURCE_TYPE value
+                 * @property {number} SCORE_BASED=1 SCORE_BASED value
+                 * @property {number} PERFORMANCE_BASED=2 PERFORMANCE_BASED value
+                 */
+                SourceInfo.SourceType = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "UNKNOWN_SOURCE_TYPE"] = 0;
+                    values[valuesById[1] = "SCORE_BASED"] = 1;
+                    values[valuesById[2] = "PERFORMANCE_BASED"] = 2;
+                    return values;
+                })();
+
+                /**
+                 * EncodingType enum.
+                 * @name tensorflow.magenta.NoteSequence.SourceInfo.EncodingType
+                 * @enum {string}
+                 * @property {number} UNKNOWN_ENCODING_TYPE=0 UNKNOWN_ENCODING_TYPE value
+                 * @property {number} MUSIC_XML=1 MUSIC_XML value
+                 * @property {number} ABC=2 ABC value
+                 * @property {number} MIDI=3 MIDI value
+                 * @property {number} MUSICNET=4 MUSICNET value
+                 */
+                SourceInfo.EncodingType = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "UNKNOWN_ENCODING_TYPE"] = 0;
+                    values[valuesById[1] = "MUSIC_XML"] = 1;
+                    values[valuesById[2] = "ABC"] = 2;
+                    values[valuesById[3] = "MIDI"] = 3;
+                    values[valuesById[4] = "MUSICNET"] = 4;
+                    return values;
+                })();
+
+                /**
+                 * Parser enum.
+                 * @name tensorflow.magenta.NoteSequence.SourceInfo.Parser
+                 * @enum {string}
+                 * @property {number} UNKNOWN_PARSER=0 UNKNOWN_PARSER value
+                 * @property {number} MUSIC21=1 MUSIC21 value
+                 * @property {number} PRETTY_MIDI=2 PRETTY_MIDI value
+                 * @property {number} MAGENTA_MUSIC_XML=3 MAGENTA_MUSIC_XML value
+                 * @property {number} MAGENTA_MUSICNET=4 MAGENTA_MUSICNET value
+                 * @property {number} MAGENTA_ABC=5 MAGENTA_ABC value
+                 * @property {number} TONEJS_MIDI_CONVERT=6 TONEJS_MIDI_CONVERT value
+                 */
+                SourceInfo.Parser = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "UNKNOWN_PARSER"] = 0;
+                    values[valuesById[1] = "MUSIC21"] = 1;
+                    values[valuesById[2] = "PRETTY_MIDI"] = 2;
+                    values[valuesById[3] = "MAGENTA_MUSIC_XML"] = 3;
+                    values[valuesById[4] = "MAGENTA_MUSICNET"] = 4;
+                    values[valuesById[5] = "MAGENTA_ABC"] = 5;
+                    values[valuesById[6] = "TONEJS_MIDI_CONVERT"] = 6;
+                    return values;
+                })();
+
+                return SourceInfo;
+            })();
+
+            NoteSequence.TextAnnotation = (function() {
+
+                /**
+                 * Properties of a TextAnnotation.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ITextAnnotation
+                 * @property {number|null} [time] TextAnnotation time
+                 * @property {number|null} [quantizedStep] TextAnnotation quantizedStep
+                 * @property {string|null} [text] TextAnnotation text
+                 * @property {tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType|null} [annotationType] TextAnnotation annotationType
+                 */
+
+                /**
+                 * Constructs a new TextAnnotation.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a TextAnnotation.
+                 * @implements ITextAnnotation
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ITextAnnotation=} [properties] Properties to set
+                 */
+                function TextAnnotation(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * TextAnnotation time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @instance
+                 */
+                TextAnnotation.prototype.time = 0;
+
+                /**
+                 * TextAnnotation quantizedStep.
+                 * @member {number} quantizedStep
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @instance
+                 */
+                TextAnnotation.prototype.quantizedStep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * TextAnnotation text.
+                 * @member {string} text
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @instance
+                 */
+                TextAnnotation.prototype.text = "";
+
+                /**
+                 * TextAnnotation annotationType.
+                 * @member {tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType} annotationType
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @instance
+                 */
+                TextAnnotation.prototype.annotationType = 0;
+
+                /**
+                 * Creates a new TextAnnotation instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITextAnnotation=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.TextAnnotation} TextAnnotation instance
+                 */
+                TextAnnotation.create = function create(properties) {
+                    return new TextAnnotation(properties);
+                };
+
+                /**
+                 * Encodes the specified TextAnnotation message. Does not implicitly {@link tensorflow.magenta.NoteSequence.TextAnnotation.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITextAnnotation} message TextAnnotation message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TextAnnotation.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.text != null && message.hasOwnProperty("text"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.text);
+                    if (message.annotationType != null && message.hasOwnProperty("annotationType"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.annotationType);
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int64(message.quantizedStep);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified TextAnnotation message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.TextAnnotation.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ITextAnnotation} message TextAnnotation message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                TextAnnotation.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a TextAnnotation message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.TextAnnotation} TextAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TextAnnotation.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.TextAnnotation();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 4:
+                            message.quantizedStep = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        case 2:
+                            message.text = reader.string();
+                            break;
+                        case 3:
+                            message.annotationType = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a TextAnnotation message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.TextAnnotation} TextAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                TextAnnotation.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a TextAnnotation message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                TextAnnotation.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
