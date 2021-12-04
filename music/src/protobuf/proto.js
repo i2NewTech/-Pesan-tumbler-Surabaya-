@@ -3922,3 +3922,370 @@ $root.tensorflow = (function() {
                  */
                 TextAnnotation.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        if (!$util.isInteger(message.quantizedStep) && !(message.quantizedStep && $util.isInteger(message.quantizedStep.low) && $util.isInteger(message.quantizedStep.high)))
+                            return "quantizedStep: integer|Long expected";
+                    if (message.text != null && message.hasOwnProperty("text"))
+                        if (!$util.isString(message.text))
+                            return "text: string expected";
+                    if (message.annotationType != null && message.hasOwnProperty("annotationType"))
+                        switch (message.annotationType) {
+                        default:
+                            return "annotationType: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a TextAnnotation message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.TextAnnotation} TextAnnotation
+                 */
+                TextAnnotation.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.TextAnnotation)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.TextAnnotation();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.quantizedStep != null)
+                        if ($util.Long)
+                            (message.quantizedStep = $util.Long.fromValue(object.quantizedStep)).unsigned = false;
+                        else if (typeof object.quantizedStep === "string")
+                            message.quantizedStep = parseInt(object.quantizedStep, 10);
+                        else if (typeof object.quantizedStep === "number")
+                            message.quantizedStep = object.quantizedStep;
+                        else if (typeof object.quantizedStep === "object")
+                            message.quantizedStep = new $util.LongBits(object.quantizedStep.low >>> 0, object.quantizedStep.high >>> 0).toNumber();
+                    if (object.text != null)
+                        message.text = String(object.text);
+                    switch (object.annotationType) {
+                    case "UNKNOWN":
+                    case 0:
+                        message.annotationType = 0;
+                        break;
+                    case "CHORD_SYMBOL":
+                    case 1:
+                        message.annotationType = 1;
+                        break;
+                    case "BEAT":
+                    case 2:
+                        message.annotationType = 2;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a TextAnnotation message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.TextAnnotation} message TextAnnotation
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                TextAnnotation.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        object.text = "";
+                        object.annotationType = options.enums === String ? "UNKNOWN" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.quantizedStep = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.quantizedStep = options.longs === String ? "0" : 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.text != null && message.hasOwnProperty("text"))
+                        object.text = message.text;
+                    if (message.annotationType != null && message.hasOwnProperty("annotationType"))
+                        object.annotationType = options.enums === String ? $root.tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType[message.annotationType] : message.annotationType;
+                    if (message.quantizedStep != null && message.hasOwnProperty("quantizedStep"))
+                        if (typeof message.quantizedStep === "number")
+                            object.quantizedStep = options.longs === String ? String(message.quantizedStep) : message.quantizedStep;
+                        else
+                            object.quantizedStep = options.longs === String ? $util.Long.prototype.toString.call(message.quantizedStep) : options.longs === Number ? new $util.LongBits(message.quantizedStep.low >>> 0, message.quantizedStep.high >>> 0).toNumber() : message.quantizedStep;
+                    return object;
+                };
+
+                /**
+                 * Converts this TextAnnotation to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.TextAnnotation
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                TextAnnotation.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * TextAnnotationType enum.
+                 * @name tensorflow.magenta.NoteSequence.TextAnnotation.TextAnnotationType
+                 * @enum {string}
+                 * @property {number} UNKNOWN=0 UNKNOWN value
+                 * @property {number} CHORD_SYMBOL=1 CHORD_SYMBOL value
+                 * @property {number} BEAT=2 BEAT value
+                 */
+                TextAnnotation.TextAnnotationType = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "UNKNOWN"] = 0;
+                    values[valuesById[1] = "CHORD_SYMBOL"] = 1;
+                    values[valuesById[2] = "BEAT"] = 2;
+                    return values;
+                })();
+
+                return TextAnnotation;
+            })();
+
+            NoteSequence.QuantizationInfo = (function() {
+
+                /**
+                 * Properties of a QuantizationInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface IQuantizationInfo
+                 * @property {number|null} [stepsPerQuarter] QuantizationInfo stepsPerQuarter
+                 * @property {number|null} [stepsPerSecond] QuantizationInfo stepsPerSecond
+                 */
+
+                /**
+                 * Constructs a new QuantizationInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a QuantizationInfo.
+                 * @implements IQuantizationInfo
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.IQuantizationInfo=} [properties] Properties to set
+                 */
+                function QuantizationInfo(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * QuantizationInfo stepsPerQuarter.
+                 * @member {number} stepsPerQuarter
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @instance
+                 */
+                QuantizationInfo.prototype.stepsPerQuarter = 0;
+
+                /**
+                 * QuantizationInfo stepsPerSecond.
+                 * @member {number} stepsPerSecond
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @instance
+                 */
+                QuantizationInfo.prototype.stepsPerSecond = 0;
+
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+
+                /**
+                 * QuantizationInfo resolution.
+                 * @member {"stepsPerQuarter"|"stepsPerSecond"|undefined} resolution
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @instance
+                 */
+                Object.defineProperty(QuantizationInfo.prototype, "resolution", {
+                    get: $util.oneOfGetter($oneOfFields = ["stepsPerQuarter", "stepsPerSecond"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+
+                /**
+                 * Creates a new QuantizationInfo instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IQuantizationInfo=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.QuantizationInfo} QuantizationInfo instance
+                 */
+                QuantizationInfo.create = function create(properties) {
+                    return new QuantizationInfo(properties);
+                };
+
+                /**
+                 * Encodes the specified QuantizationInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.QuantizationInfo.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IQuantizationInfo} message QuantizationInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QuantizationInfo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.stepsPerQuarter != null && message.hasOwnProperty("stepsPerQuarter"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.stepsPerQuarter);
+                    if (message.stepsPerSecond != null && message.hasOwnProperty("stepsPerSecond"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.stepsPerSecond);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified QuantizationInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.QuantizationInfo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.IQuantizationInfo} message QuantizationInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QuantizationInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a QuantizationInfo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.QuantizationInfo} QuantizationInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QuantizationInfo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.QuantizationInfo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.stepsPerQuarter = reader.int32();
+                            break;
+                        case 2:
+                            message.stepsPerSecond = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a QuantizationInfo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.QuantizationInfo} QuantizationInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QuantizationInfo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a QuantizationInfo message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                QuantizationInfo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    var properties = {};
+                    if (message.stepsPerQuarter != null && message.hasOwnProperty("stepsPerQuarter")) {
+                        properties.resolution = 1;
+                        if (!$util.isInteger(message.stepsPerQuarter))
+                            return "stepsPerQuarter: integer expected";
+                    }
+                    if (message.stepsPerSecond != null && message.hasOwnProperty("stepsPerSecond")) {
+                        if (properties.resolution === 1)
+                            return "resolution: multiple values";
+                        properties.resolution = 1;
+                        if (!$util.isInteger(message.stepsPerSecond))
+                            return "stepsPerSecond: integer expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a QuantizationInfo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.QuantizationInfo} QuantizationInfo
+                 */
+                QuantizationInfo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.QuantizationInfo)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.QuantizationInfo();
+                    if (object.stepsPerQuarter != null)
+                        message.stepsPerQuarter = object.stepsPerQuarter | 0;
+                    if (object.stepsPerSecond != null)
+                        message.stepsPerSecond = object.stepsPerSecond | 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a QuantizationInfo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.QuantizationInfo} message QuantizationInfo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                QuantizationInfo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (message.stepsPerQuarter != null && message.hasOwnProperty("stepsPerQuarter")) {
+                        object.stepsPerQuarter = message.stepsPerQuarter;
+                        if (options.oneofs)
+                            object.resolution = "stepsPerQuarter";
+                    }
+                    if (message.stepsPerSecond != null && message.hasOwnProperty("stepsPerSecond")) {
+                        object.stepsPerSecond = message.stepsPerSecond;
+                        if (options.oneofs)
+                            object.resolution = "stepsPerSecond";
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this QuantizationInfo to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.QuantizationInfo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                QuantizationInfo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return QuantizationInfo;
+            })();
+
+            NoteSequence.SubsequenceInfo = (function() {
+
+                /**
