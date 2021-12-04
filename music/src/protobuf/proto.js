@@ -3271,3 +3271,323 @@ $root.tensorflow = (function() {
                         case 1:
                             message.part = reader.int32();
                             break;
+                        case 2:
+                            message.name = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a PartInfo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.PartInfo} PartInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                PartInfo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a PartInfo message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                PartInfo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        if (!$util.isInteger(message.part))
+                            return "part: integer expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a PartInfo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.PartInfo} PartInfo
+                 */
+                PartInfo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.PartInfo)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.PartInfo();
+                    if (object.part != null)
+                        message.part = object.part | 0;
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a PartInfo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.PartInfo} message PartInfo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                PartInfo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.part = 0;
+                        object.name = "";
+                    }
+                    if (message.part != null && message.hasOwnProperty("part"))
+                        object.part = message.part;
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    return object;
+                };
+
+                /**
+                 * Converts this PartInfo to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.PartInfo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                PartInfo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return PartInfo;
+            })();
+
+            NoteSequence.SourceInfo = (function() {
+
+                /**
+                 * Properties of a SourceInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ISourceInfo
+                 * @property {tensorflow.magenta.NoteSequence.SourceInfo.SourceType|null} [sourceType] SourceInfo sourceType
+                 * @property {tensorflow.magenta.NoteSequence.SourceInfo.EncodingType|null} [encodingType] SourceInfo encodingType
+                 * @property {tensorflow.magenta.NoteSequence.SourceInfo.Parser|null} [parser] SourceInfo parser
+                 */
+
+                /**
+                 * Constructs a new SourceInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a SourceInfo.
+                 * @implements ISourceInfo
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ISourceInfo=} [properties] Properties to set
+                 */
+                function SourceInfo(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SourceInfo sourceType.
+                 * @member {tensorflow.magenta.NoteSequence.SourceInfo.SourceType} sourceType
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @instance
+                 */
+                SourceInfo.prototype.sourceType = 0;
+
+                /**
+                 * SourceInfo encodingType.
+                 * @member {tensorflow.magenta.NoteSequence.SourceInfo.EncodingType} encodingType
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @instance
+                 */
+                SourceInfo.prototype.encodingType = 0;
+
+                /**
+                 * SourceInfo parser.
+                 * @member {tensorflow.magenta.NoteSequence.SourceInfo.Parser} parser
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @instance
+                 */
+                SourceInfo.prototype.parser = 0;
+
+                /**
+                 * Creates a new SourceInfo instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISourceInfo=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.SourceInfo} SourceInfo instance
+                 */
+                SourceInfo.create = function create(properties) {
+                    return new SourceInfo(properties);
+                };
+
+                /**
+                 * Encodes the specified SourceInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SourceInfo.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISourceInfo} message SourceInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SourceInfo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sourceType != null && message.hasOwnProperty("sourceType"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sourceType);
+                    if (message.encodingType != null && message.hasOwnProperty("encodingType"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.encodingType);
+                    if (message.parser != null && message.hasOwnProperty("parser"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.parser);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SourceInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SourceInfo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISourceInfo} message SourceInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SourceInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SourceInfo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.SourceInfo} SourceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SourceInfo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.SourceInfo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sourceType = reader.int32();
+                            break;
+                        case 2:
+                            message.encodingType = reader.int32();
+                            break;
+                        case 3:
+                            message.parser = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SourceInfo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.SourceInfo} SourceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SourceInfo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SourceInfo message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SourceInfo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sourceType != null && message.hasOwnProperty("sourceType"))
+                        switch (message.sourceType) {
+                        default:
+                            return "sourceType: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                            break;
+                        }
+                    if (message.encodingType != null && message.hasOwnProperty("encodingType"))
+                        switch (message.encodingType) {
+                        default:
+                            return "encodingType: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            break;
+                        }
+                    if (message.parser != null && message.hasOwnProperty("parser"))
+                        switch (message.parser) {
+                        default:
+                            return "parser: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a SourceInfo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.SourceInfo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.SourceInfo} SourceInfo
+                 */
+                SourceInfo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.SourceInfo)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.SourceInfo();
+                    switch (object.sourceType) {
+                    case "UNKNOWN_SOURCE_TYPE":
+                    case 0:
+                        message.sourceType = 0;
+                        break;
+                    case "SCORE_BASED":
+                    case 1:
+                        message.sourceType = 1;
+                        break;
+                    case "PERFORMANCE_BASED":
