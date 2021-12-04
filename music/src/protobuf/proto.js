@@ -4648,3 +4648,337 @@ $root.tensorflow = (function() {
                             return "sectionId: integer|Long expected";
                     return null;
                 };
+
+                /**
+                 * Creates a SectionAnnotation message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.SectionAnnotation} SectionAnnotation
+                 */
+                SectionAnnotation.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.SectionAnnotation)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.SectionAnnotation();
+                    if (object.time != null)
+                        message.time = Number(object.time);
+                    if (object.sectionId != null)
+                        if ($util.Long)
+                            (message.sectionId = $util.Long.fromValue(object.sectionId)).unsigned = false;
+                        else if (typeof object.sectionId === "string")
+                            message.sectionId = parseInt(object.sectionId, 10);
+                        else if (typeof object.sectionId === "number")
+                            message.sectionId = object.sectionId;
+                        else if (typeof object.sectionId === "object")
+                            message.sectionId = new $util.LongBits(object.sectionId.low >>> 0, object.sectionId.high >>> 0).toNumber();
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SectionAnnotation message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.SectionAnnotation} message SectionAnnotation
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SectionAnnotation.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.time = 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.sectionId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.sectionId = options.longs === String ? "0" : 0;
+                    }
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        object.time = options.json && !isFinite(message.time) ? String(message.time) : message.time;
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId"))
+                        if (typeof message.sectionId === "number")
+                            object.sectionId = options.longs === String ? String(message.sectionId) : message.sectionId;
+                        else
+                            object.sectionId = options.longs === String ? $util.Long.prototype.toString.call(message.sectionId) : options.longs === Number ? new $util.LongBits(message.sectionId.low >>> 0, message.sectionId.high >>> 0).toNumber() : message.sectionId;
+                    return object;
+                };
+
+                /**
+                 * Converts this SectionAnnotation to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SectionAnnotation.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return SectionAnnotation;
+            })();
+
+            NoteSequence.Section = (function() {
+
+                /**
+                 * Properties of a Section.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ISection
+                 * @property {number|null} [sectionId] Section sectionId
+                 * @property {tensorflow.magenta.NoteSequence.ISectionGroup|null} [sectionGroup] Section sectionGroup
+                 */
+
+                /**
+                 * Constructs a new Section.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a Section.
+                 * @implements ISection
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ISection=} [properties] Properties to set
+                 */
+                function Section(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Section sectionId.
+                 * @member {number} sectionId
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @instance
+                 */
+                Section.prototype.sectionId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Section sectionGroup.
+                 * @member {tensorflow.magenta.NoteSequence.ISectionGroup|null|undefined} sectionGroup
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @instance
+                 */
+                Section.prototype.sectionGroup = null;
+
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+
+                /**
+                 * Section sectionType.
+                 * @member {"sectionId"|"sectionGroup"|undefined} sectionType
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @instance
+                 */
+                Object.defineProperty(Section.prototype, "sectionType", {
+                    get: $util.oneOfGetter($oneOfFields = ["sectionId", "sectionGroup"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+
+                /**
+                 * Creates a new Section instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISection=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.Section} Section instance
+                 */
+                Section.create = function create(properties) {
+                    return new Section(properties);
+                };
+
+                /**
+                 * Encodes the specified Section message. Does not implicitly {@link tensorflow.magenta.NoteSequence.Section.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISection} message Section message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Section.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int64(message.sectionId);
+                    if (message.sectionGroup != null && message.hasOwnProperty("sectionGroup"))
+                        $root.tensorflow.magenta.NoteSequence.SectionGroup.encode(message.sectionGroup, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Section message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.Section.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISection} message Section message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Section.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Section message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.Section} Section
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Section.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.Section();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sectionId = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        case 2:
+                            message.sectionGroup = $root.tensorflow.magenta.NoteSequence.SectionGroup.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Section message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.Section} Section
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Section.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Section message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Section.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    var properties = {};
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId")) {
+                        properties.sectionType = 1;
+                        if (!$util.isInteger(message.sectionId) && !(message.sectionId && $util.isInteger(message.sectionId.low) && $util.isInteger(message.sectionId.high)))
+                            return "sectionId: integer|Long expected";
+                    }
+                    if (message.sectionGroup != null && message.hasOwnProperty("sectionGroup")) {
+                        if (properties.sectionType === 1)
+                            return "sectionType: multiple values";
+                        properties.sectionType = 1;
+                        {
+                            var error = $root.tensorflow.magenta.NoteSequence.SectionGroup.verify(message.sectionGroup);
+                            if (error)
+                                return "sectionGroup." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a Section message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.Section} Section
+                 */
+                Section.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.Section)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.Section();
+                    if (object.sectionId != null)
+                        if ($util.Long)
+                            (message.sectionId = $util.Long.fromValue(object.sectionId)).unsigned = false;
+                        else if (typeof object.sectionId === "string")
+                            message.sectionId = parseInt(object.sectionId, 10);
+                        else if (typeof object.sectionId === "number")
+                            message.sectionId = object.sectionId;
+                        else if (typeof object.sectionId === "object")
+                            message.sectionId = new $util.LongBits(object.sectionId.low >>> 0, object.sectionId.high >>> 0).toNumber();
+                    if (object.sectionGroup != null) {
+                        if (typeof object.sectionGroup !== "object")
+                            throw TypeError(".tensorflow.magenta.NoteSequence.Section.sectionGroup: object expected");
+                        message.sectionGroup = $root.tensorflow.magenta.NoteSequence.SectionGroup.fromObject(object.sectionGroup);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Section message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.Section} message Section
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Section.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId")) {
+                        if (typeof message.sectionId === "number")
+                            object.sectionId = options.longs === String ? String(message.sectionId) : message.sectionId;
+                        else
+                            object.sectionId = options.longs === String ? $util.Long.prototype.toString.call(message.sectionId) : options.longs === Number ? new $util.LongBits(message.sectionId.low >>> 0, message.sectionId.high >>> 0).toNumber() : message.sectionId;
+                        if (options.oneofs)
+                            object.sectionType = "sectionId";
+                    }
+                    if (message.sectionGroup != null && message.hasOwnProperty("sectionGroup")) {
+                        object.sectionGroup = $root.tensorflow.magenta.NoteSequence.SectionGroup.toObject(message.sectionGroup, options);
+                        if (options.oneofs)
+                            object.sectionType = "sectionGroup";
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this Section to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.Section
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Section.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Section;
+            })();
+
+            NoteSequence.SectionGroup = (function() {
+
+                /**
+                 * Properties of a SectionGroup.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ISectionGroup
+                 * @property {Array.<tensorflow.magenta.NoteSequence.ISection>|null} [sections] SectionGroup sections
+                 * @property {number|null} [numTimes] SectionGroup numTimes
+                 */
+
+                /**
+                 * Constructs a new SectionGroup.
+                 * @memberof tensorflow.magenta.NoteSequence
