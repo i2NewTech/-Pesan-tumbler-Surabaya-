@@ -4289,3 +4289,362 @@ $root.tensorflow = (function() {
             NoteSequence.SubsequenceInfo = (function() {
 
                 /**
+                 * Properties of a SubsequenceInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ISubsequenceInfo
+                 * @property {number|null} [startTimeOffset] SubsequenceInfo startTimeOffset
+                 * @property {number|null} [endTimeOffset] SubsequenceInfo endTimeOffset
+                 */
+
+                /**
+                 * Constructs a new SubsequenceInfo.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a SubsequenceInfo.
+                 * @implements ISubsequenceInfo
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ISubsequenceInfo=} [properties] Properties to set
+                 */
+                function SubsequenceInfo(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SubsequenceInfo startTimeOffset.
+                 * @member {number} startTimeOffset
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @instance
+                 */
+                SubsequenceInfo.prototype.startTimeOffset = 0;
+
+                /**
+                 * SubsequenceInfo endTimeOffset.
+                 * @member {number} endTimeOffset
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @instance
+                 */
+                SubsequenceInfo.prototype.endTimeOffset = 0;
+
+                /**
+                 * Creates a new SubsequenceInfo instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISubsequenceInfo=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.SubsequenceInfo} SubsequenceInfo instance
+                 */
+                SubsequenceInfo.create = function create(properties) {
+                    return new SubsequenceInfo(properties);
+                };
+
+                /**
+                 * Encodes the specified SubsequenceInfo message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SubsequenceInfo.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISubsequenceInfo} message SubsequenceInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SubsequenceInfo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.startTimeOffset != null && message.hasOwnProperty("startTimeOffset"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.startTimeOffset);
+                    if (message.endTimeOffset != null && message.hasOwnProperty("endTimeOffset"))
+                        writer.uint32(/* id 2, wireType 1 =*/17).double(message.endTimeOffset);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SubsequenceInfo message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SubsequenceInfo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISubsequenceInfo} message SubsequenceInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SubsequenceInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SubsequenceInfo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.SubsequenceInfo} SubsequenceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SubsequenceInfo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.SubsequenceInfo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.startTimeOffset = reader.double();
+                            break;
+                        case 2:
+                            message.endTimeOffset = reader.double();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SubsequenceInfo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.SubsequenceInfo} SubsequenceInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SubsequenceInfo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SubsequenceInfo message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SubsequenceInfo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.startTimeOffset != null && message.hasOwnProperty("startTimeOffset"))
+                        if (typeof message.startTimeOffset !== "number")
+                            return "startTimeOffset: number expected";
+                    if (message.endTimeOffset != null && message.hasOwnProperty("endTimeOffset"))
+                        if (typeof message.endTimeOffset !== "number")
+                            return "endTimeOffset: number expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a SubsequenceInfo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.SubsequenceInfo} SubsequenceInfo
+                 */
+                SubsequenceInfo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.SubsequenceInfo)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.SubsequenceInfo();
+                    if (object.startTimeOffset != null)
+                        message.startTimeOffset = Number(object.startTimeOffset);
+                    if (object.endTimeOffset != null)
+                        message.endTimeOffset = Number(object.endTimeOffset);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SubsequenceInfo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.SubsequenceInfo} message SubsequenceInfo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SubsequenceInfo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.startTimeOffset = 0;
+                        object.endTimeOffset = 0;
+                    }
+                    if (message.startTimeOffset != null && message.hasOwnProperty("startTimeOffset"))
+                        object.startTimeOffset = options.json && !isFinite(message.startTimeOffset) ? String(message.startTimeOffset) : message.startTimeOffset;
+                    if (message.endTimeOffset != null && message.hasOwnProperty("endTimeOffset"))
+                        object.endTimeOffset = options.json && !isFinite(message.endTimeOffset) ? String(message.endTimeOffset) : message.endTimeOffset;
+                    return object;
+                };
+
+                /**
+                 * Converts this SubsequenceInfo to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.SubsequenceInfo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SubsequenceInfo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return SubsequenceInfo;
+            })();
+
+            NoteSequence.SectionAnnotation = (function() {
+
+                /**
+                 * Properties of a SectionAnnotation.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @interface ISectionAnnotation
+                 * @property {number|null} [time] SectionAnnotation time
+                 * @property {number|null} [sectionId] SectionAnnotation sectionId
+                 */
+
+                /**
+                 * Constructs a new SectionAnnotation.
+                 * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a SectionAnnotation.
+                 * @implements ISectionAnnotation
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ISectionAnnotation=} [properties] Properties to set
+                 */
+                function SectionAnnotation(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SectionAnnotation time.
+                 * @member {number} time
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @instance
+                 */
+                SectionAnnotation.prototype.time = 0;
+
+                /**
+                 * SectionAnnotation sectionId.
+                 * @member {number} sectionId
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @instance
+                 */
+                SectionAnnotation.prototype.sectionId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Creates a new SectionAnnotation instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionAnnotation=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.SectionAnnotation} SectionAnnotation instance
+                 */
+                SectionAnnotation.create = function create(properties) {
+                    return new SectionAnnotation(properties);
+                };
+
+                /**
+                 * Encodes the specified SectionAnnotation message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionAnnotation.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionAnnotation} message SectionAnnotation message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SectionAnnotation.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        writer.uint32(/* id 1, wireType 1 =*/9).double(message.time);
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int64(message.sectionId);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SectionAnnotation message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionAnnotation.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionAnnotation} message SectionAnnotation message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SectionAnnotation.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SectionAnnotation message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.SectionAnnotation} SectionAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SectionAnnotation.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.SectionAnnotation();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.time = reader.double();
+                            break;
+                        case 4:
+                            message.sectionId = $util.Long?reader.int64().toNumber():reader.int64();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SectionAnnotation message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.SectionAnnotation} SectionAnnotation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SectionAnnotation.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SectionAnnotation message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.SectionAnnotation
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SectionAnnotation.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.time != null && message.hasOwnProperty("time"))
+                        if (typeof message.time !== "number")
+                            return "time: number expected";
+                    if (message.sectionId != null && message.hasOwnProperty("sectionId"))
+                        if (!$util.isInteger(message.sectionId) && !(message.sectionId && $util.isInteger(message.sectionId.low) && $util.isInteger(message.sectionId.high)))
+                            return "sectionId: integer|Long expected";
+                    return null;
+                };
