@@ -4982,3 +4982,353 @@ $root.tensorflow = (function() {
                 /**
                  * Constructs a new SectionGroup.
                  * @memberof tensorflow.magenta.NoteSequence
+                 * @classdesc Represents a SectionGroup.
+                 * @implements ISectionGroup
+                 * @constructor
+                 * @param {tensorflow.magenta.NoteSequence.ISectionGroup=} [properties] Properties to set
+                 */
+                function SectionGroup(properties) {
+                    this.sections = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SectionGroup sections.
+                 * @member {Array.<tensorflow.magenta.NoteSequence.ISection>} sections
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @instance
+                 */
+                SectionGroup.prototype.sections = $util.emptyArray;
+
+                /**
+                 * SectionGroup numTimes.
+                 * @member {number} numTimes
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @instance
+                 */
+                SectionGroup.prototype.numTimes = 0;
+
+                /**
+                 * Creates a new SectionGroup instance using the specified properties.
+                 * @function create
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionGroup=} [properties] Properties to set
+                 * @returns {tensorflow.magenta.NoteSequence.SectionGroup} SectionGroup instance
+                 */
+                SectionGroup.create = function create(properties) {
+                    return new SectionGroup(properties);
+                };
+
+                /**
+                 * Encodes the specified SectionGroup message. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionGroup.verify|verify} messages.
+                 * @function encode
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionGroup} message SectionGroup message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SectionGroup.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sections != null && message.sections.length)
+                        for (var i = 0; i < message.sections.length; ++i)
+                            $root.tensorflow.magenta.NoteSequence.Section.encode(message.sections[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.numTimes != null && message.hasOwnProperty("numTimes"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.numTimes);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SectionGroup message, length delimited. Does not implicitly {@link tensorflow.magenta.NoteSequence.SectionGroup.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.ISectionGroup} message SectionGroup message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SectionGroup.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SectionGroup message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {tensorflow.magenta.NoteSequence.SectionGroup} SectionGroup
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SectionGroup.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.NoteSequence.SectionGroup();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.sections && message.sections.length))
+                                message.sections = [];
+                            message.sections.push($root.tensorflow.magenta.NoteSequence.Section.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            message.numTimes = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SectionGroup message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {tensorflow.magenta.NoteSequence.SectionGroup} SectionGroup
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SectionGroup.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SectionGroup message.
+                 * @function verify
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SectionGroup.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sections != null && message.hasOwnProperty("sections")) {
+                        if (!Array.isArray(message.sections))
+                            return "sections: array expected";
+                        for (var i = 0; i < message.sections.length; ++i) {
+                            var error = $root.tensorflow.magenta.NoteSequence.Section.verify(message.sections[i]);
+                            if (error)
+                                return "sections." + error;
+                        }
+                    }
+                    if (message.numTimes != null && message.hasOwnProperty("numTimes"))
+                        if (!$util.isInteger(message.numTimes))
+                            return "numTimes: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a SectionGroup message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {tensorflow.magenta.NoteSequence.SectionGroup} SectionGroup
+                 */
+                SectionGroup.fromObject = function fromObject(object) {
+                    if (object instanceof $root.tensorflow.magenta.NoteSequence.SectionGroup)
+                        return object;
+                    var message = new $root.tensorflow.magenta.NoteSequence.SectionGroup();
+                    if (object.sections) {
+                        if (!Array.isArray(object.sections))
+                            throw TypeError(".tensorflow.magenta.NoteSequence.SectionGroup.sections: array expected");
+                        message.sections = [];
+                        for (var i = 0; i < object.sections.length; ++i) {
+                            if (typeof object.sections[i] !== "object")
+                                throw TypeError(".tensorflow.magenta.NoteSequence.SectionGroup.sections: object expected");
+                            message.sections[i] = $root.tensorflow.magenta.NoteSequence.Section.fromObject(object.sections[i]);
+                        }
+                    }
+                    if (object.numTimes != null)
+                        message.numTimes = object.numTimes | 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SectionGroup message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @static
+                 * @param {tensorflow.magenta.NoteSequence.SectionGroup} message SectionGroup
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SectionGroup.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.sections = [];
+                    if (options.defaults)
+                        object.numTimes = 0;
+                    if (message.sections && message.sections.length) {
+                        object.sections = [];
+                        for (var j = 0; j < message.sections.length; ++j)
+                            object.sections[j] = $root.tensorflow.magenta.NoteSequence.Section.toObject(message.sections[j], options);
+                    }
+                    if (message.numTimes != null && message.hasOwnProperty("numTimes"))
+                        object.numTimes = message.numTimes;
+                    return object;
+                };
+
+                /**
+                 * Converts this SectionGroup to JSON.
+                 * @function toJSON
+                 * @memberof tensorflow.magenta.NoteSequence.SectionGroup
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SectionGroup.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return SectionGroup;
+            })();
+
+            return NoteSequence;
+        })();
+
+        magenta.SequenceMetadata = (function() {
+
+            /**
+             * Properties of a SequenceMetadata.
+             * @memberof tensorflow.magenta
+             * @interface ISequenceMetadata
+             * @property {string|null} [title] SequenceMetadata title
+             * @property {string|null} [artist] SequenceMetadata artist
+             * @property {Array.<string>|null} [genre] SequenceMetadata genre
+             * @property {Array.<string>|null} [composers] SequenceMetadata composers
+             */
+
+            /**
+             * Constructs a new SequenceMetadata.
+             * @memberof tensorflow.magenta
+             * @classdesc Represents a SequenceMetadata.
+             * @implements ISequenceMetadata
+             * @constructor
+             * @param {tensorflow.magenta.ISequenceMetadata=} [properties] Properties to set
+             */
+            function SequenceMetadata(properties) {
+                this.genre = [];
+                this.composers = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * SequenceMetadata title.
+             * @member {string} title
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @instance
+             */
+            SequenceMetadata.prototype.title = "";
+
+            /**
+             * SequenceMetadata artist.
+             * @member {string} artist
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @instance
+             */
+            SequenceMetadata.prototype.artist = "";
+
+            /**
+             * SequenceMetadata genre.
+             * @member {Array.<string>} genre
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @instance
+             */
+            SequenceMetadata.prototype.genre = $util.emptyArray;
+
+            /**
+             * SequenceMetadata composers.
+             * @member {Array.<string>} composers
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @instance
+             */
+            SequenceMetadata.prototype.composers = $util.emptyArray;
+
+            /**
+             * Creates a new SequenceMetadata instance using the specified properties.
+             * @function create
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @static
+             * @param {tensorflow.magenta.ISequenceMetadata=} [properties] Properties to set
+             * @returns {tensorflow.magenta.SequenceMetadata} SequenceMetadata instance
+             */
+            SequenceMetadata.create = function create(properties) {
+                return new SequenceMetadata(properties);
+            };
+
+            /**
+             * Encodes the specified SequenceMetadata message. Does not implicitly {@link tensorflow.magenta.SequenceMetadata.verify|verify} messages.
+             * @function encode
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @static
+             * @param {tensorflow.magenta.ISequenceMetadata} message SequenceMetadata message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SequenceMetadata.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.title != null && message.hasOwnProperty("title"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.title);
+                if (message.artist != null && message.hasOwnProperty("artist"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.artist);
+                if (message.genre != null && message.genre.length)
+                    for (var i = 0; i < message.genre.length; ++i)
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.genre[i]);
+                if (message.composers != null && message.composers.length)
+                    for (var i = 0; i < message.composers.length; ++i)
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.composers[i]);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified SequenceMetadata message, length delimited. Does not implicitly {@link tensorflow.magenta.SequenceMetadata.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @static
+             * @param {tensorflow.magenta.ISequenceMetadata} message SequenceMetadata message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SequenceMetadata.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a SequenceMetadata message from the specified reader or buffer.
+             * @function decode
+             * @memberof tensorflow.magenta.SequenceMetadata
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tensorflow.magenta.SequenceMetadata} SequenceMetadata
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            SequenceMetadata.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tensorflow.magenta.SequenceMetadata();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
