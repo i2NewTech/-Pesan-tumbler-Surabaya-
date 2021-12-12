@@ -5692,3 +5692,19 @@ $root.tensorflow = (function() {
              * @function toJSON
              * @memberof tensorflow.magenta.VelocityRange
              * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            VelocityRange.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return VelocityRange;
+        })();
+
+        return magenta;
+    })();
+
+    return tensorflow;
+})();
+
+module.exports = $root;
