@@ -26,4 +26,15 @@ import {CONF_THRESHOLD, PITCH_CONF_JITTER, PT_OFFSET, PT_SLOPE,} from './spice';
 function shiftF0(f0Hz: number[], f0OctaveShift = 0.0) {
   return tf.tidy(() => {
     let tempF0 = tf.mul(f0Hz, tf.pow(2, f0OctaveShift));
-    tempF0 = tempF0.clipByValue(0.0, midiToH
+    tempF0 = tempF0.clipByValue(0.0, midiToHz(110.0).dataSync()[0]);
+    return tempF0;
+  });
+}
+
+function upsample_linear(buffer: number[], newSampleRateLength: number) {
+  const pitchedInput = [];
+  const dupCountPitches = Math.floor(newSampleRateLength / buffer.length);
+  const modulos = newSampleRateLength % buffer.length;
+
+  for (let i = 0; i < buffer.length; i++) {
+  
