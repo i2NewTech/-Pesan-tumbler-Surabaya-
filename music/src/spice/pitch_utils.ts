@@ -37,4 +37,18 @@ function upsample_linear(buffer: number[], newSampleRateLength: number) {
   const modulos = newSampleRateLength % buffer.length;
 
   for (let i = 0; i < buffer.length; i++) {
-  
+    pitchedInput.push(buffer[i]);
+    for (let j = 1; j < dupCountPitches; j++) {
+      pitchedInput.push(-1);
+    }
+    if (i < modulos) {
+      pitchedInput.push(-1);
+    }
+  }
+
+  // Cover missing pitches.
+  let lastPitch = -1;
+  for (let i = 0; i < pitchedInput.length; i++) {
+    if (pitchedInput[i] !== -1) {
+      let dif: number = pitchedInput[i];
+     
