@@ -18,4 +18,12 @@
 import * as tf from '@tensorflow/tfjs';
 import {Tensor} from '@tensorflow/tfjs';
 
-impor
+import {midiToHz} from '../core/audio_utils';
+import {AudioData} from '../ddsp/interfaces';
+
+import {CONF_THRESHOLD, PITCH_CONF_JITTER, PT_OFFSET, PT_SLOPE,} from './spice';
+
+function shiftF0(f0Hz: number[], f0OctaveShift = 0.0) {
+  return tf.tidy(() => {
+    let tempF0 = tf.mul(f0Hz, tf.pow(2, f0OctaveShift));
+    tempF0 = tempF0.clipByValue(0.0, midiToH
