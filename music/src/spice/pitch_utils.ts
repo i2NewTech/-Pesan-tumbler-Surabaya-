@@ -73,4 +73,17 @@ function upsample_linear(buffer: number[], newSampleRateLength: number) {
 function upsample_f0(
     buffer: number[], newSampleRateLength: number,
     modelMaxFrameLength: number) {
-  buffer.splice(modelMaxFrameLen
+  buffer.splice(modelMaxFrameLength);
+
+  return upsample_linear(buffer, newSampleRateLength);
+}
+
+function getPitchHz(modelPitch: number) {
+  const fmin = 10.0;
+  const binsPerOctave = 12.0;
+  const cqtBin = modelPitch * PT_SLOPE + PT_OFFSET;
+  return fmin * Math.pow(2.0, (1.0 * cqtBin) / binsPerOctave);
+}
+
+async function getPitches(
+    spiceModel: tf.GraphModel, 
