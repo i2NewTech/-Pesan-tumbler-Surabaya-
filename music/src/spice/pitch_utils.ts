@@ -51,4 +51,11 @@ function upsample_linear(buffer: number[], newSampleRateLength: number) {
   for (let i = 0; i < pitchedInput.length; i++) {
     if (pitchedInput[i] !== -1) {
       let dif: number = pitchedInput[i];
-     
+      const lastValue: number = lastPitch >= 0 ? pitchedInput[lastPitch] : 0;
+      if (lastPitch !== -1) {
+        dif -= pitchedInput[lastPitch];
+      }
+      for (let j = lastPitch + 1; j < i; j++) {
+        // tslint:disable-next-line: restrict-plus-operands
+        pitchedInput[j] = lastValue + (dif * (j - lastPitch)) / (i - lastPitch);
+      }
