@@ -59,3 +59,18 @@ function upsample_linear(buffer: number[], newSampleRateLength: number) {
         // tslint:disable-next-line: restrict-plus-operands
         pitchedInput[j] = lastValue + (dif * (j - lastPitch)) / (i - lastPitch);
       }
+      lastPitch = i;
+    }
+  }
+  // Solve trailing -1.
+  for (let i = lastPitch + 1; i < pitchedInput.length; i++) {
+    pitchedInput[i] = lastPitch >= 0 ? pitchedInput[i - 1] : 0;
+  }
+
+  return pitchedInput;
+}
+
+function upsample_f0(
+    buffer: number[], newSampleRateLength: number,
+    modelMaxFrameLength: number) {
+  buffer.splice(modelMaxFrameLen
