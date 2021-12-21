@@ -96,4 +96,12 @@ async function getPitches(
 
   const inputTensor = tf.tensor(inputData);
   const inputSampleNum =
-      Math.ceil(audioChannelDataLength
+      Math.ceil(audioChannelDataLength / SPICE_MODEL_MULTIPLE) *
+      SPICE_MODEL_MULTIPLE;  // always multiple of 512;
+  const fullInputWithPadding = inputTensor.pad([
+    [0, inputSampleNum - audioChannelDataLength],
+  ]);
+  const expectedDuration = fullInputWithPadding.size / SPICE_SAMPLE_RATE;
+
+  // Determine if slicing is needed.
+  const output = await spiceModel.
