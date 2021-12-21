@@ -86,4 +86,14 @@ function getPitchHz(modelPitch: number) {
 }
 
 async function getPitches(
-    spiceModel: tf.GraphModel, 
+    spiceModel: tf.GraphModel, inputData: AudioData,
+    confidenceThreshold = CONF_THRESHOLD) {
+  const SPICE_SAMPLE_RATE = 16000;
+  const SPICE_MODEL_MULTIPLE = 512;
+  const spicePitchesOutput = [];
+  const allConfidences = [];
+  const audioChannelDataLength = inputData.length;
+
+  const inputTensor = tf.tensor(inputData);
+  const inputSampleNum =
+      Math.ceil(audioChannelDataLength
