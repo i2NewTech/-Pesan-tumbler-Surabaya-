@@ -104,4 +104,13 @@ async function getPitches(
   const expectedDuration = fullInputWithPadding.size / SPICE_SAMPLE_RATE;
 
   // Determine if slicing is needed.
-  const output = await spiceModel.
+  const output = await spiceModel.execute({
+    input_audio_samples: fullInputWithPadding,
+  });
+  let uncertainties = await (output as Tensor[])[0].data();
+  const pitches = await (output as Tensor[])[1].data();
+
+  // Spice extracts 1 pitch for every 32ms, so to get duration,
+  // we multiply it by 32.
+  // We minus one to offset for the zero.
+  // To convert i
