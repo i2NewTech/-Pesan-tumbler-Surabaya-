@@ -122,4 +122,15 @@ async function getPitches(
       allConfidences.push(confidence);
       if (confidence >= CONF_THRESHOLD) {
         lastPitch = getPitchHz(pitches[i]);
-        spice
+        spicePitchesOutput.push(lastPitch);
+      } else {
+        const noiseT = tf.truncatedNormal([1], 0.0, PITCH_CONF_JITTER);
+        const noise = await noiseT.array();
+
+        const jitter = 1.0 - (noise as number);
+        spicePitchesOutput.push(lastPitch * jitter);
+        noiseT.dispose();
+      }
+    }
+  } else {
+    // We tr
