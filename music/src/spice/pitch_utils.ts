@@ -113,4 +113,13 @@ async function getPitches(
   // Spice extracts 1 pitch for every 32ms, so to get duration,
   // we multiply it by 32.
   // We minus one to offset for the zero.
-  // To convert i
+  // To convert it into seconds, we divide by 1000.
+  if (((pitches.length - 1) * 32) / 1000 === expectedDuration) {
+    let lastPitch = 20.0;
+
+    for (let i = 0; i < pitches.length; ++i) {
+      const confidence = 1.0 - uncertainties[i];
+      allConfidences.push(confidence);
+      if (confidence >= CONF_THRESHOLD) {
+        lastPitch = getPitchHz(pitches[i]);
+        spice
