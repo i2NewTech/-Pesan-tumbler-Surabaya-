@@ -133,4 +133,8 @@ async function getPitches(
       }
     }
   } else {
-    // We tr
+    // We try splicing it into 4 parts to run spice again, then combine it all.
+    const finalPitchesLength = inputSampleNum / SPICE_MODEL_MULTIPLE + 1;
+    const stitchedPitches = new Float32Array(finalPitchesLength);
+    uncertainties = new Float32Array(finalPitchesLength);
+    for (let i = 0; i < inputSampleNum; i += inputSampleNum / 4)
