@@ -153,4 +153,13 @@ async function getPitches(
       (partialOutput as Tensor[])[1].dispose();
     }
 
-    let lastPitch = 20.0
+    let lastPitch = 20.0;
+
+    for (let i = 0; i < stitchedPitches.length; ++i) {
+      const confidence = 1.0 - uncertainties[i];
+      allConfidences.push(confidence);
+      if (confidence >= confidenceThreshold) {
+        lastPitch = getPitchHz(stitchedPitches[i]);
+        spicePitchesOutput.push(lastPitch);
+      } else {
+        const noiseT = tf.truncatedNormal(
