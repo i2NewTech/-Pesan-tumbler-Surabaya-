@@ -162,4 +162,18 @@ async function getPitches(
         lastPitch = getPitchHz(stitchedPitches[i]);
         spicePitchesOutput.push(lastPitch);
       } else {
-        const noiseT = tf.truncatedNormal(
+        const noiseT = tf.truncatedNormal([1], 0.0, PITCH_CONF_JITTER);
+        const noise = await noiseT.array();
+
+        const jitter = 1.0 - (noise as number);
+        spicePitchesOutput.push(lastPitch * jitter);
+        noiseT.dispose();
+      }
+    }
+  }
+
+  (output as Tensor[])[0].dispose();
+  (output as Tensor[])[1].dispose();
+  inputTensor.dispose();
+  fullInputWithPadding.dispose();
+  return {p
