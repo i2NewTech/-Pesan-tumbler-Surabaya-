@@ -137,4 +137,11 @@ async function getPitches(
     const finalPitchesLength = inputSampleNum / SPICE_MODEL_MULTIPLE + 1;
     const stitchedPitches = new Float32Array(finalPitchesLength);
     uncertainties = new Float32Array(finalPitchesLength);
-    for (let i = 0; i < inputSampleNum; i += inputSampleNum / 4)
+    for (let i = 0; i < inputSampleNum; i += inputSampleNum / 4) {
+      const partialInput =
+          fullInputWithPadding.slice([i], [inputSampleNum / 4]);
+      const partialOutput = await spiceModel.execute({
+        input_audio_samples: partialInput,
+      });
+      const partialUncertainties = await (partialOutput as Tensor[])[0].data();
+      const partialPitches = await (partialOutput 
