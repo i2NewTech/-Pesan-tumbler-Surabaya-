@@ -176,4 +176,7 @@ async function getPitches(
   (output as Tensor[])[1].dispose();
   inputTensor.dispose();
   fullInputWithPadding.dispose();
-  return {p
+  return {pitches: spicePitchesOutput, confidences: allConfidences};
+}
+
+export {getPitches, shiftF0, upsample_f0, upsample_linear};
