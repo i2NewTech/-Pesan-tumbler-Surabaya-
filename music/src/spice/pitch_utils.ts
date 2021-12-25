@@ -144,4 +144,13 @@ async function getPitches(
         input_audio_samples: partialInput,
       });
       const partialUncertainties = await (partialOutput as Tensor[])[0].data();
-      const partialPitches = await (partialOutput 
+      const partialPitches = await (partialOutput as Tensor[])[1].data();
+      const index = Math.floor(i / SPICE_MODEL_MULTIPLE);
+      uncertainties.set(partialUncertainties, index);
+      stitchedPitches.set(partialPitches, index);
+      partialInput.dispose();
+      (partialOutput as Tensor[])[0].dispose();
+      (partialOutput as Tensor[])[1].dispose();
+    }
+
+    let lastPitch = 20.0
