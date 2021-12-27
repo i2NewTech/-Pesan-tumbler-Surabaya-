@@ -12,4 +12,17 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitation
+ * limitations under the License.
+ */
+
+import * as tf from '@tensorflow/tfjs';
+
+import {resampleAndMakeMono} from '../core/audio_utils';
+import {AudioFeatures} from '../ddsp/interfaces';
+
+import {computePower} from './loudness_utils';
+import {getPitches} from './pitch_utils';
+
+// Spice constants.
+export const MODEL_SAMPLE_RATE = 16000;
+expor
