@@ -40,4 +40,15 @@ async function startSpice(modelUrl: string) {
     fromTFHub: true,
   });
 
- 
+  return spiceModel;
+}
+
+async function getAudioFeatures(
+    inputAudioBuffer: AudioBuffer, spiceModel: tf.GraphModel,
+    confidenceThreshold?: number): Promise<AudioFeatures> {
+  if (tf.getBackend() !== 'webgl') {
+    throw new Error('Device does not support webgl.');
+  }
+
+  // Spice requires 16k sample rate and mono,
+  // so we need t
