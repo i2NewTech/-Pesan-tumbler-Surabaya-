@@ -51,4 +51,13 @@ async function getAudioFeatures(
   }
 
   // Spice requires 16k sample rate and mono,
-  // so we need t
+  // so we need to downsample and make mono.
+  const audioData =
+      await resampleAndMakeMono(inputAudioBuffer, MODEL_SAMPLE_RATE);
+  const originalRecordedBufferLength = audioData.length;
+
+  const powerTmp = await computePower(audioData);
+  const {pitches, confidences} =
+      await getPitches(spiceModel, audioData, confidenceThreshold);
+
+ 
