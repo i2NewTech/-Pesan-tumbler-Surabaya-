@@ -60,4 +60,12 @@ async function getAudioFeatures(
   const {pitches, confidences} =
       await getPitches(spiceModel, audioData, confidenceThreshold);
 
- 
+  return {
+    f0_hz: pitches,
+    loudness_db: powerTmp as number[],
+    confidences,
+    originalRecordedBufferLength,
+  };
+}
+
+export {startSpice, getAudioFeatures};
