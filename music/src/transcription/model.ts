@@ -397,3 +397,68 @@ class Lstm {
   dispose() {
     this.lstm.dispose();
     this.dense.dispose();
+  }
+
+  setWeights(vars: tf.NamedTensorMap, scope: string, denseName: string) {
+    function getVar(name: string) {
+      const v = vars[name];
+      if (v === undefined) {
+        throw Error(`Variable not found: ${name}`);
+      }
+      return v;
+    }
+
+    // The gate ordering differs in Keras.
+    const reorderGates = ((weights: tf.Tensor, forgetBias = 0) => {
+      const [i, c, f, o] = tf.split(weights, 4, -1);
+      return tf.concat([i, f.add(tf.scalar(forgetBias)), c, o], -1);
+    });
+    // The kernel is split into the input and recurrent kernels in Keras.
+    const splitAndReorderKernel =
+        ((kernel: tf.Tensor2D) => tf.split(
+             reorderGates(kernel) as tf.Tensor2D,
+             [kernel.shape[0] - this.units, this.units]));
+
+    const LSTM_PREFIX =
+        'cudnn_lstm/rnn/multi_rnn_cell/cell_0/cudnn_compatible_lstm_cell';
+    const setLstmWeights = (lstm: tf.LayersModel) => lstm.setWeights(
+        splitAndReorderKernel(
+            getVar(`${scope}/${LSTM_PREFIX}/kernel`) as tf.Tensor2D)
+            .concat(
+                reorderGates(getVar(`${scope}/${LSTM_PREFIX}/bias`), 1.0) as
+                tf.Tensor2D));
+
+    setLstmWeights(this.lstm);
+    this.dense.setWeights([
+      getVar(`${scope}/${denseName}/weights`),
+      getVar(`${scope}/${denseName}/biases`)
+    ]);
+  }
+
+  predict(inputs: tf.Tensor3D, chunkSize: number) {
+    return tf.tidy(() => this.predictImpl(inputs, chunkSize));
+  }
+
+  private predictImpl(inputs: tf.Tensor3D, chunkSize: number) {
+    const fullLength = inputs.shape[1];
+    const numChunks = Math.ceil(fullLength / chunkSize);
+
+    let state: [tf.Tensor2D, tf.Tensor2D] =
+        [tf.zeros([1, this.units]), tf.zeros([1, this.units])];
+    const outputChunks: tf.Tensor3D[] = [];
+    for (let i = 0; i < numChunks; ++i) {
+      const chunk = inputs.slice(
+          [0, i * chunkSize], [-1, (i < numChunks - 1) ? chunkSize : -1]);
+      const result = this.lstm.predict([
+        chunk, state[0], state[1]
+      ]) as [tf.Tensor3D, tf.Tensor2D, tf.Tensor2D];
+      outputChunks.push(this.dense.predict(result[0]) as tf.Tensor3D);
+      state = result.slice(1) as [tf.Tensor2D, tf.Tensor2D];
+    }
+
+    return outputChunks.length === 1 ? outputChunks[0] :
+                                       tf.concat3d(outputChunks, 1);
+  }
+}
+
+export {OnsetsAndFrames};
