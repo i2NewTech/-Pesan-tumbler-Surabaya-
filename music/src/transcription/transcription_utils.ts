@@ -42,4 +42,10 @@ const RF_PAD = 3;
  * be added to it, making it non-zero after the first convolution. This does
  * not match how `same` padding works, which is reset to 0 at each layer.
  * Instead we treat the first and last batch differently. The first batch has no
- * initial padding and we incl
+ * initial padding and we include extra padding from the second batch on the end
+ * to make its length match. The final batch has no end padding and we include
+ * extra padding from the previous batch to the beginning to make its length
+ * match.
+ *
+ * In most cases, the number of batches will equal `ceil(input.shape[0] /
+ * batchLength)`. However, in rare cases where the final ba
