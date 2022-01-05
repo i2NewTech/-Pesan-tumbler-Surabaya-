@@ -38,4 +38,8 @@ const RF_PAD = 3;
  * end with values from the previous and following batches to cover the
  * receptive field.
  *
- *
+ * We can't just use zero padding for the first and last batch since bias will
+ * be added to it, making it non-zero after the first convolution. This does
+ * not match how `same` padding works, which is reset to 0 at each layer.
+ * Instead we treat the first and last batch differently. The first batch has no
+ * initial padding and we incl
