@@ -27,3 +27,15 @@ import {NoteSequence} from '../protobuf/index';
 import {FRAME_LENGTH_SECONDS, MIDI_PITCHES, MIN_MIDI_PITCH} from './constants';
 
 // The number of frames of padding needed on each side when splitting into
+// batches to account for the receptive field (which is a total of 7 for this
+// model).
+const RF_PAD = 3;
+
+/**
+ * Batches the input, adding padding for the receptive field.
+ *
+ * For batches in the middle (not the first or last), we pad the beginning and
+ * end with values from the previous and following batches to cover the
+ * receptive field.
+ *
+ *
