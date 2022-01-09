@@ -48,4 +48,10 @@ const RF_PAD = 3;
  * match.
  *
  * In most cases, the number of batches will equal `ceil(input.shape[0] /
- * batchLength)`. However, in rare cases where the final ba
+ * batchLength)`. However, in rare cases where the final batch would be shorter
+ * than the receptive field, it is instead appended to the previous batch,
+ * reducing the final batch size by 1.
+ *
+ * @param input The 2D input matrix, shaped [N, D].
+ * @param batchLength The desired batch size (excluding receptive field
+ * padding). The final batch may be less or slightly m
