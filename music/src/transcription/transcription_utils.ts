@@ -60,4 +60,16 @@ const RF_PAD = 3;
 export function batchInput(input: number[][], batchLength: number) {
   let batchSize = Math.ceil(input.length / batchLength);
   let batchRemainder = input.length % batchLength;
-  // If the last batch is smaller than our receptive field padding, we ne
+  // If the last batch is smaller than our receptive field padding, we need
+  // to merge it with the previous batch.
+  let mergedRemainder = 0;
+  if (batchSize > 1 && batchRemainder > 0 && batchRemainder <= RF_PAD) {
+    batchSize -= 1;
+    mergedRemainder = batchRemainder;
+    batchRemainder = 0;
+  }
+  if (batchSize === 1) {
+    return tf.tensor2d(input).expandDims(0) as tf.Tensor3D;
+  }
+
+  // Add som
