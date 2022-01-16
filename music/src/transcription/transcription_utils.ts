@@ -54,4 +54,10 @@ const RF_PAD = 3;
  *
  * @param input The 2D input matrix, shaped [N, D].
  * @param batchLength The desired batch size (excluding receptive field
- * padding). The final batch may be less or slightly m
+ * padding). The final batch may be less or slightly more than this.
+ * @returns The 3D batched input, shaped [B, batchLength + RF_PAD * 2, D]
+ */
+export function batchInput(input: number[][], batchLength: number) {
+  let batchSize = Math.ceil(input.length / batchLength);
+  let batchRemainder = input.length % batchLength;
+  // If the last batch is smaller than our receptive field padding, we ne
