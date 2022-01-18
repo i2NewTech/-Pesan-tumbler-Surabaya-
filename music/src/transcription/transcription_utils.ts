@@ -72,4 +72,10 @@ export function batchInput(input: number[][], batchLength: number) {
     return tf.tensor2d(input).expandDims(0) as tf.Tensor3D;
   }
 
-  // Add som
+  // Add some extra RF padding to the end/beginning of the first/last batches
+  // so their lengths match the mid batches (if applicable).
+  const actualBatchLength = batchLength + 2 * RF_PAD;
+  const firstBatch =
+      tf.tensor2d(input.slice(0, actualBatchLength)).expandDims(0) as
+      tf.Tensor3D;
+  const lastBatch = tf.tensor2d(input.slice(input.length - a
