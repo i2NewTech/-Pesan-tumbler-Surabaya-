@@ -78,4 +78,14 @@ export function batchInput(input: number[][], batchLength: number) {
   const firstBatch =
       tf.tensor2d(input.slice(0, actualBatchLength)).expandDims(0) as
       tf.Tensor3D;
-  const lastBatch = tf.tensor2d(input.slice(input.length - a
+  const lastBatch = tf.tensor2d(input.slice(input.length - actualBatchLength))
+                        .expandDims(0) as tf.Tensor3D;
+
+  if (batchSize === 2) {
+    return tf.concat([firstBatch, lastBatch], 0);
+  }
+
+  // Add zero padding to make the length divisible by the
+  // this.batchLength. Don't worry about receptive field padding for now.
+  let naivePaddedBatches;
+  if (batchR
