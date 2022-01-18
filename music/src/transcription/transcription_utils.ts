@@ -88,4 +88,11 @@ export function batchInput(input: number[][], batchLength: number) {
   // Add zero padding to make the length divisible by the
   // this.batchLength. Don't worry about receptive field padding for now.
   let naivePaddedBatches;
-  if (batchR
+  if (batchRemainder) {
+    naivePaddedBatches = tf.tensor2d(input)
+                             .pad([[0, batchLength - batchRemainder], [0, 0]])
+                             .as3D(batchSize, batchLength, -1);
+  } else {
+    naivePaddedBatches =
+        tf.tensor2d(input.slice(0, input.length - mergedRemainder))
+            .as3D(batchSize, batchL
