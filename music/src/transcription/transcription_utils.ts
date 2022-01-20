@@ -102,4 +102,15 @@ export function batchInput(input: number[][], batchLength: number) {
   const leftPad = tf.slice(
       naivePaddedBatches, [0, batchLength - RF_PAD], [batchSize - 2, -1]);
   const rightPad = tf.slice(naivePaddedBatches, [2, 0], [-1, RF_PAD]);
-  // Pad the middle (not first and last) to cover the receptive fiel
+  // Pad the middle (not first and last) to cover the receptive field.
+  const midBatches = tf.concat(
+      [leftPad, naivePaddedBatches.slice(1, batchSize - 2), rightPad], 1);
+
+  return tf.concat([firstBatch, midBatches, lastBatch], 0);
+}
+
+/**
+ * Unbatches the input, reversing the procedure of `batchInput`.
+ *
+ * @param batches The batched input matrix.
+ * @param batchLength The desired
