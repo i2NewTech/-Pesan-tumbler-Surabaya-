@@ -95,4 +95,11 @@ export function batchInput(input: number[][], batchLength: number) {
   } else {
     naivePaddedBatches =
         tf.tensor2d(input.slice(0, input.length - mergedRemainder))
-            .as3D(batchSize, batchL
+            .as3D(batchSize, batchLength, -1);
+  }
+  // Slice out the receptive field padding we will need for all but the
+  // first and last batch.
+  const leftPad = tf.slice(
+      naivePaddedBatches, [0, batchLength - RF_PAD], [batchSize - 2, -1]);
+  const rightPad = tf.slice(naivePaddedBatches, [2, 0], [-1, RF_PAD]);
+  // Pad the middle (not first and last) to cover the receptive fiel
