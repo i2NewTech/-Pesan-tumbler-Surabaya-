@@ -113,4 +113,13 @@ export function batchInput(input: number[][], batchLength: number) {
  * Unbatches the input, reversing the procedure of `batchInput`.
  *
  * @param batches The batched input matrix.
- * @param batchLength The desired
+ * @param batchLength The desired batch size (excluding receptive field
+ * padding). The final batch may be less or slightly more than this.
+ * @returns The batched input, shaped [N, batchLength + RF_PAD * 2]
+ */
+export function unbatchOutput(
+    batches: tf.Tensor3D, batchLength: number, totalLength: number) {
+  if (batches.shape[0] === 1) {
+    return batches;
+  }
+  return tf.tidy(() =>
