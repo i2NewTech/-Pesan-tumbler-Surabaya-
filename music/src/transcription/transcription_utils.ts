@@ -141,4 +141,16 @@ export function unbatchOutput(
         finalBatch
       ];
     }
-    return tf.conca
+    return tf.concat(toConcat, 1);
+  });
+}
+
+/**
+ * Converts the model predictions to a NoteSequence.
+ *
+ * @param frameProbs Probabilities of an active frame, shaped `[frame,
+ * pitch]`.
+ * @param onsetProbs Probabilities of an onset, shaped `[frame, pitch]`.
+ * @param velocityValues Predicted velocities in the range [0, 127], shaped
+ * `[frame, pitch]`.
+ * @ret
