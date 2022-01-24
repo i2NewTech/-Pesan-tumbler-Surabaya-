@@ -122,4 +122,12 @@ export function unbatchOutput(
   if (batches.shape[0] === 1) {
     return batches;
   }
-  return tf.tidy(() =>
+  return tf.tidy(() => {
+    const firstBatch = batches.slice([0, 0], [1, batchLength]);
+    let finalBatchLength = totalLength % batchLength;
+    if (finalBatchLength <= RF_PAD) {
+      finalBatchLength += batchLength;
+    }
+    const finalBatch = batches.slice(
+        [batches.shape[0] - 1, batches.shape[1] - finalBatchLength], [-1, -1]);
+    let toConcat = [f
