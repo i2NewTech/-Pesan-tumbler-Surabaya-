@@ -130,4 +130,15 @@ export function unbatchOutput(
     }
     const finalBatch = batches.slice(
         [batches.shape[0] - 1, batches.shape[1] - finalBatchLength], [-1, -1]);
-    let toConcat = [f
+    let toConcat = [firstBatch, finalBatch];
+
+    if (batches.shape[0] > 2) {
+      const midBatchSize = batches.shape[0] - 2;
+      const midBatches =
+          batches.slice([1, RF_PAD], [midBatchSize, batchLength]);
+      toConcat = [
+        firstBatch, midBatches.as3D(1, (midBatchSize) * batchLength, -1),
+        finalBatch
+      ];
+    }
+    return tf.conca
