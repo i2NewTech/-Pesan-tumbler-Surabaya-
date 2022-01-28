@@ -153,4 +153,11 @@ export function unbatchOutput(
  * @param onsetProbs Probabilities of an onset, shaped `[frame, pitch]`.
  * @param velocityValues Predicted velocities in the range [0, 127], shaped
  * `[frame, pitch]`.
- * @ret
+ * @returns A `NoteSequence` containing the transcribed piano performance.
+ */
+export async function pianorollToNoteSequence(
+    frameProbs: tf.Tensor2D, onsetProbs: tf.Tensor2D,
+    velocityValues: tf.Tensor2D, onsetThreshold = 0.5, frameThreshold = 0.5) {
+  const ns = NoteSequence.create();
+
+  // Store (step + 1) with 0 signifying no active not
