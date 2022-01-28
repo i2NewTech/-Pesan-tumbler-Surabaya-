@@ -169,3 +169,13 @@ export async function pianorollToNoteSequence(
     // End an active pitch.
     ns.notes.push(NoteSequence.Note.create({
       pitch: pitch + MIN_MIDI_PITCH,
+      startTime: (pitchStartStepPlusOne[pitch] - 1) * FRAME_LENGTH_SECONDS,
+      endTime: endFrame * FRAME_LENGTH_SECONDS,
+      velocity: onsetVelocities[pitch]
+    }));
+    pitchStartStepPlusOne[pitch] = 0;
+  }
+
+  function processOnset(p: number, f: number, velocity: number) {
+    if (pitchStartStepPlusOne[p]) {
+      // Pitch is already active,
