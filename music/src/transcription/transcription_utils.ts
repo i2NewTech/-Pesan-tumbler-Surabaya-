@@ -160,4 +160,12 @@ export async function pianorollToNoteSequence(
     velocityValues: tf.Tensor2D, onsetThreshold = 0.5, frameThreshold = 0.5) {
   const ns = NoteSequence.create();
 
-  // Store (step + 1) with 0 signifying no active not
+  // Store (step + 1) with 0 signifying no active note.
+  const pitchStartStepPlusOne = new Uint32Array(MIDI_PITCHES);
+  const onsetVelocities = new Uint8Array(MIDI_PITCHES);
+  let previousOnsets = new Uint8Array(MIDI_PITCHES);
+
+  function endPitch(pitch: number, endFrame: number) {
+    // End an active pitch.
+    ns.notes.push(NoteSequence.Note.create({
+      pitch: pitch + MIN_MIDI_PITCH,
