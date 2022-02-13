@@ -190,3 +190,13 @@ export async function pianorollToNoteSequence(
       onsetVelocities[p] = velocity;
     }
   }
+
+  const predictions = tf.tidy(() => {
+    let onsetPredictions =
+        tf.greater(onsetProbs, onsetThreshold) as tf.Tensor2D;
+    let framePredictions =
+        tf.greater(frameProbs, frameThreshold) as tf.Tensor2D;
+
+    // Add silent frame at the end so we can do a final loop and terminate
+    // any notes that are still active.
+    onsetPredictions = onsetP
