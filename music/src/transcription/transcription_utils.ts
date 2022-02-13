@@ -199,4 +199,11 @@ export async function pianorollToNoteSequence(
 
     // Add silent frame at the end so we can do a final loop and terminate
     // any notes that are still active.
-    onsetPredictions = onsetP
+    onsetPredictions = onsetPredictions.pad([[0, 1], [0, 0]]);
+    framePredictions = framePredictions.pad([[0, 1], [0, 0]]);
+    velocityValues = velocityValues.pad([[0, 1], [0, 0]]);
+
+    // Ensure that any frame with an onset prediction is considered active.
+    framePredictions = tf.logicalOr(framePredictions, onsetPredictions);
+
+    return [frame
