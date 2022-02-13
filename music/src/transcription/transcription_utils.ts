@@ -178,4 +178,15 @@ export async function pianorollToNoteSequence(
 
   function processOnset(p: number, f: number, velocity: number) {
     if (pitchStartStepPlusOne[p]) {
-      // Pitch is already active,
+      // Pitch is already active, but if this is a new onset, we should end
+      // the note and start a new one.
+      if (!previousOnsets[p]) {
+        endPitch(p, f);
+        pitchStartStepPlusOne[p] = f + 1;
+        onsetVelocities[p] = velocity;
+      }
+    } else {
+      pitchStartStepPlusOne[p] = f + 1;
+      onsetVelocities[p] = velocity;
+    }
+  }
