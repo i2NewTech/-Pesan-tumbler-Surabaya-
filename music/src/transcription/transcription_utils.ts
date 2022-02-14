@@ -206,4 +206,12 @@ export async function pianorollToNoteSequence(
     // Ensure that any frame with an onset prediction is considered active.
     framePredictions = tf.logicalOr(framePredictions, onsetPredictions);
 
-    return [frame
+    return [framePredictions, onsetPredictions, velocityValues];
+  });
+
+  const [frames, onsets, velocities] =
+      await Promise.all(predictions.map(t => t.data() as Promise<Uint8Array>));
+  predictions.forEach(t => t.dispose());
+  const numFrames: number = frameProbs.shape[0];
+  for (let f = 0; f < numFrames + 1; ++f) {  // Go 1 past to end notes
+    f
