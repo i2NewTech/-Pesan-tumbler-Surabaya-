@@ -224,4 +224,6 @@ export async function pianorollToNoteSequence(
     }
     previousOnsets = onsets.slice(f * MIDI_PITCHES, (f + 1) * MIDI_PITCHES);
   }
-  ns.totalT
+  ns.totalTime = numFrames * FRAME_LENGTH_SECONDS;
+  return ns;
+}
