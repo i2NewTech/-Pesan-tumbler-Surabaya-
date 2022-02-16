@@ -214,4 +214,14 @@ export async function pianorollToNoteSequence(
   predictions.forEach(t => t.dispose());
   const numFrames: number = frameProbs.shape[0];
   for (let f = 0; f < numFrames + 1; ++f) {  // Go 1 past to end notes
-    f
+    for (let p = 0; p < MIDI_PITCHES; ++p) {
+      const i = f * MIDI_PITCHES + p;
+      if (onsets[i]) {
+        processOnset(p, f, velocities[i]);
+      } else if (!frames[i] && pitchStartStepPlusOne[p]) {
+        endPitch(p, f);
+      }
+    }
+    previousOnsets = onsets.slice(f * MIDI_PITCHES, (f + 1) * MIDI_PITCHES);
+  }
+  ns.totalT
