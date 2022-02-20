@@ -1,3 +1,16 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "declaration": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "lib": ["es2015", "dom"],
+    "types": ["webmidi", "d3", "node"],
+    "outDir": "./es6",
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    
