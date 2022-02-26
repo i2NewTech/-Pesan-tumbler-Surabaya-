@@ -1,3 +1,16 @@
 {
   "compilerOptions": {
-    "noImpli
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "declaration": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "types": ["webmidi", "d3", "node"],
+    "outDir": "./esm",
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedParameters": false,
+    "pretty": 
