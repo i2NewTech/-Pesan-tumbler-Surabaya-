@@ -1,0 +1,4 @@
+{
+  "mode": "modules",
+  "tsconfig": "tsconfig.es6.json",
+  "includeVersion": true,
