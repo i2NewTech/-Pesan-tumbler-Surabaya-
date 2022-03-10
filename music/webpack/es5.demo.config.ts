@@ -24,4 +24,16 @@ const entries = getDemos('./demos').reduce((obj, name) => {
 module.exports = {
   ...baseConfig,
   devtool: 'inline-source-map',
-  mode: 'dev
+  mode: 'development',
+  entry: {
+    ...entries,
+  },
+  output: {
+    filename: '[name]_bundle.js',
+    path: path.resolve(__dirname, '../demos'),
+  },
+  devServer: {
+    contentBase: path.join(__dirname, '../demos'),
+    port: 8080,
+  },
+};
