@@ -25,4 +25,21 @@ from __future__ import division
 from __future__ import print_function
 
 from future.moves.urllib.request import urlopen, Request
-from future.moves.urllib.error import HTTPE
+from future.moves.urllib.error import HTTPError
+
+import argparse
+import json
+import os
+
+
+MANIFEST_FNAME = 'weights_manifest.json'
+CONFIG_FNAME = 'config.json'
+
+def _join_url(*parts):
+  return '/'.join(parts)
+
+def download_checkpoint(checkpoint_url, output_dir):
+  try:
+    response = urlopen(_join_url(checkpoint_url, MANIFEST_FNAME))
+  except HTTPError as e:
+    print(_join_url(
