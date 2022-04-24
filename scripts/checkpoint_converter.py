@@ -108,3 +108,13 @@ if __name__ == '__main__':
   output_dir = os.path.expanduser(FLAGS.output_dir)
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
+
+  quantization_dtype = (
+      QUANTIZATION_BYTES_TO_DTYPES[FLAGS.quantization_bytes]
+      if FLAGS.quantization_bytes else None)
+  dump_checkpoint(
+      checkpoint_file,
+      output_dir,
+      FLAGS.shard_megabytes,
+      FLAGS.remove_variables_regex,
+      quantization_dtype)
