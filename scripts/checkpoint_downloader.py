@@ -14,4 +14,15 @@
 # ==============================================================================
 
 """
-Down
+Download all necessary files from a Magenta.js checkpoint URL.
+
+Example usage:
+
+$ python checkpoint_downloader /checkpoint/url/ /path/to/output
+"""
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+from future.moves.urllib.request import urlopen, Request
+from future.moves.urllib.error import HTTPE
