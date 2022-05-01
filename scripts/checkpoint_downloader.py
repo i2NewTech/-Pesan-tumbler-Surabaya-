@@ -62,4 +62,16 @@ def download_checkpoint(checkpoint_url, output_dir):
   print('Downloading config.')
   try:
     response = urlopen(_join_url(checkpoint_url, CONFIG_FNAME))
-  except HTTPError 
+  except HTTPError as e:
+    # The config is not always needed.
+    print('No config present.')
+  else:
+    open(os.path.join(output_dir, CONFIG_FNAME), 'wb').write(response.read())
+
+  print('Done.')
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument(
+      'checkpoint_url',
+   
