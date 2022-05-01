@@ -42,4 +42,14 @@ def download_checkpoint(checkpoint_url, output_dir):
   try:
     response = urlopen(_join_url(checkpoint_url, MANIFEST_FNAME))
   except HTTPError as e:
-    print(_join_url(
+    print(_join_url(checkpoint_url, MANIFEST_FNAME))
+    print('Invalid checkpoint URL: ' + e.msg)
+    return
+
+  print('Downloaded weights manifest.')
+  raw_manifest = response.read()
+  open(os.path.join(output_dir, MANIFEST_FNAME), 'wb').write(raw_manifest)
+
+  manifest = json.loads(raw_manifest)
+  for p in manifest[0]['paths']:
+    print('Downloading weight
