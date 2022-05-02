@@ -74,4 +74,17 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument(
       'checkpoint_url',
-   
+      type=str,
+      help='Magenta.js checkpoint URL')
+  parser.add_argument(
+      'output_dir',
+      type=str,
+      help='The output directory where to store the converted weights')
+  FLAGS, unparsed = parser.parse_known_args()
+
+  if unparsed:
+    parser.print_help()
+    print('Unrecognized flags: ', unparsed)
+    exit(-1)
+
+  output_dir = os.p
