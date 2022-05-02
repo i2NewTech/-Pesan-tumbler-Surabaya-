@@ -87,4 +87,8 @@ if __name__ == '__main__':
     print('Unrecognized flags: ', unparsed)
     exit(-1)
 
-  output_dir = os.p
+  output_dir = os.path.expanduser(FLAGS.output_dir)
+  if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+  download_checkpoint(FLAGS.checkpoint_url, output_dir)
