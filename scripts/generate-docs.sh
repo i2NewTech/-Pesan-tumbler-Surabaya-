@@ -28,4 +28,17 @@ PKG_NAME=$1
 ORG_NAME="tensorflow"
 
 # Directory/branch variables.
-tmpDir=/tmp/${PKG_N
+tmpDir=/tmp/${PKG_NAME}_docs
+currBranch=$(git rev-parse --abbrev-ref HEAD)
+currDir=$(pwd)
+baseDir=$(git rev-parse --show-toplevel)
+
+# Generation variables.
+urlPrefix="https://github.com/${ORG_NAME}/magenta-js/tree/master/${PKG_NAME}/src/"
+keepAfter="/src/"
+scriptToFixTheToc=""
+
+if [ $PKG_NAME == "image" ]
+then
+  urlPrefix="$urlPrefix/arbitrary_stylization/"
+  keepAfter="/arbitrary_styl
