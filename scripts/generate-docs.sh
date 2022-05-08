@@ -41,4 +41,10 @@ scriptToFixTheToc=""
 if [ $PKG_NAME == "image" ]
 then
   urlPrefix="$urlPrefix/arbitrary_stylization/"
-  keepAfter="/arbitrary_styl
+  keepAfter="/arbitrary_stylization/"
+elif [ $PKG_NAME == "music" ]
+then
+  # The root index.ts file has a bunch of "export * from './foo';" lines.
+  # Parse those lines into a space separated list of names. It's ok that
+  # they're space separated, we'll split them in JS, this is all a horror anyway.
+  exports=`sed -n "s/export \* from '.
