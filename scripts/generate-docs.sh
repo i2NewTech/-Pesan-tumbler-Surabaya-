@@ -55,3 +55,18 @@ for (let i = 0; i < links.length; i++) { \
   const name = links[i].textContent.trim().replace(/\"/g, ''); \
   if (toc.indexOf(name) === -1) { \
     links[i].parentNode.removeChild(links[i]); \
+  } \
+} \
+</script>"
+fi
+
+# Generate the docs.
+rm -rf $tmpDir
+npx typedoc --options typedoc.json src --out $tmpDir
+
+###
+# Here begin the different hacks to fix the docs because typedoc has a lot of bugs.
+###
+
+# Typedoc generates documentation for _all_ files, not just the ones
+# actually exported in the library, so in
