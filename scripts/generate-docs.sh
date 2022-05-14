@@ -47,4 +47,11 @@ then
   # The root index.ts file has a bunch of "export * from './foo';" lines.
   # Parse those lines into a space separated list of names. It's ok that
   # they're space separated, we'll split them in JS, this is all a horror anyway.
-  exports=`sed -n "s/export \* from '.
+  exports=`sed -n "s/export \* from '.\/\(.*\)';/\1/p" $currDir/src/index.ts`
+  scriptToFixTheToc="<script> \
+const toc = \"$exports\".split(' '); \
+const links = document.querySelectorAll('.tsd-kind-external-module'); \
+for (let i = 0; i < links.length; i++) { \
+  const name = links[i].textContent.trim().replace(/\"/g, ''); \
+  if (toc.indexOf(name) === -1) { \
+    links[i].parentNode.removeChild(links[i]); \
