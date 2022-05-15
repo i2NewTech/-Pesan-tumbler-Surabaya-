@@ -83,4 +83,17 @@ for path in $allFiles; do
 
   # Fix "Defined in" links.
   if grep -Fq "Defined in" $path; then
-    #echo "Fixing Defin
+    #echo "Fixing Defined in: $path"
+
+    search="href=\".*${keepAfter}\(.*\)\""
+    replace="href=\"${urlPrefix}\1\""
+
+    sed -i "" "s%${search}%${replace}%g" $path
+  fi
+
+  # Fix any leaked local paths in the docs.
+  # See https://github.com/TypeStrong/typedoc/issues/800.
+  if grep -Fq "Users" $path; then
+    #echo "Fixing local paths in: $path"
+
+    path1=`expr "$filename" : '_\(.*\
