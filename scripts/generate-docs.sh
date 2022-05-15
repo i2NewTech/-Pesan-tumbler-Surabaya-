@@ -69,4 +69,9 @@ npx typedoc --options typedoc.json src --out $tmpDir
 ###
 
 # Typedoc generates documentation for _all_ files, not just the ones
-# actually exported in the library, so in
+# actually exported in the library, so insert a script to fix the index.html.
+# see https://github.com/TypeStrong/typedoc/issues/639
+echo $scriptToFixTheToc >> $tmpDir/index.html
+
+# Typedoc has also generated a bunch of 'Defined in <a href="https://github.com/some-user/magenta-js/blob/some-hash/music/src/..."''
+# links that we need to change to 'Defined in <a href="${urlPrefix}/.
