@@ -74,4 +74,13 @@ npx typedoc --options typedoc.json src --out $tmpDir
 echo $scriptToFixTheToc >> $tmpDir/index.html
 
 # Typedoc has also generated a bunch of 'Defined in <a href="https://github.com/some-user/magenta-js/blob/some-hash/music/src/..."''
-# links that we need to change to 'Defined in <a href="${urlPrefix}/.
+# links that we need to change to 'Defined in <a href="${urlPrefix}/...' links.
+# We used to be using typedoc-plugin-sourcefile-url to do this, but it stopped
+# working at some point and for loops work well enough.
+allFiles=$(find $tmpDir -type f -name '*.html')
+for path in $allFiles; do
+  filename=$(basename $path .html)
+
+  # Fix "Defined in" links.
+  if grep -Fq "Defined in" $path; then
+    #echo "Fixing Defin
