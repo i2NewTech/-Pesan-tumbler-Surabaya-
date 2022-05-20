@@ -96,4 +96,13 @@ for path in $allFiles; do
   if grep -Fq "Users" $path; then
     #echo "Fixing local paths in: $path"
 
-    path1=`expr "$filename" : '_\(.*\
+    path1=`expr "$filename" : '_\(.*\)_.*_'`  # core
+    path2=`expr "$filename" : '_.*_\(.*\)_.*'`  # chords
+    correct_source_file=$path1/$path2.ts
+
+    # We need to do 2 replacements, once in the href, and once in the <a> text content.
+    # First replace the path in the href.
+    search="src//Users/.*\">"
+    replace="src/${correct_source_file}\">"
+
+    
