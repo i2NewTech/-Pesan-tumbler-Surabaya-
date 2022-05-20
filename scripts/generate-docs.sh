@@ -105,4 +105,14 @@ for path in $allFiles; do
     search="src//Users/.*\">"
     replace="src/${correct_source_file}\">"
 
-    
+    # sed lets you use a different delimeter so that you don't have to escape all the slashs.
+    sed -i "" "s%${search}%${replace}%g" $path
+
+    # Now replace the path in the text content.
+    search=">/Users.*</a>"
+    replace=">${correct_source_file}</a>"
+    sed -i "" "s%${search}%${replace}%g" $path
+  fi
+done
+
+# Build the demos a
