@@ -140,3 +140,5 @@ git commit -m "📖 Updating $PKG_NAME docs: $currDate"
 git push --set-upstream origin gh-pages --quiet
 
 # Switch back to original branch.
+git checkout $currBranch
+cd $currDir
