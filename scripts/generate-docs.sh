@@ -127,3 +127,16 @@ cp demos/*.{js,html,mid,css} $tmpDir/demos || true
 git checkout gh-pages
 git fetch upstream
 git reset --hard upstream/gh-pages
+git push -f  # overwrite any local changes
+
+cd $baseDir
+git rm -fr $PKG_NAME --quiet
+
+# Use rsync instead of cp so that we don't clobber untracked files.
+rsync -a $tmpDir/ $PKG_NAME/
+git add $PKG_NAME
+currDate=$(date)
+git commit -m "📖 Updating $PKG_NAME docs: $currDate"
+git push --set-upstream origin gh-pages --quiet
+
+# Switch back to original branch.
