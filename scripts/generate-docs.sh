@@ -115,4 +115,15 @@ for path in $allFiles; do
   fi
 done
 
-# Build the demos a
+# Build the demos and copy them to the temporary docs directory.
+cd $currDir
+yarn build-demos
+mkdir -p $tmpDir/demos
+
+# Or with true to avoid failing on a non-existent file extension.
+cp demos/*.{js,html,mid,css} $tmpDir/demos || true
+
+# Switch to gh-pages and reset any local changes
+git checkout gh-pages
+git fetch upstream
+git reset --hard upstream/gh-pages
