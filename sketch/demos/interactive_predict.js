@@ -225,3 +225,77 @@ const sketch = function(p) {
   function encodeStrokes(sequence) {
     if (sequence.length <= 5) {
       return;
+    }
+
+    // Encode the strokes in the model.
+    let newState = model.zeroState();
+    newState = model.update(model.zeroInput(), newState);
+    newState = model.updateStrokes(sequence, newState, sequence.length-1);
+
+    // Reset the actual model we're using to this one that has the encoded strokes.
+    modelState = model.copyState(newState);
+
+    // Reset the state.
+    const idx = allRawLines.length - 1;
+    const lastPoint = allRawLines[idx][allRawLines[idx].length-1];
+    x = lastPoint[0];
+    y = lastPoint[1];
+
+    const s = sequence[sequence.length-1];
+    dx = s[0];
+    dy = s[1];
+    previousPen = [s[2], s[3], s[4]];
+
+    modelIsActive = true;
+  }
+
+  // This is very similar to the p.draw() loop, but instead of
+  // sampling from the model, it uses the given set of strokes.
+  function drawStrokes(strokes, startX, startY) {
+    p.stroke(p.color(255,0,0));
+
+    let x = startX;
+    let y = startY;
+    let dx, dy;
+    let pen = [0,0,0];
+    let previousPen = [1,0,0];
+    for( let i = 0; i < strokes.length; i++) {
+      [dx, dy, ...pen] = strokes[i];
+
+      if (previousPen[PEN.END] === 1) { // End of drawing.
+        break;
+      }
+
+      // Only draw on the paper if the pen is still touching the paper.
+      if (previousPen[PEN.DOWN] === 1) {
+        p.line(x, y, x+dx, y+dy);
+      }
+      x += dx;
+      y += dy;
+      previousPen = pen;
+    }
+
+    // Draw in a random colour after the predefined strokes.
+    p.stroke(p.color(p.random(64, 224), p.random(64, 224), p.random(64, 224)));
+  };
+
+  function initDOMElements() {
+    // Setup the DOM bits.
+    textTemperature.textContent = inputTemperature.value = temperature;
+
+    // Listeners
+    selectModels.innerHTML = availableModels.map(m => `<option>${m}</option>`).join('');
+    selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
+    inputTemperature.addEventListener('change', () => {
+      temperature = parseFloat(inputTemperature.value);
+      textTemperature.textContent = temperature;
+    });
+    btnClear.addEventListener('click', restart)
+    btnRandom.addEventListener('click', () => {
+      selectModels.selectedIndex = Math.floor(Math.random() * availableModels.length);
+      initModel(selectModels.selectedIndex);
+    });
+  }
+};
+
+new p5(sketch, 'sketch');
