@@ -12,4 +12,16 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under t
+ * limitations under the License.
+ */
+ /**
+ *
+ * @fileoverview Basic p5.js sketch to show how to use sketch-rnn
+ * to finish a fixed incomplete drawings, and loop through multiple
+ * endings automatically.
+ */
+
+import * as ms from '../src/index';
+const sketch = function(p) {
+  // Available SketchRNN models.
+  const BASE_URL = 'https://storage.googleapis.com/quickdraw-models
