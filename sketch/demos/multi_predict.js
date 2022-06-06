@@ -24,4 +24,5 @@
 import * as ms from '../src/index';
 const sketch = function(p) {
   // Available SketchRNN models.
-  const BASE_URL = 'https://storage.googleapis.com/quickdraw-models
+  const BASE_URL = 'https://storage.googleapis.com/quickdraw-models/sketchRNN/models/';
+  const availableModels = ['bird', 'ant','ambulance','angel','alarm_clock','antyoga','backpack','barn','basket','bear','bee','beeflower','bicycle','book','brain','bridge','bulldozer','bus','butterfly','cactus','calendar','castle','cat','catbus','catpig','chair','couch','crab',
