@@ -30,4 +30,13 @@ const sketch = function(p) {
 
   // Model state.
   let modelState; // Store the hidden states of rnn's neurons.
-  let temperature = 0.25; // Controls
+  let temperature = 0.25; // Controls the amount of uncertainty of the model.
+  let modelLoaded = false;
+  let modelIsActive = false;
+
+  let dx, dy; // Offsets of the pen strokes, in pixels.
+  let x, y; // Absolute coordinates on the screen of where the pen is.
+  let startX, startY;
+  let userPen = 0; // above or below the paper
+  let previousUserPen = 0;
+  let pen = 
