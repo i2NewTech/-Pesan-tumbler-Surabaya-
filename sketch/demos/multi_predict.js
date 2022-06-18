@@ -39,4 +39,14 @@ const sketch = function(p) {
   let startX, startY;
   let userPen = 0; // above or below the paper
   let previousUserPen = 0;
-  let pen = 
+  let pen = [0,0,0]; // Current pen state, [pen_down, pen_up, pen_end].
+  let previousPen = [1, 0, 0]; // Previous pen state.
+  const PEN = {DOWN: 0, UP: 1, END: 2};
+  const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
+
+  let currentRawLine = [];
+  /*
+   * Main p5 code
+   */
+  p.setup = function() {
+    const containerSize = document.getElementById
