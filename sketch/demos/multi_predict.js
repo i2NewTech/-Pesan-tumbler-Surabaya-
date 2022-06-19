@@ -78,4 +78,12 @@ const sketch = function(p) {
   }
 
   p.mouseReleased = function () {
-    if (p.isInBou
+    if (p.isInBounds()) {
+      userPen = 0;  // Up!
+
+      const currentRawLineSimplified = model.simplifyLine(currentRawLine);
+
+      // If it's an accident...ignore it.
+      if (currentRawLineSimplified.length > 1) {
+        // Encode this line as a stroke, and feed it to the model.
+        const stroke = model.lineToStroke(currentRawLineSimplified, [startX, sta
