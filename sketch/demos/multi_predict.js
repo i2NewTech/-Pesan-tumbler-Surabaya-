@@ -49,4 +49,19 @@ const sketch = function(p) {
    * Main p5 code
    */
   p.setup = function() {
-    const containerSize = document.getElementById
+    const containerSize = document.getElementById('sketch').getBoundingClientRect();
+    // Initialize the canvas.
+    const screenWidth = Math.floor(containerSize.width);
+    const screenHeight = p.windowHeight / 2;
+    p.createCanvas(screenWidth, screenHeight);
+    p.frameRate(60);
+
+    restart();
+    initModel(0);
+    initDOMElements();
+  };
+
+  /*
+  * Human is drawing.
+  */
+  p.mousePressed = f
