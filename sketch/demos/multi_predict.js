@@ -64,4 +64,18 @@ const sketch = function(p) {
   /*
   * Human is drawing.
   */
-  p.mousePressed = f
+  p.mousePressed = function () {
+    if (p.isInBounds()) {
+      x = startX = p.mouseX;
+      y = startY = p.mouseY;
+      userPen = 1; // down!
+
+      modelIsActive = false;
+      currentRawLine = [];
+      previousUserPen = userPen;
+      p.stroke(p.color(0,0,0));  // User always draws in black.
+    }
+  }
+
+  p.mouseReleased = function () {
+    if (p.isInBou
