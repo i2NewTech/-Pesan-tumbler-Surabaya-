@@ -86,4 +86,18 @@ const sketch = function(p) {
       // If it's an accident...ignore it.
       if (currentRawLineSimplified.length > 1) {
         // Encode this line as a stroke, and feed it to the model.
-        const stroke = model.lineToStroke(currentRawLineSimplified, [startX, sta
+        const stroke = model.lineToStroke(currentRawLineSimplified, [startX, startY]);
+
+        initRNNStateFromStrokes(stroke);
+      }
+      currentRawLine = [];
+    }
+    modelIsActive = true;
+    previousUserPen = userPen;
+  }
+
+  p.mouseDragged = function () {
+    if (!modelIsActive && p.isInBounds()) {
+      const dx0 = p.mouseX - x; // Candidate for dx.
+      const dy0 = p.mouseY - y; // Candidate for dy.
+      if (dx0*
