@@ -100,4 +100,15 @@ const sketch = function(p) {
     if (!modelIsActive && p.isInBounds()) {
       const dx0 = p.mouseX - x; // Candidate for dx.
       const dy0 = p.mouseY - y; // Candidate for dy.
-      if (dx0*
+      if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
+        dx = dx0;
+        dy = dy0;
+        userPen = 1;
+        if (previousUserPen == 1) {
+          p.line(x, y, x+dx, y+dy); // draw line connecting prev point to current point.
+        }
+        x += dx;
+        y += dy;
+        currentRawLine.push([x, y]);
+      }
+      previousUserPen = use
