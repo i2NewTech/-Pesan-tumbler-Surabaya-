@@ -111,4 +111,21 @@ const sketch = function(p) {
         y += dy;
         currentRawLine.push([x, y]);
       }
-      previousUserPen = use
+      previousUserPen = userPen;
+    }
+  }
+
+ /*
+  * Model is drawing.
+  */
+  p.draw = function() {
+    if (!modelLoaded || !modelIsActive) {
+      return;
+    }
+    // New state.
+    pen = previousPen;
+    modelState = model.update([dx, dy, ...pen], modelState);
+    const pdf = model.getPDF(modelState, temperature);
+    [dx, dy, ...pen] = model.sample(pdf);
+
+    // I
