@@ -128,4 +128,11 @@ const sketch = function(p) {
     const pdf = model.getPDF(modelState, temperature);
     [dx, dy, ...pen] = model.sample(pdf);
 
-    // I
+    // If we finished the previous drawing, start a new one.
+    if (pen[PEN.END] === 1) {
+      console.log('finished this one');
+      modelIsActive = false;
+    } else {
+      // Only draw on the paper if the pen is still touching the paper.
+      if (previousPen[PEN.DOWN] === 1) {
+        p.line(x, y, x+dx, y+dy); // Draw line conne
