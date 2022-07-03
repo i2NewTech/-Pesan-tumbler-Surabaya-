@@ -135,4 +135,23 @@ const sketch = function(p) {
     } else {
       // Only draw on the paper if the pen is still touching the paper.
       if (previousPen[PEN.DOWN] === 1) {
-        p.line(x, y, x+dx, y+dy); // Draw line conne
+        p.line(x, y, x+dx, y+dy); // Draw line connecting prev point to current point.
+      }
+      // Update.
+      x += dx;
+      y += dy;
+      previousPen = pen;
+    }
+  };
+
+  p.isInBounds = function () {
+    return p.mouseX >= 0 && p.mouseY >= 0;
+  }
+   /*
+   * Helpers.
+   */
+  function restart() {
+    p.background(255, 255, 255, 255);
+    p.strokeWeight(3.0);
+
+    // Start drawing
