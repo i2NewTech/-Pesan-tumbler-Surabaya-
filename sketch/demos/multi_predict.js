@@ -169,4 +169,17 @@ const sketch = function(p) {
     previousPen = [0, 1, 0];
   };
 
-  function initRNNStat
+  function initRNNStateFromStrokes(sequence) {
+    // Initialize the RNN with these strokes.
+    encodeStrokes(sequence);
+    drawStrokes(sequence, startX, startY);
+  }
+
+  function initModel(index) {
+    modelLoaded = false;
+    if (model) {
+      model.dispose();
+    }
+    model = new ms.SketchRNN(`${BASE_URL}${availableModels[index]}.gen.json`);
+
+   
