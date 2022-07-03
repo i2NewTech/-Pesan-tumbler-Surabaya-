@@ -182,4 +182,17 @@ const sketch = function(p) {
     }
     model = new ms.SketchRNN(`${BASE_URL}${availableModels[index]}.gen.json`);
 
-   
+    Promise.all([model.initialize()]).then(function() {
+      modelLoaded = true;
+      console.log('SketchRNN model loaded.');
+
+      // Initialize the scale factor for the model. Bigger -> large outputs
+      model.setPixelFactor(5.0);
+
+      if (strokes.length > 0) {
+        initRNNStateFromStrokes(strokes);
+      }
+    });
+  };
+
+  function encodeStroke
