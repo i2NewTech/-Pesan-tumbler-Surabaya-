@@ -154,4 +154,19 @@ const sketch = function(p) {
     p.background(255, 255, 255, 255);
     p.strokeWeight(3.0);
 
-    // Start drawing
+    // Start drawing in the middle-ish of the screen
+    startX = x = p.width / 2.0;
+    startY = y = p.height / 3.0;
+
+    // Reset the user drawing state.
+    userPen = 1;
+    previousUserPen = 0;
+    currentRawLine = [];
+    strokes = [];
+
+    // Reset the model drawing state.
+    modelIsActive = false;
+    previousPen = [0, 1, 0];
+  };
+
+  function initRNNStat
