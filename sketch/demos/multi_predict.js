@@ -195,4 +195,14 @@ const sketch = function(p) {
     });
   };
 
-  function encodeStroke
+  function encodeStrokes(sequence) {
+    if (sequence.length <= 5) {
+      return;
+    }
+
+    // Encode the strokes in the model.
+    let newState = model.zeroState();
+    newState = model.update(model.zeroInput(), newState);
+    newState = model.updateStrokes(sequence, newState, sequence.length-1);
+
+    // Reset the actual model we'r
