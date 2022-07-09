@@ -205,4 +205,17 @@ const sketch = function(p) {
     newState = model.update(model.zeroInput(), newState);
     newState = model.updateStrokes(sequence, newState, sequence.length-1);
 
-    // Reset the actual model we'r
+    // Reset the actual model we're using to this one that has the encoded strokes.
+    modelState = model.copyState(newState);
+    x = startX;
+    y = startY;
+
+    const s = sequence[sequence.length-1];
+    dx = s[0];
+    dy = s[1];
+    previousPen = [s[2], s[3], s[4]];
+
+    modelIsActive = true;
+  }
+
+  // This is very similar to the p.draw() loop, bu
