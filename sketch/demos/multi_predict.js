@@ -218,4 +218,15 @@ const sketch = function(p) {
     modelIsActive = true;
   }
 
-  // This is very similar to the p.draw() loop, bu
+  // This is very similar to the p.draw() loop, but instead of
+  // sampling from the model, it uses the given set of strokes.
+  function drawStrokes(strokes, startX, startY) {
+    p.stroke(p.color(0,0,0));
+
+    let x = startX;
+    let y = startY;
+    let dx, dy;
+    let pen = [0,0,0];
+    let previousPen = [1,0,0];
+    for( let i = 0; i < strokes.length; i++) {
+      
