@@ -252,4 +252,11 @@ const sketch = function(p) {
     // Setup the DOM bits.
     textTemperature.textContent = inputTemperature.value = temperature;
 
-    // Listene
+    // Listeners
+    selectModels.innerHTML = availableModels.map(m => `<option>${m}</option>`).join('');
+    selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
+    inputTemperature.addEventListener('change', () => {
+      temperature = parseFloat(inputTemperature.value);
+      textTemperature.textContent = temperature;
+    });
+    btnClear.add
