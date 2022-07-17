@@ -229,4 +229,15 @@ const sketch = function(p) {
     let pen = [0,0,0];
     let previousPen = [1,0,0];
     for( let i = 0; i < strokes.length; i++) {
-      
+      [dx, dy, ...pen] = strokes[i];
+
+      if (previousPen[PEN.END] === 1) { // End of drawing.
+        break;
+      }
+
+      // Only draw on the paper if the pen is still touching the paper.
+      if (previousPen[PEN.DOWN] === 1) {
+        p.line(x, y, x+dx, y+dy);
+      }
+      x += dx;
+      y += dy;
