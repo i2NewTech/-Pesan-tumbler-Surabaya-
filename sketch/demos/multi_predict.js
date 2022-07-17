@@ -259,4 +259,12 @@ const sketch = function(p) {
       temperature = parseFloat(inputTemperature.value);
       textTemperature.textContent = temperature;
     });
-    btnClear.add
+    btnClear.addEventListener('click', restart)
+    btnRandom.addEventListener('click', () => {
+      selectModels.selectedIndex = Math.floor(Math.random() * availableModels.length);
+      initModel(selectModels.selectedIndex);
+    });
+  }
+};
+
+new p5(sketch, 'sketch');
