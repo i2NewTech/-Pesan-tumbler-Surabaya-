@@ -241,3 +241,15 @@ const sketch = function(p) {
       }
       x += dx;
       y += dy;
+      previousPen = pen;
+    }
+
+    // Draw in a random colour after the predefined strokes.
+    p.stroke(p.color(p.random(64, 224), p.random(64, 224), p.random(64, 224)));
+  };
+
+  function initDOMElements() {
+    // Setup the DOM bits.
+    textTemperature.textContent = inputTemperature.value = temperature;
+
+    // Listene
