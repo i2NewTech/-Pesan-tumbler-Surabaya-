@@ -5,4 +5,30 @@
 body {
   margin: 0;
   padding: 20px;
-  font: 300 16px/1.5 "Roboto", Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe U
+  font: 300 16px/1.5 "Roboto", Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  max-width: 1000px;
+}
+
+section {
+  background: #F2F2F2;
+  padding: 14px;
+  margin-bottom: 48px;
+}
+
+a {
+  color: #2a7ae2;
+  text-decoration: none;
+}
+a:visited {
+  color: #1756a9;
+}
+a:hover {
+  color: #111;
+  text-decoration: none;
+}
+
+button, .b
