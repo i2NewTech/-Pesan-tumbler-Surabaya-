@@ -287,3 +287,35 @@ export function linesToStrokes(rawData: number[][][]): number[][] {
  */
 export function lineToStroke(line: number[][],
   lastPoint: number[]): number[][] {
+  let pon: number, poff: number;
+  const stroke: number[][] = [];
+  let len: number;
+  let p: number[];
+  let dx: number, dy: number;
+  let x: number, y: number;
+  let px: number, py: number;
+  let j: number;
+  px = lastPoint[0];
+  py = lastPoint[1];
+  len = line.length;
+  if (len > 1) {
+    for (j = 0; j < len; j++) {
+      p = line[j];
+      x = p[0];
+      y = p[1];
+      if (j === len - 1) {
+        poff = 1;
+        pon = 0;
+      } else {
+        poff = 0;
+        pon = 1;
+      }
+      dx = x - px;
+      dy = y - py;
+      px = x;
+      py = y;
+      stroke.push([dx, dy, pon, poff, 0]);
+    }
+  }
+  return stroke;
+}
