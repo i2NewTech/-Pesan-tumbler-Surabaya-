@@ -1,0 +1,4 @@
+{
+  "mode": "modules",
+  "tsconfig": "tsconfig.json",
+  "includeVersion": true
