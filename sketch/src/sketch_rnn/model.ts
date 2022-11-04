@@ -465,3 +465,25 @@ export class SketchRNN {
 
   /**
    * Convert from polylines to stroke-5 format that sketch-rnn uses
+   *
+   * @param lines list of points each elem is ([[x0, y0], [x1, y1], ...])
+   *
+   * @returns stroke-5 format of the line, list of [dx, dy, p0, p1, p2]
+   */
+  linesToStroke(lines: number[][][]) {
+    return support.linesToStrokes(lines);
+  }
+
+  /**
+   * Convert from a line format to stroke-5
+   *
+   * @param line list of points [[x0, y0], [x1, y1], ...]
+   * @param lastPoint the absolute position of the last point
+   *
+   * @returns stroke-5 format of the line, list of [dx, dy, p0, p1, p2]
+   */
+  lineToStroke(line: number[][], lastPoint: number[]) {
+    return support.lineToStroke(line, lastPoint);
+  }
+
+}
