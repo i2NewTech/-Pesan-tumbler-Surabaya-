@@ -1,2 +1,17 @@
 {
-  "rules": 
+  "rules": {
+    "array-type": [true, "array-simple"],
+    "arrow-return-shorthand": true,
+    "ban": [true,
+      ["fit"],
+      ["fdescribe"],
+      ["xit"],
+      ["xdescribe"],
+      ["fitAsync"],
+      ["xitAsync"],
+      ["fitFakeAsync"],
+      ["xitFakeAsync"]
+    ],
+    "ban-types": [true,
+      ["Object", "Use {} instead."],
+      ["String", "Use
