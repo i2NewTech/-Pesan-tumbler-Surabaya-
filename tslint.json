@@ -25,4 +25,15 @@
     "forin": false,
     "label-position": true,
     "max-line-length": {
-      "options": {"limit": 80, "ignore-pat
+      "options": {"limit": 80, "ignore-pattern": "^import |^export "}
+    },
+    "new-parens": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-any": true,
+    "no-construct": true,
+    "no-consecutive-blank-lines": true,
+    "no-debugger": true,
+    "no-default-export": true,
+    "no-inferrable-types": true,
+    "no-namespace": [true, "allow-declarations"],
+    "no-r
