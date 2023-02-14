@@ -14,4 +14,15 @@
     ],
     "ban-types": [true,
       ["Object", "Use {} instead."],
-      ["String", "Use
+      ["String", "Use 'string' instead."],
+      ["Number", "Use 'number' instead."],
+      ["Boolean", "Use 'boolean' instead."]
+    ],
+    "class-name": true,
+    "curly": true,
+    "interface-name": [true, "never-prefix"],
+    "jsdoc-format": true,
+    "forin": false,
+    "label-position": true,
+    "max-line-length": {
+      "options": {"limit": 80, "ignore-pat
